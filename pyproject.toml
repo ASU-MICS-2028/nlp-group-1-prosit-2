@@ -1,0 +1,15 @@
+[project]
+name = "nlp-group-1-prosit-2"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi",
+    "httpx",
+    "pytest",
+    "sqlmodel",
+    "uvicorn",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["benchmark"]
+python_files = ["test_*.py"]

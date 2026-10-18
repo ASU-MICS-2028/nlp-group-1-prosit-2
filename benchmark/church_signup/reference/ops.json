@@ -1,0 +1,7 @@
+{
+  "create_event": {"method": "POST", "path": "/church-events", "fields": {"name": "title", "capacity": "max_people"}},
+  "list_events": {"method": "GET", "path": "/church-events", "fields": {"name": "title", "capacity": "max_people"}},
+  "get_event": {"method": "GET", "path": "/church-events/{id}", "fields": {"name": "title", "capacity": "max_people"}},
+  "sign_up": {"method": "POST", "path": "/church-events/{id}/signups"},
+  "list_signups": {"method": "GET", "path": "/church-events/{id}/signups"}
+}

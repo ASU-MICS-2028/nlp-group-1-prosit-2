@@ -1,0 +1,7 @@
+{
+  "create_event": "Add an event. Body: name, date (YYYY-MM-DD), capacity (whole number). Returns the event including its id.",
+  "list_events": "List all events.",
+  "get_event": "Get one event by its id. Path params: id.",
+  "sign_up": "Sign a person up for an event. Path params: id (the event). Body: name, phone. Refused when the event is full.",
+  "list_signups": "List the people signed up for an event. Path params: id (the event)."
+}
