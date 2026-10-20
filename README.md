@@ -15,50 +15,18 @@ A non-developer describes a backend in plain words ("I run a tailoring shop, I n
 <!-- STATUS:START -->
 ## Status
 
-Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand. **1 of 28 tasks done.**
+Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand. **1 of 33 tasks done.** Current stage: **Stage 0: Decide and set up (Tue Oct 20)**.
 
-**In progress**
-
-| Task | Who | Target |
-|---|---|---|
-| P0.1 LLM setup: Claude chosen and its key tested (Oct 20), local Qwen tested (Oct 20). Remaining: the key on W1's and W4's laptops and the demo machine | W5 (TBD) | Oct 20 |
-
-**Ready to start**
-
-| Task | Who | Target |
-|---|---|---|
-| P0.2 Assign an owner to each workstream | W5 (TBD) | Oct 20 |
-| P0.3 Ask the instructor for the presentation, report and viva dates, and what the rubric's "Section C" is | W5 (TBD) | Oct 20 |
-| P0.5 Docker installed and running on every laptop | Everyone | Oct 20 |
-| P1.6 Recipe knowledge base and retrieval, first version | W4 (TBD) | Oct 21 |
-| P4.5 Section A, written individually in your own words | Everyone | Oct 23 |
-
-**Waiting on other tasks**
-
-| Task | Who | Target | Waiting on |
+| Who | In progress | Ready to start | Waiting (and on what) |
 |---|---|---|---|
-| P0.4 Agree the 5 contracts in `docs/CONTRACTS.md` | Everyone | Oct 20 | P0.2 |
-| P1.1 Write 3 benchmark tasks each (easy, medium, hard), each with hidden tests and a reference backend that passes them | Everyone | Oct 21 | P0.4 |
-| P1.2 Tools and sandbox: files, run tests, start server, HTTP request, inside Docker (subprocess fallback) | W2 (TBD) | Oct 21 | P0.4, P0.5 |
-| P1.3 Single-agent ReAct loop that builds `church_signup` from the CLI | W1 (TBD) | Oct 21 | P0.1, P0.4, P1.2 |
-| P1.4 Eval harness: build each task, run its hidden tests, write a results table | W4 (TBD) | Oct 21 | P0.4 |
-| P1.5 UI shell working against fake events | W3 (TBD) | Oct 21 | P0.4 |
-| P1.7 Compare hosted Claude and local Qwen on the same 3–5 benchmark tasks (pass rate, time, cost) | W1 (TBD) | Oct 22 | P1.3 |
-| P2.1 Planner / Builder / Tester split, with the test-and-repair loop | W1 (TBD) | Oct 22 | P1.3 |
-| P2.2 Spec-first plan and the user's approval step | W1 (TBD) | Oct 22 | P1.3 |
-| P2.3 Wire retrieval (`search_docs`) into the agent | W4 (TBD) | Oct 22 | P1.3, P1.6 |
-| P2.4 UI wired to the real agent: describe → approve → try it → download | W3 (TBD) | Oct 22 | P1.5, P2.2 |
-| P2.5 Guardrails and the 5 attack tests | W2 (TBD) | Oct 22 | P1.2 |
-| P2.6 MCP server exposing the tools (only if time allows) | W2 (TBD) | Oct 22 | P1.2 |
-| P2.7 Feature freeze: `main` runs end to end | W5 (TBD) | Oct 22 | P2.1, P2.2, P2.4 |
-| P3.1 Full benchmark and the 4 ablations (no repair, single agent, no retrieval, no spec-first) | W4 (TBD) | Oct 22 | P1.1, P1.4, P2.1, P2.2, P2.3 |
-| P3.2 Usability test with 4–5 non-developers | W3 (TBD) | Oct 22 | P2.4 |
-| P4.1 Learnings files complete: explanation, full experiment log, viva Q&A, glossary | Everyone | Oct 23 | P3.1, P3.2 |
-| P4.2 Section B draft (identical in every report) | W5 (TBD) | Oct 23 | P3.1, P3.2, P4.1 |
-| P4.3 Slides and a recorded backup demo | W5 (TBD) | Oct 23 | P2.7, P3.1 |
-| P4.4 Viva walkthrough: each owner teaches their part to the others | Everyone | Oct 23 | P4.1 |
-| P4.6 Two timed rehearsals, then submit report and slides on Canvas | Everyone | Oct 23 | P4.2, P4.3, P4.4, P4.5 |
+| W1 (TBD) | — | — | S1.3 Single agent, CLI ← S0.2, S0.5, S1.2<br>S2.1 Test-and-repair loop ← S1.3<br>S2.2 Spec-first plan and approval ← S1.3<br>S2.3 Planner / Builder / Tester split ← S2.1<br>S2.8 "Change it" edit loop ← S2.2<br>S3.3 Claude vs local Qwen ← S1.3 |
+| W2 (TBD) | — | — | S1.2 Tools and sandbox ← S0.5<br>S2.6 Guardrails and attack tests ← S1.2<br>S2.7 MCP server ← S1.2 |
+| W3 (TBD) | — | — | S1.4 UI shell on fake events ← S0.5<br>S2.5 UI on the real agent ← S1.4, S2.2<br>S3.4 Usability test ← S2.5 |
+| W4 (TBD) | — | S1.6 Recipe knowledge base | S1.5 Eval harness ← S0.5<br>S2.4 Retrieval in the agent ← S1.3, S1.6<br>S3.1 Benchmark: full vs no-repair ← S1.1, S1.5, S2.1, S2.2<br>S3.2 Other ablations ← S3.1, S2.3, S2.4 |
+| W5 (TBD) | S0.2 LLM setup | S0.3 Assign owners<br>S0.4 Ask the instructor: dates, "Section C" | S1.7 Integration check ← S1.5<br>S2.9 Feature freeze ← S2.1, S2.2, S2.5<br>S4.2 Edit Section B into one text ← S4.1, S3.1<br>S4.3 Slides and backup demo ← S2.9, S3.1 |
+| Everyone | — | S0.6 Docker on every laptop<br>S4.4 Section A (individual) | S0.5 Agree the 5 contracts ← S0.3<br>S1.1 3 benchmark tasks each ← S0.5<br>S3.5 Learnings complete ← S3.1<br>S3.6 Viva walkthrough ← S3.5<br>S4.1 Draft your Section B part ← S3.5<br>S4.5 Rehearse twice, submit ← S4.2, S4.3, S4.4, S3.6 |
 
+The flow diagram, each person's full task list and who waits on whom are in [`docs/PLAN.md`](docs/PLAN.md).
 <!-- STATUS:END -->
 
 The full task list, in order, with who owns what and what blocks what: [`docs/PLAN.md`](docs/PLAN.md). When you start or finish a task, update it there and run `python3 scripts/update_status.py`.

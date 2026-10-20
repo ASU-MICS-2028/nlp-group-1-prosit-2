@@ -1,54 +1,273 @@
 # Plan
 
-The tasks we all follow, in order. Each task has one owner (a workstream), the tasks it needs finished first, and what "done" means. The design behind it (product, architecture, evaluation) is in the Drive plan: `NLP-GROUP-1/prosit 2/Prosit 2 Plan - NLP Group 1`.
+This follows the team plan on the Drive (`NLP-GROUP-1/prosit 2/Prosit 2 Plan - NLP Group 1`): its build schedule gives the **stages**, its workstream table gives **who** does what, its day-1 contracts give the **blockers**, and its cut line gives the **priority** (Must / Should / Could).
 
-**Keeping it current:** when you start a task, set its status to `doing`; when it meets "Done when", set it to `done`. Then run `python3 scripts/update_status.py`, which rewrites the "Status" section of the README (what's in progress, what's ready, what's blocked and by what). Commit both files together. A GitHub check fails if the README is out of date.
+**How to use it.** Edit only the stage tables: set `Status` to `doing` when you start, `done` when "Done when" is true. Then run `python3 scripts/update_status.py`. It redraws the board, the flow diagram, "By person", "Who waits on whom" (all below) and the README's Status section. Commit everything together. A GitHub check fails if any of it is stale.
 
-Dates were moved on Oct 20: the Monday target was missed because the decisions in Phase 0 are still open. Target submission: **Fri Oct 23**, unless the instructor gives another date (P0.3).
+**Dates.** The Drive schedule's Sunday–Monday targets were missed (Stage 0 is still open on Tue Oct 20), so every stage moved by two days and submission stays **Fri Oct 23**. If the instructor gives a later date (S0.4), Stages 3–4 move to it. If time runs out, finish every `Must` before any `Should`, and every `Should` before any `Could`.
 
-## Owners
+## Board: stage by person
 
-| Workstream | What | Owner |
-|---|---|---|
-| W1 | Agent core | TBD |
-| W2 | Runtime, tools and safety | TBD |
-| W3 | Product UI and usability | TBD |
-| W4 | Evaluation and knowledge base | TBD |
-| W5 | Lead, integration and writing | TBD |
+<!-- BOARD:START -->
+| Who | Stage 0<br>Decide and set up (Tue Oct 20) | Stage 1<br>Build the pieces in parallel (Wed Oct 21) | Stage 2<br>The full system, then freeze (Thu Oct 22) | Stage 3<br>Evaluate and teach (Fri Oct 23, morning) | Stage 4<br>Write, rehearse, submit (Fri Oct 23) |
+|---|---|---|---|---|---|
+| W1 (TBD) | — | ⏳ S1.3 Single agent, CLI | ⏳ S2.1 Test-and-repair loop<br>⏳ S2.2 Spec-first plan and approval<br>⏳ S2.3 Planner / Builder / Tester split<br>⏳ S2.8 "Change it" edit loop | ⏳ S3.3 Claude vs local Qwen | — |
+| W2 (TBD) | — | ⏳ S1.2 Tools and sandbox | ⏳ S2.6 Guardrails and attack tests<br>⏳ S2.7 MCP server | — | — |
+| W3 (TBD) | — | ⏳ S1.4 UI shell on fake events | ⏳ S2.5 UI on the real agent | ⏳ S3.4 Usability test | — |
+| W4 (TBD) | — | ⏳ S1.5 Eval harness<br>🔵 S1.6 Recipe knowledge base | ⏳ S2.4 Retrieval in the agent | ⏳ S3.1 Benchmark: full vs no-repair<br>⏳ S3.2 Other ablations | — |
+| W5 (TBD) | ✅ S0.1 Set up the repo<br>🟡 S0.2 LLM setup<br>🔵 S0.3 Assign owners<br>🔵 S0.4 Ask the instructor: dates, "Section C" | ⏳ S1.7 Integration check | ⏳ S2.9 Feature freeze | — | ⏳ S4.2 Edit Section B into one text<br>⏳ S4.3 Slides and backup demo |
+| Everyone | ⏳ S0.5 Agree the 5 contracts<br>🔵 S0.6 Docker on every laptop | ⏳ S1.1 3 benchmark tasks each | — | ⏳ S3.5 Learnings complete<br>⏳ S3.6 Viva walkthrough | ⏳ S4.1 Draft your Section B part<br>🔵 S4.4 Section A (individual)<br>⏳ S4.5 Rehearse twice, submit |
 
-`All` means every member does it for their own part (or, for Section A, individually).
+✅ done · 🟡 in progress · 🔵 ready to start · ⏳ waiting on another task
+<!-- BOARD:END -->
 
-## Tasks
+## Flow: what blocks what
 
-`Needs` lists the tasks that must be `done` before this one can finish. You can start early, but you cannot finish without them.
+Arrows point from a task to the tasks that need it.
 
-| ID | Task | Who | Needs | Status | Target | Done when |
+<!-- FLOW:START -->
+```mermaid
+flowchart LR
+  subgraph Stage0["Stage 0: Decide and set up (Tue Oct 20)"]
+    S0_1["S0.1 Set up the repo<br/>W5 · Must"]:::done
+    S0_2["S0.2 LLM setup<br/>W5 · Must"]:::doing
+    S0_3["S0.3 Assign owners<br/>W5 · Must"]:::ready
+    S0_4["S0.4 Ask the instructor: dates, 'Section C'<br/>W5 · Must"]:::ready
+    S0_5["S0.5 Agree the 5 contracts<br/>All · Must"]:::waiting
+    S0_6["S0.6 Docker on every laptop<br/>All · Should"]:::ready
+  end
+  subgraph Stage1["Stage 1: Build the pieces in parallel (Wed Oct 21)"]
+    S1_1["S1.1 3 benchmark tasks each<br/>All · Must"]:::waiting
+    S1_2["S1.2 Tools and sandbox<br/>W2 · Must"]:::waiting
+    S1_3["S1.3 Single agent, CLI<br/>W1 · Must"]:::waiting
+    S1_4["S1.4 UI shell on fake events<br/>W3 · Must"]:::waiting
+    S1_5["S1.5 Eval harness<br/>W4 · Must"]:::waiting
+    S1_6["S1.6 Recipe knowledge base<br/>W4 · Should"]:::ready
+    S1_7["S1.7 Integration check<br/>W5 · Must"]:::waiting
+  end
+  subgraph Stage2["Stage 2: The full system, then freeze (Thu Oct 22)"]
+    S2_1["S2.1 Test-and-repair loop<br/>W1 · Must"]:::waiting
+    S2_2["S2.2 Spec-first plan and approval<br/>W1 · Must"]:::waiting
+    S2_3["S2.3 Planner / Builder / Tester split<br/>W1 · Should"]:::waiting
+    S2_4["S2.4 Retrieval in the agent<br/>W4 · Should"]:::waiting
+    S2_5["S2.5 UI on the real agent<br/>W3 · Must"]:::waiting
+    S2_6["S2.6 Guardrails and attack tests<br/>W2 · Should"]:::waiting
+    S2_7["S2.7 MCP server<br/>W2 · Could"]:::waiting
+    S2_8["S2.8 'Change it' edit loop<br/>W1 · Could"]:::waiting
+    S2_9["S2.9 Feature freeze<br/>W5 · Must"]:::waiting
+  end
+  subgraph Stage3["Stage 3: Evaluate and teach (Fri Oct 23, morning)"]
+    S3_1["S3.1 Benchmark: full vs no-repair<br/>W4 · Must"]:::waiting
+    S3_2["S3.2 Other ablations<br/>W4 · Should"]:::waiting
+    S3_3["S3.3 Claude vs local Qwen<br/>W1 · Could"]:::waiting
+    S3_4["S3.4 Usability test<br/>W3 · Should"]:::waiting
+    S3_5["S3.5 Learnings complete<br/>All · Must"]:::waiting
+    S3_6["S3.6 Viva walkthrough<br/>All · Must"]:::waiting
+  end
+  subgraph Stage4["Stage 4: Write, rehearse, submit (Fri Oct 23)"]
+    S4_1["S4.1 Draft your Section B part<br/>All · Must"]:::waiting
+    S4_2["S4.2 Edit Section B into one text<br/>W5 · Must"]:::waiting
+    S4_3["S4.3 Slides and backup demo<br/>W5 · Must"]:::waiting
+    S4_4["S4.4 Section A (individual)<br/>All · Must"]:::ready
+    S4_5["S4.5 Rehearse twice, submit<br/>All · Must"]:::waiting
+  end
+  S0_3 --> S0_5
+  S0_5 --> S1_1
+  S0_5 --> S1_2
+  S0_2 --> S1_3
+  S1_2 --> S1_3
+  S0_5 --> S1_4
+  S0_5 --> S1_5
+  S1_5 --> S1_7
+  S1_3 --> S2_1
+  S1_3 --> S2_2
+  S2_1 --> S2_3
+  S1_3 --> S2_4
+  S1_6 --> S2_4
+  S1_4 --> S2_5
+  S2_2 --> S2_5
+  S1_2 --> S2_6
+  S1_2 --> S2_7
+  S2_2 --> S2_8
+  S2_1 --> S2_9
+  S2_5 --> S2_9
+  S1_1 --> S3_1
+  S1_5 --> S3_1
+  S2_1 --> S3_1
+  S2_2 --> S3_1
+  S3_1 --> S3_2
+  S2_3 --> S3_2
+  S2_4 --> S3_2
+  S1_3 --> S3_3
+  S2_5 --> S3_4
+  S3_1 --> S3_5
+  S3_5 --> S3_6
+  S3_5 --> S4_1
+  S4_1 --> S4_2
+  S2_9 --> S4_3
+  S3_1 --> S4_3
+  S4_2 --> S4_5
+  S4_3 --> S4_5
+  S4_4 --> S4_5
+  S3_6 --> S4_5
+  classDef done fill:#d3f9d8,stroke:#2b8a3e
+  classDef doing fill:#fff3bf,stroke:#e67700
+  classDef ready fill:#d0ebff,stroke:#1971c2
+  classDef waiting fill:#f1f3f5,stroke:#868e96
+```
+
+Green: done · yellow: in progress · blue: ready to start · grey: waiting on the tasks with arrows into it.
+<!-- FLOW:END -->
+
+## Stage 0: Decide and set up (Tue Oct 20)
+
+| ID | Task | Who | Needs | Priority | Status | Done when |
 |---|---|---|---|---|---|---|
-| P0.0 | Set up the repo: rules, docs, learnings, knowledge, worked benchmark example | W5 | — | done | Oct 20 | Pushed to GitHub |
-| P0.1 | LLM setup: Claude chosen and its key tested (Oct 20), local Qwen tested (Oct 20). Remaining: the key on W1's and W4's laptops and the demo machine | W5 | — | doing | Oct 20 | The check command in `knowledge/environment.md` works for W1, W4 and the demo machine |
-| P0.2 | Assign an owner to each workstream | W5 | — | todo | Oct 20 | Owner table above filled in |
-| P0.3 | Ask the instructor for the presentation, report and viva dates, and what the rubric's "Section C" is | W5 | — | todo | Oct 20 | Answers in `docs/DECISIONS.md` and `knowledge/assignment.md` |
-| P0.4 | Agree the 5 contracts in `docs/CONTRACTS.md` | All | P0.2 | todo | Oct 20 | `DRAFT` removed from the file; logged in `docs/DECISIONS.md` |
-| P0.5 | Docker installed and running on every laptop | All | — | todo | Oct 20 | `docker run --rm hello-world` works for all 5 |
-| P1.1 | Write 3 benchmark tasks each (easy, medium, hard), each with hidden tests and a reference backend that passes them | All | P0.4 | todo | Oct 21 | 15 task folders in `benchmark/`; every reference backend passes its tests |
-| P1.2 | Tools and sandbox: files, run tests, start server, HTTP request, inside Docker (subprocess fallback) | W2 | P0.4, P0.5 | todo | Oct 21 | Each tool works on `church_signup`; Docker vs subprocess compared in W2 learnings |
-| P1.3 | Single-agent ReAct loop that builds `church_signup` from the CLI | W1 | P0.1, P0.4, P1.2 | todo | Oct 21 | `python -m builder build ...` produces a backend that passes the hidden tests; prompt variants compared in W1 learnings |
-| P1.4 | Eval harness: build each task, run its hidden tests, write a results table | W4 | P0.4 | todo | Oct 21 | One command scores any config on any set of tasks |
-| P1.5 | UI shell working against fake events | W3 | P0.4 | todo | Oct 21 | Page goes describe → plan → progress → try-it with canned events |
-| P1.6 | Recipe knowledge base and retrieval, first version | W4 | — | todo | Oct 21 | `search_docs` returns relevant recipes; BM25 vs dense vs none compared in W4 learnings |
-| P1.7 | Compare hosted Claude and local Qwen on the same 3–5 benchmark tasks (pass rate, time, cost) | W1 | P1.3 | todo | Oct 22 | Comparison table in W1 learnings |
-| P2.1 | Planner / Builder / Tester split, with the test-and-repair loop | W1 | P1.3 | todo | Oct 22 | Builds pass more hidden tests than the single agent on 3+ tasks, or the learnings file shows why not |
-| P2.2 | Spec-first plan and the user's approval step | W1 | P1.3 | todo | Oct 22 | Nothing is built before approval; plan events reach the UI |
-| P2.3 | Wire retrieval (`search_docs`) into the agent | W4 | P1.3, P1.6 | todo | Oct 22 | With vs without retrieval compared on 3+ tasks |
-| P2.4 | UI wired to the real agent: describe → approve → try it → download | W3 | P1.5, P2.2 | todo | Oct 22 | A non-developer completes the church example alone |
-| P2.5 | Guardrails and the 5 attack tests | W2 | P1.2 | todo | Oct 22 | Each attack's result recorded in W2 learnings |
-| P2.6 | MCP server exposing the tools (only if time allows) | W2 | P1.2 | todo | Oct 22 | An MCP client can call our tools |
-| P2.7 | Feature freeze: `main` runs end to end | W5 | P2.1, P2.2, P2.4 | todo | Oct 22 | Fresh clone builds `church_signup` through the UI |
-| P3.1 | Full benchmark and the 4 ablations (no repair, single agent, no retrieval, no spec-first) | W4 | P1.1, P1.4, P2.1, P2.2, P2.3 | todo | Oct 22 | Results tables and charts in `eval/results/` and W4 learnings |
-| P3.2 | Usability test with 4–5 non-developers | W3 | P2.4 | todo | Oct 22 | Completion, time and SUS scores in W3 learnings |
-| P4.1 | Learnings files complete: explanation, full experiment log, viva Q&A, glossary | All | P3.1, P3.2 | todo | Oct 23 | All 5 files filled; each owner has checked theirs |
-| P4.2 | Section B draft (identical in every report) | W5 | P3.1, P3.2, P4.1 | todo | Oct 23 | Draft shared; every member has reviewed it |
-| P4.3 | Slides and a recorded backup demo | W5 | P2.7, P3.1 | todo | Oct 23 | 10-minute deck, GitHub link on slide 1; demo video saved |
-| P4.4 | Viva walkthrough: each owner teaches their part to the others | All | P4.1 | todo | Oct 23 | Everyone can answer each workstream's viva questions |
-| P4.5 | Section A, written individually in your own words | All | — | todo | Oct 23 | 3–5 pages per person covering topics a–r |
-| P4.6 | Two timed rehearsals, then submit report and slides on Canvas | All | P4.2, P4.3, P4.4, P4.5 | todo | Oct 23 | Submitted, GitHub link on page 1 of every report |
+| S0.1 | Set up the repo | W5 | — | Must | done | Rules, docs, learnings, knowledge and the worked benchmark example are on GitHub |
+| S0.2 | LLM setup | W5 | — | Must | doing | Claude key tested and local Qwen tested (both done Oct 20). Remaining: the check in `knowledge/environment.md` passes for W1, W4 and the demo machine |
+| S0.3 | Assign owners | W5 | — | Must | todo | Owner column in "By person" filled in |
+| S0.4 | Ask the instructor: dates, "Section C" | W5 | — | Must | todo | Answers in `docs/DECISIONS.md` and `knowledge/assignment.md` |
+| S0.5 | Agree the 5 contracts | All | S0.3 | Must | todo | `DRAFT` removed from `docs/CONTRACTS.md`; decision logged |
+| S0.6 | Docker on every laptop | All | — | Should | todo | `docker run --rm hello-world` works for all 5 (fallback: subprocess sandbox) |
+
+## Stage 1: Build the pieces in parallel (Wed Oct 21)
+
+| ID | Task | Who | Needs | Priority | Status | Done when |
+|---|---|---|---|---|---|---|
+| S1.1 | 3 benchmark tasks each | All | S0.5 | Must | todo | 15 task folders in `benchmark/` (easy, medium, hard per person); each reference backend passes its hidden tests; W4 has checked them |
+| S1.2 | Tools and sandbox | W2 | S0.5 | Must | todo | All 7 tools work on `church_signup`; Docker vs subprocess compared in W2 learnings |
+| S1.3 | Single agent, CLI | W1 | S0.2, S0.5, S1.2 | Must | todo | `python -m builder build benchmark/church_signup/request.md` produces a backend that passes the hidden tests; prompt variants compared in W1 learnings |
+| S1.4 | UI shell on fake events | W3 | S0.5 | Must | todo | Page goes describe → plan → progress → try it, driven by canned events |
+| S1.5 | Eval harness | W4 | S0.5 | Must | todo | One command scores any config on any set of tasks, checked against the reference backends |
+| S1.6 | Recipe knowledge base | W4 | — | Should | todo | `search_docs` returns relevant recipes; BM25 vs dense vs none compared in W4 learnings |
+| S1.7 | Integration check | W5 | S1.5 | Must | todo | A fresh clone, following only the README, scores `church_signup` with the harness |
+
+## Stage 2: The full system, then freeze (Thu Oct 22)
+
+| ID | Task | Who | Needs | Priority | Status | Done when |
+|---|---|---|---|---|---|---|
+| S2.1 | Test-and-repair loop | W1 | S1.3 | Must | todo | Failed tests are fed back and fixed up to a retry cap; 0/1/3/5 retries compared in W1 learnings |
+| S2.2 | Spec-first plan and approval | W1 | S1.3 | Must | todo | Nothing is built before the user approves; plan events reach the UI |
+| S2.3 | Planner / Builder / Tester split | W1 | S2.1 | Should | todo | Split vs single agent compared on 3+ tasks in W1 learnings |
+| S2.4 | Retrieval in the agent | W4 | S1.3, S1.6 | Should | todo | With vs without `search_docs` compared on 3+ tasks |
+| S2.5 | UI on the real agent | W3 | S1.4, S2.2 | Must | todo | A non-developer builds the church example alone, end to end |
+| S2.6 | Guardrails and attack tests | W2 | S1.2 | Should | todo | Result of each of the 5 attacks recorded in W2 learnings |
+| S2.7 | MCP server | W2 | S1.2 | Could | todo | An MCP client calls our tools |
+| S2.8 | "Change it" edit loop | W1 | S2.2 | Could | todo | A follow-up request edits an existing project instead of rebuilding it |
+| S2.9 | Feature freeze | W5 | S2.1, S2.2, S2.5 | Must | todo | `main` runs describe → approve → build → try it from a fresh clone |
+
+## Stage 3: Evaluate and teach (Fri Oct 23, morning)
+
+| ID | Task | Who | Needs | Priority | Status | Done when |
+|---|---|---|---|---|---|---|
+| S3.1 | Benchmark: full vs no-repair | W4 | S1.1, S1.5, S2.1, S2.2 | Must | todo | Results table and chart for all tasks in `eval/results/` and W4 learnings |
+| S3.2 | Other ablations | W4 | S3.1, S2.3, S2.4 | Should | todo | Single agent, no retrieval and no spec-first, scored the same way |
+| S3.3 | Claude vs local Qwen | W1 | S1.3 | Could | todo | Same 3–5 tasks: pass rate, time, cost, in W1 learnings |
+| S3.4 | Usability test | W3 | S2.5 | Should | todo | 4–5 non-developers: completion, time, SUS scores in W3 learnings |
+| S3.5 | Learnings complete | All | S3.1 | Must | todo | All 5 files have the explanation, full experiment log, viva Q&A and glossary |
+| S3.6 | Viva walkthrough | All | S3.5 | Must | todo | Each owner has taught their part; everyone can answer every workstream's viva questions |
+
+## Stage 4: Write, rehearse, submit (Fri Oct 23)
+
+| ID | Task | Who | Needs | Priority | Status | Done when |
+|---|---|---|---|---|---|---|
+| S4.1 | Draft your Section B part | All | S3.5 | Must | todo | Each owner's part (see "By person") is in the shared draft |
+| S4.2 | Edit Section B into one text | W5 | S4.1, S3.1 | Must | todo | One Section B, identical in every report, reviewed by all 5 |
+| S4.3 | Slides and backup demo | W5 | S2.9, S3.1 | Must | todo | 10-minute deck with the GitHub link on slide 1; a demo recording saved |
+| S4.4 | Section A (individual) | All | — | Must | todo | 3–5 pages each, own words, topics a–r told as one story |
+| S4.5 | Rehearse twice, submit | All | S4.2, S4.3, S4.4, S3.6 | Must | todo | Two timed run-throughs; report and slides on Canvas with the GitHub link on page 1 |
+
+## By person
+
+What each person owns, from the Drive plan's workstream table. `All` tasks are done by everyone (Section A individually). The task list under the table is generated.
+
+| Workstream | Owns | Drafts in Section B | Section A cluster | Talk slot | Owner |
+|---|---|---|---|---|---|
+| W1 | Agent core: ReAct loop, prompts, Planner / Builder / Tester, orchestrator, project memory, CLI | Approach; agent design | 4. Agents | The agent loop, shown live (2 min) | TBD |
+| W2 | Runtime, tools and safety: the 7 tools, Docker sandbox, test runner, server launcher, MCP server, guardrails, attack tests | Sandbox and security; MCP | 5. Safety and people | Running untrusted code safely (1.5 min) | TBD |
+| W3 | Product UI and usability: chat page, plan approval, progress, try-it panel, downloads; the usability test | Interface; human-in-the-loop design; usability results | 2. Prompting and reasoning | The user's journey (2 min) | TBD |
+| W4 | Evaluation and knowledge base: benchmark format, harness, ablations, results and charts; the recipe knowledge base | Evaluation | 3. Knowledge, memory and tools | Results and ablations (2 min) | TBD |
+| W5 | Lead, integration and writing: repo, README, integration, daily check-ins, Section B editing, slides, viva drill | Architecture overview; final edit of all of B | 1. From LM to assistant | Opening, problem, architecture and close (2.5 min) | TBD |
+
+<!-- PEOPLE:START -->
+**W1 (TBD)**
+
+1. S1.3 Single agent, CLI — Must, waiting (waiting on S0.2, S0.5, S1.2)
+2. S2.1 Test-and-repair loop — Must, waiting (waiting on S1.3)
+3. S2.2 Spec-first plan and approval — Must, waiting (waiting on S1.3)
+4. S2.3 Planner / Builder / Tester split — Should, waiting (waiting on S2.1)
+5. S2.8 "Change it" edit loop — Could, waiting (waiting on S2.2)
+6. S3.3 Claude vs local Qwen — Could, waiting (waiting on S1.3)
+
+**W2 (TBD)**
+
+1. S1.2 Tools and sandbox — Must, waiting (waiting on S0.5)
+2. S2.6 Guardrails and attack tests — Should, waiting (waiting on S1.2)
+3. S2.7 MCP server — Could, waiting (waiting on S1.2)
+
+**W3 (TBD)**
+
+1. S1.4 UI shell on fake events — Must, waiting (waiting on S0.5)
+2. S2.5 UI on the real agent — Must, waiting (waiting on S1.4, S2.2)
+3. S3.4 Usability test — Should, waiting (waiting on S2.5)
+
+**W4 (TBD)**
+
+1. S1.5 Eval harness — Must, waiting (waiting on S0.5)
+2. S1.6 Recipe knowledge base — Should, ready
+3. S2.4 Retrieval in the agent — Should, waiting (waiting on S1.3, S1.6)
+4. S3.1 Benchmark: full vs no-repair — Must, waiting (waiting on S1.1, S1.5, S2.1, S2.2)
+5. S3.2 Other ablations — Should, waiting (waiting on S3.1, S2.3, S2.4)
+
+**W5 (TBD)**
+
+1. S0.1 Set up the repo — Must, done
+2. S0.2 LLM setup — Must, doing
+3. S0.3 Assign owners — Must, ready
+4. S0.4 Ask the instructor: dates, "Section C" — Must, ready
+5. S1.7 Integration check — Must, waiting (waiting on S1.5)
+6. S2.9 Feature freeze — Must, waiting (waiting on S2.1, S2.2, S2.5)
+7. S4.2 Edit Section B into one text — Must, waiting (waiting on S4.1, S3.1)
+8. S4.3 Slides and backup demo — Must, waiting (waiting on S2.9, S3.1)
+
+**Everyone**
+
+1. S0.5 Agree the 5 contracts — Must, waiting (waiting on S0.3)
+2. S0.6 Docker on every laptop — Should, ready
+3. S1.1 3 benchmark tasks each — Must, waiting (waiting on S0.5)
+4. S3.5 Learnings complete — Must, waiting (waiting on S3.1)
+5. S3.6 Viva walkthrough — Must, waiting (waiting on S3.5)
+6. S4.1 Draft your Section B part — Must, waiting (waiting on S3.5)
+7. S4.4 Section A (individual) — Must, ready
+8. S4.5 Rehearse twice, submit — Must, waiting (waiting on S4.2, S4.3, S4.4, S3.6)
+<!-- PEOPLE:END -->
+
+## Who waits on whom
+
+Generated: every place where one person's task cannot finish until another person's task is done. These are the hand-offs to talk about at the daily check-in.
+
+<!-- BLOCKERS:START -->
+- S0.5 Agree the 5 contracts (Everyone) waits on S0.3 Assign owners (W5 (TBD))
+- S1.2 Tools and sandbox (W2 (TBD)) waits on S0.5 Agree the 5 contracts (Everyone)
+- S1.3 Single agent, CLI (W1 (TBD)) waits on S0.2 LLM setup (W5 (TBD))
+- S1.3 Single agent, CLI (W1 (TBD)) waits on S0.5 Agree the 5 contracts (Everyone)
+- S1.3 Single agent, CLI (W1 (TBD)) waits on S1.2 Tools and sandbox (W2 (TBD))
+- S1.4 UI shell on fake events (W3 (TBD)) waits on S0.5 Agree the 5 contracts (Everyone)
+- S1.5 Eval harness (W4 (TBD)) waits on S0.5 Agree the 5 contracts (Everyone)
+- S1.7 Integration check (W5 (TBD)) waits on S1.5 Eval harness (W4 (TBD))
+- S2.4 Retrieval in the agent (W4 (TBD)) waits on S1.3 Single agent, CLI (W1 (TBD))
+- S2.5 UI on the real agent (W3 (TBD)) waits on S2.2 Spec-first plan and approval (W1 (TBD))
+- S2.9 Feature freeze (W5 (TBD)) waits on S2.1 Test-and-repair loop (W1 (TBD))
+- S2.9 Feature freeze (W5 (TBD)) waits on S2.2 Spec-first plan and approval (W1 (TBD))
+- S2.9 Feature freeze (W5 (TBD)) waits on S2.5 UI on the real agent (W3 (TBD))
+- S3.1 Benchmark: full vs no-repair (W4 (TBD)) waits on S1.1 3 benchmark tasks each (Everyone)
+- S3.1 Benchmark: full vs no-repair (W4 (TBD)) waits on S2.1 Test-and-repair loop (W1 (TBD))
+- S3.1 Benchmark: full vs no-repair (W4 (TBD)) waits on S2.2 Spec-first plan and approval (W1 (TBD))
+- S3.2 Other ablations (W4 (TBD)) waits on S2.3 Planner / Builder / Tester split (W1 (TBD))
+- S3.5 Learnings complete (Everyone) waits on S3.1 Benchmark: full vs no-repair (W4 (TBD))
+- S4.2 Edit Section B into one text (W5 (TBD)) waits on S4.1 Draft your Section B part (Everyone)
+- S4.2 Edit Section B into one text (W5 (TBD)) waits on S3.1 Benchmark: full vs no-repair (W4 (TBD))
+- S4.3 Slides and backup demo (W5 (TBD)) waits on S3.1 Benchmark: full vs no-repair (W4 (TBD))
+- S4.5 Rehearse twice, submit (Everyone) waits on S4.2 Edit Section B into one text (W5 (TBD))
+- S4.5 Rehearse twice, submit (Everyone) waits on S4.3 Slides and backup demo (W5 (TBD))
+<!-- BLOCKERS:END -->
