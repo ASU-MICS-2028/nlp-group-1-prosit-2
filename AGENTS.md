@@ -1,0 +1,26 @@
+# Instructions for coding assistants
+
+You are helping one member of a 5-person student team build Prosit 2 for ICS554 NLP: a platform where non-developers build backend APIs by describing them in plain words. The member you are working with owns one workstream. The other four will not read their code; they rely on the member's learnings file.
+
+## Read first
+
+1. `knowledge/README.md`: the assignment, course, team, setup and lecture summaries
+2. `docs/PLAN.md`: the tasks, owners and blockers; find the task you are working on
+3. `docs/DECISIONS.md` and `docs/CONTRACTS.md`: what is already decided and the interfaces you must not break
+
+## Rules
+
+- **Explain simply.** Everything your member builds must be explained in their `learnings/W?-*.md` file, written for a teammate who has never seen the code: what it does, how it works with a real example, what was chosen and why, what breaks, how to run it, viva questions with answers, a glossary. Update it as you go, not at the end.
+- **Test alternatives.** Do not build one version and stop. For each design decision, build or try at least 2 options, measure them the same way, and log question, options, method, numbers and winner in the experiment log, including the options that lost.
+- **Your member must be able to explain and defend every line in a viva, without AI** (course AI policy). Prefer short, plain code over clever code. Explain anything non-obvious to them.
+- **Keep the plan current.** When a task starts or finishes, update its status in `docs/PLAN.md`, run `python3 scripts/update_status.py`, and commit both files. CI fails if the README's Status section is stale.
+- **Log decisions** in `docs/DECISIONS.md` (newest first). Changing anything in `docs/CONTRACTS.md` needs a decision row and a message to the team.
+- **Fixed stack for generated backends:** FastAPI + SQLModel + SQLite + pytest. Run generated code only in the sandbox.
+- **The repo is public.** Never commit `.env`, API keys, student IDs, phone numbers or personal details. Never commit raw transcripts. Summarize them into `knowledge/lectures/` or `docs/meetings/` first, using only what was actually said.
+- Use `uv` (`uv sync`, `uv add`, `uv run`). Keep dependencies few and record why each was added.
+
+## Layout
+
+`docs/` plan, decisions, contracts, meetings · `learnings/` per-workstream findings · `knowledge/` project context · `benchmark/` tasks and hidden tests · `builder/` W1 · `runtime/` W2 · `ui/` W3 · `eval/`, `kb/` W4 · `projects/` generated output (git-ignored)
+
+Claude Code users: create a git-ignored `CLAUDE.md` containing the single line `@AGENTS.md`.

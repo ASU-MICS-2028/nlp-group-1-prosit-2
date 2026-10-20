@@ -1,4 +1,4 @@
-# W5 — Lead, integration and writing: findings
+# W1 — Agent core: learnings
 
 Owner: <name>
 

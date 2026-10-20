@@ -1,4 +1,4 @@
-# W1 — Agent core: findings
+# W2 — Runtime, tools and safety: learnings
 
 Owner: <name>
 

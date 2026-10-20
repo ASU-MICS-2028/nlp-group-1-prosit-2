@@ -1,0 +1,19 @@
+# Decision log
+
+Newest first. **Status**: `Agreed` (the group or the decision's owner signed off), `Proposed` (in the plan, not yet agreed), `Open` (needs deciding). When a decision changes, add a new row and mark the old one `Replaced`, so we can always see why.
+
+| Date | Decision | Options considered | Why | Status | By |
+|---|---|---|---|---|---|
+| 2026-10-20 | Repo has three shared folders: `docs/` (documentation and decisions), `learnings/` (what each person found, simplified), `knowledge/` (everything people and coding assistants need about the project) | One folder of notes; personal notes outside the repo | Teammates and their assistants do not have Joseph's workspace. Everything needed has to be in the repo | Agreed | Joseph |
+| 2026-10-20 | Transcripts are summarized before they go in the repo | Commit raw transcripts | Raw transcripts are long, hard to search and may contain personal details. The repo is public | Agreed | Joseph |
+| 2026-10-18 | Two team rules: explain everything as simply as possible (others rely only on your learnings file); test every scenario and compare alternatives with numbers | — | Nobody will redo another person's part, and the report and viva need justified choices | Agreed | Joseph |
+| 2026-10-18 | Benchmark tests call named operations, translated through `ops.json`, not fixed URLs | Tests with fixed URLs and field names | A correct backend with different names should not fail. See `benchmark/README.md` | Proposed | — |
+| 2026-10-18 | Generated backends always use FastAPI + SQLModel + SQLite + pytest | Let the agent choose any stack | Smaller error space; free OpenAPI contract and interactive docs | Proposed | — |
+| 2026-10-18 | Hand-written ReAct loop using the LLM's native tool calling; plain Python state machine as the orchestrator | LangChain, CrewAI, an LLM "manager" agent | Every step is visible and explainable at the viva; predictable retries and cost | Proposed | — |
+| 2026-10-18 | Spec-first: the OpenAPI contract is approved by the user before any code is written | Code-first | This is the separation-of-concerns principle Mesora asked for; the tests come from the spec | Proposed | — |
+| 2026-10-18 | Planner → Builder → Tester agents, with a single agent kept as the ablation baseline | One agent only | Decomposition, and a separate checker so the Builder does not grade its own work | Proposed | — |
+| 2026-10-18 | Generated code runs in a Docker container with no network, CPU/memory caps and a timeout; a subprocess is the fallback | Run on the host | Generated code is untrusted | Proposed | — |
+| — | LLM provider, and whose API key or credits | | Blocks the agent work | Open | — |
+| — | Who owns each workstream (W1–W5) | | | Open | — |
+| — | Exact presentation, report and viva dates; what the rubric's "Section C" means | | Ask the instructor | Open | — |
+| — | Product name (working name "Mesora API Builder") | | | Open | — |

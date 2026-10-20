@@ -1,4 +1,4 @@
-# W3 — Product UI and usability: findings
+# W3 — Product UI and usability: learnings
 
 Owner: <name>
 
