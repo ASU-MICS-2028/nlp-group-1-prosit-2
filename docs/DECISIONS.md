@@ -4,6 +4,7 @@ Newest first. **Status**: `Agreed` (the group or the decision's owner signed off
 
 | Date | Decision | Options considered | Why | Status | By |
 |---|---|---|---|---|---|
+| 2026-10-20 | LLMs: Claude Opus 5.5 (`claude-opus-5-5`, hosted API) as the main engine; Qwen 3.5 9B (4-bit GGUF via llama.cpp, file at `models/`) run locally and compared against it | Hosted only; local only | Hosted is strong and fast enough to finish the evaluation in time. Local is free and keeps data on the machine (topic k), and comparing the two is a Section B result. Both tested Oct 20: the Claude key works; Qwen makes correct tool calls at about 5 tokens/s on an M3 | Agreed | Joseph |
 | 2026-10-20 | Repo has three shared folders: `docs/` (documentation and decisions), `learnings/` (what each person found, simplified), `knowledge/` (everything people and coding assistants need about the project) | One folder of notes; personal notes outside the repo | Teammates and their assistants do not have Joseph's workspace. Everything needed has to be in the repo | Agreed | Joseph |
 | 2026-10-20 | Transcripts are summarized before they go in the repo | Commit raw transcripts | Raw transcripts are long, hard to search and may contain personal details. The repo is public | Agreed | Joseph |
 | 2026-10-18 | Two team rules: explain everything as simply as possible (others rely only on your learnings file); test every scenario and compare alternatives with numbers | — | Nobody will redo another person's part, and the report and viva need justified choices | Agreed | Joseph |
@@ -13,7 +14,6 @@ Newest first. **Status**: `Agreed` (the group or the decision's owner signed off
 | 2026-10-18 | Spec-first: the OpenAPI contract is approved by the user before any code is written | Code-first | This is the separation-of-concerns principle Mesora asked for; the tests come from the spec | Proposed | — |
 | 2026-10-18 | Planner → Builder → Tester agents, with a single agent kept as the ablation baseline | One agent only | Decomposition, and a separate checker so the Builder does not grade its own work | Proposed | — |
 | 2026-10-18 | Generated code runs in a Docker container with no network, CPU/memory caps and a timeout; a subprocess is the fallback | Run on the host | Generated code is untrusted | Proposed | — |
-| — | LLM provider, and whose API key or credits | | Blocks the agent work | Open | — |
 | — | Who owns each workstream (W1–W5) | | | Open | — |
 | — | Exact presentation, report and viva dates; what the rubric's "Section C" means | | Ask the instructor | Open | — |
 | — | Product name (working name "Mesora API Builder") | | | Open | — |

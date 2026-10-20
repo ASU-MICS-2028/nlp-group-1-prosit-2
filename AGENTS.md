@@ -17,10 +17,11 @@ You are helping one member of a 5-person student team build Prosit 2 for ICS554 
 - **Log decisions** in `docs/DECISIONS.md` (newest first). Changing anything in `docs/CONTRACTS.md` needs a decision row and a message to the team.
 - **Fixed stack for generated backends:** FastAPI + SQLModel + SQLite + pytest. Run generated code only in the sandbox.
 - **The repo is public.** Never commit `.env`, API keys, student IDs, phone numbers or personal details. Never commit raw transcripts. Summarize them into `knowledge/lectures/` or `docs/meetings/` first, using only what was actually said.
+- LLMs: `claude-opus-5-5` via `LLM_API_KEY`, and local Qwen 3.5 9B served by llama.cpp at `LOCAL_LLM_URL`. Both are configured in `.env` (see `.env.example`, `knowledge/environment.md`).
 - Use `uv` (`uv sync`, `uv add`, `uv run`). Keep dependencies few and record why each was added.
 
 ## Layout
 
-`docs/` plan, decisions, contracts, meetings · `learnings/` per-workstream findings · `knowledge/` project context · `benchmark/` tasks and hidden tests · `builder/` W1 · `runtime/` W2 · `ui/` W3 · `eval/`, `kb/` W4 · `projects/` generated output (git-ignored)
+`docs/` plan, decisions, contracts, meetings · `learnings/` per-workstream findings · `knowledge/` project context · `benchmark/` tasks and hidden tests · `builder/` W1 · `runtime/` W2 · `ui/` W3 · `eval/`, `kb/` W4 · `projects/` generated output (git-ignored) · `models/` local model file (git-ignored)
 
 Claude Code users: create a git-ignored `CLAUDE.md` containing the single line `@AGENTS.md`.

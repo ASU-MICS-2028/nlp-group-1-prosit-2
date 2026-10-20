@@ -15,17 +15,18 @@ A non-developer describes a backend in plain words ("I run a tailoring shop, I n
 <!-- STATUS:START -->
 ## Status
 
-Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand. **1 of 27 tasks done.**
+Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand. **1 of 28 tasks done.**
 
 **In progress**
 
-None.
+| Task | Who | Target |
+|---|---|---|
+| P0.1 LLM setup: Claude chosen and its key tested (Oct 20), local Qwen tested (Oct 20). Remaining: the key on W1's and W4's laptops and the demo machine | W5 (TBD) | Oct 20 |
 
 **Ready to start**
 
 | Task | Who | Target |
 |---|---|---|
-| P0.1 Choose the LLM provider and get an API key into everyone's `.env` | W5 (TBD) | Oct 20 |
 | P0.2 Assign an owner to each workstream | W5 (TBD) | Oct 20 |
 | P0.3 Ask the instructor for the presentation, report and viva dates, and what the rubric's "Section C" is | W5 (TBD) | Oct 20 |
 | P0.5 Docker installed and running on every laptop | Everyone | Oct 20 |
@@ -42,6 +43,7 @@ None.
 | P1.3 Single-agent ReAct loop that builds `church_signup` from the CLI | W1 (TBD) | Oct 21 | P0.1, P0.4, P1.2 |
 | P1.4 Eval harness: build each task, run its hidden tests, write a results table | W4 (TBD) | Oct 21 | P0.4 |
 | P1.5 UI shell working against fake events | W3 (TBD) | Oct 21 | P0.4 |
+| P1.7 Compare hosted Claude and local Qwen on the same 3–5 benchmark tasks (pass rate, time, cost) | W1 (TBD) | Oct 22 | P1.3 |
 | P2.1 Planner / Builder / Tester split, with the test-and-repair loop | W1 (TBD) | Oct 22 | P1.3 |
 | P2.2 Spec-first plan and the user's approval step | W1 (TBD) | Oct 22 | P1.3 |
 | P2.3 Wire retrieval (`search_docs`) into the agent | W4 (TBD) | Oct 22 | P1.3, P1.6 |
@@ -74,6 +76,7 @@ The full task list, in order, with who owns what and what blocks what: [`docs/PL
 | `ui/` | The web page | W3 |
 | `eval/`, `kb/` | Test harness, ablation runs and results; the recipe knowledge base for RAG | W4 |
 | `projects/` | Backends the agent generates (git-ignored) | — |
+| `models/` | The local Qwen model file (git-ignored; download it to exactly this path, see [`knowledge/environment.md`](knowledge/environment.md#the-llms)) | — |
 
 Code folders are created by their owners when they start. Nothing in them is pre-written.
 

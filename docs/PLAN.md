@@ -25,7 +25,7 @@ Dates were moved on Oct 20: the Monday target was missed because the decisions i
 | ID | Task | Who | Needs | Status | Target | Done when |
 |---|---|---|---|---|---|---|
 | P0.0 | Set up the repo: rules, docs, learnings, knowledge, worked benchmark example | W5 | — | done | Oct 20 | Pushed to GitHub |
-| P0.1 | Choose the LLM provider and get an API key into everyone's `.env` | W5 | — | todo | Oct 20 | One test call works on every laptop; logged in `docs/DECISIONS.md` |
+| P0.1 | LLM setup: Claude chosen and its key tested (Oct 20), local Qwen tested (Oct 20). Remaining: the key on W1's and W4's laptops and the demo machine | W5 | — | doing | Oct 20 | The check command in `knowledge/environment.md` works for W1, W4 and the demo machine |
 | P0.2 | Assign an owner to each workstream | W5 | — | todo | Oct 20 | Owner table above filled in |
 | P0.3 | Ask the instructor for the presentation, report and viva dates, and what the rubric's "Section C" is | W5 | — | todo | Oct 20 | Answers in `docs/DECISIONS.md` and `knowledge/assignment.md` |
 | P0.4 | Agree the 5 contracts in `docs/CONTRACTS.md` | All | P0.2 | todo | Oct 20 | `DRAFT` removed from the file; logged in `docs/DECISIONS.md` |
@@ -36,6 +36,7 @@ Dates were moved on Oct 20: the Monday target was missed because the decisions i
 | P1.4 | Eval harness: build each task, run its hidden tests, write a results table | W4 | P0.4 | todo | Oct 21 | One command scores any config on any set of tasks |
 | P1.5 | UI shell working against fake events | W3 | P0.4 | todo | Oct 21 | Page goes describe → plan → progress → try-it with canned events |
 | P1.6 | Recipe knowledge base and retrieval, first version | W4 | — | todo | Oct 21 | `search_docs` returns relevant recipes; BM25 vs dense vs none compared in W4 learnings |
+| P1.7 | Compare hosted Claude and local Qwen on the same 3–5 benchmark tasks (pass rate, time, cost) | W1 | P1.3 | todo | Oct 22 | Comparison table in W1 learnings |
 | P2.1 | Planner / Builder / Tester split, with the test-and-repair loop | W1 | P1.3 | todo | Oct 22 | Builds pass more hidden tests than the single agent on 3+ tasks, or the learnings file shows why not |
 | P2.2 | Spec-first plan and the user's approval step | W1 | P1.3 | todo | Oct 22 | Nothing is built before approval; plan events reach the UI |
 | P2.3 | Wire retrieval (`search_docs`) into the agent | W4 | P1.3, P1.6 | todo | Oct 22 | With vs without retrieval compared on 3+ tasks |
