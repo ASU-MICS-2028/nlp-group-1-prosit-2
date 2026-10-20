@@ -14,8 +14,8 @@ This follows the team plan on the Drive (`NLP-GROUP-1/prosit 2/Prosit 2 Plan - N
 | Alice (W1) | — | ⏳ S1.3 Single agent, CLI | ⏳ S2.1 Test-and-repair loop<br>⏳ S2.2 Spec-first plan and approval<br>⏳ S2.3 Planner / Builder / Tester split<br>⏳ S2.8 "Change it" edit loop | ⏳ S3.3 Claude vs local Qwen | — |
 | Bernard (W2) | — | ⏳ S1.2 Tools and sandbox | ⏳ S2.6 Guardrails and attack tests<br>⏳ S2.7 MCP server | — | — |
 | Michael (W3) | — | ⏳ S1.4 UI shell on fake events | ⏳ S2.5 UI on the real agent | ⏳ S3.4 Usability test | — |
-| Joseph (W4) | — | ⏳ S1.5 Eval harness<br>🔵 S1.6 Recipe knowledge base | ⏳ S2.4 Retrieval in the agent | ⏳ S3.1 Benchmark: full vs no-repair<br>⏳ S3.2 Other ablations | — |
-| Eric (W5) | ✅ S0.1 Set up the repo<br>🟡 S0.2 LLM setup<br>✅ S0.3 Assign owners<br>🔵 S0.4 Ask the instructor: dates, "Section C" | ⏳ S1.7 Integration check | ⏳ S2.9 Feature freeze | — | ⏳ S4.2 Edit Section B into one text<br>⏳ S4.3 Slides and backup demo |
+| Joseph (W4) | 🟡 S0.2 LLM setup (Joseph holds the key) | ⏳ S1.5 Eval harness<br>🔵 S1.6 Recipe knowledge base | ⏳ S2.4 Retrieval in the agent | ⏳ S3.1 Benchmark: full vs no-repair<br>⏳ S3.2 Other ablations | — |
+| Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>🔵 S0.4 Ask the instructor: dates, "Section C" | ⏳ S1.7 Integration check | ⏳ S2.9 Feature freeze | — | ⏳ S4.2 Edit Section B into one text<br>⏳ S4.3 Slides and backup demo |
 | Everyone | 🔵 S0.5 Agree the 5 contracts<br>🔵 S0.6 Docker on every laptop | ⏳ S1.1 3 benchmark tasks each | — | ⏳ S3.5 Learnings complete<br>⏳ S3.6 Viva walkthrough | ⏳ S4.1 Draft your Section B part<br>🔵 S4.4 Section A (individual)<br>⏳ S4.5 Rehearse twice, submit |
 
 ✅ done · 🟡 in progress · 🔵 ready to start · ⏳ waiting on another task
@@ -30,7 +30,7 @@ Arrows point from a task to the tasks that need it.
 flowchart LR
   subgraph Stage0["Stage 0: Decide and set up (Tue Oct 20)"]
     S0_1["S0.1 Set up the repo<br/>W5 · Must"]:::done
-    S0_2["S0.2 LLM setup<br/>W5 · Must"]:::doing
+    S0_2["S0.2 LLM setup (Joseph holds the key)<br/>W4 · Must"]:::doing
     S0_3["S0.3 Assign owners<br/>W5 · Must"]:::done
     S0_4["S0.4 Ask the instructor: dates, 'Section C'<br/>W5 · Must"]:::ready
     S0_5["S0.5 Agree the 5 contracts<br/>All · Must"]:::ready
@@ -124,7 +124,7 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 | ID | Task | Who | Needs | Priority | Status | Done when |
 |---|---|---|---|---|---|---|
 | S0.1 | Set up the repo | W5 | — | Must | done | Rules, docs, learnings, knowledge and the worked benchmark example are on GitHub |
-| S0.2 | LLM setup | W5 | — | Must | doing | Claude key tested and local Qwen tested (both done Oct 20). Remaining: the check in `knowledge/environment.md` passes for W1, W4 and the demo machine |
+| S0.2 | LLM setup (Joseph holds the key) | W4 | — | Must | doing | Claude key tested and local Qwen tested (both done Oct 20). Remaining: the check in `knowledge/environment.md` passes for W1, W4 and the demo machine |
 | S0.3 | Assign owners | W5 | — | Must | done | Owner column in "By person" filled in (Oct 20) |
 | S0.4 | Ask the instructor: dates, "Section C" | W5 | — | Must | todo | Answers in `docs/DECISIONS.md` and `knowledge/assignment.md` |
 | S0.5 | Agree the 5 contracts | All | S0.3 | Must | todo | `DRAFT` removed from `docs/CONTRACTS.md`; decision logged |
@@ -213,22 +213,22 @@ What each person owns, from the Drive plan's workstream table. `All` tasks are d
 
 **Joseph (W4)**
 
-1. S1.5 Eval harness — Must, waiting (waiting on S0.5)
-2. S1.6 Recipe knowledge base — Should, ready
-3. S2.4 Retrieval in the agent — Should, waiting (waiting on S1.3, S1.6)
-4. S3.1 Benchmark: full vs no-repair — Must, waiting (waiting on S1.1, S1.5, S2.1, S2.2)
-5. S3.2 Other ablations — Should, waiting (waiting on S3.1, S2.3, S2.4)
+1. S0.2 LLM setup (Joseph holds the key) — Must, doing
+2. S1.5 Eval harness — Must, waiting (waiting on S0.5)
+3. S1.6 Recipe knowledge base — Should, ready
+4. S2.4 Retrieval in the agent — Should, waiting (waiting on S1.3, S1.6)
+5. S3.1 Benchmark: full vs no-repair — Must, waiting (waiting on S1.1, S1.5, S2.1, S2.2)
+6. S3.2 Other ablations — Should, waiting (waiting on S3.1, S2.3, S2.4)
 
 **Eric (W5)**
 
 1. S0.1 Set up the repo — Must, done
-2. S0.2 LLM setup — Must, doing
-3. S0.3 Assign owners — Must, done
-4. S0.4 Ask the instructor: dates, "Section C" — Must, ready
-5. S1.7 Integration check — Must, waiting (waiting on S1.5)
-6. S2.9 Feature freeze — Must, waiting (waiting on S2.1, S2.2, S2.5)
-7. S4.2 Edit Section B into one text — Must, waiting (waiting on S4.1, S3.1)
-8. S4.3 Slides and backup demo — Must, waiting (waiting on S2.9, S3.1)
+2. S0.3 Assign owners — Must, done
+3. S0.4 Ask the instructor: dates, "Section C" — Must, ready
+4. S1.7 Integration check — Must, waiting (waiting on S1.5)
+5. S2.9 Feature freeze — Must, waiting (waiting on S2.1, S2.2, S2.5)
+6. S4.2 Edit Section B into one text — Must, waiting (waiting on S4.1, S3.1)
+7. S4.3 Slides and backup demo — Must, waiting (waiting on S2.9, S3.1)
 
 **Everyone**
 
@@ -248,7 +248,7 @@ Generated: every place where one person's task cannot finish until another perso
 
 <!-- BLOCKERS:START -->
 - S1.2 Tools and sandbox (Bernard (W2)) waits on S0.5 Agree the 5 contracts (Everyone)
-- S1.3 Single agent, CLI (Alice (W1)) waits on S0.2 LLM setup (Eric (W5))
+- S1.3 Single agent, CLI (Alice (W1)) waits on S0.2 LLM setup (Joseph holds the key) (Joseph (W4))
 - S1.3 Single agent, CLI (Alice (W1)) waits on S0.5 Agree the 5 contracts (Everyone)
 - S1.3 Single agent, CLI (Alice (W1)) waits on S1.2 Tools and sandbox (Bernard (W2))
 - S1.4 UI shell on fake events (Michael (W3)) waits on S0.5 Agree the 5 contracts (Everyone)
