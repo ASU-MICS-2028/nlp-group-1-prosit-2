@@ -1,6 +1,6 @@
 # W5 — Lead, integration and writing: learnings
 
-Owner: <name>
+Owner: Eric
 
 > The rest of the team will NOT read your code. They will write the report, present, and answer viva questions using only this file. Explain it like you are talking to someone who has never coded. Every option you tried goes in the log.
 

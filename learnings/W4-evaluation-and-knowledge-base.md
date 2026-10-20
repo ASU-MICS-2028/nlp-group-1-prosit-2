@@ -1,6 +1,6 @@
 # W4 — Evaluation and knowledge base: learnings
 
-Owner: <name>
+Owner: Joseph
 
 > The rest of the team will NOT read your code. They will write the report, present, and answer viva questions using only this file. Explain it like you are talking to someone who has never coded. Every option you tried goes in the log.
 

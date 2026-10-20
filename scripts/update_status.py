@@ -56,7 +56,7 @@ def render(plan):
     bad += [f"{t['id']} has unknown status {t['status']}" for t in tasks if t["status"] not in ("todo", "doing", "done")]
     if bad:
         sys.exit("docs/PLAN.md: " + "; ".join(bad))
-    person = lambda w: "Everyone" if w == "All" else f"{w} ({owners.get(w, 'TBD')})"
+    person = lambda w: "Everyone" if w == "All" else (f"{owners[w]} ({w})" if owners.get(w, "TBD") != "TBD" else f"{w} (no owner yet)")
     label = lambda t: f"{t['id']} {t['name']}".replace('"', "'").replace("`", "")
     blockers = lambda t: [n for n in t["needs"] if by_id[n]["status"] != "done"]
 

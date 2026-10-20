@@ -4,11 +4,11 @@ One file per workstream. This is how the team knows what each person did and fou
 
 | File | Workstream | Owner |
 |---|---|---|
-| [W1-agent-core.md](W1-agent-core.md) | Agent core | |
-| [W2-runtime-tools-and-safety.md](W2-runtime-tools-and-safety.md) | Runtime, tools and safety | |
-| [W3-product-ui-and-usability.md](W3-product-ui-and-usability.md) | Product UI and usability | |
-| [W4-evaluation-and-knowledge-base.md](W4-evaluation-and-knowledge-base.md) | Evaluation and knowledge base | |
-| [W5-lead-integration-and-writing.md](W5-lead-integration-and-writing.md) | Lead, integration and writing | |
+| [W1-agent-core.md](W1-agent-core.md) | Agent core | Alice |
+| [W2-runtime-tools-and-safety.md](W2-runtime-tools-and-safety.md) | Runtime, tools and safety | Bernard |
+| [W3-product-ui-and-usability.md](W3-product-ui-and-usability.md) | Product UI and usability | Michael |
+| [W4-evaluation-and-knowledge-base.md](W4-evaluation-and-knowledge-base.md) | Evaluation and knowledge base | Joseph |
+| [W5-lead-integration-and-writing.md](W5-lead-integration-and-writing.md) | Lead, integration and writing | Eric |
 
 ## How to write yours
 

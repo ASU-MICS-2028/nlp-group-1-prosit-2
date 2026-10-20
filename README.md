@@ -15,16 +15,16 @@ A non-developer describes a backend in plain words ("I run a tailoring shop, I n
 <!-- STATUS:START -->
 ## Status
 
-Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand. **1 of 33 tasks done.** Current stage: **Stage 0: Decide and set up (Tue Oct 20)**.
+Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand. **2 of 33 tasks done.** Current stage: **Stage 0: Decide and set up (Tue Oct 20)**.
 
 | Who | In progress | Ready to start | Waiting (and on what) |
 |---|---|---|---|
-| W1 (TBD) | — | — | S1.3 Single agent, CLI ← S0.2, S0.5, S1.2<br>S2.1 Test-and-repair loop ← S1.3<br>S2.2 Spec-first plan and approval ← S1.3<br>S2.3 Planner / Builder / Tester split ← S2.1<br>S2.8 "Change it" edit loop ← S2.2<br>S3.3 Claude vs local Qwen ← S1.3 |
-| W2 (TBD) | — | — | S1.2 Tools and sandbox ← S0.5<br>S2.6 Guardrails and attack tests ← S1.2<br>S2.7 MCP server ← S1.2 |
-| W3 (TBD) | — | — | S1.4 UI shell on fake events ← S0.5<br>S2.5 UI on the real agent ← S1.4, S2.2<br>S3.4 Usability test ← S2.5 |
-| W4 (TBD) | — | S1.6 Recipe knowledge base | S1.5 Eval harness ← S0.5<br>S2.4 Retrieval in the agent ← S1.3, S1.6<br>S3.1 Benchmark: full vs no-repair ← S1.1, S1.5, S2.1, S2.2<br>S3.2 Other ablations ← S3.1, S2.3, S2.4 |
-| W5 (TBD) | S0.2 LLM setup | S0.3 Assign owners<br>S0.4 Ask the instructor: dates, "Section C" | S1.7 Integration check ← S1.5<br>S2.9 Feature freeze ← S2.1, S2.2, S2.5<br>S4.2 Edit Section B into one text ← S4.1, S3.1<br>S4.3 Slides and backup demo ← S2.9, S3.1 |
-| Everyone | — | S0.6 Docker on every laptop<br>S4.4 Section A (individual) | S0.5 Agree the 5 contracts ← S0.3<br>S1.1 3 benchmark tasks each ← S0.5<br>S3.5 Learnings complete ← S3.1<br>S3.6 Viva walkthrough ← S3.5<br>S4.1 Draft your Section B part ← S3.5<br>S4.5 Rehearse twice, submit ← S4.2, S4.3, S4.4, S3.6 |
+| Alice (W1) | — | — | S1.3 Single agent, CLI ← S0.2, S0.5, S1.2<br>S2.1 Test-and-repair loop ← S1.3<br>S2.2 Spec-first plan and approval ← S1.3<br>S2.3 Planner / Builder / Tester split ← S2.1<br>S2.8 "Change it" edit loop ← S2.2<br>S3.3 Claude vs local Qwen ← S1.3 |
+| Bernard (W2) | — | — | S1.2 Tools and sandbox ← S0.5<br>S2.6 Guardrails and attack tests ← S1.2<br>S2.7 MCP server ← S1.2 |
+| Michael (W3) | — | — | S1.4 UI shell on fake events ← S0.5<br>S2.5 UI on the real agent ← S1.4, S2.2<br>S3.4 Usability test ← S2.5 |
+| Joseph (W4) | — | S1.6 Recipe knowledge base | S1.5 Eval harness ← S0.5<br>S2.4 Retrieval in the agent ← S1.3, S1.6<br>S3.1 Benchmark: full vs no-repair ← S1.1, S1.5, S2.1, S2.2<br>S3.2 Other ablations ← S3.1, S2.3, S2.4 |
+| Eric (W5) | S0.2 LLM setup | S0.4 Ask the instructor: dates, "Section C" | S1.7 Integration check ← S1.5<br>S2.9 Feature freeze ← S2.1, S2.2, S2.5<br>S4.2 Edit Section B into one text ← S4.1, S3.1<br>S4.3 Slides and backup demo ← S2.9, S3.1 |
+| Everyone | — | S0.5 Agree the 5 contracts<br>S0.6 Docker on every laptop<br>S4.4 Section A (individual) | S1.1 3 benchmark tasks each ← S0.5<br>S3.5 Learnings complete ← S3.1<br>S3.6 Viva walkthrough ← S3.5<br>S4.1 Draft your Section B part ← S3.5<br>S4.5 Rehearse twice, submit ← S4.2, S4.3, S4.4, S3.6 |
 
 The flow diagram, each person's full task list and who waits on whom are in [`docs/PLAN.md`](docs/PLAN.md).
 <!-- STATUS:END -->

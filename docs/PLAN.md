@@ -11,12 +11,12 @@ This follows the team plan on the Drive (`NLP-GROUP-1/prosit 2/Prosit 2 Plan - N
 <!-- BOARD:START -->
 | Who | Stage 0<br>Decide and set up (Tue Oct 20) | Stage 1<br>Build the pieces in parallel (Wed Oct 21) | Stage 2<br>The full system, then freeze (Thu Oct 22) | Stage 3<br>Evaluate and teach (Fri Oct 23, morning) | Stage 4<br>Write, rehearse, submit (Fri Oct 23) |
 |---|---|---|---|---|---|
-| W1 (TBD) | — | ⏳ S1.3 Single agent, CLI | ⏳ S2.1 Test-and-repair loop<br>⏳ S2.2 Spec-first plan and approval<br>⏳ S2.3 Planner / Builder / Tester split<br>⏳ S2.8 "Change it" edit loop | ⏳ S3.3 Claude vs local Qwen | — |
-| W2 (TBD) | — | ⏳ S1.2 Tools and sandbox | ⏳ S2.6 Guardrails and attack tests<br>⏳ S2.7 MCP server | — | — |
-| W3 (TBD) | — | ⏳ S1.4 UI shell on fake events | ⏳ S2.5 UI on the real agent | ⏳ S3.4 Usability test | — |
-| W4 (TBD) | — | ⏳ S1.5 Eval harness<br>🔵 S1.6 Recipe knowledge base | ⏳ S2.4 Retrieval in the agent | ⏳ S3.1 Benchmark: full vs no-repair<br>⏳ S3.2 Other ablations | — |
-| W5 (TBD) | ✅ S0.1 Set up the repo<br>🟡 S0.2 LLM setup<br>🔵 S0.3 Assign owners<br>🔵 S0.4 Ask the instructor: dates, "Section C" | ⏳ S1.7 Integration check | ⏳ S2.9 Feature freeze | — | ⏳ S4.2 Edit Section B into one text<br>⏳ S4.3 Slides and backup demo |
-| Everyone | ⏳ S0.5 Agree the 5 contracts<br>🔵 S0.6 Docker on every laptop | ⏳ S1.1 3 benchmark tasks each | — | ⏳ S3.5 Learnings complete<br>⏳ S3.6 Viva walkthrough | ⏳ S4.1 Draft your Section B part<br>🔵 S4.4 Section A (individual)<br>⏳ S4.5 Rehearse twice, submit |
+| Alice (W1) | — | ⏳ S1.3 Single agent, CLI | ⏳ S2.1 Test-and-repair loop<br>⏳ S2.2 Spec-first plan and approval<br>⏳ S2.3 Planner / Builder / Tester split<br>⏳ S2.8 "Change it" edit loop | ⏳ S3.3 Claude vs local Qwen | — |
+| Bernard (W2) | — | ⏳ S1.2 Tools and sandbox | ⏳ S2.6 Guardrails and attack tests<br>⏳ S2.7 MCP server | — | — |
+| Michael (W3) | — | ⏳ S1.4 UI shell on fake events | ⏳ S2.5 UI on the real agent | ⏳ S3.4 Usability test | — |
+| Joseph (W4) | — | ⏳ S1.5 Eval harness<br>🔵 S1.6 Recipe knowledge base | ⏳ S2.4 Retrieval in the agent | ⏳ S3.1 Benchmark: full vs no-repair<br>⏳ S3.2 Other ablations | — |
+| Eric (W5) | ✅ S0.1 Set up the repo<br>🟡 S0.2 LLM setup<br>✅ S0.3 Assign owners<br>🔵 S0.4 Ask the instructor: dates, "Section C" | ⏳ S1.7 Integration check | ⏳ S2.9 Feature freeze | — | ⏳ S4.2 Edit Section B into one text<br>⏳ S4.3 Slides and backup demo |
+| Everyone | 🔵 S0.5 Agree the 5 contracts<br>🔵 S0.6 Docker on every laptop | ⏳ S1.1 3 benchmark tasks each | — | ⏳ S3.5 Learnings complete<br>⏳ S3.6 Viva walkthrough | ⏳ S4.1 Draft your Section B part<br>🔵 S4.4 Section A (individual)<br>⏳ S4.5 Rehearse twice, submit |
 
 ✅ done · 🟡 in progress · 🔵 ready to start · ⏳ waiting on another task
 <!-- BOARD:END -->
@@ -31,9 +31,9 @@ flowchart LR
   subgraph Stage0["Stage 0: Decide and set up (Tue Oct 20)"]
     S0_1["S0.1 Set up the repo<br/>W5 · Must"]:::done
     S0_2["S0.2 LLM setup<br/>W5 · Must"]:::doing
-    S0_3["S0.3 Assign owners<br/>W5 · Must"]:::ready
+    S0_3["S0.3 Assign owners<br/>W5 · Must"]:::done
     S0_4["S0.4 Ask the instructor: dates, 'Section C'<br/>W5 · Must"]:::ready
-    S0_5["S0.5 Agree the 5 contracts<br/>All · Must"]:::waiting
+    S0_5["S0.5 Agree the 5 contracts<br/>All · Must"]:::ready
     S0_6["S0.6 Docker on every laptop<br/>All · Should"]:::ready
   end
   subgraph Stage1["Stage 1: Build the pieces in parallel (Wed Oct 21)"]
@@ -125,7 +125,7 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 |---|---|---|---|---|---|---|
 | S0.1 | Set up the repo | W5 | — | Must | done | Rules, docs, learnings, knowledge and the worked benchmark example are on GitHub |
 | S0.2 | LLM setup | W5 | — | Must | doing | Claude key tested and local Qwen tested (both done Oct 20). Remaining: the check in `knowledge/environment.md` passes for W1, W4 and the demo machine |
-| S0.3 | Assign owners | W5 | — | Must | todo | Owner column in "By person" filled in |
+| S0.3 | Assign owners | W5 | — | Must | done | Owner column in "By person" filled in (Oct 20) |
 | S0.4 | Ask the instructor: dates, "Section C" | W5 | — | Must | todo | Answers in `docs/DECISIONS.md` and `knowledge/assignment.md` |
 | S0.5 | Agree the 5 contracts | All | S0.3 | Must | todo | `DRAFT` removed from `docs/CONTRACTS.md`; decision logged |
 | S0.6 | Docker on every laptop | All | — | Should | todo | `docker run --rm hello-world` works for all 5 (fallback: subprocess sandbox) |
@@ -183,14 +183,14 @@ What each person owns, from the Drive plan's workstream table. `All` tasks are d
 
 | Workstream | Owns | Drafts in Section B | Section A cluster | Talk slot | Owner |
 |---|---|---|---|---|---|
-| W1 | Agent core: ReAct loop, prompts, Planner / Builder / Tester, orchestrator, project memory, CLI | Approach; agent design | 4. Agents | The agent loop, shown live (2 min) | TBD |
-| W2 | Runtime, tools and safety: the 7 tools, Docker sandbox, test runner, server launcher, MCP server, guardrails, attack tests | Sandbox and security; MCP | 5. Safety and people | Running untrusted code safely (1.5 min) | TBD |
-| W3 | Product UI and usability: chat page, plan approval, progress, try-it panel, downloads; the usability test | Interface; human-in-the-loop design; usability results | 2. Prompting and reasoning | The user's journey (2 min) | TBD |
-| W4 | Evaluation and knowledge base: benchmark format, harness, ablations, results and charts; the recipe knowledge base | Evaluation | 3. Knowledge, memory and tools | Results and ablations (2 min) | TBD |
-| W5 | Lead, integration and writing: repo, README, integration, daily check-ins, Section B editing, slides, viva drill | Architecture overview; final edit of all of B | 1. From LM to assistant | Opening, problem, architecture and close (2.5 min) | TBD |
+| W1 | Agent core: ReAct loop, prompts, Planner / Builder / Tester, orchestrator, project memory, CLI | Approach; agent design | 4. Agents | The agent loop, shown live (2 min) | Alice |
+| W2 | Runtime, tools and safety: the 7 tools, Docker sandbox, test runner, server launcher, MCP server, guardrails, attack tests | Sandbox and security; MCP | 5. Safety and people | Running untrusted code safely (1.5 min) | Bernard |
+| W3 | Product UI and usability: chat page, plan approval, progress, try-it panel, downloads; the usability test | Interface; human-in-the-loop design; usability results | 2. Prompting and reasoning | The user's journey (2 min) | Michael |
+| W4 | Evaluation and knowledge base: benchmark format, harness, ablations, results and charts; the recipe knowledge base | Evaluation | 3. Knowledge, memory and tools | Results and ablations (2 min) | Joseph |
+| W5 | Lead, integration and writing: repo, README, integration, daily check-ins, Section B editing, slides, viva drill | Architecture overview; final edit of all of B | 1. From LM to assistant | Opening, problem, architecture and close (2.5 min) | Eric |
 
 <!-- PEOPLE:START -->
-**W1 (TBD)**
+**Alice (W1)**
 
 1. S1.3 Single agent, CLI — Must, waiting (waiting on S0.2, S0.5, S1.2)
 2. S2.1 Test-and-repair loop — Must, waiting (waiting on S1.3)
@@ -199,19 +199,19 @@ What each person owns, from the Drive plan's workstream table. `All` tasks are d
 5. S2.8 "Change it" edit loop — Could, waiting (waiting on S2.2)
 6. S3.3 Claude vs local Qwen — Could, waiting (waiting on S1.3)
 
-**W2 (TBD)**
+**Bernard (W2)**
 
 1. S1.2 Tools and sandbox — Must, waiting (waiting on S0.5)
 2. S2.6 Guardrails and attack tests — Should, waiting (waiting on S1.2)
 3. S2.7 MCP server — Could, waiting (waiting on S1.2)
 
-**W3 (TBD)**
+**Michael (W3)**
 
 1. S1.4 UI shell on fake events — Must, waiting (waiting on S0.5)
 2. S2.5 UI on the real agent — Must, waiting (waiting on S1.4, S2.2)
 3. S3.4 Usability test — Should, waiting (waiting on S2.5)
 
-**W4 (TBD)**
+**Joseph (W4)**
 
 1. S1.5 Eval harness — Must, waiting (waiting on S0.5)
 2. S1.6 Recipe knowledge base — Should, ready
@@ -219,11 +219,11 @@ What each person owns, from the Drive plan's workstream table. `All` tasks are d
 4. S3.1 Benchmark: full vs no-repair — Must, waiting (waiting on S1.1, S1.5, S2.1, S2.2)
 5. S3.2 Other ablations — Should, waiting (waiting on S3.1, S2.3, S2.4)
 
-**W5 (TBD)**
+**Eric (W5)**
 
 1. S0.1 Set up the repo — Must, done
 2. S0.2 LLM setup — Must, doing
-3. S0.3 Assign owners — Must, ready
+3. S0.3 Assign owners — Must, done
 4. S0.4 Ask the instructor: dates, "Section C" — Must, ready
 5. S1.7 Integration check — Must, waiting (waiting on S1.5)
 6. S2.9 Feature freeze — Must, waiting (waiting on S2.1, S2.2, S2.5)
@@ -232,7 +232,7 @@ What each person owns, from the Drive plan's workstream table. `All` tasks are d
 
 **Everyone**
 
-1. S0.5 Agree the 5 contracts — Must, waiting (waiting on S0.3)
+1. S0.5 Agree the 5 contracts — Must, ready
 2. S0.6 Docker on every laptop — Should, ready
 3. S1.1 3 benchmark tasks each — Must, waiting (waiting on S0.5)
 4. S3.5 Learnings complete — Must, waiting (waiting on S3.1)
@@ -247,27 +247,26 @@ What each person owns, from the Drive plan's workstream table. `All` tasks are d
 Generated: every place where one person's task cannot finish until another person's task is done. These are the hand-offs to talk about at the daily check-in.
 
 <!-- BLOCKERS:START -->
-- S0.5 Agree the 5 contracts (Everyone) waits on S0.3 Assign owners (W5 (TBD))
-- S1.2 Tools and sandbox (W2 (TBD)) waits on S0.5 Agree the 5 contracts (Everyone)
-- S1.3 Single agent, CLI (W1 (TBD)) waits on S0.2 LLM setup (W5 (TBD))
-- S1.3 Single agent, CLI (W1 (TBD)) waits on S0.5 Agree the 5 contracts (Everyone)
-- S1.3 Single agent, CLI (W1 (TBD)) waits on S1.2 Tools and sandbox (W2 (TBD))
-- S1.4 UI shell on fake events (W3 (TBD)) waits on S0.5 Agree the 5 contracts (Everyone)
-- S1.5 Eval harness (W4 (TBD)) waits on S0.5 Agree the 5 contracts (Everyone)
-- S1.7 Integration check (W5 (TBD)) waits on S1.5 Eval harness (W4 (TBD))
-- S2.4 Retrieval in the agent (W4 (TBD)) waits on S1.3 Single agent, CLI (W1 (TBD))
-- S2.5 UI on the real agent (W3 (TBD)) waits on S2.2 Spec-first plan and approval (W1 (TBD))
-- S2.9 Feature freeze (W5 (TBD)) waits on S2.1 Test-and-repair loop (W1 (TBD))
-- S2.9 Feature freeze (W5 (TBD)) waits on S2.2 Spec-first plan and approval (W1 (TBD))
-- S2.9 Feature freeze (W5 (TBD)) waits on S2.5 UI on the real agent (W3 (TBD))
-- S3.1 Benchmark: full vs no-repair (W4 (TBD)) waits on S1.1 3 benchmark tasks each (Everyone)
-- S3.1 Benchmark: full vs no-repair (W4 (TBD)) waits on S2.1 Test-and-repair loop (W1 (TBD))
-- S3.1 Benchmark: full vs no-repair (W4 (TBD)) waits on S2.2 Spec-first plan and approval (W1 (TBD))
-- S3.2 Other ablations (W4 (TBD)) waits on S2.3 Planner / Builder / Tester split (W1 (TBD))
-- S3.5 Learnings complete (Everyone) waits on S3.1 Benchmark: full vs no-repair (W4 (TBD))
-- S4.2 Edit Section B into one text (W5 (TBD)) waits on S4.1 Draft your Section B part (Everyone)
-- S4.2 Edit Section B into one text (W5 (TBD)) waits on S3.1 Benchmark: full vs no-repair (W4 (TBD))
-- S4.3 Slides and backup demo (W5 (TBD)) waits on S3.1 Benchmark: full vs no-repair (W4 (TBD))
-- S4.5 Rehearse twice, submit (Everyone) waits on S4.2 Edit Section B into one text (W5 (TBD))
-- S4.5 Rehearse twice, submit (Everyone) waits on S4.3 Slides and backup demo (W5 (TBD))
+- S1.2 Tools and sandbox (Bernard (W2)) waits on S0.5 Agree the 5 contracts (Everyone)
+- S1.3 Single agent, CLI (Alice (W1)) waits on S0.2 LLM setup (Eric (W5))
+- S1.3 Single agent, CLI (Alice (W1)) waits on S0.5 Agree the 5 contracts (Everyone)
+- S1.3 Single agent, CLI (Alice (W1)) waits on S1.2 Tools and sandbox (Bernard (W2))
+- S1.4 UI shell on fake events (Michael (W3)) waits on S0.5 Agree the 5 contracts (Everyone)
+- S1.5 Eval harness (Joseph (W4)) waits on S0.5 Agree the 5 contracts (Everyone)
+- S1.7 Integration check (Eric (W5)) waits on S1.5 Eval harness (Joseph (W4))
+- S2.4 Retrieval in the agent (Joseph (W4)) waits on S1.3 Single agent, CLI (Alice (W1))
+- S2.5 UI on the real agent (Michael (W3)) waits on S2.2 Spec-first plan and approval (Alice (W1))
+- S2.9 Feature freeze (Eric (W5)) waits on S2.1 Test-and-repair loop (Alice (W1))
+- S2.9 Feature freeze (Eric (W5)) waits on S2.2 Spec-first plan and approval (Alice (W1))
+- S2.9 Feature freeze (Eric (W5)) waits on S2.5 UI on the real agent (Michael (W3))
+- S3.1 Benchmark: full vs no-repair (Joseph (W4)) waits on S1.1 3 benchmark tasks each (Everyone)
+- S3.1 Benchmark: full vs no-repair (Joseph (W4)) waits on S2.1 Test-and-repair loop (Alice (W1))
+- S3.1 Benchmark: full vs no-repair (Joseph (W4)) waits on S2.2 Spec-first plan and approval (Alice (W1))
+- S3.2 Other ablations (Joseph (W4)) waits on S2.3 Planner / Builder / Tester split (Alice (W1))
+- S3.5 Learnings complete (Everyone) waits on S3.1 Benchmark: full vs no-repair (Joseph (W4))
+- S4.2 Edit Section B into one text (Eric (W5)) waits on S4.1 Draft your Section B part (Everyone)
+- S4.2 Edit Section B into one text (Eric (W5)) waits on S3.1 Benchmark: full vs no-repair (Joseph (W4))
+- S4.3 Slides and backup demo (Eric (W5)) waits on S3.1 Benchmark: full vs no-repair (Joseph (W4))
+- S4.5 Rehearse twice, submit (Everyone) waits on S4.2 Edit Section B into one text (Eric (W5))
+- S4.5 Rehearse twice, submit (Everyone) waits on S4.3 Slides and backup demo (Eric (W5))
 <!-- BLOCKERS:END -->
