@@ -1,6 +1,6 @@
 # Benchmark (DRAFT format — W4 owns, change freely)
 
-15 plain-language requests (5 easy, 5 medium, 5 hard), each with hidden tests the agent never sees. Everyone writes 3 (one per tier) on day 1. `church_signup/` is a complete worked example: copy it.
+15 plain-language requests (5 easy, 5 medium, 5 hard), each with hidden tests the agent never sees. Joseph writes them in Stage 2, before anyone builds the agent, so the agent is never tuned against tests it has seen. `church_signup/` is a complete worked example: copy it.
 
 ## One task = one folder
 

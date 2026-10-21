@@ -4,7 +4,7 @@
 
 Michael Boadi · Joseph Etse · Alice Kara-Acquah · Bernard Marfo · Eric Sunu
 
-Who owns which workstream is in the owner table at the top of [`docs/PLAN.md`](../docs/PLAN.md).
+Who owns which workstream, and the relay order, are in [`docs/PLAN.md`](../docs/PLAN.md).
 
 ## Workstreams
 
@@ -33,5 +33,5 @@ The reading clusters are a way to share the reading load: one person goes deep o
 ## How we work
 
 - The two rules in the [README](../README.md): explain everything simply, and test every alternative with numbers.
-- Branch per workstream, pull request to `main`.
+- We work as a relay, one person at a time (`docs/PLAN.md`). Branch for your stage, pull request to `main` at your handoff.
 - When you start or finish a task, update its status in `docs/PLAN.md` and run `python3 scripts/update_status.py` (this updates the README).

@@ -1,10 +1,10 @@
-# Contracts (DRAFT — agree on the call, task S0.5)
+# Interface notes (suggestions, not agreements)
 
-A contract is a promise between two people about how their parts plug together. With these agreed, five people can build at the same time without waiting on each other. Change a contract only after telling the people on both sides, and add a line to `docs/DECISIONS.md`.
+We work as a relay (see `docs/PLAN.md`), so nothing here has to be agreed in advance. These are starting suggestions for how the parts could plug together. **The owner of each part decides the real interface while building it** and writes it down in their learnings file under "How the next person uses this". That written version is what the next person builds on. Take what is useful here, change anything, and note what you changed and why.
 
-Contracts 2 and 5 are written out in full (drafted Oct 21). Each one also lists the **experiments** it is built to allow (rule 2: try every alternative and measure it) and the **failure paths** it must survive. The rest of the file is short because those contracts are simple.
+Notes 2 and 5 are written out in full (drafted Oct 21). Each one also lists the **experiments** it is built to allow (rule 2: try every alternative and measure it) and the **failure paths** it must survive. The rest of the file is short because those contracts are simple.
 
-| # | Contract | Between |
+| # | Interface | Between (owner decides first) |
 |---|---|---|
 | 1 | Tools | Alice (W1) ↔ Bernard (W2) |
 | 2 | Session protocol: agent ↔ web page | Alice (W1) ↔ Michael (W3) |

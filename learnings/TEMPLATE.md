@@ -28,9 +28,9 @@ The final design in a few bullets, each pointing to a row in the log.
 
 Failure cases you saw, with examples. What you would do with more time.
 
-## 6. How to run it and see it work
+## 6. How to run it, and how the next person uses it
 
-Exact commands. What you should see.
+Exact commands and what you should see. Then the handoff: what the next person in the relay gets from you (functions, files, commands, formats), with an example they can copy. They will build only on what is written here.
 
 ## 7. Viva questions you should be able to answer
 
