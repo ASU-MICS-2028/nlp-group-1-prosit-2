@@ -36,7 +36,7 @@ Section B must cover:
 | Technical report | 45% | Section A 15%; Section B 15% implementation and results + 5% writing quality; "Section C" 15% + 5% (see below) |
 | Viva quiz | 35% | Individual understanding of our system |
 
-**Open question:** the rubric lists a "Section C", but the brief only defines A and B. It is probably left over from the Prosit 1 rubric. We need to ask the instructor (tracked in `docs/PLAN.md`).
+**Section C:** the rubric lists one, but the brief only defines A and B. **We are working on the assumption that there is no Section C** (decided Oct 21; the instructor has been asked, see `docs/DECISIONS.md`).
 
 ## Related learning outcomes (from the brief)
 

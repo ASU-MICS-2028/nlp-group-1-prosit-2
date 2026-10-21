@@ -15,7 +15,7 @@ This follows the team plan on the Drive (`NLP-GROUP-1/prosit 2/Prosit 2 Plan - N
 | Bernard (W2) | — | ⏳ S1.2 Tools and sandbox | ⏳ S2.6 Guardrails and attack tests<br>⏳ S2.7 MCP server | — | — |
 | Michael (W3) | — | ⏳ S1.4 UI shell on fake events | ⏳ S2.5 UI on the real agent | ⏳ S3.4 Usability test | — |
 | Joseph (W4) | 🟡 S0.2 LLM setup (Joseph holds the key) | ⏳ S1.5 Eval harness<br>🔵 S1.6 Recipe knowledge base | ⏳ S2.4 Retrieval in the agent | ⏳ S3.1 Benchmark: full vs no-repair<br>⏳ S3.2 Other ablations | — |
-| Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>🔵 S0.4 Ask the instructor: dates, "Section C" | ⏳ S1.7 Integration check | ⏳ S2.9 Feature freeze | — | ⏳ S4.2 Edit Section B into one text<br>⏳ S4.3 Slides and backup demo |
+| Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>🟡 S0.4 Ask the instructor: dates, "Section C" | ⏳ S1.7 Integration check | ⏳ S2.9 Feature freeze | — | ⏳ S4.2 Edit Section B into one text<br>⏳ S4.3 Slides and backup demo |
 | Everyone | 🔵 S0.5 Agree the 5 contracts<br>🔵 S0.6 Docker on every laptop | ⏳ S1.1 3 benchmark tasks each | — | ⏳ S3.5 Learnings complete<br>⏳ S3.6 Viva walkthrough | ⏳ S4.1 Draft your Section B part<br>🔵 S4.4 Section A (individual)<br>⏳ S4.5 Rehearse twice, submit |
 
 ✅ done · 🟡 in progress · 🔵 ready to start · ⏳ waiting on another task
@@ -32,7 +32,7 @@ flowchart LR
     S0_1["S0.1 Set up the repo<br/>W5 · Must"]:::done
     S0_2["S0.2 LLM setup (Joseph holds the key)<br/>W4 · Must"]:::doing
     S0_3["S0.3 Assign owners<br/>W5 · Must"]:::done
-    S0_4["S0.4 Ask the instructor: dates, 'Section C'<br/>W5 · Must"]:::ready
+    S0_4["S0.4 Ask the instructor: dates, 'Section C'<br/>W5 · Must"]:::doing
     S0_5["S0.5 Agree the 5 contracts<br/>All · Must"]:::ready
     S0_6["S0.6 Docker on every laptop<br/>All · Should"]:::ready
   end
@@ -126,7 +126,7 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 | S0.1 | Set up the repo | W5 | — | Must | done | Rules, docs, learnings, knowledge and the worked benchmark example are on GitHub |
 | S0.2 | LLM setup (Joseph holds the key) | W4 | — | Must | doing | Claude key tested and local Qwen tested (both done Oct 20). Remaining: the check in `knowledge/environment.md` passes for W1, W4 and the demo machine |
 | S0.3 | Assign owners | W5 | — | Must | done | Owner column in "By person" filled in (Oct 20) |
-| S0.4 | Ask the instructor: dates, "Section C" | W5 | — | Must | todo | Answers in `docs/DECISIONS.md` and `knowledge/assignment.md` |
+| S0.4 | Ask the instructor: dates, "Section C" | W5 | — | Must | doing | Asked Oct 21, waiting for a reply. Until then: no Section C, submit Fri Oct 23. Answers go in `docs/DECISIONS.md` and `knowledge/assignment.md` |
 | S0.5 | Agree the 5 contracts | All | S0.3 | Must | todo | `DRAFT` removed from `docs/CONTRACTS.md`; decision logged |
 | S0.6 | Docker on every laptop | All | — | Should | todo | `docker run --rm hello-world` works for all 5 (fallback: subprocess sandbox) |
 
@@ -224,7 +224,7 @@ What each person owns, from the Drive plan's workstream table. `All` tasks are d
 
 1. S0.1 Set up the repo — Must, done
 2. S0.3 Assign owners — Must, done
-3. S0.4 Ask the instructor: dates, "Section C" — Must, ready
+3. S0.4 Ask the instructor: dates, "Section C" — Must, doing
 4. S1.7 Integration check — Must, waiting (waiting on S1.5)
 5. S2.9 Feature freeze — Must, waiting (waiting on S2.1, S2.2, S2.5)
 6. S4.2 Edit Section B into one text — Must, waiting (waiting on S4.1, S3.1)
