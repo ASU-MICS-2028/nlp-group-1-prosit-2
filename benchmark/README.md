@@ -10,7 +10,11 @@ benchmark/<task>/
   operations.json     the operations the hidden tests use, each with a plain description
   hidden_tests/       pytest files that call operations by name, never by URL
   reference/          a small hand-written backend that passes the tests (proves the tests are right)
+  answers.json        optional: what the client would answer to likely questions (setting clarify = answers_file)
+  client_brief.md     optional: the full hidden details, for a simulated client (setting clarify = simulated)
 ```
+
+Write at least one task per tier as a **vague** request (details left out on purpose). Those are the tasks that show whether asking questions helps (experiment E2.2 in `docs/CONTRACTS.md`).
 
 ## Why operations instead of URLs
 
