@@ -15,14 +15,14 @@ A non-developer describes a backend in plain words ("I run a tailoring shop, I n
 <!-- STATUS:START -->
 ## Status
 
-Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand. **3 of 47 tasks done.** Current stage: **Stage 0: Set up (everyone)**.
+Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand. **4 of 47 tasks done.** Current stage: **Stage 0: Set up (everyone)**.
 
 | Who | In progress | Ready to start | Waiting (and on what) |
 |---|---|---|---|
-| Alice (W1) | — | — | S3.1 Read Bernard's and Joseph's learnings, run their parts ← S2.5, S0.2<br>S3.2 Single agent from the command line ← S3.1<br>S3.3 Run record and trace ← S3.2<br>S3.4 Test-and-repair loop ← S3.2<br>S3.5 Spec-first plan and approval ← S3.2<br>S3.6 Planner / Builder / Tester split ← S3.4<br>S3.7 Retrieval in the agent ← S3.2<br>S3.8 Clarifying questions ← S3.5<br>S3.9 Claude vs local Qwen ← S3.4<br>S3.10 "Change it" edit loop ← S3.5<br>S3.11 Handoff: Alice's learnings ← S3.3, S3.4, S3.5, S3.6, S3.7, S3.8 |
+| Alice (W1) | — | — | S3.1 Read Bernard's and Joseph's learnings, run their parts ← S2.5<br>S3.2 Single agent from the command line ← S3.1<br>S3.3 Run record and trace ← S3.2<br>S3.4 Test-and-repair loop ← S3.2<br>S3.5 Spec-first plan and approval ← S3.2<br>S3.6 Planner / Builder / Tester split ← S3.4<br>S3.7 Retrieval in the agent ← S3.2<br>S3.8 Clarifying questions ← S3.5<br>S3.9 Claude vs local Qwen ← S3.4<br>S3.10 "Change it" edit loop ← S3.5<br>S3.11 Handoff: Alice's learnings ← S3.3, S3.4, S3.5, S3.6, S3.7, S3.8 |
 | Bernard (W2) | — | S1.1 The agent's tools | S1.2 Sandbox ← S1.1<br>S1.3 Safety tests ← S1.2<br>S1.4 MCP server ← S1.1<br>S1.5 Handoff: Bernard's learnings ← S1.2, S1.3 |
 | Michael (W3) | — | — | S4.1 Read Alice's learnings, run a build ← S3.11<br>S4.2 UI on a recorded session ← S4.1<br>S4.3 UI on the live agent ← S4.2<br>S4.4 UI alternatives compared ← S4.3<br>S4.5 Usability test ← S4.4<br>S4.6 Handoff: Michael's learnings ← S4.3, S4.5 |
-| Joseph (W4) | S0.2 LLM setup (Joseph holds the key) | — | S2.1 Read Bernard's learnings, run his tools ← S1.5<br>S2.2 15 benchmark tasks ← S2.1<br>S2.3 Eval harness ← S2.2<br>S2.4 Recipe knowledge base and search ← S2.1<br>S2.5 Handoff: Joseph's learnings, part 1 ← S2.3, S2.4<br>S5.1 Read Alice's and Michael's learnings ← S4.6<br>S5.2 Full system on all 15 tasks ← S5.1<br>S5.3 Ablations ← S5.2<br>S5.4 Model comparison ← S5.2<br>S5.5 Results tables and charts ← S5.3, S5.4<br>S5.6 Handoff: Joseph's learnings, part 2 ← S5.5 |
+| Joseph (W4) | — | — | S2.1 Read Bernard's learnings, run his tools ← S1.5<br>S2.2 15 benchmark tasks ← S2.1<br>S2.3 Eval harness ← S2.2<br>S2.4 Recipe knowledge base and search ← S2.1<br>S2.5 Handoff: Joseph's learnings, part 1 ← S2.3, S2.4<br>S5.1 Read Alice's and Michael's learnings ← S4.6<br>S5.2 Full system on all 15 tasks ← S5.1<br>S5.3 Ablations ← S5.2<br>S5.4 Model comparison ← S5.2<br>S5.5 Results tables and charts ← S5.3, S5.4<br>S5.6 Handoff: Joseph's learnings, part 2 ← S5.5 |
 | Eric (W5) | — | — | S6.1 Read every learnings file, run everything ← S5.6<br>S6.2 Fix what doesn't fit together ← S6.1<br>S6.3 Section B draft ← S6.1<br>S6.4 Slides and recorded demo ← S6.2, S6.3<br>S6.5 Handoff: Eric's learnings ← S6.4 |
 | Everyone | — | S0.6 Docker on every laptop<br>S7.2 Section A (individual, any time) | S7.1 Review Section B for your part ← S6.3<br>S7.3 Viva walkthrough ← S6.5<br>S7.4 Rehearse and submit ← S7.1, S7.2, S7.3, S6.4 |
 

@@ -16,7 +16,7 @@
 | Alice (W1) | — | — | — | ⏳ S3.1 Read Bernard's and Joseph's learnings, run their parts<br>⏳ S3.2 Single agent from the command line<br>⏳ S3.3 Run record and trace<br>⏳ S3.4 Test-and-repair loop<br>⏳ S3.5 Spec-first plan and approval<br>⏳ S3.6 Planner / Builder / Tester split<br>⏳ S3.7 Retrieval in the agent<br>⏳ S3.8 Clarifying questions<br>⏳ S3.9 Claude vs local Qwen<br>⏳ S3.10 "Change it" edit loop<br>⏳ S3.11 Handoff: Alice's learnings | — | — | — | — |
 | Bernard (W2) | — | 🔵 S1.1 The agent's tools<br>⏳ S1.2 Sandbox<br>⏳ S1.3 Safety tests<br>⏳ S1.4 MCP server<br>⏳ S1.5 Handoff: Bernard's learnings | — | — | — | — | — | — |
 | Michael (W3) | — | — | — | — | ⏳ S4.1 Read Alice's learnings, run a build<br>⏳ S4.2 UI on a recorded session<br>⏳ S4.3 UI on the live agent<br>⏳ S4.4 UI alternatives compared<br>⏳ S4.5 Usability test<br>⏳ S4.6 Handoff: Michael's learnings | — | — | — |
-| Joseph (W4) | 🟡 S0.2 LLM setup (Joseph holds the key) | — | ⏳ S2.1 Read Bernard's learnings, run his tools<br>⏳ S2.2 15 benchmark tasks<br>⏳ S2.3 Eval harness<br>⏳ S2.4 Recipe knowledge base and search<br>⏳ S2.5 Handoff: Joseph's learnings, part 1 | — | — | ⏳ S5.1 Read Alice's and Michael's learnings<br>⏳ S5.2 Full system on all 15 tasks<br>⏳ S5.3 Ablations<br>⏳ S5.4 Model comparison<br>⏳ S5.5 Results tables and charts<br>⏳ S5.6 Handoff: Joseph's learnings, part 2 | — | — |
+| Joseph (W4) | ✅ S0.2 LLM setup | — | ⏳ S2.1 Read Bernard's learnings, run his tools<br>⏳ S2.2 15 benchmark tasks<br>⏳ S2.3 Eval harness<br>⏳ S2.4 Recipe knowledge base and search<br>⏳ S2.5 Handoff: Joseph's learnings, part 1 | — | — | ⏳ S5.1 Read Alice's and Michael's learnings<br>⏳ S5.2 Full system on all 15 tasks<br>⏳ S5.3 Ablations<br>⏳ S5.4 Model comparison<br>⏳ S5.5 Results tables and charts<br>⏳ S5.6 Handoff: Joseph's learnings, part 2 | — | — |
 | Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>✅ S0.4 Ask the instructor about "Section C" | — | — | — | — | — | ⏳ S6.1 Read every learnings file, run everything<br>⏳ S6.2 Fix what doesn't fit together<br>⏳ S6.3 Section B draft<br>⏳ S6.4 Slides and recorded demo<br>⏳ S6.5 Handoff: Eric's learnings | — |
 | Everyone | 🔵 S0.6 Docker on every laptop | — | — | — | — | — | — | ⏳ S7.1 Review Section B for your part<br>🔵 S7.2 Section A (individual, any time)<br>⏳ S7.3 Viva walkthrough<br>⏳ S7.4 Rehearse and submit |
 
@@ -32,7 +32,7 @@ Arrows point from a task to the tasks that need it.
 flowchart LR
   subgraph Stage0["Stage 0: Set up (everyone)"]
     S0_1["S0.1 Set up the repo<br/>W5 · Must"]:::done
-    S0_2["S0.2 LLM setup (Joseph holds the key)<br/>W4 · Must"]:::doing
+    S0_2["S0.2 LLM setup<br/>W4 · Must"]:::done
     S0_3["S0.3 Assign owners<br/>W5 · Must"]:::done
     S0_4["S0.4 Ask the instructor about 'Section C'<br/>W5 · Should"]:::done
     S0_6["S0.6 Docker on every laptop<br/>All · Should"]:::ready
@@ -156,7 +156,7 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 | ID | Task | Who | Needs | Priority | Status | Done when |
 |---|---|---|---|---|---|---|
 | S0.1 | Set up the repo | W5 | — | Must | done | Rules, docs, learnings, knowledge and the worked benchmark example are on GitHub |
-| S0.2 | LLM setup (Joseph holds the key) | W4 | — | Must | doing | Claude key and local Qwen both tested (Oct 20). Remaining: the check in `knowledge/environment.md` passes on Alice's laptop and the demo machine |
+| S0.2 | LLM setup | W4 | — | Must | done | Claude key and local Qwen tested (Oct 20); key shared privately with the whole team (Oct 22). Each person confirms with the check in `knowledge/environment.md` |
 | S0.3 | Assign owners | W5 | — | Must | done | Owner column in "By person" filled in (Oct 20) |
 | S0.4 | Ask the instructor about "Section C" | W5 | — | Should | done | Confirmed Oct 22: there is no Section C; the rubric has been corrected |
 | S0.6 | Docker on every laptop | All | — | Should | todo | `docker run --rm hello-world` works for all 5 |
@@ -253,7 +253,7 @@ What each person owns. The task list under the table is generated.
 <!-- PEOPLE:START -->
 **Alice (W1)**
 
-1. S3.1 Read Bernard's and Joseph's learnings, run their parts — Must, waiting (waiting on S2.5, S0.2)
+1. S3.1 Read Bernard's and Joseph's learnings, run their parts — Must, waiting (waiting on S2.5)
 2. S3.2 Single agent from the command line — Must, waiting (waiting on S3.1)
 3. S3.3 Run record and trace — Must, waiting (waiting on S3.2)
 4. S3.4 Test-and-repair loop — Must, waiting (waiting on S3.2)
@@ -284,7 +284,7 @@ What each person owns. The task list under the table is generated.
 
 **Joseph (W4)**
 
-1. S0.2 LLM setup (Joseph holds the key) — Must, doing
+1. S0.2 LLM setup — Must, done
 2. S2.1 Read Bernard's learnings, run his tools — Must, waiting (waiting on S1.5)
 3. S2.2 15 benchmark tasks — Must, waiting (waiting on S2.1)
 4. S2.3 Eval harness — Must, waiting (waiting on S2.2)
@@ -324,7 +324,6 @@ Generated: every place where one person's task cannot finish until another perso
 <!-- BLOCKERS:START -->
 - S2.1 Read Bernard's learnings, run his tools (Joseph (W4)) waits on S1.5 Handoff: Bernard's learnings (Bernard (W2))
 - S3.1 Read Bernard's and Joseph's learnings, run their parts (Alice (W1)) waits on S2.5 Handoff: Joseph's learnings, part 1 (Joseph (W4))
-- S3.1 Read Bernard's and Joseph's learnings, run their parts (Alice (W1)) waits on S0.2 LLM setup (Joseph holds the key) (Joseph (W4))
 - S4.1 Read Alice's learnings, run a build (Michael (W3)) waits on S3.11 Handoff: Alice's learnings (Alice (W1))
 - S5.1 Read Alice's and Michael's learnings (Joseph (W4)) waits on S4.6 Handoff: Michael's learnings (Michael (W3))
 - S6.1 Read every learnings file, run everything (Eric (W5)) waits on S5.6 Handoff: Joseph's learnings, part 2 (Joseph (W4))
