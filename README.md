@@ -35,7 +35,7 @@ The full task list, in order, with who owns what and what blocks what: [`docs/PL
 
 | Folder | What goes in it | Who writes |
 |---|---|---|
-| [`docs/`](docs/README.md) | Documentation and decisions: the plan, the decision log, suggested interfaces, summarized meeting notes | Everyone; one line in the decision log for every decision |
+| [`docs/`](docs/README.md) | Documentation and decisions: the plan, one numbered record per decision (`docs/decisions/`), summarized meeting notes | Everyone; a new decision record for every decision |
 | [`learnings/`](learnings/README.md) | What each person learned and found, simplified so nobody has to redo it to understand it | Each workstream owner, daily |
 | [`knowledge/`](knowledge/README.md) | Everything people and coding assistants need to know about the project: the assignment, course, team, setup, lecture summaries | Anyone who knows something the others don't |
 | `benchmark/` | The 15 plain-language requests and their hidden tests ([format](benchmark/README.md)) | Joseph (W4), Stage 2 |

@@ -46,7 +46,7 @@ Section B must cover:
 
 ## Deadline
 
-**We are working with no fixed deadline** (team decision, Oct 21; see `docs/DECISIONS.md`). For reference, the course schedule puts **Close Prosit 2 in Week 7 (Oct 19–23, 2026)**: technical presentations, technical report, viva quiz and Quiz 2. The exact days are not in the brief. Week 8 (Oct 26–30) is the mid-semester break.
+**We are working with no fixed deadline** (team decision, Oct 21; see [decision 0013](../docs/decisions/0013-relay.md)). For reference, the course schedule puts **Close Prosit 2 in Week 7 (Oct 19–23, 2026)**: technical presentations, technical report, viva quiz and Quiz 2. The exact days are not in the brief. Week 8 (Oct 26–30) is the mid-semester break.
 
 For Prosit 1, the instructor said there would be no extensions, but late submissions would not be penalised. Do not assume the same applies to Prosit 2.
 

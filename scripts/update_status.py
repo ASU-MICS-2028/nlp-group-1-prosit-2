@@ -10,6 +10,7 @@ writes, between <!-- NAME:START --> / <!-- NAME:END --> markers:
   PLAN.md   PEOPLE    each workstream's tasks in order
   PLAN.md   BLOCKERS  every task that waits on another person's task
   README.md STATUS    what is in progress, ready and waiting, per person
+  docs/decisions/README.md DECISIONS  the index of decision records (one numbered file each)
 
 A task is "ready" when everything in its Needs column is done, and "waiting" otherwise.
 """
@@ -20,6 +21,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PLAN, README = ROOT / "docs" / "PLAN.md", ROOT / "README.md"
+DECISIONS = ROOT / "docs" / "decisions"
 BLOCK = re.compile(r"(<!-- (\w+):START -->)(.*?)(<!-- \2:END -->)", re.S)
 WHO = ["W1", "W2", "W3", "W4", "W5", "All"]
 
@@ -119,14 +121,33 @@ def render(plan):
     return {"BOARD": board, "FLOW": flow, "PEOPLE": people, "BLOCKERS": waits, "STATUS": status}
 
 
+def decisions():
+    rows, seen = [], {}
+    for f in sorted(DECISIONS.glob("[0-9][0-9][0-9][0-9]-*.md")):
+        n = f.name[:4]
+        if n == "0000":
+            continue  # the template
+        if n in seen:
+            sys.exit(f"docs/decisions: number {n} used twice ({seen[n]}, {f.name})")
+        seen[n] = f.name
+        text = f.read_text()
+        title = re.search(r"^# \d{4}\. (.+)$", text, re.M)
+        status = re.search(r"^- Status: (.+)$", text, re.M)
+        date = re.search(r"^- Date: (.+)$", text, re.M)
+        if not (title and status and date):
+            sys.exit(f"docs/decisions/{f.name}: needs a '# NNNN. Title' line, '- Status:' and '- Date:'")
+        rows.append(f"| [{n}]({f.name}) | {title[1]} | {status[1]} | {date[1]} |")
+    return ["| # | Decision | Status | Date |", "|---|---|---|---|"] + rows
+
+
 def fill(text, blocks):
     return BLOCK.sub(lambda m: m[1] + ("\n" + "\n".join(blocks[m[2]]).strip() + "\n" if m[2] in blocks else m[3]) + m[4], text)
 
 
 def main():
-    blocks = render(PLAN.read_text())
+    blocks = render(PLAN.read_text()) | {"DECISIONS": decisions()}
     stale = []
-    for path in (PLAN, README):
+    for path in (PLAN, README, DECISIONS / "README.md"):
         old = path.read_text()
         new = fill(old, blocks)
         if new != old:
