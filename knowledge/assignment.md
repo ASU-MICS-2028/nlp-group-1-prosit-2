@@ -33,7 +33,7 @@ Section B must cover:
 | Item | Weight | Graded on |
 |---|---|---|
 | Group presentation (10 min) | 20% | How educational it was; how well the examiners understand the work the group **and each member** did |
-| Technical report | 45% | Section A 15%; Section B 15% implementation and results + 5% writing quality; "Section C" 15% + 5% (see below) |
+| Technical report | 45% | Section A and Section B (implementation and results, plus writing quality). The original split was A 15%, B 15% + 5%, with the rest on a "Section C" that has since been removed; check the corrected rubric on Canvas for the new weights |
 | Viva quiz | 35% | Individual understanding of our system |
 
 **There is no Section C.** An early version of the rubric listed one by mistake; the instructor confirmed and corrected it on Oct 22. The report is Section A (individual) and Section B (shared).
