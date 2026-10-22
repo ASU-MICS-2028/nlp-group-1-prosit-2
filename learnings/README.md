@@ -14,7 +14,7 @@ One file per workstream. This is how the team knows what each person did and fou
 
 - **Simple first.** Write for a teammate who has never seen your code and has to explain it in the viva tomorrow. Short sentences, real examples, real numbers, a glossary for every technical word.
 - **Every option you tried goes in the experiment log, including the ones that lost.** A losing option is a result: it tells the others not to try it again.
-- **Update it every day**, not at the end. A half-finished log today is worth more than a perfect one on Friday.
+- **Update it every day**, not at the end. A half-finished log today is worth more than a perfect one at the end, and the next person in the relay depends on it.
 - **Learned something general** (not specific to your part), like how the LLM API behaves or a Docker quirk? Put it in `knowledge/` instead, so everyone finds it.
 
 Start a new file from [TEMPLATE.md](TEMPLATE.md).

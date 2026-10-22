@@ -17,7 +17,7 @@
 | Bernard (W2) | — | 🔵 S1.1 The agent's tools<br>⏳ S1.2 Sandbox<br>⏳ S1.3 Safety tests<br>⏳ S1.4 MCP server<br>⏳ S1.5 Handoff: Bernard's learnings | — | — | — | — | — | — |
 | Michael (W3) | — | — | — | — | ⏳ S4.1 Read Alice's learnings, run a build<br>⏳ S4.2 UI on a recorded session<br>⏳ S4.3 UI on the live agent<br>⏳ S4.4 UI alternatives compared<br>⏳ S4.5 Usability test<br>⏳ S4.6 Handoff: Michael's learnings | — | — | — |
 | Joseph (W4) | 🟡 S0.2 LLM setup (Joseph holds the key) | — | ⏳ S2.1 Read Bernard's learnings, run his tools<br>⏳ S2.2 15 benchmark tasks<br>⏳ S2.3 Eval harness<br>⏳ S2.4 Recipe knowledge base and search<br>⏳ S2.5 Handoff: Joseph's learnings, part 1 | — | — | ⏳ S5.1 Read Alice's and Michael's learnings<br>⏳ S5.2 Full system on all 15 tasks<br>⏳ S5.3 Ablations<br>⏳ S5.4 Model comparison<br>⏳ S5.5 Results tables and charts<br>⏳ S5.6 Handoff: Joseph's learnings, part 2 | — | — |
-| Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>🟡 S0.4 Ask the instructor: dates, "Section C" | — | — | — | — | — | ⏳ S6.1 Read every learnings file, run everything<br>⏳ S6.2 Fix what doesn't fit together<br>⏳ S6.3 Section B draft<br>⏳ S6.4 Slides and recorded demo<br>⏳ S6.5 Handoff: Eric's learnings | — |
+| Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>✅ S0.4 Ask the instructor about "Section C" | — | — | — | — | — | ⏳ S6.1 Read every learnings file, run everything<br>⏳ S6.2 Fix what doesn't fit together<br>⏳ S6.3 Section B draft<br>⏳ S6.4 Slides and recorded demo<br>⏳ S6.5 Handoff: Eric's learnings | — |
 | Everyone | 🔵 S0.6 Docker on every laptop | — | — | — | — | — | — | ⏳ S7.1 Review Section B for your part<br>🔵 S7.2 Section A (individual, any time)<br>⏳ S7.3 Viva walkthrough<br>⏳ S7.4 Rehearse and submit |
 
 ✅ done · 🟡 in progress · 🔵 ready to start · ⏳ waiting on another task
@@ -34,7 +34,7 @@ flowchart LR
     S0_1["S0.1 Set up the repo<br/>W5 · Must"]:::done
     S0_2["S0.2 LLM setup (Joseph holds the key)<br/>W4 · Must"]:::doing
     S0_3["S0.3 Assign owners<br/>W5 · Must"]:::done
-    S0_4["S0.4 Ask the instructor: dates, 'Section C'<br/>W5 · Should"]:::doing
+    S0_4["S0.4 Ask the instructor about 'Section C'<br/>W5 · Should"]:::done
     S0_6["S0.6 Docker on every laptop<br/>All · Should"]:::ready
   end
   subgraph Stage1["Stage 1: Bernard — tools and sandbox"]
@@ -158,7 +158,7 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 | S0.1 | Set up the repo | W5 | — | Must | done | Rules, docs, learnings, knowledge and the worked benchmark example are on GitHub |
 | S0.2 | LLM setup (Joseph holds the key) | W4 | — | Must | doing | Claude key and local Qwen both tested (Oct 20). Remaining: the check in `knowledge/environment.md` passes on Alice's laptop and the demo machine |
 | S0.3 | Assign owners | W5 | — | Must | done | Owner column in "By person" filled in (Oct 20) |
-| S0.4 | Ask the instructor: dates, "Section C" | W5 | — | Should | doing | Asked Oct 21. Until a reply comes: no Section C. Answers go in `docs/DECISIONS.md` |
+| S0.4 | Ask the instructor about "Section C" | W5 | — | Should | done | Confirmed Oct 22: there is no Section C; the rubric has been corrected |
 | S0.6 | Docker on every laptop | All | — | Should | todo | `docker run --rm hello-world` works for all 5 |
 
 ## Stage 1: Bernard — tools and sandbox
@@ -301,7 +301,7 @@ What each person owns. The task list under the table is generated.
 
 1. S0.1 Set up the repo — Must, done
 2. S0.3 Assign owners — Must, done
-3. S0.4 Ask the instructor: dates, "Section C" — Should, doing
+3. S0.4 Ask the instructor about "Section C" — Should, done
 4. S6.1 Read every learnings file, run everything — Must, waiting (waiting on S5.6)
 5. S6.2 Fix what doesn't fit together — Must, waiting (waiting on S6.1)
 6. S6.3 Section B draft — Must, waiting (waiting on S6.1)

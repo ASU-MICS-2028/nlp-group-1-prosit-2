@@ -36,7 +36,7 @@ Section B must cover:
 | Technical report | 45% | Section A 15%; Section B 15% implementation and results + 5% writing quality; "Section C" 15% + 5% (see below) |
 | Viva quiz | 35% | Individual understanding of our system |
 
-**Section C:** the rubric lists one, but the brief only defines A and B. **We are working on the assumption that there is no Section C** (decided Oct 21; the instructor has been asked, see `docs/DECISIONS.md`).
+**There is no Section C.** An early version of the rubric listed one by mistake; the instructor confirmed and corrected it on Oct 22. The report is Section A (individual) and Section B (shared).
 
 ## Related learning outcomes (from the brief)
 
@@ -46,7 +46,7 @@ Section B must cover:
 
 ## Deadline
 
-The course schedule puts **Close Prosit 2 in Week 7 (Oct 19–23, 2026)**: technical presentations, technical report, viva quiz and Quiz 2. The exact days are not in the brief. Week 8 (Oct 26–30) is the mid-semester break.
+**We are working with no fixed deadline** (team decision, Oct 21; see `docs/DECISIONS.md`). For reference, the course schedule puts **Close Prosit 2 in Week 7 (Oct 19–23, 2026)**: technical presentations, technical report, viva quiz and Quiz 2. The exact days are not in the brief. Week 8 (Oct 26–30) is the mid-semester break.
 
 For Prosit 1, the instructor said there would be no extensions, but late submissions would not be penalised. Do not assume the same applies to Prosit 2.
 
