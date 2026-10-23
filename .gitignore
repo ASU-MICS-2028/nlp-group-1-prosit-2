@@ -4,5 +4,6 @@ __pycache__/
 .DS_Store
 .env
 projects/
-CLAUDE.md
+CLAUDE.local.md
+.claude/settings.local.json
 models/

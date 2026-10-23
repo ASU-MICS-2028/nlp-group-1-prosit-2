@@ -1,28 +1,80 @@
 # Instructions for coding assistants
 
-You are helping one member of a 5-person student team build Prosit 2 for ICS554 NLP: a platform where non-developers build backend APIs by describing them in plain words. The member you are working with owns one workstream. The other four will not read their code; they rely on the member's learnings file.
+These instructions are for any AI coding assistant working in this repo (Claude Code, Codex, Cursor, Gemini, Copilot and others). `CLAUDE.md`, `GEMINI.md` and `.github/copilot-instructions.md` all point here, so this file is the only one to edit.
 
-## Read first
+## The project in two sentences
 
-1. `knowledge/README.md`: the assignment, course, team, setup and lecture summaries
-2. `docs/PLAN.md`: the tasks, owners and blockers; find the task you are working on
-3. `docs/decisions/README.md`: what is already decided, one numbered record per decision. Then the learnings file of the person before you in the relay: its "How the next person uses this" section is the interface you build on
+A team of five students (ICS554 NLP, Ashesi University) is building a platform where non-developers describe a backend in plain words and an LLM coding agent turns it into a tested, running API. You are helping **one** member with **their** part. The other four will never read that code; they rely only on what your member writes in their learnings file.
+
+## Before you do anything
+
+1. **Read the top of `README.md`.** It shows the current stage and who is responsible. Ask your member who they are. If they are not responsible for the current stage, they can only work on Section A, Docker setup or fixes to their own finished part. Say so and stop if they ask for something else.
+2. **Read, in this order:**
+   - `knowledge/README.md`: the assignment, course, team, setup and lecture summaries
+   - `docs/PLAN.md`: the current stage's tasks, what each one needs first, and what "done" means
+   - The learnings file of the person **before** your member in the relay (`learnings/W?-*.md`), especially "How the next person uses it". That is the interface you build on
+   - `docs/decisions/README.md` and any decision record that touches the task
+   - Your member's own learnings file, to see what is already done
+3. **Run what was handed over** before building on it. If it does not run or the learnings file is unclear, stop: it goes back to the previous owner. Do not fix someone else's part yourself.
+
+## How you work: every step, the same way
+
+Work in small steps. For **each** step:
+
+1. **Explain it first.** Tell your member in plain words what you are about to do and why, before doing it.
+2. **List the diverging paths.** Every step has them:
+   - *Alternatives*: other ways to do the same thing (another prompt, another library, another design).
+   - *Failure cases*: what could go wrong (bad input, empty input, huge input, errors, timeouts, attacks, the network dropping).
+3. **Test as many of them as you can, ideally all.** Measure alternatives the same way and keep the one that works best. Run every failure case and check the behaviour is sensible.
+4. **Explain what happened.** Tell your member what you found, with the numbers, in plain words.
+5. **Write it down** (next section). The step is not finished until it is written down.
+6. **Commit** with a message that says what the step did.
+
+Your member must be able to explain and defend every line in a viva **without AI** (course AI policy). Prefer short, plain code over clever code. When something is not obvious, explain it until they could explain it back.
+
+## Where things go
+
+| What | Where | How |
+|---|---|---|
+| What was learned in a step: how something works, what was compared, the numbers, what lost and why | `learnings/W?-*.md` (your member's file) | The **simplest, easiest wording possible**. Short sentences, a real example, real numbers, every technical word in the glossary. One row in the experiment log per comparison, including options that lost |
+| A decision: an approach, an interface, a tool, a dependency, a rule | `docs/decisions/` | A new numbered record (ADR) copied from `0000-template.md`. Never edit an old decision away: write a new one and mark the old one `Superseded by NNNN` |
+| Something everyone on the team should know: lectures, the course, setup quirks, how an API behaves | `knowledge/` | Plain words. Lecture or meeting transcripts are summarized first, never committed raw |
+| Progress | `docs/PLAN.md` | Set the task's `Status` to `doing` when starting and `done` when its "Done when" is true. Then run `python3 scripts/update_status.py` |
+| A meeting | `docs/meetings/YYYY-MM-DD.md` | Summary only (format in `docs/README.md`) |
+
+## Step-by-step guides
+
+These are written for Claude Code skills, but they are plain Markdown, so any assistant can follow them. Read the file and do what it says.
+
+| When | Guide |
+|---|---|
+| Starting work on a task | `.claude/skills/start-task/SKILL.md` |
+| You compared two or more ways of doing something | `.claude/skills/log-experiment/SKILL.md` |
+| A choice was made | `.claude/skills/new-decision/SKILL.md` |
+| A task is finished | `.claude/skills/finish-task/SKILL.md` |
+| The whole stage is finished | `.claude/skills/handoff/SKILL.md` |
+| A lecture, meeting or call recording needs to go in the repo | `.claude/skills/summarize-transcript/SKILL.md` |
 
 ## Rules
 
-- **Explain simply.** Everything your member builds must be explained in their `learnings/W?-*.md` file, written for a teammate who has never seen the code: what it does, how it works with a real example, what was chosen and why, what breaks, how to run it, viva questions with answers, a glossary. Update it as you go, not at the end.
-- **Test alternatives.** Do not build one version and stop. For each design decision, build or try at least 2 options, measure them the same way, and log question, options, method, numbers and winner in the experiment log, including the options that lost.
-- **Your member must be able to explain and defend every line in a viva, without AI** (course AI policy). Prefer short, plain code over clever code. Explain anything non-obvious to them.
-- **Keep the plan current.** When a task starts or finishes, update its status in `docs/PLAN.md`, run `python3 scripts/update_status.py`, and commit both files. CI fails if the README's Status section is stale.
-- **We work as a relay, one person at a time** (`docs/PLAN.md`). Build only on parts that are handed off, and finish with a complete learnings file, because the next person relies on it. The owner of each part decides its interface and documents it there.
-- **Record decisions** as a new numbered file in `docs/decisions/`, copied from `0000-template.md`, then run `python3 scripts/update_status.py`. A changed decision gets a new record; the old one becomes `Superseded by NNNN`.
+- **The repo is public.** Never read, print or commit `.env` or any API key. Never commit student IDs, phone numbers, emails or personal details. A pre-commit check and GitHub both block keys and stale status, but do not rely on them.
+- **Stay in your member's part.** Do not edit code another person owns. If it is broken, say so; it goes back to them.
 - **Fixed stack for generated backends:** FastAPI + SQLModel + SQLite + pytest. Run generated code only in the sandbox.
-- **The repo is public.** Never commit `.env`, API keys, student IDs, phone numbers or personal details. Never commit raw transcripts. Summarize them into `knowledge/lectures/` or `docs/meetings/` first, using only what was actually said.
-- LLMs: `claude-opus-5-5` via `LLM_API_KEY`, and local Qwen 3.5 9B served by llama.cpp at `LOCAL_LLM_URL`. Both are configured in `.env` (see `.env.example`, `knowledge/environment.md`).
-- Use `uv` (`uv sync`, `uv add`, `uv run`). Keep dependencies few and record why each was added.
+- **LLMs:** `claude-opus-5-5` through `LLM_API_KEY`, and local Qwen 3.5 9B served by llama.cpp at `LOCAL_LLM_URL`. Both are configured in `.env` (see `.env.example` and `knowledge/environment.md`). Every hosted call costs real money: say roughly what a batch of runs will cost before starting it.
+- **Python through `uv`** (`uv sync`, `uv add`, `uv run`). Keep dependencies few. Each new one gets a decision record saying why, and what else was tried.
+- **Work on a branch for the stage** (`w2-tools`, `w4-benchmark`, …) and merge to `main` through a pull request at the handoff.
 
 ## Layout
 
-`docs/` plan, decisions, meetings · `learnings/` per-workstream findings · `knowledge/` project context · `benchmark/` tasks and hidden tests · `builder/` W1 · `runtime/` W2 · `ui/` W3 · `eval/`, `kb/` W4 · `projects/` generated output (git-ignored) · `models/` local model file (git-ignored)
-
-Claude Code users: create a git-ignored `CLAUDE.md` containing the single line `@AGENTS.md`.
+| Path | What |
+|---|---|
+| `README.md` | Top: the current stage and who is on it (generated). Below: the two team rules and the folder guide |
+| `docs/PLAN.md` | Every stage, task, owner and blocker (the README is generated from it) |
+| `docs/decisions/` | Numbered decision records (ADRs) and their generated index |
+| `docs/meetings/` | Meeting summaries |
+| `learnings/` | One file per workstream: what that person built and found, in plain words |
+| `knowledge/` | The assignment, course, team, setup, lecture summaries |
+| `benchmark/` | Test tasks: plain-language requests, hidden tests, reference backends |
+| `scripts/update_status.py` | Regenerates the README status, the plan views and the decisions index |
+| `builder/` (W1), `runtime/` (W2), `ui/` (W3), `eval/` and `kb/` (W4) | Code, created by each owner in their stage |
+| `projects/`, `models/` | Generated backends and the local model file (both git-ignored) |
