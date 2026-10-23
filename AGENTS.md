@@ -62,7 +62,7 @@ These are written for Claude Code skills, but they are plain Markdown, so any as
 - **Fixed stack for generated backends:** FastAPI + SQLModel + SQLite + pytest. Run generated code only in the sandbox.
 - **LLMs:** `claude-opus-5-5` through `LLM_API_KEY`, and local Qwen 3.5 9B served by llama.cpp at `LOCAL_LLM_URL`. Both are configured in `.env` (see `.env.example` and `knowledge/environment.md`). Every hosted call costs real money: say roughly what a batch of runs will cost before starting it.
 - **Python through `uv`** (`uv sync`, `uv add`, `uv run`). Keep dependencies few. Each new one gets a decision record saying why, and what else was tried.
-- **Work on a branch for the stage** (`w2-tools`, `w4-benchmark`, …) and merge to `main` through a pull request at the handoff.
+- **One branch per stage, not per change.** The stage owner creates it once at the start (`w2-tools`, `w4-benchmark`, …). Every commit in the stage goes on that branch; do not create new branches for single tasks, decisions or experiments. It is merged to `main` through a pull request at the handoff.
 
 ## Layout
 
