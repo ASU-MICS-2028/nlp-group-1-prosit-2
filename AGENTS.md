@@ -15,7 +15,8 @@ A team of five students (ICS554 NLP, Ashesi University) is building a platform w
    - The learnings file of the person **before** your member in the relay (`learnings/W?-*.md`), especially "How the next person uses it". That is the interface you build on
    - `docs/decisions/README.md` and any decision record that touches the task
    - Your member's own learnings file, to see what is already done
-3. **Run what was handed over** before building on it. If it does not run or the learnings file is unclear, stop: it goes back to the previous owner. Do not fix someone else's part yourself.
+3. **Check the safety hook is on:** `git config core.hooksPath` must print `.githooks`. If it prints nothing, run `git config core.hooksPath .githooks` (it blocks commits containing keys, `.env`, model files or a stale README).
+4. **Run what was handed over** before building on it. If it does not run or the learnings file is unclear, stop: it goes back to the previous owner. Do not fix someone else's part yourself.
 
 ## How you work: every step, the same way
 
@@ -57,7 +58,7 @@ These are written for Claude Code skills, but they are plain Markdown, so any as
 
 ## Rules
 
-- **The repo is public.** Never read, print or commit `.env` or any API key. Never commit student IDs, phone numbers, emails or personal details. A pre-commit check and GitHub both block keys and stale status, but do not rely on them.
+- **The repo is public.** Never read, print or commit `.env` or any API key. Never commit student IDs, phone numbers, emails or personal details. `scripts/check_secrets.py` runs before every commit and on GitHub, and Claude Code's `.claude/settings.json` blocks reading `.env`, but do not rely on them.
 - **Stay in your member's part.** Do not edit code another person owns. If it is broken, say so; it goes back to them.
 - **Fixed stack for generated backends:** FastAPI + SQLModel + SQLite + pytest. Run generated code only in the sandbox.
 - **LLMs:** `claude-opus-5-5` through `LLM_API_KEY`, and local Qwen 3.5 9B served by llama.cpp at `LOCAL_LLM_URL`. Both are configured in `.env` (see `.env.example` and `knowledge/environment.md`). Every hosted call costs real money: say roughly what a batch of runs will cost before starting it.
@@ -76,5 +77,8 @@ These are written for Claude Code skills, but they are plain Markdown, so any as
 | `knowledge/` | The assignment, course, team, setup, lecture summaries |
 | `benchmark/` | Test tasks: plain-language requests, hidden tests, reference backends |
 | `scripts/update_status.py` | Regenerates the README status, the plan views and the decisions index |
+| `scripts/check_secrets.py`, `.githooks/pre-commit` | Block keys, `.env`, model files and big files from commits |
+| `.claude/` | Claude Code settings and the step-by-step guides (skills) |
+| `.github/` | GitHub checks, the pull request template, Copilot's pointer to this file |
 | `builder/` (W1), `runtime/` (W2), `ui/` (W3), `eval/` and `kb/` (W4) | Code, created by each owner in their stage |
 | `projects/`, `models/` | Generated backends and the local model file (both git-ignored) |

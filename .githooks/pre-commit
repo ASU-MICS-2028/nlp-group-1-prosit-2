@@ -1,0 +1,4 @@
+#!/bin/sh
+# Runs before every commit. Turn it on once per clone: git config core.hooksPath .githooks
+python3 scripts/check_secrets.py --staged || exit 1
+python3 scripts/update_status.py --check || exit 1

@@ -59,6 +59,7 @@ Code folders are created by their owners when they start. Nothing in them is pre
 ```
 uv sync                         # installs Python deps from pyproject.toml
 cp .env.example .env            # then add the LLM API key (never commit .env)
+git config core.hooksPath .githooks   # once: the pre-commit check that blocks keys and stale status
 uv run pytest benchmark         # hidden tests; needs a running backend, see benchmark/README.md
 ```
 

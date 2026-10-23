@@ -18,6 +18,7 @@ git clone https://github.com/ASU-MICS-2028/nlp-group-1-prosit-2
 cd nlp-group-1-prosit-2
 uv sync
 cp .env.example .env      # put the API key here; .env is git-ignored, never commit it
+git config core.hooksPath .githooks   # once per clone: blocks commits with keys, .env, model files or a stale README
 ```
 
 Check the setup by running the worked benchmark example against its reference backend:
