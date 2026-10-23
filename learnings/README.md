@@ -4,6 +4,7 @@ One file per workstream. This is how the team knows what each person did and fou
 
 | File | Workstream | Owner |
 |---|---|---|
+| [00-repo-setup.md](00-repo-setup.md) | Stage 0: how the repo and its tools work (README status, decisions, safety check, AI assistant files) | Joseph |
 | [W1-agent-core.md](W1-agent-core.md) | Agent core | Alice |
 | [W2-runtime-tools-and-safety.md](W2-runtime-tools-and-safety.md) | Runtime, tools and safety | Bernard |
 | [W3-product-ui-and-usability.md](W3-product-ui-and-usability.md) | Product UI and usability | Michael |
