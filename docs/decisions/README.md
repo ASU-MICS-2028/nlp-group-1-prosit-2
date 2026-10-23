@@ -24,6 +24,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0015](0015-share-api-key.md) | Share the Claude API key with every member | Accepted | 2026-10-22 |
 | [0016](0016-adrs.md) | Decisions are recorded as numbered ADRs, one file each | Accepted | 2026-10-22 |
 | [0017](0017-drop-contracts-file.md) | Remove the interface suggestions file | Accepted | 2026-10-22 |
+| [0018](0018-readme-current-stage.md) | The README shows only the current stage | Accepted | 2026-10-23 |
 <!-- DECISIONS:END -->
 
 ## Open questions

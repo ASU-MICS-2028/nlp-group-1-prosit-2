@@ -103,21 +103,23 @@ def render(plan):
              for t in tasks for n in blockers(t) if by_id[n]["who"] != t["who"] and t["status"] != "done"]
     waits = waits or ["- Nothing: no task is waiting on someone else's work."]
 
-    done = sum(t["status"] == "done" for t in tasks)
-    current = next((s for s in stages if any(t["stage"] == s and t["status"] != "done" for t in tasks)), None)
-    status = ["## Status", "",
-              f"Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand. "
-              f"**{done} of {len(tasks)} tasks done.**"
-              + (f" Current stage: **{current[0]}: {current[1]}**." if current else ""), "",
-              "| Who | In progress | Ready to start | Waiting (and on what) |", "|---|---|---|---|"]
-    cell = lambda ts, extra=False: "<br>".join(
-        f"{t['id']} {t['name']}" + (f" ← {', '.join(blockers(t))}" if extra else "") for t in ts) or "—"
-    for w in WHO:
-        mine = [t for t in tasks if t["who"] == w]
-        status.append(f"| {person(w)} | {cell([t for t in mine if state(t, by_id) == 'doing'])} | "
-                      f"{cell([t for t in mine if state(t, by_id) == 'ready'])} | "
-                      f"{cell([t for t in mine if state(t, by_id) == 'waiting'], True)} |")
-    status += ["", "The flow diagram, each person's full task list and who waits on whom are in [`docs/PLAN.md`](docs/PLAN.md)."]
+    # The README shows only the current stage: the first stage with an unfinished Must task.
+    # Leftover Should/Could work in earlier stages stays in docs/PLAN.md and does not hold the README back.
+    in_stage = lambda s: [t for t in tasks if t["stage"] == s]
+    current = next((s for s in stages if any(t["priority"] == "Must" and t["status"] != "done" for t in in_stage(s))), None)
+    note = "Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand."
+    if current is None:
+        status = ["## Now: all stages done", "", note]
+    else:
+        who = sorted({t["who"] for t in in_stage(current) if t["status"] != "done"}, key=WHO.index)
+        later = stages[stages.index(current) + 1:]
+        status = [f"## Now: {current[0]}: {current[1]}", "",
+                  f"**Who:** {', '.join(person(w) for w in who)}", "",
+                  "| Task | Who | Status |", "|---|---|---|"]
+        status += [f"| {t['id']} {t['name']} | {person(t['who'])} | {icon[state(t, by_id)]} {state(t, by_id)}"
+                   + (f" (on {', '.join(blockers(t))})" if state(t, by_id) == "waiting" else "") + " |"
+                   for t in in_stage(current) if t["status"] != "done"]
+        status += ["", (f"**Next:** {later[0][0]}: {later[0][1]}" if later else "**Next:** nothing, this is the last stage"), "", note]
     return {"BOARD": board, "FLOW": flow, "PEOPLE": people, "BLOCKERS": waits, "STATUS": status}
 
 
@@ -147,8 +149,12 @@ def fill(text, blocks):
 def main():
     blocks = render(PLAN.read_text()) | {"DECISIONS": decisions()}
     stale = []
-    for path in (PLAN, README, DECISIONS / "README.md"):
+    needed = {PLAN: ["BOARD", "FLOW", "PEOPLE", "BLOCKERS"], README: ["STATUS"], DECISIONS / "README.md": ["DECISIONS"]}
+    for path, names in needed.items():
         old = path.read_text()
+        missing = [n for n in names if f"<!-- {n}:START -->" not in old or f"<!-- {n}:END -->" not in old]
+        if missing:
+            sys.exit(f"{path.relative_to(ROOT)} is missing the <!-- NAME:START --> / <!-- NAME:END --> markers for: {', '.join(missing)}")
         new = fill(old, blocks)
         if new != old:
             stale.append(path.name)
