@@ -31,7 +31,7 @@ Work in small steps. For **each** step:
 5. **Write it down** (next section). The step is not finished until it is written down.
 6. **Commit** with a message that says what the step did.
 
-Your member must be able to explain and defend every line in a viva **without AI** (course AI policy). Prefer short, plain code over clever code. When something is not obvious, explain it until they could explain it back.
+Your member must be able to explain and defend every line in a viva **without AI** (course AI policy). Write the **smallest code that works**: the instructor said "code is liability" (more code, more to attack and more to explain), and the viva can pick any submitted file (`knowledge/lectures/lecture-07.md`). Prefer plain code over clever code. When something is not obvious, explain it until they could explain it back.
 
 ## Where things go
 

@@ -56,6 +56,7 @@ From the [lecture summaries](lectures/README.md). Recordings are imperfect, so c
 
 - **Lecture 4 (the Prosit 2 launch):** Section A is 3–5 pages **in total** and should be told as one story, from next-token prediction to agents, not as 18 separate answers. The instructor said projects will "most likely" use dense retrieval. If we use BM25, be ready to defend that with our comparison numbers.
 - **Lecture 1:** each prosit is graded 20% presentation, 45% report, 35% viva. The repo must be public. Section A must be in your own words, and every member must understand the code.
+- **Lecture 7:** you must be able to explain **any code you submit**. Last year's viva was 5 minutes on one code file picked at random; this year's method will be "better" but was not described. The instructor advised submitting the **smallest code that works**: "code is liability", and more code means a bigger attack surface. Prosit 2's write-up should be roughly the length of Prosit 1's.
 - **Lecture 2:** the shared sections must be identical across the group, and each student submits their own document. The next prosit only unlocks once you submit.
 
 ## Report conventions the instructor asked for (Prosit 1, likely the same now)

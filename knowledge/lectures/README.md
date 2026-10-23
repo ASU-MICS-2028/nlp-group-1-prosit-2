@@ -11,5 +11,6 @@ Summarized from the lecture recordings. Each file says what was covered, what th
 | [lecture-04.md](lecture-04.md) | **LLM to agentic AI journey (Prosit 2 launch)** | **Read first.** How the instructor framed Prosit 2, report structure, RAG and information retrieval (TF weighting; IDF and BM25 to be read in the textbook) |
 | [lecture-05.md](lecture-05.md) | Transformers and LLM training | Instruction tuning (a), embeddings, token pricing |
 | [lecture-06.md](lecture-06.md) | Alignment and parameter-efficient fine-tuning | Alignment and 3H (c), preference learning (b), LoRA maths, RL basics for RLHF (j) |
+| [lecture-07.md](lecture-07.md) | Trusting generative AI; Prosit 2 check-in | Viva rule: explain any code you submit; minimal code (attack surface); length roughly as Prosit 1; groups behind timeline. Coding agents (m), human-in-the-loop (l), security (k) |
 
 Before citing anything from these summaries in a report, check it against the textbook or the original paper. Recordings are imperfect.
