@@ -1,0 +1,31 @@
+1. list_files format (characters)
+   church reference (2 files): flat 15, tree 15
+   typical project (12 files): flat 182, tree 168
+
+   tree looks like:
+app.py
+database.py
+models.py
+ops.json
+requirements.txt
+README.md
+routers/
+  __init__.py
+  events.py
+  signups.py
+tests/
+  conftest.py
+  test_events.py
+  test_signups.py
+
+2. characters the LLM writes for one change (tokens ~ characters / 4)
+   write_file  1407  edit_file   92  (15x fewer with edit)
+   write_file  1430  edit_file   63  (23x fewer with edit)
+   write_file  1434  edit_file  129  (11x fewer with edit)
+   3 edits with write_file: 4271 characters, about 1067 tokens, $0.0214
+   3 edits with edit_file: 284 characters, about 71 tokens, $0.0014
+
+3. file sizes vs the 4,000 limit
+   benchmark/church_signup/hidden_tests/test_church_signup.py: 2588 characters
+   benchmark/church_signup/reference/app.py: 1407 characters
+   benchmark/conftest.py: 1592 characters
