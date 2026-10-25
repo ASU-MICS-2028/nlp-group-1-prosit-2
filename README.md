@@ -7,10 +7,9 @@
 
 | Task | Who | Status |
 |---|---|---|
-| S1.2 Sandbox | Bernard (W2) | 🔵 ready |
-| S1.3 Safety tests | Bernard (W2) | ⏳ waiting (on S1.2) |
+| S1.3 Safety tests | Bernard (W2) | 🔵 ready |
 | S1.4 MCP server | Bernard (W2) | 🔵 ready |
-| S1.5 Handoff: Bernard's learnings | Bernard (W2) | ⏳ waiting (on S1.2, S1.3) |
+| S1.5 Handoff: Bernard's learnings | Bernard (W2) | ⏳ waiting (on S1.3) |
 
 **Next:** Stage 2: Joseph — benchmark, harness, knowledge base
 
