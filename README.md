@@ -7,7 +7,7 @@
 
 | Task | Who | Status |
 |---|---|---|
-| S1.3 Safety tests | Bernard (W2) | 🔵 ready |
+| S1.3 Safety tests | Bernard (W2) | 🟡 doing |
 | S1.4 MCP server | Bernard (W2) | 🔵 ready |
 | S1.5 Handoff: Bernard's learnings | Bernard (W2) | ⏳ waiting (on S1.3) |
 
