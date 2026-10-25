@@ -30,6 +30,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0021](0021-secret-guards.md) | Guards against leaking the API key | Accepted | 2026-10-23 |
 | [0022](0022-path-guard.md) | File tools find the real path first, then check it is inside the project | Proposed | 2026-10-25 |
 | [0023](0023-file-tools.md) | File tools: flat file list, whole-file reads, and an edit_file tool | Proposed | 2026-10-25 |
+| [0024](0024-tool-output-size.md) | Tool output is cut to 4,000 characters, keeping the start and the end | Proposed | 2026-10-25 |
 <!-- DECISIONS:END -->
 
 ## Open questions
