@@ -5,6 +5,9 @@ chooses `root`; the LLM never does. The other arguments are the ones the LLM cho
 Every tool returns a dict {"ok": True or False, "output": "text for the LLM to read"}.
 """
 
+import os
+import subprocess
+import sys
 from pathlib import Path
 
 # Names the agent may never read, write or list, anywhere in the project.
@@ -108,3 +111,29 @@ def list_files(root):
         if p.is_file() and inside and not parts & (BLOCKED | CLUTTER):
             names.append(p.relative_to(root).as_posix())
     return ok("\n".join(names) or "(no files yet)")
+
+
+def clean_env():
+    """The few settings a program needs to start. Keys such as LLM_API_KEY are left out on purpose."""
+    keep = ["PATH", "SYSTEMROOT", "TEMP", "TMP"]  # SYSTEMROOT: Windows Python cannot start without it
+    return {k: os.environ[k] for k in keep if k in os.environ} | {"PYTHONUTF8": "1"}
+
+
+def run_tests(root, path="tests", timeout=60):
+    """Run pytest on the project's own tests and return what it printed."""
+    try:
+        safe_path(root, path)
+    except ValueError as e:
+        return fail(str(e))
+    command = [sys.executable, "-m", "pytest", path, "-q", "--tb=short", "-p", "no:cacheprovider"]
+    try:
+        result = subprocess.run(command, cwd=root, env=clean_env(), capture_output=True,
+                                encoding="utf-8", errors="replace", timeout=timeout)
+    except subprocess.TimeoutExpired:
+        return fail(f"Tests stopped: still running after {timeout} seconds (something may be stuck in a loop or waiting)")
+    output = result.stdout + result.stderr
+    if result.returncode == 0:
+        return ok(output)
+    if result.returncode == 5:  # pytest's code for "collected no tests"
+        return fail(f"No tests found in {path}")
+    return fail(output)

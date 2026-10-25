@@ -1,0 +1,21 @@
+Full output size in characters (no cut):
+bug                 long    short     line
+wrong_status        4859     3167     2218
+off_by_one          1470     1177     1096
+syntax_error        2107     2107     2107
+import_typo         1643     1643     1643
+wrong_path          1511     1425     1385
+renamed_field       4967     3275     2326
+noisy_debug       151552   151259   151178
+
+Facts still visible after cutting (out of 7 bugs x 3 facts = 21), and average characters sent:
+tb style   limit        start+end       start only
+long        2000   21/21   1821ch   15/21   1818ch
+long        4000   21/21   2689ch   18/21   2687ch
+long        8000   21/21   3512ch   20/21   3512ch
+short       2000   21/21   1767ch   17/21   1764ch
+short       4000   21/21   2403ch   20/21   2403ch
+short       8000   21/21   2975ch   20/21   2974ch
+line        2000   21/21   1749ch   14/21   1746ch
+line        4000   21/21   2115ch   19/21   2114ch
+line        8000   21/21   2686ch   19/21   2686ch
