@@ -43,3 +43,9 @@ Write the questions an examiner would ask about this part, with short answers. E
 ## 8. Glossary
 
 Every technical word used above, in one plain sentence each.
+
+- **Environment variable**: a named setting your computer gives every program it starts, such as `PATH` or `PYTHONUTF8`.
+- **PATH**: the list of folders the computer searches, in order, when you type a command like `python3`. The first match wins.
+- **UTF-8**: the standard way to store text (including emoji and accented letters) as bytes. Windows Python does not assume it unless `PYTHONUTF8=1` is set.
+- **Pre-commit hook**: a small script git runs just before saving a commit. Ours refuses keys, `.env`, model files and a stale README.
+- **Branch**: a separate line of commits. All of Stage 1 goes on `w2-tools` and is merged into `main` at the handoff.
