@@ -1,6 +1,6 @@
 # 0006. Generated code runs in a Docker sandbox, with a subprocess fallback
 
-- Status: Proposed
+- Status: Superseded by 0027
 - Date: 2026-10-18
 - Decided by: —
 

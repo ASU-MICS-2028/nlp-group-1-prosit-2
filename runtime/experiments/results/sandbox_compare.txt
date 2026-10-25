@@ -1,0 +1,26 @@
+
+=== subprocess
+run_tests    : median 1.46 s, max 1.84 s, failed 0/10
+start_server : median 1.18 s, max 1.26 s, failed 0/10
+endpoints    : GET p50 1.1 ms, p95 1.8 ms | POST p50 1.8 ms, p95 2.7 ms
+internet                  : REACHED example.com
+file outside the project  : READ: SECRET
+write outside the project : WROTE ../escaped.txt
+API key in settings       : not there
+memory: take 1 GB         : GOT 1 GB
+CPU: 4 busy processes     : 4 jobs took 1.0 s
+run as administrator      : uid n/a (Windows)
+escaped.txt exists outside: True
+
+=== docker
+run_tests    : median 3.38 s, max 4.27 s, failed 0/10
+start_server : median 4.24 s, max 5.25 s, failed 0/10
+endpoints    : GET p50 10.3 ms, p95 53.6 ms | POST p50 16.9 ms, p95 55.1 ms
+internet                  : blocked: ConnectError
+file outside the project  : blocked: FileNotFoundError
+write outside the project : blocked: OSError
+API key in settings       : not there
+memory: take 1 GB         : killed (exit code 137) 
+CPU: 4 busy processes     : 4 jobs took 1.9 s
+run as administrator      : uid 1000
+escaped.txt exists outside: False
