@@ -28,6 +28,11 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0019](0019-agent-instruction-files.md) | One set of agent instructions, with a pointer file for each assistant | Accepted | 2026-10-23 |
 | [0020](0020-workflow-guides.md) | Step-by-step guides for the common workflows, usable by any assistant | Accepted | 2026-10-23 |
 | [0021](0021-secret-guards.md) | Guards against leaking the API key | Accepted | 2026-10-23 |
+| [0022](0022-path-guard.md) | File tools find the real path first, then check it is inside the project | Proposed | 2026-10-25 |
+| [0023](0023-file-tools.md) | File tools: flat file list, whole-file reads, and an edit_file tool | Proposed | 2026-10-25 |
+| [0024](0024-tool-output-size.md) | Tool output is cut to 4,000 characters, keeping the start and the end | Proposed | 2026-10-25 |
+| [0025](0025-server-start.md) | start_server uses a free port and asks the server until it answers | Proposed | 2026-10-25 |
+| [0026](0026-error-format.md) | Failing tests are reported to the LLM as pytest prints them | Proposed | 2026-10-25 |
 <!-- DECISIONS:END -->
 
 ## Open questions

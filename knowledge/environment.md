@@ -65,5 +65,15 @@ We run two models and compare them (task P1.7 in `docs/PLAN.md`). The code reads
 
 ## Notes
 
-- The known setup is macOS on Apple Silicon (arm64). Windows and Linux should work, but nobody has checked yet. If you find a difference, write it here.
+- The known setup is macOS on Apple Silicon (arm64). Linux has not been checked yet. If you find a difference, write it here.
+
+### Windows 11 (checked Oct 25, Bernard's laptop)
+
+Everything works (uv sync, Docker hello-world, the church check: 10 passed, the safety hook), after three fixes:
+
+1. **Install uv:** `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"`. It goes in `C:\Users\<you>\.local\bin`.
+2. **`python3` does not exist on Windows by default.** Typing it opens a Microsoft Store shortcut that fails, so the safety hook (which calls `python3`) refuses every commit. Fix: `uv python install 3.12 --default` (this adds a real `python3.exe` to `.local\bin`). Then make `.local\bin` the **first** entry in your user PATH (Settings > System > About > Advanced system settings > Environment Variables), above `...\Microsoft\WindowsApps`. Open a new terminal and check that `where python3` lists `.local\bin` first.
+3. **The scripts crash with `UnicodeDecodeError: 'charmap' codec`.** Windows Python reads files in an old encoding unless told otherwise, and our files contain emoji. Fix: add a user environment variable `PYTHONUTF8` = `1` (same Environment Variables window), then open a new terminal.
+
+Restart VS Code after changing environment variables, or its terminals keep the old ones. The church check in PowerShell (the `&` above is for macOS/Linux): start the server in one terminal with `uv run uvicorn --app-dir benchmark/church_signup/reference app:app --port 8001`, then in a second terminal run `$env:BASE_URL="http://127.0.0.1:8001"; $env:OPS_FILE="benchmark/church_signup/reference/ops.json"; uv run pytest benchmark/church_signup`.
 - The `NLP-GROUP-1/data/models/` folder on the Drive holds only the configs and tokenizers of Prosit 1's Qwen2.5-0.5B and SmolLM2-135M, without the weights. It is not the local model above.
