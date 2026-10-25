@@ -28,6 +28,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0019](0019-agent-instruction-files.md) | One set of agent instructions, with a pointer file for each assistant | Accepted | 2026-10-23 |
 | [0020](0020-workflow-guides.md) | Step-by-step guides for the common workflows, usable by any assistant | Accepted | 2026-10-23 |
 | [0021](0021-secret-guards.md) | Guards against leaking the API key | Accepted | 2026-10-23 |
+| [0022](0022-path-guard.md) | File tools find the real path first, then check it is inside the project | Proposed | 2026-10-25 |
 <!-- DECISIONS:END -->
 
 ## Open questions

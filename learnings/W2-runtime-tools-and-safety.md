@@ -18,7 +18,7 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 
 | # | Question | Options compared | How we tested it | Results (numbers) | Winner and why |
 |---|---|---|---|---|---|
-| 1 | e.g. How many repair attempts before giving up? | 0, 1, 3, 5 | All 15 benchmark requests, 2 runs each | pass rate 41% / 58% / 71% / 72%; cost 1x / 1.4x / 2.1x / 3.0x | 3: almost all the gain of 5 at 2/3 of the cost |
+| 1 | How do the file tools stop the agent touching files outside its project folder? | A: look at the text of the path and refuse `..`, `/`, `:`, `.env`, `.git` · B: let the computer work out where the path really ends up, then check it is inside the project | The same 24 paths given to both: 6 good ones and 18 attacks (`../secret.txt`, `C:\Windows\win.ini`, a folder link pointing outside, `.ENV` in capitals, `.env::$DATA`, a 5,000-letter path, a hidden zero character…). Throwaway project with a fake `.env` and a real Windows folder link. `runtime/experiments/path_guard.py`, output in `runtime/experiments/results/path_guard.txt` | A: **5 attacks let through** (including reading a secret through the folder link, and `.ENV`), 2 good files wrongly refused (`my..notes.txt`, `envelope/.environment.txt`). B, first try: 0 refused wrongly, 1 let through (the 5,000-letter path). B after adding a 255-letter limit: **0 and 0** | B: it checks where the file really is, not what the name looks like, so tricks with links, capitals and dots do not work |
 
 ## 4. What we chose, and why
 

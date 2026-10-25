@@ -1,0 +1,31 @@
+link exists: True
+
+path                             should  A      B     
+'app.py'                         allow   allow  allow 
+'tests/test_app.py'              allow   allow  allow 
+'tests\\test_app.py'             allow   allow  allow 
+'my..notes.txt'                  allow   refuse allow 
+'envelope/.environment.txt'      allow   refuse allow 
+'new_folder/models.py'           allow   allow  allow 
+'../secret.txt'                  refuse  refuse refuse
+'..\\secret.txt'                 refuse  refuse refuse
+'tests/../../secret.txt'         refuse  refuse refuse
+'C:\\Windows\\win.ini'           refuse  refuse refuse
+'C:secret.txt'                   refuse  refuse refuse
+'/etc/passwd'                    refuse  refuse refuse
+'\\\\server\\share\\x'           refuse  refuse refuse
+''                               refuse  refuse refuse
+'.'                              refuse  allow  refuse
+'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' refuse  allow  refuse
+'app.py\\0.txt'                  refuse  allow  refuse
+'link/secret.txt'                refuse  allow  refuse
+'.env'                           refuse  refuse refuse
+'.ENV'                           refuse  allow  refuse
+'.env.'                          refuse  refuse refuse
+'.env::$DATA'                    refuse  refuse refuse
+'sub/.env'                       refuse  refuse refuse
+'.git/config'                    refuse  refuse refuse
+
+A text check: 5 attacks wrongly allowed ['.', 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'app.py\x00.txt', 'link/secret.txt', '.ENV'], 2 good paths wrongly refused ['my..notes.txt', 'envelope/.environment.txt']
+
+B resolve then compare: 0 attacks wrongly allowed [], 0 good paths wrongly refused []
