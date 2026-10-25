@@ -7,7 +7,7 @@
 
 | Task | Who | Status |
 |---|---|---|
-| S1.1 The agent's tools | Bernard (W2) | 🔵 ready |
+| S1.1 The agent's tools | Bernard (W2) | 🟡 doing |
 | S1.2 Sandbox | Bernard (W2) | ⏳ waiting (on S1.1) |
 | S1.3 Safety tests | Bernard (W2) | ⏳ waiting (on S1.2) |
 | S1.4 MCP server | Bernard (W2) | ⏳ waiting (on S1.1) |
