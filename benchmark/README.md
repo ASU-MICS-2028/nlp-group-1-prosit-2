@@ -6,7 +6,8 @@
 
 ```
 benchmark/<task>/
-  request.md          what a non-developer would type. No URLs, no field names, no tech words
+  request.md          exactly what a non-developer would type, nothing else (the agent sees this file). No URLs, field names or tech words
+  task.json           {"tier": "easy|medium|hard", "vague": true|false, "summary": "..."}: for the harness only, never shown to the agent
   operations.json     the operations the hidden tests use, each with a plain description
   hidden_tests/       pytest files that call operations by name, never by URL
   reference/          a small hand-written backend that passes the tests (proves the tests are right)
@@ -29,7 +30,7 @@ The agent may call it `/events` or `/church-events`, `capacity` or `max_people`.
  "get_event": {"method": "GET", "path": "/events/{id}"}}
 ```
 
-`fields` maps test names to backend names (left out if they are the same). Path placeholders are filled from `path_params`.
+`fields` maps test names to backend names (left out if they are the same), at every depth: nested objects and lists are translated too. Path placeholders are filled from `path_params`; query strings come from `params` (`api.call("list_appointments", params={"date": "2026-11-02"})`).
 
 ## Checking a task: `benchmark/validate.py`
 

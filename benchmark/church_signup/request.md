@@ -1,3 +1,1 @@
-# Tier: easy
-
 Our church organises events like choir practice, youth camp and harvest day, and we want people to sign up for them. We need to be able to add an event with its name, the date, and how many people can come. People sign up with their name and phone number. We want to see the list of events, look at one event, and see who has signed up for it. Once an event is full, nobody else should be able to sign up.

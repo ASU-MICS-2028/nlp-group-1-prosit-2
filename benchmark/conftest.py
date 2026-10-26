@@ -17,20 +17,29 @@ class Api:
         self.client = httpx.Client(base_url=base_url, timeout=10)
         self.ops = ops
 
-    def call(self, op, path_params=None, json=None):
+    def call(self, op, path_params=None, json=None, params=None):
+        """Call an operation by name. json is the body, params the query string (?date=...).
+        Field names are translated both ways, at every depth (nested objects and lists too)."""
         spec = self.ops[op]
         fields = spec.get("fields", {})
         back = {v: k for k, v in fields.items()}
         path = spec["path"].format(**(path_params or {}))
-        body = {fields.get(k, k): v for k, v in json.items()} if json is not None else None
-        r = self.client.request(spec["method"], path, json=body)
+        out = lambda d: rename(d, fields)
+        r = self.client.request(spec["method"], path, json=out(json) if json is not None else None,
+                                params=out(params) if params else None)
         try:
             data = r.json()
         except ValueError:
             data = None
-        rename = lambda d: {back.get(k, k): v for k, v in d.items()} if isinstance(d, dict) else d
-        data = [rename(d) for d in data] if isinstance(data, list) else rename(data)
-        return r.status_code, data
+        return r.status_code, rename(data, back)
+
+
+def rename(data, names):
+    if isinstance(data, dict):
+        return {names.get(k, k): rename(v, names) for k, v in data.items()}
+    if isinstance(data, list):
+        return [rename(v, names) for v in data]
+    return data
 
 
 @pytest.fixture(scope="session")
