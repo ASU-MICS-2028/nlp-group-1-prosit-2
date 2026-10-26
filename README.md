@@ -8,7 +8,7 @@
 | Task | Who | Status |
 |---|---|---|
 | S1.4 MCP server | Bernard (W2) | 🔵 ready |
-| S1.5 Handoff: Bernard's learnings | Bernard (W2) | 🔵 ready |
+| S1.5 Handoff: Bernard's learnings | Bernard (W2) | 🟡 doing |
 
 **Next:** Stage 2: Joseph — benchmark, harness, knowledge base
 
