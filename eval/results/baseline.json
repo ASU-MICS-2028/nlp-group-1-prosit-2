@@ -1,0 +1,62 @@
+[
+  {
+    "task": "church_signup",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 10,
+    "total": 10,
+    "seconds": 20.5,
+    "cost_usd": 0.0504,
+    "lines": 103,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "church_signup",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 10,
+    "total": 10,
+    "seconds": 25.8,
+    "cost_usd": 0.06,
+    "lines": 132,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "church_signup",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 10,
+    "total": 10,
+    "seconds": 22.8,
+    "cost_usd": 0.0027,
+    "lines": 110,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "church_signup",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 10,
+    "total": 10,
+    "seconds": 20.1,
+    "cost_usd": 0.0024,
+    "lines": 102,
+    "stop_reason": "end_turn",
+    "error": ""
+  }
+]

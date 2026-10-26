@@ -1,0 +1,10 @@
+[
+  {
+    "task": "church_signup",
+    "tier": "easy",
+    "vague": false,
+    "tests": 10,
+    "flagged": [],
+    "cost_usd": 0.02514
+  }
+]
