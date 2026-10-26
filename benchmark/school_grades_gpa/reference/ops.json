@@ -1,0 +1,6 @@
+{
+  "create_student": {"method": "POST", "path": "/learners", "fields": {"name": "full_name"}},
+  "create_course": {"method": "POST", "path": "/subjects", "fields": {"name": "title", "credits": "credit_hours"}},
+  "record_score": {"method": "POST", "path": "/learners/{id}/marks", "fields": {"course_id": "subject", "score": "mark"}},
+  "get_results": {"method": "GET", "path": "/learners/{id}/transcript", "fields": {"gpa": "cgpa", "courses": "lines", "course_id": "subject", "score": "mark", "grade": "letter", "grade_point": "points"}}
+}

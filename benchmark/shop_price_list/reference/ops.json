@@ -1,0 +1,7 @@
+{
+  "add_item": {"method": "POST", "path": "/shop/products", "fields": {"name": "product", "price": "cedis", "category": "section"}},
+  "list_items": {"method": "GET", "path": "/shop/products", "fields": {"name": "product", "price": "cedis", "category": "section"}},
+  "get_item": {"method": "GET", "path": "/shop/products/{id}", "fields": {"name": "product", "price": "cedis", "category": "section"}},
+  "change_price": {"method": "PATCH", "path": "/shop/products/{id}", "fields": {"name": "product", "price": "cedis", "category": "section"}},
+  "remove_item": {"method": "DELETE", "path": "/shop/products/{id}"}
+}

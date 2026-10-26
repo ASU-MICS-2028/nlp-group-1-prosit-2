@@ -1,0 +1,7 @@
+{
+  "Can two teams have the same name?": "We never do that, so it does not matter.",
+  "Can a team play more than one fixture on the same date?": "It does not happen, no need to check.",
+  "Can a score be changed after it is recorded?": "Yes, recording it again replaces the old score.",
+  "Do you need a league table with points?": "Not for now, just fixtures and scores.",
+  "What should happen if someone schedules a team against itself?": "Refuse it."
+}

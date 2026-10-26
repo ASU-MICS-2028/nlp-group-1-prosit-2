@@ -1,0 +1,7 @@
+{
+  "Can I sell all of an item so the quantity becomes zero?": "Yes, selling exactly what is left is fine. Only selling more than that is refused.",
+  "Does an item count as low when it is exactly at its low level?": "Yes, at or below the low level counts as running low.",
+  "Do I need to record the price or who bought it?": "No, only how many were sold.",
+  "Should I keep a history of every sale and restock?": "Not needed for now; I only need the current quantity.",
+  "What if someone records a sale of zero or a negative number?": "That must be refused, for sales and for restocks."
+}

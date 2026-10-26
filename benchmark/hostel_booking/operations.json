@@ -1,0 +1,6 @@
+{
+  "create_room": "Add a room. Body: name, beds (whole number, 1 or more). Returns the room including its id.",
+  "book_bed": "Book a bed in a room. Path params: id (the room). Body: student_name, check_in, check_out (dates as YYYY-MM-DD). The booking occupies one bed on each night from check_in up to the day before check_out; check_out day itself is not a night, so a booking ending on a date does not overlap one starting on that date. Returns the booking including its id. Refused when check_out is not after check_in, when on any night of the stay the room already has as many bookings as beds, or when the room does not exist.",
+  "cancel_booking": "Cancel a booking; its bed becomes free again for those nights. Path params: id (the booking). Refused when there is no such booking or it was already cancelled.",
+  "free_beds": "How many beds are free in each room for a whole stay. Query params: check_in, check_out (YYYY-MM-DD, check_out after check_in). Returns a list (any order) with one entry per room: room_id, free_beds. free_beds = the room's beds minus the largest number of (not cancelled) bookings in that room on any single night from check_in up to the day before check_out."
+}

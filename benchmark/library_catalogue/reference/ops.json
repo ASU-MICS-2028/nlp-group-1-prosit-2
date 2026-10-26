@@ -1,0 +1,7 @@
+{
+  "add_book": {"method": "POST", "path": "/catalogue/books", "fields": {"title": "book_title", "author": "writer", "copies": "total_copies", "available": "on_shelf"}},
+  "list_books": {"method": "GET", "path": "/catalogue/books", "fields": {"title": "book_title", "author": "writer", "copies": "total_copies", "available": "on_shelf"}},
+  "get_book": {"method": "GET", "path": "/catalogue/books/{id}", "fields": {"title": "book_title", "author": "writer", "copies": "total_copies", "available": "on_shelf"}},
+  "borrow_book": {"method": "POST", "path": "/catalogue/books/{id}/loans", "fields": {"student": "borrower", "available": "on_shelf"}},
+  "return_book": {"method": "POST", "path": "/catalogue/books/{id}/returns", "fields": {"student": "borrower", "available": "on_shelf"}}
+}

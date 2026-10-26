@@ -1,0 +1,7 @@
+{
+  "create_group": "Create a group. Body: name. Returns the group including its id.",
+  "add_member": "Add a member to a group. Path params: id (the group). Body: name. Returns the member including its id.",
+  "add_expense": "Record an expense. Path params: id (the group). Body: paid_by (a member id), amount (Ghana cedis, more than 0, at most 2 decimal places), split_between (a non-empty list of member ids; the payer may or may not be in it). The amount is split equally between the split_between members; when it does not divide evenly to the pesewa, shares differ by at most 0.01 and add up exactly to the amount. Refused when the amount is 0 or less, the list is empty, or the payer or any listed member is not in this group.",
+  "get_balances": "Each member's net balance in a group. Path params: id (the group). Returns a list (any order) with one entry per member: member_id, balance (number of cedis). balance = everything the member paid for expenses - the member's shares of expenses + settle-up payments the member made - settle-up payments the member received. Positive means the member is owed money, negative means they owe. The balances of a group always add up to 0.",
+  "settle_up": "Record that one member paid another back. Path params: id (the group). Body: from_member_id (who paid), to_member_id (who received), amount (cedis, more than 0). The payer's balance goes up by the amount and the receiver's goes down by it. Refused when the amount is 0 or less, both are the same member, or either is not in this group."
+}

@@ -7,6 +7,466 @@
     "mutants": 5,
     "killed": 5,
     "survivors": [],
+    "caught_by": {
+      "capacity_off_by_one": [
+        "test_full_event_refuses_signup"
+      ],
+      "missing_event_200": [
+        "test_get_missing_event_is_404",
+        "test_sign_up_for_missing_event_is_404",
+        "test_create_event_without_name_is_refused"
+      ],
+      "name_optional": [
+        "test_create_event_without_name_is_refused"
+      ],
+      "signups_never_listed": [
+        "test_sign_up_then_appears_in_signups",
+        "test_full_event_refuses_signup"
+      ],
+      "signups_shared": [
+        "test_new_event_has_no_signups",
+        "test_full_event_refuses_signup",
+        "test_signups_are_per_event"
+      ]
+    },
+    "ok": true
+  },
+  "clinic_appointments": {
+    "tests": 13,
+    "good_backends_pass": {
+      "reference": true,
+      "reference_b": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "caught_by": {
+      "cancel_does_nothing": [
+        "test_cancel_removes_appointment",
+        "test_cancel_frees_the_slot"
+      ],
+      "clash_ignores_date": [
+        "test_day_list_only_shows_that_date",
+        "test_other_time_or_other_date_is_allowed"
+      ],
+      "clash_ignores_doctor": [
+        "test_day_list_only_shows_that_date",
+        "test_day_list_only_shows_that_doctor",
+        "test_double_booking_same_slot_is_refused",
+        "test_same_slot_with_another_doctor_is_allowed",
+        "test_other_time_or_other_date_is_allowed",
+        "test_cancel_removes_appointment",
+        "test_cancel_frees_the_slot"
+      ],
+      "day_filter_ignored": [
+        "test_day_list_only_shows_that_date"
+      ],
+      "double_booking_allowed": [
+        "test_double_booking_same_slot_is_refused"
+      ]
+    },
+    "ok": true
+  },
+  "football_fixtures": {
+    "tests": 13,
+    "good_backends_pass": {
+      "reference": true,
+      "reference_b": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "caught_by": {
+      "home_fixtures_only": [
+        "test_team_fixtures_include_home_and_away_only"
+      ],
+      "negative_away_allowed": [
+        "test_negative_score_is_refused"
+      ],
+      "score_swapped": [
+        "test_recorded_score_is_kept_for_each_side"
+      ],
+      "self_play_allowed": [
+        "test_team_cannot_play_itself"
+      ],
+      "unknown_team_allowed": [
+        "test_fixture_with_unknown_team_is_refused"
+      ]
+    },
+    "ok": true
+  },
+  "hostel_booking": {
+    "tests": 15,
+    "good_backends_pass": {
+      "reference": true,
+      "reference_b": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "caught_by": {
+      "cancel_keeps_bed": [
+        "test_cancel_frees_the_bed",
+        "test_free_beds_after_cancel"
+      ],
+      "counts_overlapping_bookings": [
+        "test_capacity_is_checked_per_night",
+        "test_free_beds_counts_the_busiest_night"
+      ],
+      "free_beds_ignore_dates": [
+        "test_free_beds_for_a_range",
+        "test_free_beds_counts_the_busiest_night"
+      ],
+      "leaving_day_counted": [
+        "test_leaving_day_is_not_a_night",
+        "test_capacity_is_checked_per_night",
+        "test_free_beds_for_a_range",
+        "test_free_beds_counts_the_busiest_night"
+      ],
+      "zero_nights_allowed": [
+        "test_leaving_date_must_be_after_arrival"
+      ]
+    },
+    "ok": true
+  },
+  "library_catalogue": {
+    "tests": 13,
+    "good_backends_pass": {
+      "reference": true,
+      "reference_b": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "caught_by": {
+      "borrow_off_by_one": [
+        "test_borrowing_is_refused_when_no_copies_left"
+      ],
+      "loans_shared": [
+        "test_cannot_return_a_different_book_than_borrowed"
+      ],
+      "return_by_anyone": [
+        "test_student_who_did_not_borrow_cannot_return",
+        "test_cannot_return_a_different_book_than_borrowed"
+      ],
+      "return_not_counted": [
+        "test_returning_puts_the_copy_back",
+        "test_returned_copy_can_be_borrowed_again"
+      ],
+      "shelf_shared": [
+        "test_cannot_return_a_different_book_than_borrowed",
+        "test_borrowing_one_book_does_not_change_another"
+      ]
+    },
+    "ok": true
+  },
+  "lost_and_found": {
+    "tests": 12,
+    "good_backends_pass": {
+      "reference": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "caught_by": {
+      "claim_marks_all": [
+        "test_claiming_one_item_leaves_others_unclaimed",
+        "test_unclaimed_list_shows_only_waiting_items"
+      ],
+      "claim_not_saved": [
+        "test_claiming_marks_item_claimed_with_owner",
+        "test_claimed_item_cannot_be_claimed_again",
+        "test_unclaimed_list_shows_only_waiting_items"
+      ],
+      "double_claim_allowed": [
+        "test_claimed_item_cannot_be_claimed_again"
+      ],
+      "owner_optional": [
+        "test_claim_without_owner_name_is_refused"
+      ],
+      "waiting_unfiltered": [
+        "test_unclaimed_list_shows_only_waiting_items"
+      ]
+    },
+    "ok": true
+  },
+  "market_stock": {
+    "tests": 13,
+    "good_backends_pass": {
+      "reference": true,
+      "reference_b": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "caught_by": {
+      "low_stock_strict": [
+        "test_low_stock_list_is_at_or_below_the_level"
+      ],
+      "negative_amounts_allowed": [
+        "test_zero_or_negative_amounts_are_refused"
+      ],
+      "oversell_allowed": [
+        "test_selling_more_than_in_stock_is_refused"
+      ],
+      "restock_not_saved": [
+        "test_restock_increases_quantity",
+        "test_item_moves_in_and_out_of_low_stock"
+      ],
+      "sell_all_refused": [
+        "test_selling_everything_is_allowed"
+      ]
+    },
+    "ok": true
+  },
+  "momo_wallet": {
+    "tests": 13,
+    "good_backends_pass": {
+      "reference": true,
+      "reference_b": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "caught_by": {
+      "balance_can_go_negative": [
+        "test_cannot_send_more_than_balance"
+      ],
+      "float_money": [
+        "test_deposit_must_be_positive_with_two_decimals_at_most",
+        "test_transfer_is_exact_to_the_pesewa"
+      ],
+      "negative_transfer_allowed": [
+        "test_transfer_amount_must_be_positive"
+      ],
+      "receiver_not_credited": [
+        "test_transfer_moves_money",
+        "test_transfer_is_exact_to_the_pesewa",
+        "test_history_shows_amounts_and_running_balance"
+      ],
+      "self_transfer_allowed": [
+        "test_transfer_to_self_is_refused"
+      ]
+    },
+    "ok": true
+  },
+  "restaurant_reservations": {
+    "tests": 12,
+    "good_backends_pass": {
+      "reference": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "caught_by": {
+      "clash_ignores_table": [
+        "test_list_for_a_date_leaves_out_other_dates",
+        "test_party_equal_to_seats_is_allowed",
+        "test_same_table_same_date_and_time_is_refused",
+        "test_same_table_other_time_or_date_is_allowed",
+        "test_other_table_same_date_and_time_is_allowed"
+      ],
+      "date_filter_ignored": [
+        "test_list_for_a_date_leaves_out_other_dates"
+      ],
+      "double_reservation_allowed": [
+        "test_same_table_same_date_and_time_is_refused"
+      ],
+      "full_table_refused": [
+        "test_party_equal_to_seats_is_allowed",
+        "test_party_bigger_than_seats_is_refused"
+      ],
+      "party_limit_ignored": [
+        "test_party_bigger_than_seats_is_refused",
+        "test_refused_reservation_is_not_listed"
+      ]
+    },
+    "ok": true
+  },
+  "school_grades_gpa": {
+    "tests": 12,
+    "good_backends_pass": {
+      "reference": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "caught_by": {
+      "boundary_off_by_one": [
+        "test_grading_scale_boundaries",
+        "test_entering_a_score_again_replaces_it",
+        "test_results_are_per_student"
+      ],
+      "gpa_not_rounded": [
+        "test_gpa_is_rounded_to_two_decimals"
+      ],
+      "gpa_unweighted": [
+        "test_gpa_is_weighted_by_credit_hours",
+        "test_gpa_is_rounded_to_two_decimals"
+      ],
+      "rescore_adds_second_entry": [
+        "test_entering_a_score_again_replaces_it"
+      ],
+      "score_range_unchecked": [
+        "test_score_outside_0_to_100_is_refused"
+      ]
+    },
+    "ok": true
+  },
+  "shared_expenses": {
+    "tests": 13,
+    "good_backends_pass": {
+      "reference": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "caught_by": {
+      "payer_share_skipped": [
+        "test_expense_split_equally",
+        "test_split_only_between_chosen_members",
+        "test_uneven_split_is_exact_to_the_pesewa",
+        "test_balances_always_sum_to_zero",
+        "test_expenses_add_up",
+        "test_settle_up_moves_balances",
+        "test_cannot_pay_yourself_back"
+      ],
+      "settle_wrong_direction": [
+        "test_settle_up_moves_balances"
+      ],
+      "split_among_everyone": [
+        "test_split_only_between_chosen_members",
+        "test_payer_need_not_be_in_split"
+      ],
+      "split_member_unchecked": [
+        "test_split_with_outsider_is_refused"
+      ],
+      "split_rounding": [
+        "test_uneven_split_is_exact_to_the_pesewa",
+        "test_balances_always_sum_to_zero"
+      ]
+    },
+    "ok": true
+  },
+  "shop_price_list": {
+    "tests": 13,
+    "good_backends_pass": {
+      "reference": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "caught_by": {
+      "category_filter_ignored": [
+        "test_list_can_show_one_category"
+      ],
+      "duplicate_case_sensitive": [
+        "test_duplicate_name_is_refused_ignoring_case"
+      ],
+      "id_reused_after_remove": [
+        "test_removing_one_item_keeps_the_others",
+        "test_list_can_show_one_category"
+      ],
+      "remove_does_nothing": [
+        "test_removed_item_is_gone"
+      ],
+      "zero_price_allowed": [
+        "test_changing_price_to_zero_or_less_is_refused"
+      ]
+    },
+    "ok": true
+  },
+  "susu_ledger": {
+    "tests": 14,
+    "good_backends_pass": {
+      "reference": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "caught_by": {
+      "collect_twice": [
+        "test_member_cannot_collect_twice"
+      ],
+      "late_contribution": [
+        "test_no_contributions_after_round_is_collected"
+      ],
+      "pot_all_rounds": [
+        "test_payout_is_that_rounds_total_only",
+        "test_member_cannot_collect_twice",
+        "test_empty_round_cannot_be_collected",
+        "test_full_cycle_pays_everyone_once"
+      ],
+      "round_collected_twice": [
+        "test_round_cannot_be_collected_twice"
+      ],
+      "statement_counts_everyone": [
+        "test_statement_totals_a_members_own_contributions",
+        "test_statement_shows_amount_received",
+        "test_no_contributions_after_round_is_collected",
+        "test_full_cycle_pays_everyone_once"
+      ]
+    },
+    "ok": true
+  },
+  "tailoring_orders": {
+    "tests": 13,
+    "good_backends_pass": {
+      "reference": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "caught_by": {
+      "deposit_not_checked": [
+        "test_deposit_more_than_price_is_refused"
+      ],
+      "due_filter_strict": [
+        "test_due_list_includes_orders_due_on_or_before_the_date",
+        "test_collected_order_leaves_due_list"
+      ],
+      "due_includes_collected": [
+        "test_collected_order_leaves_due_list"
+      ],
+      "full_deposit_refused": [
+        "test_deposit_equal_to_price_is_accepted"
+      ],
+      "orders_shared": [
+        "test_orders_are_listed_per_customer",
+        "test_deposit_more_than_price_is_refused"
+      ]
+    },
+    "ok": true
+  },
+  "trotro_fares": {
+    "tests": 13,
+    "good_backends_pass": {
+      "reference": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "caught_by": {
+      "duplicate_allowed": [
+        "test_duplicate_route_is_refused",
+        "test_same_route_in_reverse_is_refused"
+      ],
+      "one_direction_only": [
+        "test_fare_is_the_same_in_the_other_direction",
+        "test_same_route_in_reverse_is_refused"
+      ],
+      "unknown_route_200": [
+        "test_unknown_route_is_404",
+        "test_no_fare_for_stops_only_linked_through_another_stop",
+        "test_zero_or_negative_fare_is_refused"
+      ],
+      "update_not_saved": [
+        "test_update_fare_changes_the_lookup"
+      ],
+      "zero_fare_allowed": [
+        "test_zero_or_negative_fare_is_refused"
+      ]
+    },
     "ok": true
   }
 }

@@ -1,0 +1,9 @@
+{
+  "create_customer": {"method": "POST", "path": "/clients", "fields": {"name": "full_name", "measurements": "sizes"}},
+  "get_customer": {"method": "GET", "path": "/clients/{id}", "fields": {"name": "full_name", "measurements": "sizes"}},
+  "create_order": {"method": "POST", "path": "/clients/{id}/jobs", "fields": {"garment": "item", "due_date": "ready_on", "price": "cost", "deposit": "paid", "collected": "picked_up", "customer_id": "client_id"}},
+  "get_order": {"method": "GET", "path": "/jobs/{id}", "fields": {"garment": "item", "due_date": "ready_on", "price": "cost", "deposit": "paid", "collected": "picked_up", "customer_id": "client_id"}},
+  "list_customer_orders": {"method": "GET", "path": "/clients/{id}/jobs", "fields": {"garment": "item", "due_date": "ready_on", "price": "cost", "deposit": "paid", "collected": "picked_up", "customer_id": "client_id"}},
+  "list_due_orders": {"method": "GET", "path": "/jobs/due", "fields": {"garment": "item", "due_date": "ready_on", "price": "cost", "deposit": "paid", "collected": "picked_up", "customer_id": "client_id", "date": "until"}},
+  "collect_order": {"method": "POST", "path": "/jobs/{id}/pickup", "fields": {"garment": "item", "due_date": "ready_on", "price": "cost", "deposit": "paid", "collected": "picked_up", "customer_id": "client_id"}}
+}

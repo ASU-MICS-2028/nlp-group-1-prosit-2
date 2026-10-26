@@ -1,0 +1,9 @@
+{
+  "create_group": "Start a susu group. Body: name. Returns the group including its id.",
+  "add_member": "Add a member to a group. Path params: id (the group). Body: name, phone. Returns the member including its id.",
+  "list_members": "List the members of a group. Path params: id (the group). Each member has id, name, phone.",
+  "record_contribution": "Record a member's contribution for a round. Path params: id (the group). Body: member_id, round (whole number, 1 or more), amount (a number of Ghana cedis, more than 0, at most 2 decimal places). Refused when the amount is 0 or less, when the member is not in this group, or when that round has already been collected.",
+  "pay_out": "Pay a round's pot to one member. Path params: id (the group). Body: member_id, round. The payout amount is computed by the backend: the sum of all contributions recorded in this group for that round only (number of cedis). Returns the payout with member_id, round, amount. Refused when the round has already been collected, when the member has already collected in this group, when nothing has been paid into that round, or when the member is not in this group.",
+  "list_payouts": "List the payouts made in a group. Path params: id (the group). Each payout has member_id, round, amount.",
+  "get_statement": "A member's statement. Path params: id (the group), member_id. Returns total_contributed (sum of this member's own contributions, cedis) and total_received (sum of the payouts this member collected, cedis). Refused when the member is not in this group."
+}

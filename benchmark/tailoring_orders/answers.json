@@ -1,0 +1,8 @@
+{
+  "Can one customer have more than one order?": "Yes, a customer can have many orders, and each order is separate.",
+  "What happens if someone pays more deposit than the price?": "That must be refused. Paying the full price as the deposit is fine.",
+  "Does 'due on or before' include orders due on that exact day?": "Yes, orders due on that day are included.",
+  "Should collected orders still appear in the customer's list of orders?": "Yes, the customer's list shows all their orders. Only the due list leaves out collected ones.",
+  "Do measurements change for each order?": "No, measurements are kept on the customer.",
+  "Do I need to edit or delete customers?": "Not for now."
+}

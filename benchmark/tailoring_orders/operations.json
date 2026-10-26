@@ -1,0 +1,9 @@
+{
+  "create_customer": "Add a customer. Body: name, phone (text), measurements (an object with chest, waist, hip, length, each a number of inches). Returns the customer including its id.",
+  "get_customer": "Get one customer by id. Path params: id. 404 if there is no such customer.",
+  "create_order": "Add an order for a customer. Path params: id (the customer). Body: garment (text), due_date (YYYY-MM-DD), price (number of Ghana cedis), deposit (number of Ghana cedis). Returns the order including its id and collected (true/false, false for a new order). Refused when deposit is more than price; 404 if the customer does not exist.",
+  "get_order": "Get one order by id. Path params: id. Includes collected (true/false). 404 if there is no such order.",
+  "list_customer_orders": "List all orders of one customer. Path params: id (the customer).",
+  "list_due_orders": "List orders that are not yet collected and are due on or before a date. Query params: date (YYYY-MM-DD).",
+  "collect_order": "Mark an order as collected. Path params: id (the order). 404 if there is no such order."
+}

@@ -1,0 +1,8 @@
+{
+  "Can prices change after an item is added?": "Yes, prices change all the time, especially sugar, rice and oil. I need to change the price of an item.",
+  "Do items belong to categories?": "Yes, every item has a category I choose, like Drinks, Toiletries or Foodstuff, and I want to see only one category at a time.",
+  "What if I add an item with a name that is already on the list?": "Refuse it. Milo and MILO are the same thing, so upper or lower case should not matter.",
+  "What currency and format are prices in?": "Ghana cedis, sometimes with pesewas, like 12.50.",
+  "Can a price be zero or negative?": "No, every price must be more than zero.",
+  "What happens when I take an item off the list?": "It is gone: it does not show in the list and looking it up says it is not found."
+}

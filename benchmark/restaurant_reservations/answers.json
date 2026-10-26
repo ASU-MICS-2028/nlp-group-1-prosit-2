@@ -1,0 +1,8 @@
+{
+  "Can a group sit at a table with exactly as many seats as people?": "Yes. Only a group bigger than the seats is refused.",
+  "How long does a reservation last?": "We just use the start time. Two reservations clash only if they are for the same table, the same date and the same time.",
+  "Can I join two tables for a big group?": "Not for now; each reservation is for one table.",
+  "Should the date list show reservations from all tables?": "Yes, every reservation for that date, whichever table.",
+  "Do customers need an account?": "No, just their name and phone number.",
+  "Do I need to cancel reservations?": "Not for now."
+}

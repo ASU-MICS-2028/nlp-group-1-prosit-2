@@ -1,0 +1,7 @@
+{
+  "How long is each time slot?": "We just use the start time, like 09:00 or 14:30. Two bookings clash only if they have the same doctor, date and time.",
+  "Can two doctors be booked at the same time?": "Yes, each doctor has their own slots.",
+  "Do patients need to register first?": "No, we only take the patient's name when booking.",
+  "What happens to a cancelled appointment?": "It is removed completely and the slot can be booked again.",
+  "Do you need to see all appointments for all doctors?": "No, we look at one doctor's appointments for one day at a time."
+}

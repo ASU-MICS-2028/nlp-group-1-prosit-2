@@ -1,0 +1,7 @@
+{
+  "open_wallet": {"method": "POST", "path": "/momo/accounts", "fields": {"name": "holder", "phone": "msisdn", "balance": "available"}},
+  "get_wallet": {"method": "GET", "path": "/momo/accounts/{id}", "fields": {"name": "holder", "phone": "msisdn", "balance": "available"}},
+  "deposit": {"method": "POST", "path": "/momo/accounts/{id}/deposits", "fields": {"amount": "value", "balance": "available"}},
+  "transfer": {"method": "POST", "path": "/momo/transfers", "fields": {"from_wallet_id": "source", "to_wallet_id": "target", "amount": "value"}},
+  "list_transactions": {"method": "GET", "path": "/momo/accounts/{id}/history", "fields": {"amount": "value", "balance_after": "running_balance"}}
+}

@@ -1,0 +1,8 @@
+{
+  "Is every expense split between everyone in the group?": "No, only between the members we choose for that expense.",
+  "Does the person who paid have to be in the split?": "No. If I buy lunch for two friends and eat nothing, it is split between just them.",
+  "Who gets the extra pesewa when a bill does not split evenly?": "Any of them, as long as the shares differ by at most one pesewa and add up to the bill.",
+  "Can someone pay back more than they owe?": "We do not mind for now; just record it.",
+  "Do you want to edit or delete expenses?": "Not for now.",
+  "What does a positive balance mean?": "Positive means the others owe you; negative means you owe."
+}

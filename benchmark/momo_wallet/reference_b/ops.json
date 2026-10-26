@@ -1,0 +1,7 @@
+{
+  "open_wallet": {"method": "POST", "path": "/wallets", "fields": {"name": "owner_name", "phone": "phone_number", "balance": "balance_ghs"}},
+  "get_wallet": {"method": "GET", "path": "/wallets/{id}", "fields": {"name": "owner_name", "phone": "phone_number", "balance": "balance_ghs"}},
+  "deposit": {"method": "POST", "path": "/wallets/{id}/top-up", "fields": {"amount": "amount_ghs", "balance": "balance_ghs"}},
+  "transfer": {"method": "POST", "path": "/transfers", "fields": {"from_wallet_id": "sender_id", "to_wallet_id": "receiver_id", "amount": "amount_ghs"}},
+  "list_transactions": {"method": "GET", "path": "/wallets/{id}/statement", "fields": {"amount": "amount_ghs", "balance_after": "balance_ghs_after"}}
+}

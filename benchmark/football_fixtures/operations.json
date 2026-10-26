@@ -1,0 +1,8 @@
+{
+  "add_team": "Add a team. Body: name. Returns the team including its id.",
+  "list_teams": "List all teams.",
+  "create_fixture": "Schedule a fixture. Body: home_team_id, away_team_id (ids of existing teams), date (YYYY-MM-DD). Returns the fixture including its id. Refused when both ids are the same team or a team does not exist.",
+  "get_fixture": "Get one fixture by its id, with home_team_id, away_team_id, date, home_goals and away_goals (empty/null until a score is recorded). Path params: id.",
+  "record_score": "Record the score of a fixture. Path params: id (the fixture). Body: home_goals, away_goals (whole numbers, 0 or more). Refused when a number is negative.",
+  "team_fixtures": "List every fixture a team plays in, at home or away. Path params: id (the team)."
+}

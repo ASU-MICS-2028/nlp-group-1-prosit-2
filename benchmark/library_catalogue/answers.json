@@ -1,0 +1,7 @@
+{
+  "Can a student borrow more than one book at a time?": "Yes, they can borrow different books.",
+  "Do students need an account?": "No, they just give their name.",
+  "What happens when all copies are borrowed?": "Refuse the borrow and say no copies are left.",
+  "Is there a due date or a fine for late returns?": "Not needed for now.",
+  "Can books be edited or removed from the catalogue?": "Not needed for now."
+}

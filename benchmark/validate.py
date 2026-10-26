@@ -73,9 +73,10 @@ def validate(task):
     clean = lambda r: r["started"] and all(run["failed"] == 0 and run["passed"] == total for run in r["runs"])
     killed = [m for m in mutants if not m["started"] or m["runs"][0]["failed"] > 0]
     survivors = [m["label"].split(":", 1)[1] for m in mutants if m not in killed]
+    caught_by = {m["label"].split(":", 1)[1]: (m["runs"][0]["failing"] if m["started"] else ["(did not start)"]) for m in mutants}
     return {"task": task, "tests": total,
             "good_backends_pass": {r["label"]: clean(r) for r in good},
-            "mutants": len(mutants), "killed": len(killed), "survivors": survivors,
+            "mutants": len(mutants), "killed": len(killed), "survivors": survivors, "caught_by": caught_by,
             "ok": all(clean(r) for r in good) and not survivors and len(mutants) >= 3 and total >= 8,
             "detail": results}
 
@@ -94,7 +95,7 @@ def main():
                 print(f"     {r['label']}: failing {[run['failing'] for run in r['runs']]}")
     results_file = BENCH / "validation.json"
     old = json.loads(results_file.read_text()) if results_file.exists() else {}
-    old.update({v["task"]: {k: v[k] for k in ("tests", "good_backends_pass", "mutants", "killed", "survivors", "ok")} for v in out})
+    old.update({v["task"]: {k: v[k] for k in ("tests", "good_backends_pass", "mutants", "killed", "survivors", "caught_by", "ok")} for v in out})
     results_file.write_text(json.dumps(old, indent=2) + "\n")
     sys.exit(0 if all(v["ok"] for v in out) else 1)
 

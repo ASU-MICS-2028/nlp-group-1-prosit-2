@@ -1,0 +1,6 @@
+{
+  "create_table": {"method": "POST", "path": "/spots", "fields": {"number": "label", "seats": "capacity"}},
+  "list_tables": {"method": "GET", "path": "/spots", "fields": {"number": "label", "seats": "capacity"}},
+  "make_reservation": {"method": "POST", "path": "/spots/{id}/bookings", "fields": {"name": "guest", "phone": "contact", "party_size": "guests", "date": "day", "time": "hour", "table_id": "spot_id"}},
+  "list_reservations": {"method": "GET", "path": "/bookings", "fields": {"name": "guest", "phone": "contact", "party_size": "guests", "date": "day", "time": "hour", "table_id": "spot_id"}}
+}

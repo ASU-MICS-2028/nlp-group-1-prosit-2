@@ -1,0 +1,1 @@
+I run a small provisions shop in Madina and I want to keep my price list on the computer instead of in my notebook. I want to add the things I sell with their prices. I want to see everything I sell, and look up the price of one thing. Sometimes I stop selling something, so I want to take it off the list.

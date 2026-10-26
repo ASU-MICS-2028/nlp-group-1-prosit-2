@@ -1,0 +1,6 @@
+{
+  "create_room": {"method": "POST", "path": "/hostel/rooms", "fields": {"name": "label", "beds": "bed_count"}},
+  "book_bed": {"method": "POST", "path": "/hostel/rooms/{id}/bookings", "fields": {"student_name": "guest", "check_in": "arrive", "check_out": "depart"}},
+  "cancel_booking": {"method": "DELETE", "path": "/hostel/bookings/{id}"},
+  "free_beds": {"method": "GET", "path": "/hostel/availability", "fields": {"check_in": "arrive", "check_out": "depart", "room_id": "room", "free_beds": "available"}}
+}

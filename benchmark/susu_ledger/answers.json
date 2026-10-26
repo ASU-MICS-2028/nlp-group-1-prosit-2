@@ -1,0 +1,8 @@
+{
+  "Does every member have to pay the same amount each round?": "No, record whatever each member actually paid; the pot is the total paid in for that round.",
+  "What happens after everyone has collected once?": "The cycle is finished. For the next cycle we start a new group.",
+  "Can a member pay more than once in the same round?": "Yes, sometimes people pay in two parts; all of it counts toward that round.",
+  "Can someone pay into a round after it has been collected?": "No, once a round is collected it is closed.",
+  "Do you need to edit or delete records?": "Not for now.",
+  "Do you take a commission from the pot?": "No, the collector gets the whole pot."
+}

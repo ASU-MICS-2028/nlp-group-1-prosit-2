@@ -1,0 +1,7 @@
+{
+  "report_item": "Report a found item. Body: description, place (where it was found), date_found (YYYY-MM-DD). Returns the item including its id and claimed (false for a new item).",
+  "list_items": "List all items on the board, claimed or not.",
+  "list_unclaimed": "List only the items that have not been claimed yet.",
+  "get_item": "Get one item by its id, with description, place, date_found, claimed (true/false) and owner_name (empty/null until claimed). Path params: id.",
+  "claim_item": "Mark an item as claimed by its owner. Path params: id (the item). Body: owner_name. Refused when the item is already claimed."
+}

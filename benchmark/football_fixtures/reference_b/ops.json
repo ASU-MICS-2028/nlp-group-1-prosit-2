@@ -1,0 +1,8 @@
+{
+  "add_team": {"method": "POST", "path": "/teams", "fields": {"id": "team_id", "name": "team_name"}},
+  "list_teams": {"method": "GET", "path": "/teams", "fields": {"id": "team_id", "name": "team_name"}},
+  "create_fixture": {"method": "POST", "path": "/fixtures", "fields": {"id": "fixture_id", "home_team_id": "home", "away_team_id": "away", "date": "match_date", "home_goals": "home_score", "away_goals": "away_score"}},
+  "get_fixture": {"method": "GET", "path": "/fixtures/{id}", "fields": {"id": "fixture_id", "home_team_id": "home", "away_team_id": "away", "date": "match_date", "home_goals": "home_score", "away_goals": "away_score"}},
+  "record_score": {"method": "POST", "path": "/fixtures/{id}/score", "fields": {"id": "fixture_id", "home_team_id": "home", "away_team_id": "away", "date": "match_date", "home_goals": "home_score", "away_goals": "away_score"}},
+  "team_fixtures": {"method": "GET", "path": "/teams/{id}/fixtures", "fields": {"id": "fixture_id", "home_team_id": "home", "away_team_id": "away", "date": "match_date", "home_goals": "home_score", "away_goals": "away_score"}}
+}

@@ -1,0 +1,8 @@
+{
+  "What grading scale do you use to turn a score into a grade?": "80 to 100 is A (4.0), 75 to 79 is B+ (3.5), 70 to 74 is B (3.0), 65 to 69 is C+ (2.5), 60 to 64 is C (2.0), 55 to 59 is D+ (1.5), 50 to 54 is D (1.0), and below 50 is F (0.0).",
+  "Do courses carry different credit hours, and does that affect the GPA?": "Yes. Every course has credit hours, a whole number from 1 to 6, and the GPA is weighted by them: add up grade point times credit hours over all the student's courses and divide by the total credit hours.",
+  "How should the GPA be rounded?": "To 2 decimal places, normal rounding.",
+  "Are scores whole numbers?": "Yes, whole numbers from 0 to 100.",
+  "What GPA does a student with no scores have?": "Show 0 until they have a score.",
+  "Do failed courses count in the GPA?": "Yes, an F counts as 0.0 with its full credit hours."
+}

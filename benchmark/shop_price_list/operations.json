@@ -1,0 +1,7 @@
+{
+  "add_item": "Add an item to the price list. Body: name, price (a number of Ghana cedis, may have pesewas, e.g. 12.5), category (a word or short phrase chosen by the shop owner, e.g. Drinks). Returns the item including its id. Refused when the price is 0 or less, or when an item with the same name already exists (ignoring upper/lower case).",
+  "list_items": "List all items on the price list. Query params: category (optional; when given, only items in exactly that category).",
+  "get_item": "Get one item by its id, with name, price and category. Path params: id.",
+  "change_price": "Change the price of an item. Path params: id. Body: price (Ghana cedis). Refused when the price is 0 or less.",
+  "remove_item": "Take an item off the price list. Path params: id. Afterwards the item is no longer listed and getting it is not found (404)."
+}

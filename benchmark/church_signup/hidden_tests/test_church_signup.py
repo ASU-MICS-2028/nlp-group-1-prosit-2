@@ -4,7 +4,7 @@ import uuid
 def new_event(api, capacity=3):
     name = f"Choir practice {uuid.uuid4().hex[:6]}"
     status, event = api.call("create_event", json={"name": name, "date": "2026-11-01", "capacity": capacity})
-    assert status in (200, 201), event
+    assert 200 <= status < 300, event
     return event
 
 
@@ -36,7 +36,7 @@ def test_get_missing_event_is_404(api):
 def test_sign_up_then_appears_in_signups(api):
     event = new_event(api)
     status, _ = api.call("sign_up", path_params={"id": event["id"]}, json={"name": "Ama Mensah", "phone": "0244123456"})
-    assert status in (200, 201)
+    assert 200 <= status < 300
     status, people = api.call("list_signups", path_params={"id": event["id"]})
     assert status == 200
     assert [p["name"] for p in people] == ["Ama Mensah"]

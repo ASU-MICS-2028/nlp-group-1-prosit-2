@@ -1,0 +1,6 @@
+{
+  "create_route": {"method": "POST", "path": "/lines", "fields": {"from_stop": "start", "to_stop": "end", "fare": "price"}},
+  "list_routes": {"method": "GET", "path": "/lines", "fields": {"from_stop": "start", "to_stop": "end", "fare": "price"}},
+  "find_fare": {"method": "GET", "path": "/fare", "fields": {"from_stop": "start", "to_stop": "end", "fare": "price"}},
+  "update_fare": {"method": "PATCH", "path": "/lines/{id}", "fields": {"from_stop": "start", "to_stop": "end", "fare": "price"}}
+}

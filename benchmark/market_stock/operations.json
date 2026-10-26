@@ -1,0 +1,8 @@
+{
+  "create_item": "Add an item. Body: name (text), quantity (whole number, 0 or more), low_level (whole number, 0 or more: the quantity at or below which the item counts as running low). Returns the item including its id.",
+  "list_items": "List all items.",
+  "get_item": "Get one item by id, including its current quantity. Path params: id. 404 if there is no such item.",
+  "record_sale": "Record a sale, which lowers the item's quantity. Path params: id (the item). Body: quantity (whole number, more than zero). Refused when quantity is more than the item has in stock, or zero or less; 404 if there is no such item.",
+  "record_restock": "Record a restock, which raises the item's quantity. Path params: id (the item). Body: quantity (whole number, more than zero). Refused when zero or less; 404 if there is no such item.",
+  "list_low_stock": "List the items whose quantity is at or below their low_level."
+}
