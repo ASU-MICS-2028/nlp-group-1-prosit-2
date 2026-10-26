@@ -1,0 +1,6 @@
+{
+  "Can a person sign up for more than one event?": "Yes, each event has its own list.",
+  "Do people need an account to sign up?": "No, just their name and phone number.",
+  "What should happen when an event is full?": "Refuse the sign-up and say the event is full.",
+  "Can events be edited or deleted?": "Not needed for now."
+}

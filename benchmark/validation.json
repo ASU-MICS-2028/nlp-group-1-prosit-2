@@ -1,0 +1,12 @@
+{
+  "church_signup": {
+    "tests": 10,
+    "good_backends_pass": {
+      "reference": true
+    },
+    "mutants": 5,
+    "killed": 5,
+    "survivors": [],
+    "ok": true
+  }
+}

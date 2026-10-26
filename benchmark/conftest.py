@@ -41,3 +41,9 @@ def api():
         pytest.skip("set BASE_URL and OPS_FILE to run benchmark tests (see benchmark/README.md)")
     with open(ops_file) as f:
         return Api(base_url, json.load(f))
+
+
+def pytest_collection_modifyitems(items):
+    """BENCH_ORDER=reverse runs the tests backwards, to check no test depends on an earlier one."""
+    if os.environ.get("BENCH_ORDER") == "reverse":
+        items.reverse()
