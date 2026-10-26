@@ -12,7 +12,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0003](0003-hand-written-agent-loop.md) | Hand-written ReAct loop and a plain Python orchestrator | Proposed | 2026-10-18 |
 | [0004](0004-spec-first.md) | Spec-first: the user approves the API contract before any code is written | Proposed | 2026-10-18 |
 | [0005](0005-three-agents.md) | Planner, Builder and Tester agents, with a single agent as the baseline | Proposed | 2026-10-18 |
-| [0006](0006-sandbox.md) | Generated code runs in a Docker sandbox, with a subprocess fallback | Proposed | 2026-10-18 |
+| [0006](0006-sandbox.md) | Generated code runs in a Docker sandbox, with a subprocess fallback | Superseded by 0027 | 2026-10-18 |
 | [0007](0007-benchmark-operations.md) | Benchmark tests call named operations, not fixed URLs | Proposed | 2026-10-18 |
 | [0008](0008-repo-structure.md) | Three shared folders: docs, learnings, knowledge | Accepted | 2026-10-20 |
 | [0009](0009-summarize-transcripts.md) | Transcripts are summarized before they go in the repo | Accepted | 2026-10-20 |
@@ -33,6 +33,9 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0024](0024-tool-output-size.md) | Tool output is cut to 4,000 characters, keeping the start and the end | Proposed | 2026-10-25 |
 | [0025](0025-server-start.md) | start_server uses a free port and asks the server until it answers | Proposed | 2026-10-25 |
 | [0026](0026-error-format.md) | Failing tests are reported to the LLM as pytest prints them | Proposed | 2026-10-25 |
+| [0027](0027-docker-sandbox.md) | Generated code runs in a locked Docker container; subprocess only when chosen on purpose | Proposed | 2026-10-25 |
+| [0028](0028-test-time-limit.md) | run_tests stops tests after 60 seconds and removes their container | Proposed | 2026-10-25 |
+| [0029](0029-safety-layers.md) | Safety comes from the tools and the sandbox, with no filter on the user's request | Proposed | 2026-10-26 |
 <!-- DECISIONS:END -->
 
 ## Open questions

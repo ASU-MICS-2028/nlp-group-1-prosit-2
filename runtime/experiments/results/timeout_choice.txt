@@ -1,0 +1,5 @@
+good run, 8 tests: slowest of 5 = 5.4 s (median 5.2 s)
+good run, 40 tests: slowest of 5 = 7.4 s (median 6.7 s)
+stuck test, limit  30 s: stopped after 30.7 s, says 'Tests stopped: still running after 30 se...', containers left: 0
+stuck test, limit  60 s: stopped after 60.8 s, says 'Tests stopped: still running after 60 se...', containers left: 0
+stuck test, limit 120 s: stopped after 120.6 s, says 'Tests stopped: still running after 120 s...', containers left: 0

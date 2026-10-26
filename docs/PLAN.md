@@ -14,9 +14,9 @@
 | Who | Stage 0<br>Set up (everyone) | Stage 1<br>Bernard — tools and sandbox | Stage 2<br>Joseph — benchmark, harness, knowledge base | Stage 3<br>Alice — agent core | Stage 4<br>Michael — UI and usability | Stage 5<br>Joseph — full evaluation | Stage 6<br>Eric — integration and writing | Stage 7<br>Everyone — review, viva, submit |
 |---|---|---|---|---|---|---|---|---|
 | Alice (W1) | — | — | — | ⏳ S3.1 Read Bernard's and Joseph's learnings, run their parts<br>⏳ S3.2 Single agent from the command line<br>⏳ S3.3 Run record and trace<br>⏳ S3.4 Test-and-repair loop<br>⏳ S3.5 Spec-first plan and approval<br>⏳ S3.6 Planner / Builder / Tester split<br>⏳ S3.7 Retrieval in the agent<br>⏳ S3.8 Clarifying questions<br>⏳ S3.9 Claude vs local Qwen<br>⏳ S3.10 "Change it" edit loop<br>⏳ S3.11 Handoff: Alice's learnings | — | — | — | — |
-| Bernard (W2) | — | ✅ S1.1 The agent's tools<br>🔵 S1.2 Sandbox<br>⏳ S1.3 Safety tests<br>🔵 S1.4 MCP server<br>⏳ S1.5 Handoff: Bernard's learnings | — | — | — | — | — | — |
+| Bernard (W2) | — | ✅ S1.1 The agent's tools<br>✅ S1.2 Sandbox<br>✅ S1.3 Safety tests<br>🔵 S1.4 MCP server<br>✅ S1.5 Handoff: Bernard's learnings | — | — | — | — | — | — |
 | Michael (W3) | — | — | — | — | ⏳ S4.1 Read Alice's learnings, run a build<br>⏳ S4.2 UI on a recorded session<br>⏳ S4.3 UI on the live agent<br>⏳ S4.4 UI alternatives compared<br>⏳ S4.5 Usability test<br>⏳ S4.6 Handoff: Michael's learnings | — | — | — |
-| Joseph (W4) | ✅ S0.2 LLM setup | — | ⏳ S2.1 Read Bernard's learnings, run his tools<br>⏳ S2.2 15 benchmark tasks<br>⏳ S2.3 Eval harness<br>⏳ S2.4 Recipe knowledge base and search<br>⏳ S2.5 Handoff: Joseph's learnings, part 1 | — | — | ⏳ S5.1 Read Alice's and Michael's learnings<br>⏳ S5.2 Full system on all 15 tasks<br>⏳ S5.3 Ablations<br>⏳ S5.4 Model comparison<br>⏳ S5.5 Results tables and charts<br>⏳ S5.6 Handoff: Joseph's learnings, part 2 | — | — |
+| Joseph (W4) | ✅ S0.2 LLM setup | — | 🔵 S2.1 Read Bernard's learnings, run his tools<br>⏳ S2.2 15 benchmark tasks<br>⏳ S2.3 Eval harness<br>⏳ S2.4 Recipe knowledge base and search<br>⏳ S2.5 Handoff: Joseph's learnings, part 1 | — | — | ⏳ S5.1 Read Alice's and Michael's learnings<br>⏳ S5.2 Full system on all 15 tasks<br>⏳ S5.3 Ablations<br>⏳ S5.4 Model comparison<br>⏳ S5.5 Results tables and charts<br>⏳ S5.6 Handoff: Joseph's learnings, part 2 | — | — |
 | Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>✅ S0.4 Ask the instructor about "Section C" | — | — | — | — | — | ⏳ S6.1 Read every learnings file, run everything<br>⏳ S6.2 Fix what doesn't fit together<br>⏳ S6.3 Section B draft<br>⏳ S6.4 Slides and recorded demo<br>⏳ S6.5 Handoff: Eric's learnings | — |
 | Everyone | 🔵 S0.6 Docker on every laptop | — | — | — | — | — | — | ⏳ S7.1 Review Section B for your part<br>🔵 S7.2 Section A (individual, any time)<br>⏳ S7.3 Viva walkthrough<br>⏳ S7.4 Rehearse and submit |
 
@@ -39,13 +39,13 @@ flowchart LR
   end
   subgraph Stage1["Stage 1: Bernard — tools and sandbox"]
     S1_1["S1.1 The agent's tools<br/>W2 · Must"]:::done
-    S1_2["S1.2 Sandbox<br/>W2 · Must"]:::ready
-    S1_3["S1.3 Safety tests<br/>W2 · Should"]:::waiting
+    S1_2["S1.2 Sandbox<br/>W2 · Must"]:::done
+    S1_3["S1.3 Safety tests<br/>W2 · Should"]:::done
     S1_4["S1.4 MCP server<br/>W2 · Could"]:::ready
-    S1_5["S1.5 Handoff: Bernard's learnings<br/>W2 · Must"]:::waiting
+    S1_5["S1.5 Handoff: Bernard's learnings<br/>W2 · Must"]:::done
   end
   subgraph Stage2["Stage 2: Joseph — benchmark, harness, knowledge base"]
-    S2_1["S2.1 Read Bernard's learnings, run his tools<br/>W4 · Must"]:::waiting
+    S2_1["S2.1 Read Bernard's learnings, run his tools<br/>W4 · Must"]:::ready
     S2_2["S2.2 15 benchmark tasks<br/>W4 · Must"]:::waiting
     S2_3["S2.3 Eval harness<br/>W4 · Must"]:::waiting
     S2_4["S2.4 Recipe knowledge base and search<br/>W4 · Should"]:::waiting
@@ -166,10 +166,10 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 | ID | Task | Who | Needs | Priority | Status | Done when |
 |---|---|---|---|---|---|---|
 | S1.1 | The agent's tools | W2 | — | Must | done | Write, read and list files; run tests; start a server; send an HTTP request. Each works on `benchmark/church_signup/reference`. Tool output size and error formats compared |
-| S1.2 | Sandbox | W2 | S1.1 | Must | todo | Generated code runs isolated (no network, CPU/memory caps, timeout). Docker vs subprocess compared on speed and isolation |
-| S1.3 | Safety tests | W2 | S1.2 | Should | todo | Every attack in the safety list tried (deleting files, reading secrets, network calls, prompt injection in a field description); the result of each recorded |
+| S1.2 | Sandbox | W2 | S1.1 | Must | done | Generated code runs isolated (no network, CPU/memory caps, timeout). Docker vs subprocess compared on speed and isolation |
+| S1.3 | Safety tests | W2 | S1.2 | Should | done | Every attack in the safety list tried (deleting files, reading secrets, network calls, prompt injection in a field description); the result of each recorded |
 | S1.4 | MCP server | W2 | S1.1 | Could | todo | An MCP client (e.g. Claude Desktop) can call the tools |
-| S1.5 | Handoff: Bernard's learnings | W2 | S1.2, S1.3 | Must | todo | `learnings/W2-*.md` complete, including how the next person uses the tools and the sandbox |
+| S1.5 | Handoff: Bernard's learnings | W2 | S1.2, S1.3 | Must | done | `learnings/W2-*.md` complete, including how the next person uses the tools and the sandbox |
 
 ## Stage 2: Joseph — benchmark, harness, knowledge base
 
@@ -268,10 +268,10 @@ What each person owns. The task list under the table is generated.
 **Bernard (W2)**
 
 1. S1.1 The agent's tools — Must, done
-2. S1.2 Sandbox — Must, ready
-3. S1.3 Safety tests — Should, waiting (waiting on S1.2)
+2. S1.2 Sandbox — Must, done
+3. S1.3 Safety tests — Should, done
 4. S1.4 MCP server — Could, ready
-5. S1.5 Handoff: Bernard's learnings — Must, waiting (waiting on S1.2, S1.3)
+5. S1.5 Handoff: Bernard's learnings — Must, done
 
 **Michael (W3)**
 
@@ -285,7 +285,7 @@ What each person owns. The task list under the table is generated.
 **Joseph (W4)**
 
 1. S0.2 LLM setup — Must, done
-2. S2.1 Read Bernard's learnings, run his tools — Must, waiting (waiting on S1.5)
+2. S2.1 Read Bernard's learnings, run his tools — Must, ready
 3. S2.2 15 benchmark tasks — Must, waiting (waiting on S2.1)
 4. S2.3 Eval harness — Must, waiting (waiting on S2.2)
 5. S2.4 Recipe knowledge base and search — Should, waiting (waiting on S2.1)
@@ -322,7 +322,6 @@ What each person owns. The task list under the table is generated.
 Generated: every place where one person's task cannot finish until another person's task is done. In a relay, these are the handoffs.
 
 <!-- BLOCKERS:START -->
-- S2.1 Read Bernard's learnings, run his tools (Joseph (W4)) waits on S1.5 Handoff: Bernard's learnings (Bernard (W2))
 - S3.1 Read Bernard's and Joseph's learnings, run their parts (Alice (W1)) waits on S2.5 Handoff: Joseph's learnings, part 1 (Joseph (W4))
 - S4.1 Read Alice's learnings, run a build (Michael (W3)) waits on S3.11 Handoff: Alice's learnings (Alice (W1))
 - S5.1 Read Alice's and Michael's learnings (Joseph (W4)) waits on S4.6 Handoff: Michael's learnings (Michael (W3))

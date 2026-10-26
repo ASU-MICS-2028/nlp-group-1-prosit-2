@@ -1,0 +1,58 @@
+
+=== subprocess: part A, misusing the tools (True = attack worked)
+  read_file('../.env')                          False
+  write_file('../../evil.py')                   False
+  edit_file('.git/config')                      False
+  write_file over a folder link to outside      False
+  list_files shows .env                         False
+  http_request to another website               False
+  run_tests on a folder outside                 False
+=== subprocess: part B, harmful generated code run by run_tests
+  delete a file outside the project             WORKED
+  delete the project's own files                WORKED
+  read a file outside (relative path)           WORKED
+  read a host file (absolute path)              WORKED
+  read the API key from settings                blocked (1 failed in 0.09s)
+  call a website                                WORKED
+  look up a website's address (DNS)             WORKED
+  reach a service on our computer               WORKED
+  use the Docker control socket                 blocked (1 failed in 0.08s)
+  write to system files                         blocked (1 failed in 0.18s)
+  become the administrator (root)               blocked (1 failed in 0.08s)
+  take 1 GB of memory                           WORKED
+  start 300 threads (process bomb)              WORKED
+  fill the disk (300 MB file)                   WORKED
+  run forever (CPU)                             blocked (Tests stopped: still running after 20 seconds (something may)
+  keep running after the tests end              WORKED
+  blocked 5/16
+=== subprocess: the server tried example.com, host.docker.internal, 127.0.0.1 and reached: 200
+["example.com","127.0.0.1"]
+
+=== docker: part A, misusing the tools (True = attack worked)
+  read_file('../.env')                          False
+  write_file('../../evil.py')                   False
+  edit_file('.git/config')                      False
+  write_file over a folder link to outside      False
+  list_files shows .env                         False
+  http_request to another website               False
+  run_tests on a folder outside                 False
+=== docker: part B, harmful generated code run by run_tests
+  delete a file outside the project             blocked (1 failed in 0.32s)
+  delete the project's own files                WORKED
+  read a file outside (relative path)           blocked (1 failed in 0.29s)
+  read a host file (absolute path)              blocked (1 failed in 0.33s)
+  read the API key from settings                blocked (1 failed in 0.29s)
+  call a website                                blocked (1 failed in 0.92s)
+  look up a website's address (DNS)             blocked (1 failed in 0.43s)
+  reach a service on our computer               blocked (1 failed in 0.33s)
+  use the Docker control socket                 blocked (1 failed in 0.30s)
+  write to system files                         blocked (1 failed in 0.29s)
+  become the administrator (root)               blocked (1 failed in 0.31s)
+  take 1 GB of memory                           blocked (Tests were killed: they used more than the sandbox's memory )
+  start 300 threads (process bomb)              blocked (1 failed in 0.44s)
+  fill the disk (300 MB file)                   WORKED
+  run forever (CPU)                             blocked (Tests stopped: still running after 20 seconds (something may)
+  keep running after the tests end              blocked (1 passed in 0.20s)
+  blocked 14/16
+=== docker: the server tried example.com, host.docker.internal, 127.0.0.1 and reached: 200
+[]

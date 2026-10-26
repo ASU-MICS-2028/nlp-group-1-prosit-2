@@ -6,15 +6,16 @@ Every tool returns a dict {"ok": True or False, "output": "text for the LLM to r
 """
 
 import atexit
-import os
 import socket
 import subprocess
-import sys
 import tempfile
 import time
 from pathlib import Path
 
 import httpx
+
+from runtime import sandbox
+from runtime.sandbox import clean_env  # noqa: F401  (the experiments import it from here)
 
 # Names the agent may never read, write or list, anywhere in the project.
 BLOCKED = {".env", ".git"}
@@ -119,25 +120,24 @@ def list_files(root):
     return ok("\n".join(names) or "(no files yet)")
 
 
-def clean_env():
-    """The few settings a program needs to start. Keys such as LLM_API_KEY are left out on purpose."""
-    keep = ["PATH", "SYSTEMROOT", "TEMP", "TMP"]  # SYSTEMROOT: Windows Python cannot start without it
-    return {k: os.environ[k] for k in keep if k in os.environ} | {"PYTHONUTF8": "1"}
-
-
 def run_tests(root, path="tests", timeout=60):
-    """Run pytest on the project's own tests and return what it printed."""
+    """Run pytest on the project's own tests, in the sandbox, and return what it printed."""
     try:
-        safe_path(root, path)
+        full = safe_path(root, path)
     except ValueError as e:
         return fail(str(e))
-    command = [sys.executable, "-m", "pytest", path, "-q", "--tb=short", "-p", "no:cacheprovider"]
+    root, name = str(Path(root).resolve()), sandbox.new_name()
+    relative = full.relative_to(root).as_posix()  # tests/test_app.py, with / even on Windows (Docker runs Linux)
+    args = ["python", "-m", "pytest", relative, "-q", "--tb=short", "-p", "no:cacheprovider"]
     try:
-        result = subprocess.run(command, cwd=root, env=clean_env(), capture_output=True,
-                                encoding="utf-8", errors="replace", timeout=timeout)
+        result = subprocess.run(sandbox.command(root, args, name), cwd=root, env=sandbox.host_env(),
+                                capture_output=True, encoding="utf-8", errors="replace", timeout=timeout)
     except subprocess.TimeoutExpired:
+        sandbox.remove(name)  # stopping the docker command does not stop its container, so remove it
         return fail(f"Tests stopped: still running after {timeout} seconds (something may be stuck in a loop or waiting)")
     output = result.stdout + result.stderr
+    if result.returncode == 137:  # 137 = the sandbox killed it, almost always for using too much memory
+        return fail(f"Tests were killed: they used more than the sandbox's memory limit (512 MB).\n{output}")
     if result.returncode == 0:
         return ok(output)
     if result.returncode == 5:  # pytest's code for "collected no tests"
@@ -145,7 +145,7 @@ def run_tests(root, path="tests", timeout=60):
     return fail(output)
 
 
-# The servers this program has started: project folder -> (process, base URL, log file).
+# The servers this program has started: project folder -> (process, base URL, log file, sandbox name).
 SERVERS = {}
 
 
@@ -157,27 +157,32 @@ def free_port():
 
 
 def start_server(root, timeout=20):
-    """Start the project's app.py (uvicorn app:app) on a free port and wait until it answers."""
+    """Start the project's app.py (uvicorn app:app) in the sandbox on a free port and wait until it answers."""
     root = str(Path(root).resolve())
     stop_server(root)  # at most one server per project
-    port = free_port()
+    port, name = free_port(), sandbox.new_name()
     log_path = Path(tempfile.mkdtemp()) / "server.log"
-    command = [sys.executable, "-m", "uvicorn", "app:app", "--host", "127.0.0.1", "--port", str(port)]
-    with open(log_path, "w") as log:
-        process = subprocess.Popen(command, cwd=root, env=clean_env(), stdout=log, stderr=subprocess.STDOUT)
+    try:
+        with open(log_path, "w") as log:
+            process = sandbox.server(root, name, port, log)
+    except subprocess.CalledProcessError as e:  # a docker step failed, e.g. Docker is not running
+        sandbox.remove(name)
+        return fail(f"The sandbox could not start: {e.stderr}")
     url = f"http://127.0.0.1:{port}"
     deadline = time.time() + timeout
     while time.time() < deadline:
         if process.poll() is not None:  # the process ended by itself: the app crashed
+            sandbox.remove(name)
             return fail("Server crashed while starting:\n" + log_path.read_text(errors="replace"))
         try:
             # Any answer means it is up. Give up connecting after 0.1 s and try again (log row 8).
             httpx.get(url + "/openapi.json", timeout=httpx.Timeout(5, connect=0.1))
-            SERVERS[root] = (process, url, log_path)
+            SERVERS[root] = (process, url, log_path, name)
             return ok(f"Server running at {url}")
         except httpx.HTTPError:
             time.sleep(0.1)
     process.kill()
+    sandbox.remove(name)
     return fail(f"Server did not answer within {timeout} seconds:\n" + log_path.read_text(errors="replace"))
 
 
@@ -186,9 +191,10 @@ def stop_server(root):
     root = str(Path(root).resolve())
     if root not in SERVERS:
         return fail("No server is running for this project")
-    process, url, _ = SERVERS.pop(root)
+    process, url, _, name = SERVERS.pop(root)
     process.kill()
     process.wait()
+    sandbox.remove(name)
     return ok(f"Stopped the server at {url}")
 
 
@@ -201,7 +207,7 @@ def http_request(root, method, path, json=None, timeout=10):
     root = str(Path(root).resolve())
     if root not in SERVERS:
         return fail("No server is running: call start_server first")
-    process, url, log_path = SERVERS[root]
+    process, url, log_path, name = SERVERS[root]
     if method.upper() not in {"GET", "POST", "PUT", "PATCH", "DELETE"}:
         return fail(f"Refused: unknown method {method!r}")
     if not path.startswith("/"):
@@ -216,5 +222,6 @@ def http_request(root, method, path, json=None, timeout=10):
         except subprocess.TimeoutExpired:
             return fail(f"Request failed: {e}")
         SERVERS.pop(root)
+        sandbox.remove(name)
         return fail("The server has stopped. Its log:\n" + log_path.read_text(errors="replace"))
     return ok(f"{response.status_code}\n{response.text}")
