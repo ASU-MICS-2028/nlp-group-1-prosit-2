@@ -12,7 +12,7 @@ An LLM can only write text. It cannot save a file, run a test or call a website.
 - they cut long output so it does not waste tokens;
 - they stop anything that runs too long.
 
-Stage 1 so far (task S1.1) gives **eight tools**, all in one file, `runtime/tools.py`:
+Stage 1 gives three things: **eight tools** (task S1.1), a **sandbox** that the generated code runs in (S1.2), and a **safety list** of every attack tried against them (S1.3, in section 5). The tools are all in one file, `runtime/tools.py`:
 
 | Tool | Does |
 |---|---|
@@ -203,7 +203,7 @@ uv run pytest runtime -q                       # expect: 51 passed (about 3 minu
 ```
 Docker Desktop must be running. On a machine without Docker, set the environment variable `SANDBOX=subprocess` (PowerShell: `$env:SANDBOX="subprocess"`). Then expect 44 passed and 7 skipped, and remember that nothing is isolated.
 
-**Re-run the experiments** (all free, except `error_format.py`, which costs about $0.85):
+**Re-run the experiments** (all free except the two that call Claude and need the key: `error_format.py`, about $0.85, and `prompt_injection.py`, about $0.55):
 ```
 uv run python runtime/experiments/path_guard.py      # log row 1
 uv run python runtime/experiments/file_tools.py      # rows 2-4
