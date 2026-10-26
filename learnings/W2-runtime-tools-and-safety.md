@@ -201,6 +201,8 @@ docker build -t w2-sandbox runtime/sandbox     # once: the sandbox image (about 
 docker pull alpine/socat:1.8.0.3               # once: the "door" for servers
 uv run pytest runtime -q                       # expect: 51 passed (about 3 minutes)
 ```
+**Checked from a fresh clone** (Oct 26, Windows 11): following only these steps, the image built from scratch, 51 tests passed in 156 s, and the church hidden tests passed 10/10 against a server started with `start_server` (Joseph's use, below).
+
 Docker Desktop must be running. On a machine without Docker, set the environment variable `SANDBOX=subprocess` (PowerShell: `$env:SANDBOX="subprocess"`). Then expect 44 passed and 7 skipped, and remember that nothing is isolated.
 
 **Re-run the experiments** (all free except the two that call Claude and need the key: `error_format.py`, about $0.85, and `prompt_injection.py`, about $0.55):

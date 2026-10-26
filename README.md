@@ -1,16 +1,19 @@
 # Prosit 2: A Non-Developer Friendly API Builder
 
 <!-- STATUS:START -->
-## Now: Stage 1: Bernard — tools and sandbox
+## Now: Stage 2: Joseph — benchmark, harness, knowledge base
 
-**Who:** Bernard (W2)
+**Who:** Joseph (W4)
 
 | Task | Who | Status |
 |---|---|---|
-| S1.4 MCP server | Bernard (W2) | 🔵 ready |
-| S1.5 Handoff: Bernard's learnings | Bernard (W2) | 🟡 doing |
+| S2.1 Read Bernard's learnings, run his tools | Joseph (W4) | 🔵 ready |
+| S2.2 15 benchmark tasks | Joseph (W4) | ⏳ waiting (on S2.1) |
+| S2.3 Eval harness | Joseph (W4) | ⏳ waiting (on S2.2) |
+| S2.4 Recipe knowledge base and search | Joseph (W4) | ⏳ waiting (on S2.1) |
+| S2.5 Handoff: Joseph's learnings, part 1 | Joseph (W4) | ⏳ waiting (on S2.3, S2.4) |
 
-**Next:** Stage 2: Joseph — benchmark, harness, knowledge base
+**Next:** Stage 3: Alice — agent core
 
 Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand.
 <!-- STATUS:END -->
