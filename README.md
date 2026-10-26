@@ -7,7 +7,7 @@
 
 | Task | Who | Status |
 |---|---|---|
-| S2.1 Read Bernard's learnings, run his tools | Joseph (W4) | 🔵 ready |
+| S2.1 Read Bernard's learnings, run his tools | Joseph (W4) | 🟡 doing |
 | S2.2 15 benchmark tasks | Joseph (W4) | ⏳ waiting (on S2.1) |
 | S2.3 Eval harness | Joseph (W4) | ⏳ waiting (on S2.2) |
 | S2.4 Recipe knowledge base and search | Joseph (W4) | ⏳ waiting (on S2.1) |
