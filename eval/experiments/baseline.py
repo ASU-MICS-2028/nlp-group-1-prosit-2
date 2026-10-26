@@ -1,4 +1,4 @@
-"""The no-agent baseline: one LLM call writes the whole backend, a second maps it; hidden tests score it.
+"""The no-agent baseline: one LLM call writes the whole backend, Opus maps it (21/21 right in mapping.json), hidden tests score it.
 
     uv run --env-file .env --with anthropic python -m eval.experiments.baseline [task ...]
 
@@ -34,7 +34,7 @@ for name in sys.argv[1:] or bench.task_names():
             start = time.time()
             text, build = ask(model, BUILD_SYSTEM, user, schema=SCHEMA)
             app = json.loads(text)["app_py"] if build["stop_reason"] == "end_turn" else ""
-            ops, mapped = bench.map_ops(model, app, t["operations"]) if app else ({}, {"cost_usd": 0})
+            ops, mapped = bench.map_ops("claude-opus-5-5", app, t["operations"]) if app else ({}, {"cost_usd": 0})  # always Opus: 21/21 right (mapping.json), so the score measures the build only
             got = bench.score(name, f"baseline_{model}_{variant.replace('+', '_')}", app, ops)
             total = got["passed"] + got["failed"]
             row = {"task": name, "tier": t.get("tier"), "vague": t.get("vague"), "model": model, "variant": variant,

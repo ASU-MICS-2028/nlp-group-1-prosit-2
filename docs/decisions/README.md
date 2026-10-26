@@ -37,6 +37,8 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0028](0028-test-time-limit.md) | run_tests stops tests after 60 seconds and removes their container | Proposed | 2026-10-25 |
 | [0029](0029-safety-layers.md) | Safety comes from the tools and the sandbox, with no filter on the user's request | Proposed | 2026-10-26 |
 | [0030](0030-harness-uses-docker-sandbox.md) | The evaluation harness runs every backend in the Docker sandbox, side by side, and cleans up first | Accepted | 2026-10-26 |
+| [0031](0031-benchmark-format-and-checker.md) | Benchmark tasks are checked for being too weak, too strict and flaky before anything is measured | Accepted | 2026-10-27 |
+| [0032](0032-opus-writes-ops-json.md) | The name map (ops.json) is always written by Opus, whichever model built the backend | Accepted | 2026-10-27 |
 <!-- DECISIONS:END -->
 
 ## Open questions

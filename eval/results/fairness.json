@@ -5,6 +5,152 @@
     "vague": false,
     "tests": 10,
     "flagged": [],
-    "cost_usd": 0.02514
+    "cost_usd": 0.02872
+  },
+  {
+    "task": "clinic_appointments",
+    "tier": "medium",
+    "vague": false,
+    "tests": 13,
+    "flagged": [
+      {
+        "test": "test_create_doctor_without_name_is_refused",
+        "fair": false,
+        "reason": "The client never said a doctor without a name must be refused. No refusal rules are given for creating doctors."
+      },
+      {
+        "test": "test_booking_without_patient_name_is_refused",
+        "fair": false,
+        "reason": "Refusal conditions for booking are listed explicitly (slot taken, doctor missing). A missing patient name is not among them, so this validation is a guess."
+      }
+    ],
+    "cost_usd": 0.034
+  },
+  {
+    "task": "football_fixtures",
+    "tier": "easy",
+    "vague": false,
+    "tests": 13,
+    "flagged": [],
+    "cost_usd": 0.0379
+  },
+  {
+    "task": "hostel_booking",
+    "tier": "hard",
+    "vague": false,
+    "tests": 15,
+    "flagged": [],
+    "cost_usd": 0.06162
+  },
+  {
+    "task": "library_catalogue",
+    "tier": "easy",
+    "vague": false,
+    "tests": 13,
+    "flagged": [],
+    "cost_usd": 0.03553
+  },
+  {
+    "task": "lost_and_found",
+    "tier": "easy",
+    "vague": false,
+    "tests": 12,
+    "flagged": [],
+    "cost_usd": 0.03725
+  },
+  {
+    "task": "market_stock",
+    "tier": "medium",
+    "vague": false,
+    "tests": 13,
+    "flagged": [
+      {
+        "test": "test_create_item_without_name_is_refused",
+        "fair": false,
+        "reason": "The client listed name as a field but never said an item without a name must be refused. Validation rules were stated only for sale and restock amounts."
+      }
+    ],
+    "cost_usd": 0.03077
+  },
+  {
+    "task": "momo_wallet",
+    "tier": "hard",
+    "vague": false,
+    "tests": 13,
+    "flagged": [],
+    "cost_usd": 0.03828
+  },
+  {
+    "task": "restaurant_reservations",
+    "tier": "medium",
+    "vague": false,
+    "tests": 12,
+    "flagged": [],
+    "cost_usd": 0.03442
+  },
+  {
+    "task": "school_grades_gpa",
+    "tier": "hard",
+    "vague": true,
+    "tests": 12,
+    "flagged": [],
+    "cost_usd": 0.03999
+  },
+  {
+    "task": "shared_expenses",
+    "tier": "hard",
+    "vague": false,
+    "tests": 13,
+    "flagged": [],
+    "cost_usd": 0.03416
+  },
+  {
+    "task": "shop_price_list",
+    "tier": "easy",
+    "vague": true,
+    "tests": 13,
+    "flagged": [
+      {
+        "test": "test_remove_missing_item_is_404",
+        "fair": false,
+        "reason": "The client never said what should happen when removing an item that does not exist. Requiring a 404 rather than an idempotent success is an unstated rule."
+      }
+    ],
+    "cost_usd": 0.03787
+  },
+  {
+    "task": "susu_ledger",
+    "tier": "hard",
+    "vague": false,
+    "tests": 14,
+    "flagged": [],
+    "cost_usd": 0.03656
+  },
+  {
+    "task": "tailoring_orders",
+    "tier": "medium",
+    "vague": false,
+    "tests": 13,
+    "flagged": [
+      {
+        "test": "test_create_customer_without_name_is_refused",
+        "fair": false,
+        "reason": "The client never said a customer without a name must be rejected. Required-field validation is an unstated rule."
+      },
+      {
+        "test": "test_order_without_garment_is_refused",
+        "fair": false,
+        "reason": "The client never said orders missing a garment must be rejected. This required-field rule is not stated."
+      }
+    ],
+    "cost_usd": 0.03318
+  },
+  {
+    "task": "trotro_fares",
+    "tier": "medium",
+    "vague": true,
+    "tests": 13,
+    "flagged": [],
+    "cost_usd": 0.03542
   }
 ]
