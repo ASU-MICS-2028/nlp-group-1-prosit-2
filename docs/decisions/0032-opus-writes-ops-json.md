@@ -15,7 +15,7 @@ Hidden tests call operations by name; after a build, an LLM must map each operat
 
 ## Decision
 
-Opus 5.5 maps every backend, in the baseline and in the harness. Measured on the 21 correct backends with known true maps (`eval/results/mapping.json`): Opus 21/21 right, Haiku 13/21 (worst on backends with renamed id fields: as low as 8/13 tests).
+Opus 5.5 maps every backend, in the baseline and in the harness. Measured on the 21 correct backends with known true maps (`eval/results/mapping.json`): Opus 21/21 right, Haiku 13/21 (worst on backends with renamed id fields: as low as 8/13 tests). Re-run after the final translation fixes (decision 0034): Opus 21/21 again, Haiku 10/21.
 
 ## Consequences
 

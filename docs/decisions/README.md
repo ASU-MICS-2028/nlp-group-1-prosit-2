@@ -39,6 +39,8 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0030](0030-harness-uses-docker-sandbox.md) | The evaluation harness runs every backend in the Docker sandbox, side by side, and cleans up first | Accepted | 2026-10-26 |
 | [0031](0031-benchmark-format-and-checker.md) | Benchmark tasks are checked for being too weak, too strict and flaky before anything is measured | Accepted | 2026-10-27 |
 | [0032](0032-opus-writes-ops-json.md) | The name map (ops.json) is always written by Opus, whichever model built the backend | Accepted | 2026-10-27 |
+| [0033](0033-builder-never-sees-operations.md) | The agent that builds a backend never sees the task's operations list | Accepted | 2026-10-27 |
+| [0034](0034-benchmark-translation-rules.md) | What the benchmark's name translation handles, and how a change to it is checked | Accepted | 2026-10-27 |
 <!-- DECISIONS:END -->
 
 ## Open questions
