@@ -9,7 +9,7 @@
     "passed": 10,
     "total": 10,
     "seconds": 19.9,
-    "cost_usd": 0.0812,
+    "cost_usd": 0.0673,
     "lines": 106,
     "stop_reason": "end_turn",
     "error": "",
@@ -65,7 +65,7 @@
     "passed": 10,
     "total": 10,
     "seconds": 21.9,
-    "cost_usd": 0.0456,
+    "cost_usd": 0.0319,
     "lines": 112,
     "stop_reason": "end_turn",
     "error": "",
@@ -119,7 +119,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 30.4,
-    "cost_usd": 0.1066,
+    "cost_usd": 0.1087,
     "lines": 173,
     "stop_reason": "end_turn",
     "error": "",
@@ -150,7 +150,11 @@
       },
       "cancel_appointment": {
         "method": "DELETE",
-        "path": "/appointments/{id}"
+        "path": "/appointments/{id}",
+        "response_fields": {
+          "time": "time_slot"
+        },
+        "response_key": "appointment"
       }
     }
   },
@@ -179,7 +183,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 21.8,
-    "cost_usd": 0.0332,
+    "cost_usd": 0.0347,
     "lines": 109,
     "stop_reason": "end_turn",
     "error": "",
@@ -242,7 +246,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 28.2,
-    "cost_usd": 0.0899,
+    "cost_usd": 0.0916,
     "lines": 168,
     "stop_reason": "end_turn",
     "error": "",
@@ -300,7 +304,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 21.2,
-    "cost_usd": 0.0322,
+    "cost_usd": 0.0339,
     "lines": 96,
     "stop_reason": "end_turn",
     "error": "",
@@ -373,7 +377,7 @@
     "passed": 15,
     "total": 15,
     "seconds": 47.2,
-    "cost_usd": 0.1281,
+    "cost_usd": 0.1037,
     "lines": 169,
     "stop_reason": "end_turn",
     "error": "",
@@ -437,7 +441,7 @@
     "passed": 15,
     "total": 15,
     "seconds": 23.6,
-    "cost_usd": 0.0628,
+    "cost_usd": 0.0408,
     "lines": 116,
     "stop_reason": "end_turn",
     "error": "",
@@ -501,7 +505,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 22.2,
-    "cost_usd": 0.0775,
+    "cost_usd": 0.081,
     "lines": 130,
     "stop_reason": "end_turn",
     "error": "",
@@ -537,14 +541,24 @@
         "path": "/books/{id}/borrow",
         "request_fields": {
           "student": "student_name"
-        }
+        },
+        "response_fields": {
+          "copies": "total_copies",
+          "available": "copies_on_shelf"
+        },
+        "response_key": "book"
       },
       "return_book": {
         "method": "POST",
         "path": "/books/{id}/return",
         "request_fields": {
           "student": "student_name"
-        }
+        },
+        "response_fields": {
+          "copies": "total_copies",
+          "available": "copies_on_shelf"
+        },
+        "response_key": "book"
       }
     }
   },
@@ -573,7 +587,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 14.5,
-    "cost_usd": 0.0337,
+    "cost_usd": 0.0399,
     "lines": 105,
     "stop_reason": "end_turn",
     "error": "",
@@ -609,14 +623,24 @@
         "path": "/books/{id}/borrow",
         "request_fields": {
           "student": "student_name"
-        }
+        },
+        "response_fields": {
+          "copies": "copies_total",
+          "available": "copies_on_shelf"
+        },
+        "response_key": "book"
       },
       "return_book": {
         "method": "POST",
         "path": "/books/{id}/return",
         "request_fields": {
           "student": "student_name"
-        }
+        },
+        "response_fields": {
+          "copies": "copies_total",
+          "available": "copies_on_shelf"
+        },
+        "response_key": "book"
       }
     }
   },
@@ -645,7 +669,7 @@
     "passed": 12,
     "total": 12,
     "seconds": 24.4,
-    "cost_usd": 0.0767,
+    "cost_usd": 0.0766,
     "lines": 118,
     "stop_reason": "end_turn",
     "error": "",
@@ -723,7 +747,7 @@
     "passed": 12,
     "total": 12,
     "seconds": 21.1,
-    "cost_usd": 0.0295,
+    "cost_usd": 0.031,
     "lines": 97,
     "stop_reason": "end_turn",
     "error": "",
@@ -795,7 +819,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 22.6,
-    "cost_usd": 0.0777,
+    "cost_usd": 0.0794,
     "lines": 140,
     "stop_reason": "end_turn",
     "error": "",
@@ -859,7 +883,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 16.7,
-    "cost_usd": 0.027,
+    "cost_usd": 0.0287,
     "lines": 68,
     "stop_reason": "end_turn",
     "error": "",
@@ -923,7 +947,7 @@
     "passed": 3,
     "total": 13,
     "seconds": 51.9,
-    "cost_usd": 0.2033,
+    "cost_usd": 0.1764,
     "lines": 248,
     "stop_reason": "end_turn",
     "error": "",
@@ -995,7 +1019,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 28.7,
-    "cost_usd": 0.0586,
+    "cost_usd": 0.0411,
     "lines": 137,
     "stop_reason": "end_turn",
     "error": "",
@@ -1050,7 +1074,7 @@
     "passed": 12,
     "total": 12,
     "seconds": 27.5,
-    "cost_usd": 0.1067,
+    "cost_usd": 0.0863,
     "lines": 131,
     "stop_reason": "end_turn",
     "error": "",
@@ -1064,16 +1088,16 @@
           "number": "table_number"
         },
         "response_fields": {
-          "number": "table_number",
-          "id": "table_number"
+          "id": "table_number",
+          "number": "table_number"
         }
       },
       "list_tables": {
         "method": "GET",
         "path": "/tables",
         "response_fields": {
-          "number": "table_number",
-          "id": "table_number"
+          "id": "table_number",
+          "number": "table_number"
         }
       },
       "make_reservation": {
@@ -1121,7 +1145,7 @@
     "passed": 12,
     "total": 12,
     "seconds": 19.5,
-    "cost_usd": 0.0565,
+    "cost_usd": 0.0386,
     "lines": 104,
     "stop_reason": "end_turn",
     "error": "",
@@ -1180,7 +1204,7 @@
     "passed": 2,
     "total": 12,
     "seconds": 33.4,
-    "cost_usd": 0.1208,
+    "cost_usd": 0.1218,
     "lines": 219,
     "stop_reason": "end_turn",
     "error": "",
@@ -1213,11 +1237,8 @@
         }
       },
       "record_score": {
-        "method": "POST",
-        "path": "/scores",
-        "request_fields": {
-          "id": "student_id"
-        },
+        "method": "PUT",
+        "path": "/students/{id}/scores/{course_id}",
         "response_fields": {
           "grade_point": "grade_points"
         }
@@ -1257,7 +1278,7 @@
     "passed": 12,
     "total": 12,
     "seconds": 33.6,
-    "cost_usd": 0.0999,
+    "cost_usd": 0.1013,
     "lines": 198,
     "stop_reason": "end_turn",
     "error": "",
@@ -1292,7 +1313,7 @@
     "passed": 2,
     "total": 12,
     "seconds": 22.5,
-    "cost_usd": 0.0461,
+    "cost_usd": 0.0481,
     "lines": 130,
     "stop_reason": "end_turn",
     "error": "",
@@ -1378,7 +1399,7 @@
     "passed": 12,
     "total": 12,
     "seconds": 17.4,
-    "cost_usd": 0.0253,
+    "cost_usd": 0.0268,
     "lines": 85,
     "stop_reason": "end_turn",
     "error": "",
@@ -1410,10 +1431,10 @@
     "model": "claude-opus-5-5",
     "variant": "request",
     "started": true,
-    "passed": 0,
+    "passed": 1,
     "total": 13,
     "seconds": 53.5,
-    "cost_usd": 0.2061,
+    "cost_usd": 0.1734,
     "lines": 290,
     "stop_reason": "end_turn",
     "error": "",
@@ -1429,7 +1450,6 @@
       "test_settle_up_moves_balances",
       "test_cannot_pay_yourself_back",
       "test_amounts_must_be_more_than_zero",
-      "test_empty_split_is_refused",
       "test_split_with_outsider_is_refused",
       "test_settle_with_outsider_is_refused"
     ],
@@ -1442,8 +1462,7 @@
         "method": "POST",
         "path": "/groups/{id}/members",
         "response_fields": {
-          "id": "member",
-          "name": "member"
+          "id": "member"
         }
       },
       "add_expense": {
@@ -1494,7 +1513,7 @@
     "passed": 0,
     "total": 13,
     "seconds": 35.7,
-    "cost_usd": 0.0811,
+    "cost_usd": 0.0536,
     "lines": 193,
     "stop_reason": "end_turn",
     "error": "",
@@ -1573,7 +1592,7 @@
     "passed": 11,
     "total": 13,
     "seconds": 23.5,
-    "cost_usd": 0.0791,
+    "cost_usd": 0.0807,
     "lines": 140,
     "stop_reason": "end_turn",
     "error": "",
@@ -1630,7 +1649,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 21.7,
-    "cost_usd": 0.0725,
+    "cost_usd": 0.074,
     "lines": 137,
     "stop_reason": "end_turn",
     "error": "",
@@ -1669,7 +1688,7 @@
     "passed": 9,
     "total": 13,
     "seconds": 17.9,
-    "cost_usd": 0.0292,
+    "cost_usd": 0.032,
     "lines": 60,
     "stop_reason": "end_turn",
     "error": "",
@@ -1728,7 +1747,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 16.9,
-    "cost_usd": 0.025,
+    "cost_usd": 0.0265,
     "lines": 81,
     "stop_reason": "end_turn",
     "error": "",
@@ -1767,7 +1786,7 @@
     "passed": 14,
     "total": 14,
     "seconds": 49.7,
-    "cost_usd": 0.1596,
+    "cost_usd": 0.1595,
     "lines": 263,
     "stop_reason": "end_turn",
     "error": "",
@@ -1832,7 +1851,7 @@
     "passed": 0,
     "total": 14,
     "seconds": 37.9,
-    "cost_usd": 0.0603,
+    "cost_usd": 0.0628,
     "lines": 144,
     "stop_reason": "end_turn",
     "error": "",
@@ -1928,7 +1947,7 @@
     "passed": 5,
     "total": 13,
     "seconds": 34.7,
-    "cost_usd": 0.1418,
+    "cost_usd": 0.114,
     "lines": 165,
     "stop_reason": "end_turn",
     "error": "",
@@ -2020,7 +2039,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 19.2,
-    "cost_usd": 0.0527,
+    "cost_usd": 0.0356,
     "lines": 97,
     "stop_reason": "end_turn",
     "error": "",
@@ -2085,7 +2104,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 26.5,
-    "cost_usd": 0.0941,
+    "cost_usd": 0.095,
     "lines": 157,
     "stop_reason": "end_turn",
     "error": "",
@@ -2144,7 +2163,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 24.8,
-    "cost_usd": 0.0825,
+    "cost_usd": 0.084,
     "lines": 153,
     "stop_reason": "end_turn",
     "error": "",
@@ -2179,7 +2198,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 19.3,
-    "cost_usd": 0.0363,
+    "cost_usd": 0.0399,
     "lines": 102,
     "stop_reason": "end_turn",
     "error": "",
@@ -2254,7 +2273,7 @@
     "passed": 13,
     "total": 13,
     "seconds": 24.0,
-    "cost_usd": 0.0255,
+    "cost_usd": 0.027,
     "lines": 110,
     "stop_reason": "end_turn",
     "error": "",

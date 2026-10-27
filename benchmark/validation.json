@@ -13,7 +13,8 @@
       ],
       "missing_event_200": [
         "test_get_missing_event_is_404",
-        "test_sign_up_for_missing_event_is_404"
+        "test_sign_up_for_missing_event_is_404",
+        "test_create_event_without_name_is_refused"
       ],
       "name_optional": [
         "test_create_event_without_name_is_refused"

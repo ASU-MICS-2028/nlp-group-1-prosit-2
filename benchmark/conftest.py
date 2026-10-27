@@ -27,7 +27,9 @@ class Api:
         spec = self.ops[op]
         fields = spec.get("fields", {})  # names used both ways
         sent = {**fields, **spec.get("request_fields", {})}  # names only in what we send (body, query string)
-        back = {v: k for k, v in {**fields, **spec.get("response_fields", {})}.items()}  # names only in the reply
+        back = {}  # backend name -> test names; one reply field may serve two test names ("id" and "number")
+        for k, v in {**fields, **spec.get("response_fields", {})}.items():
+            back.setdefault(v, []).append(k)
         # Where a value goes can differ too: a value the tests give as a path parameter may belong in the body
         # (or the query string for GET), and a placeholder in the backend's path may come from the body.
         path_params, json = dict(path_params or {}), (dict(json) if isinstance(json, dict) else json)
@@ -89,8 +91,10 @@ def nest(data):
 
 
 def rename(data, names):
+    """names maps each name to its new name, or to a list of new names (the value is copied to each)."""
     if isinstance(data, dict):
-        return {names.get(k, k): rename(v, names) for k, v in data.items()}
+        return {new: rename(v, names) for k, v in data.items()
+                for new in (names[k] if isinstance(names.get(k), list) else [names.get(k, k)])}
     if isinstance(data, list):
         return [rename(v, names) for v in data]
     return data

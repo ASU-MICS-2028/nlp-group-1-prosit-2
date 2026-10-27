@@ -8,7 +8,7 @@
     "passed_model_map": 10,
     "right": true,
     "ops_exactly_equal": "2/5",
-    "cost_usd": 0.01568,
+    "cost_usd": 0.01593,
     "stop_reason": "end_turn"
   },
   {
@@ -20,7 +20,7 @@
     "passed_model_map": 8,
     "right": false,
     "ops_exactly_equal": "2/5",
-    "cost_usd": 0.0008,
+    "cost_usd": 0.00055,
     "stop_reason": "end_turn"
   },
   {
@@ -32,7 +32,7 @@
     "passed_model_map": 13,
     "right": true,
     "ops_exactly_equal": "1/5",
-    "cost_usd": 0.02152,
+    "cost_usd": 0.02177,
     "stop_reason": "end_turn"
   },
   {
@@ -44,7 +44,7 @@
     "passed_model_map": 13,
     "right": true,
     "ops_exactly_equal": "1/5",
-    "cost_usd": 0.00084,
+    "cost_usd": 0.00082,
     "stop_reason": "end_turn"
   },
   {
@@ -56,7 +56,7 @@
     "passed_model_map": 13,
     "right": true,
     "ops_exactly_equal": "0/5",
-    "cost_usd": 0.02472,
+    "cost_usd": 0.02498,
     "stop_reason": "end_turn"
   },
   {
@@ -68,7 +68,7 @@
     "passed_model_map": 13,
     "right": true,
     "ops_exactly_equal": "0/5",
-    "cost_usd": 0.00091,
+    "cost_usd": 0.00094,
     "stop_reason": "end_turn"
   },
   {
@@ -80,7 +80,7 @@
     "passed_model_map": 13,
     "right": true,
     "ops_exactly_equal": "0/6",
-    "cost_usd": 0.02808,
+    "cost_usd": 0.02833,
     "stop_reason": "end_turn"
   },
   {
@@ -92,7 +92,7 @@
     "passed_model_map": 13,
     "right": true,
     "ops_exactly_equal": "0/6",
-    "cost_usd": 0.00105,
+    "cost_usd": 0.00103,
     "stop_reason": "end_turn"
   },
   {
@@ -104,7 +104,7 @@
     "passed_model_map": 13,
     "right": true,
     "ops_exactly_equal": "0/6",
-    "cost_usd": 0.0286,
+    "cost_usd": 0.02977,
     "stop_reason": "end_turn"
   },
   {
@@ -113,181 +113,181 @@
     "model": "claude-haiku-5-5",
     "tests": 13,
     "passed_true_map": 13,
-    "passed_model_map": 13,
-    "right": true,
-    "ops_exactly_equal": "0/6",
-    "cost_usd": 0.00114,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "hostel_booking",
-    "backend": "reference",
-    "model": "claude-opus-5-5",
-    "tests": 15,
-    "passed_true_map": 15,
-    "passed_model_map": 15,
-    "right": true,
-    "ops_exactly_equal": "1/4",
-    "cost_usd": 0.0205,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "hostel_booking",
-    "backend": "reference",
-    "model": "claude-haiku-5-5",
-    "tests": 15,
-    "passed_true_map": 15,
-    "passed_model_map": 14,
+    "passed_model_map": 10,
     "right": false,
-    "ops_exactly_equal": "1/4",
-    "cost_usd": 0.00078,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "hostel_booking",
-    "backend": "reference_b",
-    "model": "claude-opus-5-5",
-    "tests": 15,
-    "passed_true_map": 15,
-    "passed_model_map": 15,
-    "right": true,
-    "ops_exactly_equal": "1/4",
-    "cost_usd": 0.01972,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "hostel_booking",
-    "backend": "reference_b",
-    "model": "claude-haiku-5-5",
-    "tests": 15,
-    "passed_true_map": 15,
-    "passed_model_map": 14,
-    "right": false,
-    "ops_exactly_equal": "1/4",
-    "cost_usd": 0.00073,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "library_catalogue",
-    "backend": "reference",
-    "model": "claude-opus-5-5",
-    "tests": 13,
-    "passed_true_map": 13,
-    "passed_model_map": 13,
-    "right": true,
-    "ops_exactly_equal": "0/5",
-    "cost_usd": 0.02391,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "library_catalogue",
-    "backend": "reference",
-    "model": "claude-haiku-5-5",
-    "tests": 13,
-    "passed_true_map": 13,
-    "passed_model_map": 11,
-    "right": false,
-    "ops_exactly_equal": "0/5",
-    "cost_usd": 0.00077,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "library_catalogue",
-    "backend": "reference_b",
-    "model": "claude-opus-5-5",
-    "tests": 13,
-    "passed_true_map": 13,
-    "passed_model_map": 13,
-    "right": true,
-    "ops_exactly_equal": "0/5",
-    "cost_usd": 0.0239,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "library_catalogue",
-    "backend": "reference_b",
-    "model": "claude-haiku-5-5",
-    "tests": 13,
-    "passed_true_map": 13,
-    "passed_model_map": 13,
-    "right": true,
-    "ops_exactly_equal": "0/5",
-    "cost_usd": 0.00092,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "lost_and_found",
-    "backend": "reference",
-    "model": "claude-opus-5-5",
-    "tests": 12,
-    "passed_true_map": 12,
-    "passed_model_map": 12,
-    "right": true,
-    "ops_exactly_equal": "0/5",
-    "cost_usd": 0.02481,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "lost_and_found",
-    "backend": "reference",
-    "model": "claude-haiku-5-5",
-    "tests": 12,
-    "passed_true_map": 12,
-    "passed_model_map": 12,
-    "right": true,
-    "ops_exactly_equal": "0/5",
-    "cost_usd": 0.00091,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "market_stock",
-    "backend": "reference",
-    "model": "claude-opus-5-5",
-    "tests": 13,
-    "passed_true_map": 13,
-    "passed_model_map": 13,
-    "right": true,
-    "ops_exactly_equal": "0/6",
-    "cost_usd": 0.02419,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "market_stock",
-    "backend": "reference",
-    "model": "claude-haiku-5-5",
-    "tests": 13,
-    "passed_true_map": 13,
-    "passed_model_map": 13,
-    "right": true,
-    "ops_exactly_equal": "0/6",
-    "cost_usd": 0.00092,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "market_stock",
-    "backend": "reference_b",
-    "model": "claude-opus-5-5",
-    "tests": 13,
-    "passed_true_map": 13,
-    "passed_model_map": 13,
-    "right": true,
-    "ops_exactly_equal": "0/6",
-    "cost_usd": 0.02598,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "market_stock",
-    "backend": "reference_b",
-    "model": "claude-haiku-5-5",
-    "tests": 13,
-    "passed_true_map": 13,
-    "passed_model_map": 13,
-    "right": true,
     "ops_exactly_equal": "0/6",
     "cost_usd": 0.00104,
     "stop_reason": "end_turn"
   },
   {
+    "task": "hostel_booking",
+    "backend": "reference",
+    "model": "claude-opus-5-5",
+    "tests": 15,
+    "passed_true_map": 15,
+    "passed_model_map": 15,
+    "right": true,
+    "ops_exactly_equal": "1/4",
+    "cost_usd": 0.02036,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "hostel_booking",
+    "backend": "reference",
+    "model": "claude-haiku-5-5",
+    "tests": 15,
+    "passed_true_map": 15,
+    "passed_model_map": 14,
+    "right": false,
+    "ops_exactly_equal": "1/4",
+    "cost_usd": 0.00071,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "hostel_booking",
+    "backend": "reference_b",
+    "model": "claude-opus-5-5",
+    "tests": 15,
+    "passed_true_map": 15,
+    "passed_model_map": 15,
+    "right": true,
+    "ops_exactly_equal": "1/4",
+    "cost_usd": 0.01998,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "hostel_booking",
+    "backend": "reference_b",
+    "model": "claude-haiku-5-5",
+    "tests": 15,
+    "passed_true_map": 15,
+    "passed_model_map": 14,
+    "right": false,
+    "ops_exactly_equal": "1/4",
+    "cost_usd": 0.00075,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "library_catalogue",
+    "backend": "reference",
+    "model": "claude-opus-5-5",
+    "tests": 13,
+    "passed_true_map": 13,
+    "passed_model_map": 13,
+    "right": true,
+    "ops_exactly_equal": "0/5",
+    "cost_usd": 0.02416,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "library_catalogue",
+    "backend": "reference",
+    "model": "claude-haiku-5-5",
+    "tests": 13,
+    "passed_true_map": 13,
+    "passed_model_map": 11,
+    "right": false,
+    "ops_exactly_equal": "0/5",
+    "cost_usd": 0.00074,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "library_catalogue",
+    "backend": "reference_b",
+    "model": "claude-opus-5-5",
+    "tests": 13,
+    "passed_true_map": 13,
+    "passed_model_map": 13,
+    "right": true,
+    "ops_exactly_equal": "0/5",
+    "cost_usd": 0.02415,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "library_catalogue",
+    "backend": "reference_b",
+    "model": "claude-haiku-5-5",
+    "tests": 13,
+    "passed_true_map": 13,
+    "passed_model_map": 11,
+    "right": false,
+    "ops_exactly_equal": "0/5",
+    "cost_usd": 0.00073,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "lost_and_found",
+    "backend": "reference",
+    "model": "claude-opus-5-5",
+    "tests": 12,
+    "passed_true_map": 12,
+    "passed_model_map": 12,
+    "right": true,
+    "ops_exactly_equal": "0/5",
+    "cost_usd": 0.02506,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "lost_and_found",
+    "backend": "reference",
+    "model": "claude-haiku-5-5",
+    "tests": 12,
+    "passed_true_map": 12,
+    "passed_model_map": 12,
+    "right": true,
+    "ops_exactly_equal": "0/5",
+    "cost_usd": 0.00093,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "market_stock",
+    "backend": "reference",
+    "model": "claude-opus-5-5",
+    "tests": 13,
+    "passed_true_map": 13,
+    "passed_model_map": 13,
+    "right": true,
+    "ops_exactly_equal": "0/6",
+    "cost_usd": 0.02444,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "market_stock",
+    "backend": "reference",
+    "model": "claude-haiku-5-5",
+    "tests": 13,
+    "passed_true_map": 13,
+    "passed_model_map": 13,
+    "right": true,
+    "ops_exactly_equal": "0/6",
+    "cost_usd": 0.00092,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "market_stock",
+    "backend": "reference_b",
+    "model": "claude-opus-5-5",
+    "tests": 13,
+    "passed_true_map": 13,
+    "passed_model_map": 13,
+    "right": true,
+    "ops_exactly_equal": "0/6",
+    "cost_usd": 0.02624,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "market_stock",
+    "backend": "reference_b",
+    "model": "claude-haiku-5-5",
+    "tests": 13,
+    "passed_true_map": 13,
+    "passed_model_map": 13,
+    "right": true,
+    "ops_exactly_equal": "0/6",
+    "cost_usd": 0.0009,
+    "stop_reason": "end_turn"
+  },
+  {
     "task": "momo_wallet",
     "backend": "reference",
     "model": "claude-opus-5-5",
@@ -296,7 +296,7 @@
     "passed_model_map": 13,
     "right": true,
     "ops_exactly_equal": "0/5",
-    "cost_usd": 0.02409,
+    "cost_usd": 0.02434,
     "stop_reason": "end_turn"
   },
   {
@@ -320,7 +320,7 @@
     "passed_model_map": 13,
     "right": true,
     "ops_exactly_equal": "0/5",
-    "cost_usd": 0.0242,
+    "cost_usd": 0.02446,
     "stop_reason": "end_turn"
   },
   {
@@ -332,7 +332,7 @@
     "passed_model_map": 12,
     "right": false,
     "ops_exactly_equal": "0/5",
-    "cost_usd": 0.00084,
+    "cost_usd": 0.00086,
     "stop_reason": "end_turn"
   },
   {
@@ -344,40 +344,40 @@
     "passed_model_map": 12,
     "right": true,
     "ops_exactly_equal": "0/4",
-    "cost_usd": 0.02142,
+    "cost_usd": 0.02167,
     "stop_reason": "end_turn"
   },
   {
     "task": "restaurant_reservations",
+    "backend": "reference",
+    "model": "claude-haiku-5-5",
+    "tests": 12,
+    "passed_true_map": 12,
+    "passed_model_map": 12,
+    "right": true,
+    "ops_exactly_equal": "0/4",
+    "cost_usd": 0.00097,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "school_grades_gpa",
+    "backend": "reference",
+    "model": "claude-opus-5-5",
+    "tests": 12,
+    "passed_true_map": 12,
+    "passed_model_map": 12,
+    "right": true,
+    "ops_exactly_equal": "0/4",
+    "cost_usd": 0.02032,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "school_grades_gpa",
     "backend": "reference",
     "model": "claude-haiku-5-5",
     "tests": 12,
     "passed_true_map": 12,
     "passed_model_map": 11,
-    "right": false,
-    "ops_exactly_equal": "0/4",
-    "cost_usd": 0.00081,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "school_grades_gpa",
-    "backend": "reference",
-    "model": "claude-opus-5-5",
-    "tests": 12,
-    "passed_true_map": 12,
-    "passed_model_map": 7,
-    "right": false,
-    "ops_exactly_equal": "0/4",
-    "cost_usd": 0.02055,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "school_grades_gpa",
-    "backend": "reference",
-    "model": "claude-haiku-5-5",
-    "tests": 12,
-    "passed_true_map": 12,
-    "passed_model_map": 7,
     "right": false,
     "ops_exactly_equal": "0/4",
     "cost_usd": 0.00085,
@@ -392,7 +392,7 @@
     "passed_model_map": 13,
     "right": true,
     "ops_exactly_equal": "1/5",
-    "cost_usd": 0.0231,
+    "cost_usd": 0.02335,
     "stop_reason": "end_turn"
   },
   {
@@ -404,7 +404,7 @@
     "passed_model_map": 13,
     "right": true,
     "ops_exactly_equal": "1/5",
-    "cost_usd": 0.00074,
+    "cost_usd": 0.00072,
     "stop_reason": "end_turn"
   },
   {
@@ -416,7 +416,7 @@
     "passed_model_map": 13,
     "right": true,
     "ops_exactly_equal": "1/5",
-    "cost_usd": 0.01957,
+    "cost_usd": 0.01982,
     "stop_reason": "end_turn"
   },
   {
@@ -428,7 +428,7 @@
     "passed_model_map": 13,
     "right": true,
     "ops_exactly_equal": "1/5",
-    "cost_usd": 0.00073,
+    "cost_usd": 0.0008,
     "stop_reason": "end_turn"
   },
   {
@@ -440,7 +440,7 @@
     "passed_model_map": 14,
     "right": true,
     "ops_exactly_equal": "0/7",
-    "cost_usd": 0.02849,
+    "cost_usd": 0.02874,
     "stop_reason": "end_turn"
   },
   {
@@ -452,7 +452,7 @@
     "passed_model_map": 13,
     "right": false,
     "ops_exactly_equal": "0/7",
-    "cost_usd": 0.00103,
+    "cost_usd": 0.00112,
     "stop_reason": "end_turn"
   },
   {
@@ -464,7 +464,7 @@
     "passed_model_map": 13,
     "right": true,
     "ops_exactly_equal": "0/7",
-    "cost_usd": 0.03159,
+    "cost_usd": 0.03414,
     "stop_reason": "end_turn"
   },
   {
@@ -473,34 +473,34 @@
     "model": "claude-haiku-5-5",
     "tests": 13,
     "passed_true_map": 13,
-    "passed_model_map": 4,
+    "passed_model_map": 13,
+    "right": true,
+    "ops_exactly_equal": "0/7",
+    "cost_usd": 0.00136,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "trotro_fares",
+    "backend": "reference",
+    "model": "claude-opus-5-5",
+    "tests": 13,
+    "passed_true_map": 13,
+    "passed_model_map": 13,
+    "right": true,
+    "ops_exactly_equal": "0/4",
+    "cost_usd": 0.01935,
+    "stop_reason": "end_turn"
+  },
+  {
+    "task": "trotro_fares",
+    "backend": "reference",
+    "model": "claude-haiku-5-5",
+    "tests": 13,
+    "passed_true_map": 13,
+    "passed_model_map": 10,
     "right": false,
-    "ops_exactly_equal": "0/7",
-    "cost_usd": 0.0015,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "trotro_fares",
-    "backend": "reference",
-    "model": "claude-opus-5-5",
-    "tests": 13,
-    "passed_true_map": 13,
-    "passed_model_map": 13,
-    "right": true,
     "ops_exactly_equal": "0/4",
-    "cost_usd": 0.0191,
-    "stop_reason": "end_turn"
-  },
-  {
-    "task": "trotro_fares",
-    "backend": "reference",
-    "model": "claude-haiku-5-5",
-    "tests": 13,
-    "passed_true_map": 13,
-    "passed_model_map": 13,
-    "right": true,
-    "ops_exactly_equal": "0/4",
-    "cost_usd": 0.00094,
+    "cost_usd": 0.00085,
     "stop_reason": "end_turn"
   }
 ]
