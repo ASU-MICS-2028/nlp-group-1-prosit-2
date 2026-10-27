@@ -1,0 +1,2282 @@
+[
+  {
+    "task": "church_signup",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 10,
+    "total": 10,
+    "seconds": 19.9,
+    "cost_usd": 0.0812,
+    "lines": 106,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 6,
+    "failing": [],
+    "ops": {
+      "create_event": {
+        "method": "POST",
+        "path": "/events"
+      },
+      "list_events": {
+        "method": "GET",
+        "path": "/events"
+      },
+      "get_event": {
+        "method": "GET",
+        "path": "/events/{id}"
+      },
+      "sign_up": {
+        "method": "POST",
+        "path": "/events/{id}/signups",
+        "response_key": "signup"
+      },
+      "list_signups": {
+        "method": "GET",
+        "path": "/events/{id}/signups",
+        "response_key": "signups"
+      }
+    }
+  },
+  {
+    "task": "church_signup",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 10,
+    "total": 10,
+    "seconds": 24.5,
+    "cost_usd": 0.0651,
+    "lines": 153,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "church_signup",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 10,
+    "total": 10,
+    "seconds": 21.9,
+    "cost_usd": 0.0456,
+    "lines": 112,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 10,
+    "failing": [],
+    "ops": {
+      "create_event": {
+        "method": "POST",
+        "path": "/events"
+      },
+      "list_events": {
+        "method": "GET",
+        "path": "/events"
+      },
+      "get_event": {
+        "method": "GET",
+        "path": "/events/{id}"
+      },
+      "sign_up": {
+        "method": "POST",
+        "path": "/events/{id}/signups"
+      },
+      "list_signups": {
+        "method": "GET",
+        "path": "/events/{id}/signups"
+      }
+    }
+  },
+  {
+    "task": "church_signup",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 10,
+    "total": 10,
+    "seconds": 22.5,
+    "cost_usd": 0.0138,
+    "lines": 117,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "clinic_appointments",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 30.4,
+    "cost_usd": 0.1066,
+    "lines": 173,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 13,
+    "failing": [],
+    "ops": {
+      "create_doctor": {
+        "method": "POST",
+        "path": "/doctors"
+      },
+      "list_doctors": {
+        "method": "GET",
+        "path": "/doctors"
+      },
+      "book_appointment": {
+        "method": "POST",
+        "path": "/appointments",
+        "response_fields": {
+          "time": "time_slot"
+        }
+      },
+      "list_doctor_appointments": {
+        "method": "GET",
+        "path": "/doctors/{id}/appointments",
+        "response_fields": {
+          "time": "time_slot"
+        }
+      },
+      "cancel_appointment": {
+        "method": "DELETE",
+        "path": "/appointments/{id}"
+      }
+    }
+  },
+  {
+    "task": "clinic_appointments",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 26.8,
+    "cost_usd": 0.0665,
+    "lines": 154,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "clinic_appointments",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 21.8,
+    "cost_usd": 0.0332,
+    "lines": 109,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 13,
+    "failing": [],
+    "ops": {
+      "create_doctor": {
+        "method": "POST",
+        "path": "/doctors"
+      },
+      "list_doctors": {
+        "method": "GET",
+        "path": "/doctors"
+      },
+      "book_appointment": {
+        "method": "POST",
+        "path": "/appointments",
+        "request_fields": {
+          "time": "time_slot"
+        },
+        "response_fields": {
+          "time": "time_slot"
+        }
+      },
+      "list_doctor_appointments": {
+        "method": "GET",
+        "path": "/doctors/{id}/appointments",
+        "response_fields": {
+          "time": "time_slot"
+        }
+      },
+      "cancel_appointment": {
+        "method": "DELETE",
+        "path": "/appointments/{id}"
+      }
+    }
+  },
+  {
+    "task": "clinic_appointments",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 22.7,
+    "cost_usd": 0.0152,
+    "lines": 108,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "football_fixtures",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 28.2,
+    "cost_usd": 0.0899,
+    "lines": 168,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 13,
+    "failing": [],
+    "ops": {
+      "add_team": {
+        "method": "POST",
+        "path": "/teams"
+      },
+      "list_teams": {
+        "method": "GET",
+        "path": "/teams"
+      },
+      "create_fixture": {
+        "method": "POST",
+        "path": "/fixtures"
+      },
+      "get_fixture": {
+        "method": "GET",
+        "path": "/fixtures/{id}"
+      },
+      "record_score": {
+        "method": "POST",
+        "path": "/fixtures/{id}/score"
+      },
+      "team_fixtures": {
+        "method": "GET",
+        "path": "/teams/{id}/fixtures"
+      }
+    }
+  },
+  {
+    "task": "football_fixtures",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 22.8,
+    "cost_usd": 0.0622,
+    "lines": 145,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "football_fixtures",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 21.2,
+    "cost_usd": 0.0322,
+    "lines": 96,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 13,
+    "failing": [],
+    "ops": {
+      "add_team": {
+        "method": "POST",
+        "path": "/teams"
+      },
+      "list_teams": {
+        "method": "GET",
+        "path": "/teams"
+      },
+      "create_fixture": {
+        "method": "POST",
+        "path": "/fixtures",
+        "request_fields": {
+          "date": "match_date"
+        },
+        "response_fields": {
+          "date": "match_date"
+        }
+      },
+      "get_fixture": {
+        "method": "GET",
+        "path": "/fixtures/{id}",
+        "response_fields": {
+          "date": "match_date"
+        }
+      },
+      "record_score": {
+        "method": "PUT",
+        "path": "/fixtures/{id}/score",
+        "response_fields": {
+          "date": "match_date"
+        }
+      },
+      "team_fixtures": {
+        "method": "GET",
+        "path": "/teams/{id}/fixtures",
+        "response_fields": {
+          "date": "match_date"
+        }
+      }
+    }
+  },
+  {
+    "task": "football_fixtures",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 18.8,
+    "cost_usd": 0.0139,
+    "lines": 90,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "hostel_booking",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 15,
+    "total": 15,
+    "seconds": 47.2,
+    "cost_usd": 0.1281,
+    "lines": 169,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 2,
+    "failing": [],
+    "ops": {
+      "create_room": {
+        "method": "POST",
+        "path": "/rooms"
+      },
+      "book_bed": {
+        "method": "POST",
+        "path": "/bookings",
+        "request_fields": {
+          "id": "room_id",
+          "check_in": "arrival_date",
+          "check_out": "leaving_date"
+        },
+        "response_fields": {
+          "check_in": "arrival_date",
+          "check_out": "leaving_date"
+        }
+      },
+      "cancel_booking": {
+        "method": "DELETE",
+        "path": "/bookings/{id}"
+      },
+      "free_beds": {
+        "method": "GET",
+        "path": "/availability",
+        "request_fields": {
+          "check_in": "arrival_date",
+          "check_out": "leaving_date"
+        },
+        "response_key": "rooms"
+      }
+    }
+  },
+  {
+    "task": "hostel_booking",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 15,
+    "total": 15,
+    "seconds": 32.2,
+    "cost_usd": 0.0805,
+    "lines": 185,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "hostel_booking",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 15,
+    "total": 15,
+    "seconds": 23.6,
+    "cost_usd": 0.0628,
+    "lines": 116,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 2,
+    "failing": [],
+    "ops": {
+      "create_room": {
+        "method": "POST",
+        "path": "/rooms"
+      },
+      "book_bed": {
+        "method": "POST",
+        "path": "/bookings",
+        "request_fields": {
+          "id": "room_id",
+          "check_in": "arrival_date",
+          "check_out": "leaving_date"
+        },
+        "response_fields": {
+          "check_in": "arrival_date",
+          "check_out": "leaving_date"
+        }
+      },
+      "cancel_booking": {
+        "method": "DELETE",
+        "path": "/bookings/{id}"
+      },
+      "free_beds": {
+        "method": "GET",
+        "path": "/availability",
+        "request_fields": {
+          "check_in": "arrival_date",
+          "check_out": "leaving_date"
+        },
+        "response_key": "rooms"
+      }
+    }
+  },
+  {
+    "task": "hostel_booking",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 15,
+    "total": 15,
+    "seconds": 22.0,
+    "cost_usd": 0.0137,
+    "lines": 95,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "library_catalogue",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 22.2,
+    "cost_usd": 0.0775,
+    "lines": 130,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 3,
+    "failing": [],
+    "ops": {
+      "add_book": {
+        "method": "POST",
+        "path": "/books",
+        "response_fields": {
+          "copies": "total_copies",
+          "available": "copies_on_shelf"
+        }
+      },
+      "list_books": {
+        "method": "GET",
+        "path": "/books",
+        "response_fields": {
+          "copies": "total_copies",
+          "available": "copies_on_shelf"
+        }
+      },
+      "get_book": {
+        "method": "GET",
+        "path": "/books/{id}",
+        "response_fields": {
+          "copies": "total_copies",
+          "available": "copies_on_shelf"
+        }
+      },
+      "borrow_book": {
+        "method": "POST",
+        "path": "/books/{id}/borrow",
+        "request_fields": {
+          "student": "student_name"
+        }
+      },
+      "return_book": {
+        "method": "POST",
+        "path": "/books/{id}/return",
+        "request_fields": {
+          "student": "student_name"
+        }
+      }
+    }
+  },
+  {
+    "task": "library_catalogue",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 23.2,
+    "cost_usd": 0.0491,
+    "lines": 113,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "library_catalogue",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 14.5,
+    "cost_usd": 0.0337,
+    "lines": 105,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 3,
+    "failing": [],
+    "ops": {
+      "add_book": {
+        "method": "POST",
+        "path": "/books",
+        "response_fields": {
+          "copies": "copies_total",
+          "available": "copies_on_shelf"
+        }
+      },
+      "list_books": {
+        "method": "GET",
+        "path": "/books",
+        "response_fields": {
+          "copies": "copies_total",
+          "available": "copies_on_shelf"
+        }
+      },
+      "get_book": {
+        "method": "GET",
+        "path": "/books/{id}",
+        "response_fields": {
+          "copies": "copies_total",
+          "available": "copies_on_shelf"
+        }
+      },
+      "borrow_book": {
+        "method": "POST",
+        "path": "/books/{id}/borrow",
+        "request_fields": {
+          "student": "student_name"
+        }
+      },
+      "return_book": {
+        "method": "POST",
+        "path": "/books/{id}/return",
+        "request_fields": {
+          "student": "student_name"
+        }
+      }
+    }
+  },
+  {
+    "task": "library_catalogue",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 17.5,
+    "cost_usd": 0.0122,
+    "lines": 90,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "lost_and_found",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 12,
+    "total": 12,
+    "seconds": 24.4,
+    "cost_usd": 0.0767,
+    "lines": 118,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 12,
+    "failing": [],
+    "ops": {
+      "report_item": {
+        "method": "POST",
+        "path": "/items",
+        "request_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        },
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items",
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      },
+      "list_unclaimed": {
+        "method": "GET",
+        "path": "/items/unclaimed",
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}",
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      },
+      "claim_item": {
+        "method": "POST",
+        "path": "/items/{id}/claim",
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      }
+    }
+  },
+  {
+    "task": "lost_and_found",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 12,
+    "total": 12,
+    "seconds": 22.2,
+    "cost_usd": 0.0485,
+    "lines": 119,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "lost_and_found",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 12,
+    "total": 12,
+    "seconds": 21.1,
+    "cost_usd": 0.0295,
+    "lines": 97,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 12,
+    "failing": [],
+    "ops": {
+      "report_item": {
+        "method": "POST",
+        "path": "/items",
+        "request_fields": {
+          "place": "location_found"
+        },
+        "response_fields": {
+          "place": "location_found"
+        }
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items",
+        "response_fields": {
+          "place": "location_found"
+        }
+      },
+      "list_unclaimed": {
+        "method": "GET",
+        "path": "/items/unclaimed",
+        "response_fields": {
+          "place": "location_found"
+        }
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}",
+        "response_fields": {
+          "place": "location_found"
+        }
+      },
+      "claim_item": {
+        "method": "POST",
+        "path": "/items/{id}/claim",
+        "response_fields": {
+          "place": "location_found"
+        }
+      }
+    }
+  },
+  {
+    "task": "lost_and_found",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 12,
+    "total": 12,
+    "seconds": 18.8,
+    "cost_usd": 0.0112,
+    "lines": 83,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "market_stock",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 22.6,
+    "cost_usd": 0.0777,
+    "lines": 140,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 13,
+    "failing": [],
+    "ops": {
+      "create_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "record_sale": {
+        "method": "POST",
+        "path": "/items/{id}/sell",
+        "request_fields": {
+          "quantity": "amount"
+        }
+      },
+      "record_restock": {
+        "method": "POST",
+        "path": "/items/{id}/restock",
+        "request_fields": {
+          "quantity": "amount"
+        }
+      },
+      "list_low_stock": {
+        "method": "GET",
+        "path": "/items/low"
+      }
+    }
+  },
+  {
+    "task": "market_stock",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 21.8,
+    "cost_usd": 0.0474,
+    "lines": 107,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "market_stock",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 16.7,
+    "cost_usd": 0.027,
+    "lines": 68,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 13,
+    "failing": [],
+    "ops": {
+      "create_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "record_sale": {
+        "method": "POST",
+        "path": "/items/{id}/sell",
+        "request_fields": {
+          "quantity": "amount"
+        }
+      },
+      "record_restock": {
+        "method": "POST",
+        "path": "/items/{id}/restock",
+        "request_fields": {
+          "quantity": "amount"
+        }
+      },
+      "list_low_stock": {
+        "method": "GET",
+        "path": "/items/low-stock"
+      }
+    }
+  },
+  {
+    "task": "market_stock",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 15.5,
+    "cost_usd": 0.0122,
+    "lines": 73,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "momo_wallet",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 3,
+    "total": 13,
+    "seconds": 51.9,
+    "cost_usd": 0.2033,
+    "lines": 248,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 3,
+    "failing": [
+      "test_deposits_add_up",
+      "test_deposit_must_be_positive_with_two_decimals_at_most",
+      "test_transfer_moves_money",
+      "test_transfer_is_exact_to_the_pesewa",
+      "test_cannot_send_more_than_balance",
+      "test_can_send_whole_balance",
+      "test_transfer_to_self_is_refused",
+      "test_transfer_amount_must_be_positive",
+      "test_transfer_to_missing_wallet_is_refused",
+      "test_history_shows_amounts_and_running_balance"
+    ],
+    "ops": {
+      "open_wallet": {
+        "method": "POST",
+        "path": "/wallets",
+        "response_fields": {
+          "id": "wallet_id"
+        }
+      },
+      "get_wallet": {
+        "method": "GET",
+        "path": "/wallets/{id}",
+        "response_fields": {
+          "id": "wallet_id"
+        }
+      },
+      "deposit": {
+        "method": "POST",
+        "path": "/wallets/{id}/deposit"
+      },
+      "transfer": {
+        "method": "POST",
+        "path": "/wallets/{from_wallet_id}/transfer"
+      },
+      "list_transactions": {
+        "method": "GET",
+        "path": "/wallets/{id}/history",
+        "response_key": "history"
+      }
+    }
+  },
+  {
+    "task": "momo_wallet",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 39.2,
+    "cost_usd": 0.0967,
+    "lines": 195,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "momo_wallet",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 28.7,
+    "cost_usd": 0.0586,
+    "lines": 137,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 5,
+    "failing": [],
+    "ops": {
+      "open_wallet": {
+        "method": "POST",
+        "path": "/wallets"
+      },
+      "get_wallet": {
+        "method": "GET",
+        "path": "/wallets/{id}"
+      },
+      "deposit": {
+        "method": "POST",
+        "path": "/wallets/{id}/deposits"
+      },
+      "transfer": {
+        "method": "POST",
+        "path": "/wallets/{from_wallet_id}/transfers"
+      },
+      "list_transactions": {
+        "method": "GET",
+        "path": "/wallets/{id}/history",
+        "response_key": "history"
+      }
+    }
+  },
+  {
+    "task": "momo_wallet",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 43.6,
+    "cost_usd": 0.0193,
+    "lines": 156,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "restaurant_reservations",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 12,
+    "total": 12,
+    "seconds": 27.5,
+    "cost_usd": 0.1067,
+    "lines": 131,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 5,
+    "failing": [],
+    "ops": {
+      "create_table": {
+        "method": "POST",
+        "path": "/tables",
+        "request_fields": {
+          "number": "table_number"
+        },
+        "response_fields": {
+          "number": "table_number",
+          "id": "table_number"
+        }
+      },
+      "list_tables": {
+        "method": "GET",
+        "path": "/tables",
+        "response_fields": {
+          "number": "table_number",
+          "id": "table_number"
+        }
+      },
+      "make_reservation": {
+        "method": "POST",
+        "path": "/reservations",
+        "request_fields": {
+          "id": "table_number",
+          "name": "customer_name"
+        },
+        "response_fields": {
+          "name": "customer_name"
+        }
+      },
+      "list_reservations": {
+        "method": "GET",
+        "path": "/reservations",
+        "response_fields": {
+          "name": "customer_name"
+        }
+      }
+    }
+  },
+  {
+    "task": "restaurant_reservations",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 12,
+    "total": 12,
+    "seconds": 22.5,
+    "cost_usd": 0.0662,
+    "lines": 170,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "restaurant_reservations",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 12,
+    "total": 12,
+    "seconds": 19.5,
+    "cost_usd": 0.0565,
+    "lines": 104,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 4,
+    "failing": [],
+    "ops": {
+      "create_table": {
+        "method": "POST",
+        "path": "/tables",
+        "response_fields": {
+          "id": "number"
+        }
+      },
+      "list_tables": {
+        "method": "GET",
+        "path": "/tables",
+        "response_fields": {
+          "id": "number"
+        }
+      },
+      "make_reservation": {
+        "method": "POST",
+        "path": "/reservations",
+        "request_fields": {
+          "id": "table_number"
+        }
+      },
+      "list_reservations": {
+        "method": "GET",
+        "path": "/reservations/date/{date}"
+      }
+    }
+  },
+  {
+    "task": "restaurant_reservations",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 12,
+    "total": 12,
+    "seconds": 18.3,
+    "cost_usd": 0.0126,
+    "lines": 100,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "school_grades_gpa",
+    "tier": "hard",
+    "vague": true,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 2,
+    "total": 12,
+    "seconds": 33.4,
+    "cost_usd": 0.1208,
+    "lines": 219,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 2,
+    "failing": [
+      "test_create_student_and_course",
+      "test_score_appears_in_results_with_grade",
+      "test_grading_scale_bands",
+      "test_grading_scale_boundaries",
+      "test_gpa_is_weighted_by_credit_hours",
+      "test_gpa_is_rounded_to_two_decimals",
+      "test_entering_a_score_again_replaces_it",
+      "test_score_outside_0_to_100_is_refused",
+      "test_score_for_missing_course_is_refused",
+      "test_results_are_per_student"
+    ],
+    "ops": {
+      "create_student": {
+        "method": "POST",
+        "path": "/students"
+      },
+      "create_course": {
+        "method": "POST",
+        "path": "/courses",
+        "request_fields": {
+          "name": "title"
+        },
+        "response_fields": {
+          "name": "title"
+        }
+      },
+      "record_score": {
+        "method": "POST",
+        "path": "/scores",
+        "request_fields": {
+          "id": "student_id"
+        },
+        "response_fields": {
+          "grade_point": "grade_points"
+        }
+      },
+      "get_results": {
+        "method": "GET",
+        "path": "/students/{id}/results",
+        "response_fields": {
+          "courses": "results",
+          "grade_point": "grade_points"
+        }
+      }
+    }
+  },
+  {
+    "task": "school_grades_gpa",
+    "tier": "hard",
+    "vague": true,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 10,
+    "total": 12,
+    "seconds": 23.0,
+    "cost_usd": 0.0607,
+    "lines": 148,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "school_grades_gpa",
+    "tier": "hard",
+    "vague": true,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops+brief",
+    "started": true,
+    "passed": 12,
+    "total": 12,
+    "seconds": 33.6,
+    "cost_usd": 0.0999,
+    "lines": 198,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 12,
+    "failing": [],
+    "ops": {
+      "create_student": {
+        "method": "POST",
+        "path": "/students"
+      },
+      "create_course": {
+        "method": "POST",
+        "path": "/courses"
+      },
+      "record_score": {
+        "method": "POST",
+        "path": "/students/{id}/scores"
+      },
+      "get_results": {
+        "method": "GET",
+        "path": "/students/{id}/results"
+      }
+    }
+  },
+  {
+    "task": "school_grades_gpa",
+    "tier": "hard",
+    "vague": true,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 2,
+    "total": 12,
+    "seconds": 22.5,
+    "cost_usd": 0.0461,
+    "lines": 130,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 2,
+    "failing": [
+      "test_create_student_and_course",
+      "test_score_appears_in_results_with_grade",
+      "test_grading_scale_bands",
+      "test_grading_scale_boundaries",
+      "test_gpa_is_weighted_by_credit_hours",
+      "test_gpa_is_rounded_to_two_decimals",
+      "test_entering_a_score_again_replaces_it",
+      "test_score_outside_0_to_100_is_refused",
+      "test_score_for_missing_course_is_refused",
+      "test_results_are_per_student"
+    ],
+    "ops": {
+      "create_student": {
+        "method": "POST",
+        "path": "/students",
+        "response_fields": {
+          "id": "student_id"
+        }
+      },
+      "create_course": {
+        "method": "POST",
+        "path": "/courses",
+        "request_fields": {
+          "name": "title",
+          "credits": "credit_units"
+        },
+        "response_fields": {
+          "id": "course_code",
+          "name": "title",
+          "credits": "credit_units"
+        }
+      },
+      "record_score": {
+        "method": "POST",
+        "path": "/scores",
+        "request_fields": {
+          "id": "student_id",
+          "course_id": "course_code"
+        },
+        "response_fields": {
+          "course_id": "course_code",
+          "grade_point": "grade_points"
+        }
+      },
+      "get_results": {
+        "method": "GET",
+        "path": "/students/{id}/results",
+        "response_fields": {
+          "courses": "results",
+          "course_id": "course_code",
+          "grade_point": "grade_points"
+        }
+      }
+    }
+  },
+  {
+    "task": "school_grades_gpa",
+    "tier": "hard",
+    "vague": true,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 12,
+    "total": 12,
+    "seconds": 21.3,
+    "cost_usd": 0.0144,
+    "lines": 143,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "school_grades_gpa",
+    "tier": "hard",
+    "vague": true,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops+brief",
+    "started": true,
+    "passed": 12,
+    "total": 12,
+    "seconds": 17.4,
+    "cost_usd": 0.0253,
+    "lines": 85,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 12,
+    "failing": [],
+    "ops": {
+      "create_student": {
+        "method": "POST",
+        "path": "/students"
+      },
+      "create_course": {
+        "method": "POST",
+        "path": "/courses"
+      },
+      "record_score": {
+        "method": "POST",
+        "path": "/students/{id}/scores"
+      },
+      "get_results": {
+        "method": "GET",
+        "path": "/students/{id}/results"
+      }
+    }
+  },
+  {
+    "task": "shared_expenses",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 0,
+    "total": 13,
+    "seconds": 53.5,
+    "cost_usd": 0.2061,
+    "lines": 290,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 1,
+    "failing": [
+      "test_new_group_balances_are_zero",
+      "test_expense_split_equally",
+      "test_split_only_between_chosen_members",
+      "test_payer_need_not_be_in_split",
+      "test_uneven_split_is_exact_to_the_pesewa",
+      "test_balances_always_sum_to_zero",
+      "test_expenses_add_up",
+      "test_settle_up_moves_balances",
+      "test_cannot_pay_yourself_back",
+      "test_amounts_must_be_more_than_zero",
+      "test_empty_split_is_refused",
+      "test_split_with_outsider_is_refused",
+      "test_settle_with_outsider_is_refused"
+    ],
+    "ops": {
+      "create_group": {
+        "method": "POST",
+        "path": "/groups"
+      },
+      "add_member": {
+        "method": "POST",
+        "path": "/groups/{id}/members",
+        "response_fields": {
+          "id": "member",
+          "name": "member"
+        }
+      },
+      "add_expense": {
+        "method": "POST",
+        "path": "/groups/{id}/expenses"
+      },
+      "get_balances": {
+        "method": "GET",
+        "path": "/groups/{id}/balances",
+        "response_fields": {
+          "member_id": "member",
+          "balance": "balance.cedis"
+        },
+        "response_key": "balances"
+      },
+      "settle_up": {
+        "method": "POST",
+        "path": "/groups/{id}/payments",
+        "request_fields": {
+          "from_member_id": "from_member",
+          "to_member_id": "to_member"
+        }
+      }
+    }
+  },
+  {
+    "task": "shared_expenses",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 39.1,
+    "cost_usd": 0.1095,
+    "lines": 246,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "shared_expenses",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 0,
+    "total": 13,
+    "seconds": 35.7,
+    "cost_usd": 0.0811,
+    "lines": 193,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 0,
+    "failing": [
+      "test_new_group_balances_are_zero",
+      "test_expense_split_equally",
+      "test_split_only_between_chosen_members",
+      "test_payer_need_not_be_in_split",
+      "test_uneven_split_is_exact_to_the_pesewa",
+      "test_balances_always_sum_to_zero",
+      "test_expenses_add_up",
+      "test_settle_up_moves_balances",
+      "test_cannot_pay_yourself_back",
+      "test_amounts_must_be_more_than_zero",
+      "test_empty_split_is_refused",
+      "test_split_with_outsider_is_refused",
+      "test_settle_with_outsider_is_refused"
+    ],
+    "ops": {
+      "create_group": {
+        "method": "POST",
+        "path": "/groups"
+      },
+      "add_member": {
+        "method": "POST",
+        "path": "/groups/{id}/members"
+      },
+      "add_expense": {
+        "method": "POST",
+        "path": "/groups/{id}/expenses",
+        "request_fields": {
+          "split_between": "shared_between"
+        }
+      },
+      "get_balances": {
+        "method": "GET",
+        "path": "/groups/{id}/balances",
+        "response_fields": {
+          "member_id": "name"
+        },
+        "response_key": "members"
+      },
+      "settle_up": {
+        "method": "POST",
+        "path": "/groups/{id}/payments",
+        "request_fields": {
+          "from_member_id": "paid_by",
+          "to_member_id": "paid_to"
+        }
+      }
+    }
+  },
+  {
+    "task": "shared_expenses",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 29.8,
+    "cost_usd": 0.0182,
+    "lines": 143,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "shop_price_list",
+    "tier": "easy",
+    "vague": true,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 11,
+    "total": 13,
+    "seconds": 23.5,
+    "cost_usd": 0.0791,
+    "lines": 140,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 11,
+    "failing": [
+      "test_get_item_shows_its_price_and_category",
+      "test_list_can_show_one_category"
+    ],
+    "ops": {
+      "add_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "change_price": {
+        "method": "PATCH",
+        "path": "/items/{id}"
+      },
+      "remove_item": {
+        "method": "DELETE",
+        "path": "/items/{id}"
+      }
+    }
+  },
+  {
+    "task": "shop_price_list",
+    "tier": "easy",
+    "vague": true,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 23.0,
+    "cost_usd": 0.0521,
+    "lines": 116,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "shop_price_list",
+    "tier": "easy",
+    "vague": true,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops+brief",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 21.7,
+    "cost_usd": 0.0725,
+    "lines": 137,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 13,
+    "failing": [],
+    "ops": {
+      "add_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "change_price": {
+        "method": "PATCH",
+        "path": "/items/{id}/price"
+      },
+      "remove_item": {
+        "method": "DELETE",
+        "path": "/items/{id}"
+      }
+    }
+  },
+  {
+    "task": "shop_price_list",
+    "tier": "easy",
+    "vague": true,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 9,
+    "total": 13,
+    "seconds": 17.9,
+    "cost_usd": 0.0292,
+    "lines": 60,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 9,
+    "failing": [
+      "test_get_item_shows_its_price_and_category",
+      "test_price_can_be_changed",
+      "test_adding_with_zero_or_negative_price_is_refused",
+      "test_list_can_show_one_category"
+    ],
+    "ops": {
+      "add_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "change_price": {
+        "method": "PATCH",
+        "path": "/items/{id}"
+      },
+      "remove_item": {
+        "method": "DELETE",
+        "path": "/items/{id}"
+      }
+    }
+  },
+  {
+    "task": "shop_price_list",
+    "tier": "easy",
+    "vague": true,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 19.1,
+    "cost_usd": 0.0129,
+    "lines": 99,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "shop_price_list",
+    "tier": "easy",
+    "vague": true,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops+brief",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 16.9,
+    "cost_usd": 0.025,
+    "lines": 81,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 13,
+    "failing": [],
+    "ops": {
+      "add_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "change_price": {
+        "method": "PUT",
+        "path": "/items/{id}/price"
+      },
+      "remove_item": {
+        "method": "DELETE",
+        "path": "/items/{id}"
+      }
+    }
+  },
+  {
+    "task": "susu_ledger",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 14,
+    "total": 14,
+    "seconds": 49.7,
+    "cost_usd": 0.1596,
+    "lines": 263,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 6,
+    "failing": [],
+    "ops": {
+      "create_group": {
+        "method": "POST",
+        "path": "/groups"
+      },
+      "add_member": {
+        "method": "POST",
+        "path": "/groups/{id}/members"
+      },
+      "list_members": {
+        "method": "GET",
+        "path": "/groups/{id}/members"
+      },
+      "record_contribution": {
+        "method": "POST",
+        "path": "/groups/{id}/contributions"
+      },
+      "pay_out": {
+        "method": "POST",
+        "path": "/groups/{id}/rounds/{round}/collect"
+      },
+      "list_payouts": {
+        "method": "GET",
+        "path": "/groups/{id}/collections"
+      },
+      "get_statement": {
+        "method": "GET",
+        "path": "/groups/{id}/members/{member_id}/statement",
+        "response_fields": {
+          "total_contributed": "total_paid"
+        }
+      }
+    }
+  },
+  {
+    "task": "susu_ledger",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 14,
+    "total": 14,
+    "seconds": 38.5,
+    "cost_usd": 0.1077,
+    "lines": 237,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "susu_ledger",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 0,
+    "total": 14,
+    "seconds": 37.9,
+    "cost_usd": 0.0603,
+    "lines": 144,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 0,
+    "failing": [
+      "test_added_members_are_listed",
+      "test_contribution_is_recorded",
+      "test_statement_totals_a_members_own_contributions",
+      "test_payout_is_that_rounds_total_only",
+      "test_statement_shows_amount_received",
+      "test_member_cannot_collect_twice",
+      "test_round_cannot_be_collected_twice",
+      "test_empty_round_cannot_be_collected",
+      "test_no_contributions_after_round_is_collected",
+      "test_contribution_must_be_more_than_zero",
+      "test_member_of_another_group_cannot_pay_in",
+      "test_payouts_are_listed_per_group",
+      "test_full_cycle_pays_everyone_once",
+      "test_statement_for_missing_member_is_refused"
+    ],
+    "ops": {
+      "create_group": {
+        "method": "POST",
+        "path": "/group"
+      },
+      "add_member": {
+        "method": "POST",
+        "path": "/members"
+      },
+      "list_members": {
+        "method": "GET",
+        "path": "/members"
+      },
+      "record_contribution": {
+        "method": "POST",
+        "path": "/contributions",
+        "request_fields": {
+          "round": "round_number"
+        },
+        "response_fields": {
+          "round": "round_number"
+        }
+      },
+      "pay_out": {
+        "method": "POST",
+        "path": "/rounds/{round}/collect",
+        "response_fields": {
+          "member_id": "collector_id",
+          "round": "round_number",
+          "amount": "pot"
+        }
+      },
+      "list_payouts": {
+        "method": "GET",
+        "path": "/collections",
+        "response_fields": {
+          "member_id": "collector_id",
+          "round": "round_number",
+          "amount": "pot"
+        }
+      },
+      "get_statement": {
+        "method": "GET",
+        "path": "/members/{member_id}/statement",
+        "response_fields": {
+          "total_contributed": "total_paid"
+        }
+      }
+    }
+  },
+  {
+    "task": "susu_ledger",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 14,
+    "total": 14,
+    "seconds": 30.0,
+    "cost_usd": 0.0202,
+    "lines": 132,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "tailoring_orders",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 5,
+    "total": 13,
+    "seconds": 34.7,
+    "cost_usd": 0.1418,
+    "lines": 165,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 4,
+    "failing": [
+      "test_new_order_is_not_collected",
+      "test_orders_are_listed_per_customer",
+      "test_deposit_more_than_price_is_refused",
+      "test_deposit_equal_to_price_is_accepted",
+      "test_order_without_garment_is_refused",
+      "test_due_list_includes_orders_due_on_or_before_the_date",
+      "test_collect_marks_order_collected",
+      "test_collected_order_leaves_due_list"
+    ],
+    "ops": {
+      "create_customer": {
+        "method": "POST",
+        "path": "/customers",
+        "request_fields": {
+          "measurements.chest": "chest",
+          "measurements.waist": "waist",
+          "measurements.hip": "hip",
+          "measurements.length": "length"
+        },
+        "response_fields": {
+          "measurements.chest": "chest",
+          "measurements.waist": "waist",
+          "measurements.hip": "hip",
+          "measurements.length": "length"
+        }
+      },
+      "get_customer": {
+        "method": "GET",
+        "path": "/customers/{id}",
+        "response_fields": {
+          "measurements.chest": "chest",
+          "measurements.waist": "waist",
+          "measurements.hip": "hip",
+          "measurements.length": "length"
+        }
+      },
+      "create_order": {
+        "method": "POST",
+        "path": "/customers/{id}/orders"
+      },
+      "get_order": {
+        "method": "GET",
+        "path": "/orders/{id}"
+      },
+      "list_customer_orders": {
+        "method": "GET",
+        "path": "/customers/{id}/orders"
+      },
+      "list_due_orders": {
+        "method": "GET",
+        "path": "/orders/due",
+        "request_fields": {
+          "date": "on_or_before"
+        }
+      },
+      "collect_order": {
+        "method": "POST",
+        "path": "/orders/{id}/collect"
+      }
+    }
+  },
+  {
+    "task": "tailoring_orders",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 24.6,
+    "cost_usd": 0.0696,
+    "lines": 164,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "tailoring_orders",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 19.2,
+    "cost_usd": 0.0527,
+    "lines": 97,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 13,
+    "failing": [],
+    "ops": {
+      "create_customer": {
+        "method": "POST",
+        "path": "/customers"
+      },
+      "get_customer": {
+        "method": "GET",
+        "path": "/customers/{id}"
+      },
+      "create_order": {
+        "method": "POST",
+        "path": "/customers/{id}/orders"
+      },
+      "get_order": {
+        "method": "GET",
+        "path": "/orders/{id}"
+      },
+      "list_customer_orders": {
+        "method": "GET",
+        "path": "/customers/{id}/orders"
+      },
+      "list_due_orders": {
+        "method": "GET",
+        "path": "/orders/due",
+        "request_fields": {
+          "date": "on_or_before"
+        }
+      },
+      "collect_order": {
+        "method": "POST",
+        "path": "/orders/{id}/collect"
+      }
+    }
+  },
+  {
+    "task": "tailoring_orders",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 18.5,
+    "cost_usd": 0.0157,
+    "lines": 100,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "trotro_fares",
+    "tier": "medium",
+    "vague": true,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 26.5,
+    "cost_usd": 0.0941,
+    "lines": 157,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 13,
+    "failing": [],
+    "ops": {
+      "create_route": {
+        "method": "POST",
+        "path": "/routes"
+      },
+      "list_routes": {
+        "method": "GET",
+        "path": "/routes"
+      },
+      "find_fare": {
+        "method": "GET",
+        "path": "/fare",
+        "request_fields": {
+          "from_stop": "from",
+          "to_stop": "to"
+        },
+        "response_fields": {
+          "from_stop": "from",
+          "to_stop": "to",
+          "id": "route_id"
+        }
+      },
+      "update_fare": {
+        "method": "PATCH",
+        "path": "/routes/{id}"
+      }
+    }
+  },
+  {
+    "task": "trotro_fares",
+    "tier": "medium",
+    "vague": true,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 25.5,
+    "cost_usd": 0.0678,
+    "lines": 152,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "trotro_fares",
+    "tier": "medium",
+    "vague": true,
+    "model": "claude-opus-5-5",
+    "variant": "request+ops+brief",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 24.8,
+    "cost_usd": 0.0825,
+    "lines": 153,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 13,
+    "failing": [],
+    "ops": {
+      "create_route": {
+        "method": "POST",
+        "path": "/routes"
+      },
+      "list_routes": {
+        "method": "GET",
+        "path": "/routes"
+      },
+      "find_fare": {
+        "method": "GET",
+        "path": "/fare"
+      },
+      "update_fare": {
+        "method": "PATCH",
+        "path": "/routes/{id}"
+      }
+    }
+  },
+  {
+    "task": "trotro_fares",
+    "tier": "medium",
+    "vague": true,
+    "model": "claude-haiku-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 19.3,
+    "cost_usd": 0.0363,
+    "lines": 102,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 13,
+    "failing": [],
+    "ops": {
+      "create_route": {
+        "method": "POST",
+        "path": "/routes",
+        "request_fields": {
+          "from_stop": "origin",
+          "to_stop": "destination"
+        },
+        "response_fields": {
+          "from_stop": "origin",
+          "to_stop": "destination"
+        }
+      },
+      "list_routes": {
+        "method": "GET",
+        "path": "/routes",
+        "response_fields": {
+          "from_stop": "origin",
+          "to_stop": "destination"
+        }
+      },
+      "find_fare": {
+        "method": "GET",
+        "path": "/fare",
+        "request_fields": {
+          "from_stop": "origin",
+          "to_stop": "destination"
+        },
+        "response_fields": {
+          "id": "route_id",
+          "from_stop": "origin",
+          "to_stop": "destination"
+        }
+      },
+      "update_fare": {
+        "method": "PUT",
+        "path": "/routes/{id}/fare",
+        "response_fields": {
+          "from_stop": "origin",
+          "to_stop": "destination"
+        }
+      }
+    }
+  },
+  {
+    "task": "trotro_fares",
+    "tier": "medium",
+    "vague": true,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 20.7,
+    "cost_usd": 0.0125,
+    "lines": 84,
+    "stop_reason": "end_turn",
+    "error": ""
+  },
+  {
+    "task": "trotro_fares",
+    "tier": "medium",
+    "vague": true,
+    "model": "claude-haiku-5-5",
+    "variant": "request+ops+brief",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 24.0,
+    "cost_usd": 0.0255,
+    "lines": 110,
+    "stop_reason": "end_turn",
+    "error": "",
+    "passed_v1": 13,
+    "failing": [],
+    "ops": {
+      "create_route": {
+        "method": "POST",
+        "path": "/routes"
+      },
+      "list_routes": {
+        "method": "GET",
+        "path": "/routes"
+      },
+      "find_fare": {
+        "method": "GET",
+        "path": "/fare"
+      },
+      "update_fare": {
+        "method": "PATCH",
+        "path": "/routes/{id}/fare"
+      }
+    }
+  }
+]

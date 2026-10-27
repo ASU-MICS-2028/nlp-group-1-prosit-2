@@ -23,7 +23,7 @@ for name in sys.argv[1:] or bench.task_names():
         for model in MODELS:
             ops, info = bench.map_ops(model, app, t["operations"])
             got = bench.score(name, f"{ref}_{model}", app, ops)
-            exact = sum(ops.get(op) == spec for op, spec in true_ops.items())
+            exact = sum(ops.get(op) == spec for op, spec in true_ops.items())  # rarely equal: true maps use "fields"
             row = {"task": name, "backend": ref, "model": model, "tests": truth["passed"] + truth["failed"],
                    "passed_true_map": truth["passed"], "passed_model_map": got["passed"],
                    "right": got["passed"] == truth["passed"], "ops_exactly_equal": f"{exact}/{len(true_ops)}",

@@ -50,8 +50,10 @@ def mapping_schema():
     pair = {"type": "object", "properties": {"test_name": {"type": "string"}, "backend_name": {"type": "string"}},
             "required": ["test_name", "backend_name"], "additionalProperties": False}
     item = {"type": "object", "properties": {"operation": {"type": "string"}, "method": {"type": "string"},
-            "path": {"type": "string"}, "fields": {"type": "array", "items": pair}},
-            "required": ["operation", "method", "path", "fields"], "additionalProperties": False}
+            "path": {"type": "string"}, "request_fields": {"type": "array", "items": pair},
+            "response_fields": {"type": "array", "items": pair}, "response_key": {"type": "string"}},
+            "required": ["operation", "method", "path", "request_fields", "response_fields", "response_key"],
+            "additionalProperties": False}
     return {"type": "object", "properties": {"mappings": {"type": "array", "items": item}}, "required": ["mappings"],
             "additionalProperties": False}
 
@@ -59,16 +61,34 @@ def mapping_schema():
 def to_ops(mapping_json):
     out = {}
     for m in json.loads(mapping_json)["mappings"]:
-        fields = {f["test_name"]: f["backend_name"] for f in m["fields"] if f["test_name"] != f["backend_name"]}
-        out[m["operation"]] = {"method": m["method"].upper(), "path": m["path"], **({"fields": fields} if fields else {})}
+        spec = {"method": m["method"].upper(), "path": m["path"]}
+        for part in ("request_fields", "response_fields"):
+            names = {f["test_name"]: f["backend_name"] for f in m[part] if f["test_name"] != f["backend_name"]}
+            if names:
+                spec[part] = names
+        if m["response_key"]:
+            spec["response_key"] = m["response_key"]
+        out[m["operation"]] = spec
     return out
 
 
 MAP_SYSTEM = """You connect a test suite to a backend. The tests call named operations; you say which endpoint of the
 given FastAPI app implements each one. For every operation in the list return: its HTTP method; its path, with
 placeholders written exactly as the operation's path parameter names in braces (for example /church-events/{id} if the
-operation says "Path params: id"); and fields: every field name the operation uses (body, query string or reply) whose
-name in the app is different, as test_name -> backend_name. Include every operation in the list."""
+operation says "Path params: id"); request_fields: every field the tests SEND (body or query string) whose name the app
+expects differently, as test_name -> backend_name; response_fields: every field the tests READ in the reply whose name
+the app returns differently. The same idea can have different names going in and coming out (for example the app may
+accept "copies" but return "total_copies"), so look at the input model and the output separately. Where a value goes may
+differ as well: if the operation gives a value as a path parameter but the app takes it in the body (or the query
+string), leave it out of the path and list it in request_fields (path parameter name -> the app's field name); if the
+app's path needs a value the operation sends in the body or query string, put its name in braces in the path. Shape
+may differ: if the operation nests values (for example measurements: {chest, waist}) but the app takes them flat
+(chest, waist), use dotted test names (measurements.chest -> chest) in request_fields and response_fields. Use dots ONLY for that
+flattening: names are already translated at every depth, so a field inside a nested object or list is renamed with
+its plain name (course_id -> subject), never courses.course_id; if the app
+wraps the reply the operation expects (for example returns {"event": ..., "signups": [...]} where the operation returns
+the list of sign-ups), set response_key to the field holding it ("signups"), otherwise set response_key to "". Include
+every operation in the list."""
 
 
 def map_ops(model, app_text, operations, effort="medium"):
