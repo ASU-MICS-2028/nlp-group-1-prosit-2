@@ -22,7 +22,8 @@ class Api:
         """Call an operation by name. json is the body, params the query string (?date=...).
         Field names are translated at every depth (nested objects and lists too): "fields" both ways,
         "request_fields" only in what is sent, "response_fields" only in the reply. A dotted test name
-        ("measurements.chest") means the test nests the value where the backend keeps it flat ("chest").
+        ("measurements.chest") means the test nests the value where the backend keeps it flat ("chest"); a dotted
+        backend name ("balance.cedis") is the reverse, in replies.
         "response_key" unwraps a reply the backend wraps (e.g. {"signups": [...]} -> the list)."""
         spec = self.ops[op]
         fields = spec.get("fields", {})  # names used both ways
@@ -57,7 +58,7 @@ class Api:
         key = spec.get("response_key")
         if key and isinstance(data, dict) and key in data:
             data = data[key]
-        return r.status_code, nest(rename(data, back))
+        return r.status_code, nest(rename(lift(data, back), back))
 
 
 def flatten(data, names):
@@ -68,9 +69,27 @@ def flatten(data, names):
     for dotted in [k for k in names if "." in k]:
         outer, inner = dotted.split(".", 1)
         if isinstance(data.get(outer), dict) and inner in data[outer]:
+            data[outer] = dict(data[outer])  # a copy: never change the test's own data (tests reuse it)
             data[dotted] = data[outer].pop(inner)
             if not data[outer]:
                 del data[outer]
+    return data
+
+
+def lift(data, back):
+    """Replies only: a dotted backend name ("balance.cedis") means the backend nests what the test reads flat:
+    {"balance": {"cedis": 5, "pesewas": 500}} becomes {"balance.cedis": 5}, which rename then calls "balance"."""
+    if isinstance(data, list):
+        return [lift(v, back) for v in data]
+    if not isinstance(data, dict):
+        return data
+    data = {k: lift(v, back) for k, v in data.items()}
+    for dotted in [k for k in back if "." in k]:
+        outer, inner = dotted.split(".", 1)
+        if isinstance(data.get(outer), dict) and inner in data[outer]:
+            data[dotted] = data[outer][inner]
+    for dotted in [k for k in back if "." in k and k in data]:
+        data.pop(dotted.split(".", 1)[0], None)
     return data
 
 

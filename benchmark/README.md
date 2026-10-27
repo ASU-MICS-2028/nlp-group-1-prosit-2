@@ -32,6 +32,19 @@ The agent may call it `/events` or `/church-events`, `capacity` or `max_people`.
 
 `fields` maps test names to backend names (left out if they are the same), at every depth: nested objects and lists are translated too. Path placeholders are filled from `path_params`; query strings come from `params` (`api.call("list_appointments", params={"date": "2026-11-02"})`).
 
+Other things a map can say (each was found from a correct backend the simple version failed; decision 0034):
+
+| Key | Means | Example |
+|---|---|---|
+| `request_fields` | names used only in what is sent | `{"name": "customer_name"}` |
+| `response_fields` | names used only in the reply. Two test names may point at one backend field | `{"id": "table_number", "number": "table_number"}` |
+| dotted test name | the test nests the value, the backend keeps it flat | `{"measurements.chest": "chest"}` |
+| `response_key` | the backend wraps its reply; unwrap it | `"signups"` for `{"signups": [...]}` |
+
+Values also move by themselves: a path parameter the backend's path does not use goes into the body (or the query string for GET), and a `{placeholder}` the tests did not give as a path parameter is taken from the body or the query string.
+
+After any change to `conftest.py`: re-run `validate.py` on every task and re-score saved builds with their saved maps. Both are free.
+
 ## Checking a task: `benchmark/validate.py`
 
 ```

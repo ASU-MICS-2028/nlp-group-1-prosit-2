@@ -53,7 +53,30 @@
     "cost_usd": 0.0651,
     "lines": 153,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_event": {
+        "method": "POST",
+        "path": "/events"
+      },
+      "list_events": {
+        "method": "GET",
+        "path": "/events"
+      },
+      "get_event": {
+        "method": "GET",
+        "path": "/events/{id}"
+      },
+      "sign_up": {
+        "method": "POST",
+        "path": "/events/{id}/signups"
+      },
+      "list_signups": {
+        "method": "GET",
+        "path": "/events/{id}/signups"
+      }
+    }
   },
   {
     "task": "church_signup",
@@ -107,7 +130,30 @@
     "cost_usd": 0.0138,
     "lines": 117,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_event": {
+        "method": "POST",
+        "path": "/events"
+      },
+      "list_events": {
+        "method": "GET",
+        "path": "/events"
+      },
+      "get_event": {
+        "method": "GET",
+        "path": "/events/{id}"
+      },
+      "sign_up": {
+        "method": "POST",
+        "path": "/events/{id}/signups"
+      },
+      "list_signups": {
+        "method": "GET",
+        "path": "/events/{id}/signups"
+      }
+    }
   },
   {
     "task": "clinic_appointments",
@@ -171,7 +217,30 @@
     "cost_usd": 0.0665,
     "lines": 154,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_doctor": {
+        "method": "POST",
+        "path": "/doctors"
+      },
+      "list_doctors": {
+        "method": "GET",
+        "path": "/doctors"
+      },
+      "book_appointment": {
+        "method": "POST",
+        "path": "/appointments"
+      },
+      "list_doctor_appointments": {
+        "method": "GET",
+        "path": "/doctors/{id}/appointments"
+      },
+      "cancel_appointment": {
+        "method": "DELETE",
+        "path": "/appointments/{id}"
+      }
+    }
   },
   {
     "task": "clinic_appointments",
@@ -234,7 +303,30 @@
     "cost_usd": 0.0152,
     "lines": 108,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_doctor": {
+        "method": "POST",
+        "path": "/doctors"
+      },
+      "list_doctors": {
+        "method": "GET",
+        "path": "/doctors"
+      },
+      "book_appointment": {
+        "method": "POST",
+        "path": "/appointments"
+      },
+      "list_doctor_appointments": {
+        "method": "GET",
+        "path": "/doctors/{id}/appointments"
+      },
+      "cancel_appointment": {
+        "method": "DELETE",
+        "path": "/appointments/{id}"
+      }
+    }
   },
   {
     "task": "football_fixtures",
@@ -292,7 +384,34 @@
     "cost_usd": 0.0622,
     "lines": 145,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "add_team": {
+        "method": "POST",
+        "path": "/teams"
+      },
+      "list_teams": {
+        "method": "GET",
+        "path": "/teams"
+      },
+      "create_fixture": {
+        "method": "POST",
+        "path": "/fixtures"
+      },
+      "get_fixture": {
+        "method": "GET",
+        "path": "/fixtures/{id}"
+      },
+      "record_score": {
+        "method": "POST",
+        "path": "/fixtures/{id}/score"
+      },
+      "team_fixtures": {
+        "method": "GET",
+        "path": "/teams/{id}/fixtures"
+      }
+    }
   },
   {
     "task": "football_fixtures",
@@ -365,7 +484,34 @@
     "cost_usd": 0.0139,
     "lines": 90,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "add_team": {
+        "method": "POST",
+        "path": "/teams"
+      },
+      "list_teams": {
+        "method": "GET",
+        "path": "/teams"
+      },
+      "create_fixture": {
+        "method": "POST",
+        "path": "/fixtures"
+      },
+      "get_fixture": {
+        "method": "GET",
+        "path": "/fixtures/{id}"
+      },
+      "record_score": {
+        "method": "POST",
+        "path": "/fixtures/{id}/score"
+      },
+      "team_fixtures": {
+        "method": "GET",
+        "path": "/teams/{id}/fixtures"
+      }
+    }
   },
   {
     "task": "hostel_booking",
@@ -429,7 +575,26 @@
     "cost_usd": 0.0805,
     "lines": 185,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_room": {
+        "method": "POST",
+        "path": "/rooms"
+      },
+      "book_bed": {
+        "method": "POST",
+        "path": "/rooms/{id}/bookings"
+      },
+      "cancel_booking": {
+        "method": "POST",
+        "path": "/bookings/{id}/cancel"
+      },
+      "free_beds": {
+        "method": "GET",
+        "path": "/free-beds"
+      }
+    }
   },
   {
     "task": "hostel_booking",
@@ -493,7 +658,26 @@
     "cost_usd": 0.0137,
     "lines": 95,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_room": {
+        "method": "POST",
+        "path": "/rooms"
+      },
+      "book_bed": {
+        "method": "POST",
+        "path": "/rooms/{id}/bookings"
+      },
+      "cancel_booking": {
+        "method": "POST",
+        "path": "/bookings/{id}/cancel"
+      },
+      "free_beds": {
+        "method": "GET",
+        "path": "/free-beds"
+      }
+    }
   },
   {
     "task": "library_catalogue",
@@ -575,7 +759,30 @@
     "cost_usd": 0.0491,
     "lines": 113,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "add_book": {
+        "method": "POST",
+        "path": "/books"
+      },
+      "list_books": {
+        "method": "GET",
+        "path": "/books"
+      },
+      "get_book": {
+        "method": "GET",
+        "path": "/books/{id}"
+      },
+      "borrow_book": {
+        "method": "POST",
+        "path": "/books/{id}/borrow"
+      },
+      "return_book": {
+        "method": "POST",
+        "path": "/books/{id}/return"
+      }
+    }
   },
   {
     "task": "library_catalogue",
@@ -657,7 +864,30 @@
     "cost_usd": 0.0122,
     "lines": 90,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "add_book": {
+        "method": "POST",
+        "path": "/books"
+      },
+      "list_books": {
+        "method": "GET",
+        "path": "/books"
+      },
+      "get_book": {
+        "method": "GET",
+        "path": "/books/{id}"
+      },
+      "borrow_book": {
+        "method": "POST",
+        "path": "/books/{id}/borrow"
+      },
+      "return_book": {
+        "method": "POST",
+        "path": "/books/{id}/return"
+      }
+    }
   },
   {
     "task": "lost_and_found",
@@ -735,7 +965,30 @@
     "cost_usd": 0.0485,
     "lines": 119,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "report_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "list_unclaimed": {
+        "method": "GET",
+        "path": "/items/unclaimed"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "claim_item": {
+        "method": "POST",
+        "path": "/items/{id}/claim"
+      }
+    }
   },
   {
     "task": "lost_and_found",
@@ -807,7 +1060,30 @@
     "cost_usd": 0.0112,
     "lines": 83,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "report_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "list_unclaimed": {
+        "method": "GET",
+        "path": "/items/unclaimed"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "claim_item": {
+        "method": "POST",
+        "path": "/items/{id}/claim"
+      }
+    }
   },
   {
     "task": "market_stock",
@@ -871,7 +1147,34 @@
     "cost_usd": 0.0474,
     "lines": 107,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "record_sale": {
+        "method": "POST",
+        "path": "/items/{id}/sales"
+      },
+      "record_restock": {
+        "method": "POST",
+        "path": "/items/{id}/restocks"
+      },
+      "list_low_stock": {
+        "method": "GET",
+        "path": "/items/low-stock"
+      }
+    }
   },
   {
     "task": "market_stock",
@@ -935,7 +1238,34 @@
     "cost_usd": 0.0122,
     "lines": 73,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "record_sale": {
+        "method": "POST",
+        "path": "/items/{id}/sales"
+      },
+      "record_restock": {
+        "method": "POST",
+        "path": "/items/{id}/restocks"
+      },
+      "list_low_stock": {
+        "method": "GET",
+        "path": "/items/low-stock"
+      }
+    }
   },
   {
     "task": "momo_wallet",
@@ -1007,7 +1337,30 @@
     "cost_usd": 0.0967,
     "lines": 195,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "open_wallet": {
+        "method": "POST",
+        "path": "/wallets"
+      },
+      "get_wallet": {
+        "method": "GET",
+        "path": "/wallets/{id}"
+      },
+      "deposit": {
+        "method": "POST",
+        "path": "/wallets/{id}/deposit"
+      },
+      "transfer": {
+        "method": "POST",
+        "path": "/transfers"
+      },
+      "list_transactions": {
+        "method": "GET",
+        "path": "/wallets/{id}/transactions"
+      }
+    }
   },
   {
     "task": "momo_wallet",
@@ -1062,7 +1415,30 @@
     "cost_usd": 0.0193,
     "lines": 156,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "open_wallet": {
+        "method": "POST",
+        "path": "/wallets"
+      },
+      "get_wallet": {
+        "method": "GET",
+        "path": "/wallets/{id}"
+      },
+      "deposit": {
+        "method": "POST",
+        "path": "/wallets/{id}/deposit"
+      },
+      "transfer": {
+        "method": "POST",
+        "path": "/transfers"
+      },
+      "list_transactions": {
+        "method": "GET",
+        "path": "/wallets/{id}/transactions"
+      }
+    }
   },
   {
     "task": "restaurant_reservations",
@@ -1133,7 +1509,26 @@
     "cost_usd": 0.0662,
     "lines": 170,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_table": {
+        "method": "POST",
+        "path": "/tables"
+      },
+      "list_tables": {
+        "method": "GET",
+        "path": "/tables"
+      },
+      "make_reservation": {
+        "method": "POST",
+        "path": "/tables/{id}/reservations"
+      },
+      "list_reservations": {
+        "method": "GET",
+        "path": "/reservations"
+      }
+    }
   },
   {
     "task": "restaurant_reservations",
@@ -1192,7 +1587,26 @@
     "cost_usd": 0.0126,
     "lines": 100,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_table": {
+        "method": "POST",
+        "path": "/tables"
+      },
+      "list_tables": {
+        "method": "GET",
+        "path": "/tables"
+      },
+      "make_reservation": {
+        "method": "POST",
+        "path": "/tables/{id}/reservations"
+      },
+      "list_reservations": {
+        "method": "GET",
+        "path": "/reservations"
+      }
+    }
   },
   {
     "task": "school_grades_gpa",
@@ -1266,7 +1680,29 @@
     "cost_usd": 0.0607,
     "lines": 148,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [
+      "test_grading_scale_bands",
+      "test_grading_scale_boundaries"
+    ],
+    "ops": {
+      "create_student": {
+        "method": "POST",
+        "path": "/students"
+      },
+      "create_course": {
+        "method": "POST",
+        "path": "/courses"
+      },
+      "record_score": {
+        "method": "POST",
+        "path": "/students/{id}/scores"
+      },
+      "get_results": {
+        "method": "GET",
+        "path": "/students/{id}/results"
+      }
+    }
   },
   {
     "task": "school_grades_gpa",
@@ -1387,7 +1823,26 @@
     "cost_usd": 0.0144,
     "lines": 143,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_student": {
+        "method": "POST",
+        "path": "/students"
+      },
+      "create_course": {
+        "method": "POST",
+        "path": "/courses"
+      },
+      "record_score": {
+        "method": "POST",
+        "path": "/students/{id}/scores"
+      },
+      "get_results": {
+        "method": "GET",
+        "path": "/students/{id}/results"
+      }
+    }
   },
   {
     "task": "school_grades_gpa",
@@ -1431,7 +1886,7 @@
     "model": "claude-opus-5-5",
     "variant": "request",
     "started": true,
-    "passed": 1,
+    "passed": 13,
     "total": 13,
     "seconds": 53.5,
     "cost_usd": 0.1734,
@@ -1439,20 +1894,7 @@
     "stop_reason": "end_turn",
     "error": "",
     "passed_v1": 1,
-    "failing": [
-      "test_new_group_balances_are_zero",
-      "test_expense_split_equally",
-      "test_split_only_between_chosen_members",
-      "test_payer_need_not_be_in_split",
-      "test_uneven_split_is_exact_to_the_pesewa",
-      "test_balances_always_sum_to_zero",
-      "test_expenses_add_up",
-      "test_settle_up_moves_balances",
-      "test_cannot_pay_yourself_back",
-      "test_amounts_must_be_more_than_zero",
-      "test_split_with_outsider_is_refused",
-      "test_settle_with_outsider_is_refused"
-    ],
+    "failing": [],
     "ops": {
       "create_group": {
         "method": "POST",
@@ -1501,7 +1943,30 @@
     "cost_usd": 0.1095,
     "lines": 246,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_group": {
+        "method": "POST",
+        "path": "/groups"
+      },
+      "add_member": {
+        "method": "POST",
+        "path": "/groups/{id}/members"
+      },
+      "add_expense": {
+        "method": "POST",
+        "path": "/groups/{id}/expenses"
+      },
+      "get_balances": {
+        "method": "GET",
+        "path": "/groups/{id}/balances"
+      },
+      "settle_up": {
+        "method": "POST",
+        "path": "/groups/{id}/settle-up"
+      }
+    }
   },
   {
     "task": "shared_expenses",
@@ -1580,7 +2045,30 @@
     "cost_usd": 0.0182,
     "lines": 143,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_group": {
+        "method": "POST",
+        "path": "/groups"
+      },
+      "add_member": {
+        "method": "POST",
+        "path": "/groups/{id}/members"
+      },
+      "add_expense": {
+        "method": "POST",
+        "path": "/groups/{id}/expenses"
+      },
+      "get_balances": {
+        "method": "GET",
+        "path": "/groups/{id}/balances"
+      },
+      "settle_up": {
+        "method": "POST",
+        "path": "/groups/{id}/settle_up"
+      }
+    }
   },
   {
     "task": "shop_price_list",
@@ -1637,7 +2125,30 @@
     "cost_usd": 0.0521,
     "lines": 116,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "add_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "change_price": {
+        "method": "PATCH",
+        "path": "/items/{id}"
+      },
+      "remove_item": {
+        "method": "DELETE",
+        "path": "/items/{id}"
+      }
+    }
   },
   {
     "task": "shop_price_list",
@@ -1735,7 +2246,30 @@
     "cost_usd": 0.0129,
     "lines": 99,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "add_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "change_price": {
+        "method": "PUT",
+        "path": "/items/{id}/price"
+      },
+      "remove_item": {
+        "method": "DELETE",
+        "path": "/items/{id}"
+      }
+    }
   },
   {
     "task": "shop_price_list",
@@ -1839,7 +2373,38 @@
     "cost_usd": 0.1077,
     "lines": 237,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_group": {
+        "method": "POST",
+        "path": "/groups"
+      },
+      "add_member": {
+        "method": "POST",
+        "path": "/groups/{id}/members"
+      },
+      "list_members": {
+        "method": "GET",
+        "path": "/groups/{id}/members"
+      },
+      "record_contribution": {
+        "method": "POST",
+        "path": "/groups/{id}/contributions"
+      },
+      "pay_out": {
+        "method": "POST",
+        "path": "/groups/{id}/payouts"
+      },
+      "list_payouts": {
+        "method": "GET",
+        "path": "/groups/{id}/payouts"
+      },
+      "get_statement": {
+        "method": "GET",
+        "path": "/groups/{id}/members/{member_id}/statement"
+      }
+    }
   },
   {
     "task": "susu_ledger",
@@ -1935,7 +2500,38 @@
     "cost_usd": 0.0202,
     "lines": 132,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_group": {
+        "method": "POST",
+        "path": "/groups"
+      },
+      "add_member": {
+        "method": "POST",
+        "path": "/groups/{id}/members"
+      },
+      "list_members": {
+        "method": "GET",
+        "path": "/groups/{id}/members"
+      },
+      "record_contribution": {
+        "method": "POST",
+        "path": "/groups/{id}/contributions"
+      },
+      "pay_out": {
+        "method": "POST",
+        "path": "/groups/{id}/payouts"
+      },
+      "list_payouts": {
+        "method": "GET",
+        "path": "/groups/{id}/payouts"
+      },
+      "get_statement": {
+        "method": "GET",
+        "path": "/groups/{id}/members/{member_id}/statement"
+      }
+    }
   },
   {
     "task": "tailoring_orders",
@@ -1944,7 +2540,7 @@
     "model": "claude-opus-5-5",
     "variant": "request",
     "started": true,
-    "passed": 5,
+    "passed": 13,
     "total": 13,
     "seconds": 34.7,
     "cost_usd": 0.114,
@@ -1952,16 +2548,7 @@
     "stop_reason": "end_turn",
     "error": "",
     "passed_v1": 4,
-    "failing": [
-      "test_new_order_is_not_collected",
-      "test_orders_are_listed_per_customer",
-      "test_deposit_more_than_price_is_refused",
-      "test_deposit_equal_to_price_is_accepted",
-      "test_order_without_garment_is_refused",
-      "test_due_list_includes_orders_due_on_or_before_the_date",
-      "test_collect_marks_order_collected",
-      "test_collected_order_leaves_due_list"
-    ],
+    "failing": [],
     "ops": {
       "create_customer": {
         "method": "POST",
@@ -2027,7 +2614,38 @@
     "cost_usd": 0.0696,
     "lines": 164,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_customer": {
+        "method": "POST",
+        "path": "/customers"
+      },
+      "get_customer": {
+        "method": "GET",
+        "path": "/customers/{id}"
+      },
+      "create_order": {
+        "method": "POST",
+        "path": "/customers/{id}/orders"
+      },
+      "get_order": {
+        "method": "GET",
+        "path": "/orders/{id}"
+      },
+      "list_customer_orders": {
+        "method": "GET",
+        "path": "/customers/{id}/orders"
+      },
+      "list_due_orders": {
+        "method": "GET",
+        "path": "/orders/due"
+      },
+      "collect_order": {
+        "method": "POST",
+        "path": "/orders/{id}/collect"
+      }
+    }
   },
   {
     "task": "tailoring_orders",
@@ -2092,7 +2710,38 @@
     "cost_usd": 0.0157,
     "lines": 100,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_customer": {
+        "method": "POST",
+        "path": "/customers"
+      },
+      "get_customer": {
+        "method": "GET",
+        "path": "/customers/{id}"
+      },
+      "create_order": {
+        "method": "POST",
+        "path": "/customers/{id}/orders"
+      },
+      "get_order": {
+        "method": "GET",
+        "path": "/orders/{id}"
+      },
+      "list_customer_orders": {
+        "method": "GET",
+        "path": "/customers/{id}/orders"
+      },
+      "list_due_orders": {
+        "method": "GET",
+        "path": "/orders/due"
+      },
+      "collect_order": {
+        "method": "POST",
+        "path": "/orders/{id}/collect"
+      }
+    }
   },
   {
     "task": "trotro_fares",
@@ -2151,7 +2800,26 @@
     "cost_usd": 0.0678,
     "lines": 152,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_route": {
+        "method": "POST",
+        "path": "/routes"
+      },
+      "list_routes": {
+        "method": "GET",
+        "path": "/routes"
+      },
+      "find_fare": {
+        "method": "GET",
+        "path": "/fare"
+      },
+      "update_fare": {
+        "method": "PATCH",
+        "path": "/routes/{id}"
+      }
+    }
   },
   {
     "task": "trotro_fares",
@@ -2261,7 +2929,26 @@
     "cost_usd": 0.0125,
     "lines": 84,
     "stop_reason": "end_turn",
-    "error": ""
+    "error": "",
+    "failing": [],
+    "ops": {
+      "create_route": {
+        "method": "POST",
+        "path": "/routes"
+      },
+      "list_routes": {
+        "method": "GET",
+        "path": "/routes"
+      },
+      "find_fare": {
+        "method": "GET",
+        "path": "/routes/fare"
+      },
+      "update_fare": {
+        "method": "PUT",
+        "path": "/routes/{id}/fare"
+      }
+    }
   },
   {
     "task": "trotro_fares",

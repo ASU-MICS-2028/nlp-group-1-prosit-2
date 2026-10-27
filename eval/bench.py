@@ -37,7 +37,7 @@ def score(name, label, app_text, ops):
     (root / "ops.json").write_text(json.dumps(ops))
     started = start_server(root)
     if not started["ok"]:
-        return {"started": False, "passed": 0, "failed": 0, "error": started["output"][:300]}
+        return {"started": False, "passed": 0, "failed": 0, "error": started["output"][-300:]}  # the end of a traceback says why
     try:
         r = hidden_tests(name, started["output"].split()[-1], root / "ops.json")
     finally:
