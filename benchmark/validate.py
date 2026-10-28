@@ -30,8 +30,11 @@ WORK = BENCH.parent / "projects" / "_validate"
 
 def hidden_tests(task, url, ops_file, order="normal"):
     env = {**os.environ, "BASE_URL": url, "OPS_FILE": str(ops_file), "BENCH_ORDER": order}
-    r = subprocess.run([sys.executable, "-m", "pytest", str(BENCH / task / "hidden_tests"), "-q", "-p", "no:cacheprovider"],
-                       env=env, capture_output=True, text=True, timeout=300)
+    try:
+        r = subprocess.run([sys.executable, "-m", "pytest", str(BENCH / task / "hidden_tests"), "-q", "-p", "no:cacheprovider"],
+                           env=env, capture_output=True, text=True, timeout=300)
+    except subprocess.TimeoutExpired:  # a backend that never answers fails every test; it must not stop the whole run
+        return {"passed": 0, "failed": 0, "failing": [], "error": "hidden tests took over 300 s"}
     passed = int(m[1]) if (m := re.search(r"(\d+) passed", r.stdout)) else 0
     failed = int(m[1]) if (m := re.search(r"(\d+) failed", r.stdout)) else 0
     errors = int(m[1]) if (m := re.search(r"(\d+) error", r.stdout)) else 0

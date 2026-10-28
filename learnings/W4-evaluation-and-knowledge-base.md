@@ -11,7 +11,7 @@ W4 answers one question: **how good is the platform, in numbers?** It has three 
 - **A harness:** the program that starts each generated backend in Bernard's sandbox and scores it with those hidden tests.
 - **A small knowledge base:** recipes the agent can search, which is the retrieval part of RAG.
 
-*(Sections 1 and 2 are completed as S2.2–S2.4 are built. So far: S2.1, checking Bernard's handoff; S2.2, the benchmark.)*
+*(Sections 1 and 2 are completed as S2.2–S2.4 are built. So far: S2.1, checking Bernard's handoff; S2.2, the benchmark; S2.3, the harness.)*
 
 ## 2. How it works, step by step
 
@@ -29,6 +29,20 @@ W4 answers one question: **how good is the platform, in numbers?** It has three 
 3. **Tests call operations by name, not by web address.** The agent may call it `/events` or `/church-events`. After the build, Opus reads the code and writes a **name map** (`ops.json`): "create_event is POST /events, and what the tests call capacity is max_people here". `benchmark/conftest.py` uses the map to translate.
 4. **Proof the tests are right:** each task has a hand-written correct backend that must pass every test, and 5 deliberately broken copies ("mutants") that must each fail at least one test. 6 tasks have a second correct backend that makes other valid choices. `benchmark/validate.py` checks all of this.
 5. **The baseline:** no agent at all. One LLM call writes the whole backend from the request, and the hidden tests score it. Alice's agent (Stage 3) must beat these numbers.
+
+**S2.3: the harness, one command that scores any backend.**
+
+```
+uv run python -m eval.harness all --references            # check: the 21 correct backends, all must be 100%
+uv run python -m eval.harness church_signup path/to/build  # one backend (a folder with app.py, and ops.json if written)
+uv run python -m eval.harness all path/to/builds           # one per task: path/to/builds/<task>/app.py
+```
+
+What it does, in order:
+1. Checks Docker is reachable (if not, it stops and says so) and removes sandbox containers left by a killed run.
+2. For each backend: if there is no name map (`ops.json`), Opus writes one (about $0.02) and it is saved, so it is paid for once.
+3. Starts the backend in the sandbox, runs the task's hidden tests, stops it. 4 backends side by side.
+4. Prints one line per backend and the total, and saves everything to `eval/results/harness/<run name>.json`.
 
 ## 3. Everything we tried (experiment log)
 
@@ -53,6 +67,10 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 | 15 | What do real build mistakes look like? | Read every failing test of every request-only build | By hand, after all tool flaws were fixed | Wallet (Opus): added a security token nobody asked for. School (both): demanded a student number the client never mentioned. Shared expenses (Haiku): members must be given when the group is made. Susu (Haiku): only one group at a time. Shop (both, vague): categories missing. All genuine | Alice's targets. All of them are "assumed something the client did not say": exactly what clarifying questions and self-testing are for |
 | 16 | Lessons from using helper agents to write tasks | Helpers working side by side | Helper agents wrote first drafts of tasks in parallel | Two helpers wrote to the same scratch file and overwrote each other. Some "caught" broken copies were caught for the wrong reason (the copy crashed instead of misbehaving). One test expected a wrong value that the reference also had wrong | Give every helper its own folder. Check that a broken copy fails on its bug, not by crashing. Work out expected values by hand, not from the reference |
 | 17 | Can the local model (Qwen 3.5 9B, on a laptop) build a backend in one go? | Qwen with thinking off · Qwen with thinking on · (Opus, Haiku from row 11) | Same baseline: 15 tasks, request only. Runs on llama.cpp on an Apple M3 (`MODELS=qwen3.5-9b-local` in `eval/experiments/baseline.py`). A build is mapped by Opus only if it starts | Thinking off: **2/15 builds start, 2/192 tests (1%)**, 43 min. Thinking on: **2/15 start, 2/192 tests (1%)**, 88 min. Why builds crash: mostly database setup mistakes (in the thinking-on run, 9 of 15 tables had no primary key, the id column every table needs), also syntax errors, an example address `sqlite:////absolute/path/to/file.db` copied as-is, an import that does not exist. One build scored 1 once and 2 on three repeats (cause not found) | A 9B model cannot one-shot a backend. Thinking costs twice the time for nothing. The mistakes come with clear error messages and are fixed by one working example, so the local model is the best test of the agent's fix-and-retry loop (Stage 3) and of the recipe knowledge base (S2.4) |
+| 18 | How many backends should the harness run side by side? | 1 · 2 · 4 · 8 · 16 | All 21 correct backends, on an 8-core Apple M3 | 1: **51 s**. 2: 24 s. 4: **13 s**. 8: 11 s. 16: no faster. Every run 272/272 | **4** (the default, `--workers`): almost all the gain; more adds little and loads the laptop |
+| 19 | Does a score change between runs, or under load? | Same backends scored 3 times at 8 side by side, and twice at 16 | 21 correct backends | **105 of 105** runs scored 100%. Nothing left running afterwards | Scores are stable. One run per backend is enough for the correct backends; generated builds may still vary (row 17 saw one) |
+| 20 | Does the harness cope with bad backends? | 15 deliberately bad cases (`eval/experiments/harness_failures.py`, free) | Each scored by the harness on the church task | No `app.py`, empty file, crash, no `app`: **0/10 with the real error**, in under 2 s. Hangs while starting: 0/10 after the 20 s start limit. Too much memory (1 GB, limit 512 MB): 0/10, but **the error says nothing** (note for Bernard). Every reply takes 2 s: 10/10, in 46 s. A 52 MB reply: handled. One endpoint never answers: 5/10 (each call gives up after 10 s). Broken `ops.json`: 0/10 with the reason. Tries the internet and the host's files: **blocked** (no internet, `.env` and the repo not visible). A whole test run over 300 s: counted as failed instead of crashing. Docker off: stops with "Docker is not reachable". Killed mid-run: 8 containers left; the next run removed them all | All handled. Three fixes came from this: Docker off used to say "removed 0" and score everything 0; a map with a missing operation now gets a warning (it scored 6/10 silently, which looks like a bad build); a hung test run used to crash the whole program. My first try of two cases tested nothing (wrong path): check that a test really triggers |
+| 21 | Does the harness give the same scores as the baseline? | Baseline scores · the same saved builds and maps through the harness | 66 saved Claude builds | **66/66 identical** | One tool, one answer. The harness is what everyone uses from now on |
 
 ## 4. What we chose, and why
 
@@ -64,6 +82,7 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 - Opus writes every name map (row 10, decision 0032).
 - The builder sees only the request and the client's answers, never the operations list (row 11, decision 0033).
 - After any change to the tests or the translation: re-run `validate.py`, then re-score saved builds (row 12, decision 0034).
+- Score every backend with `eval.harness`, 4 side by side (rows 18–21, decision 0035).
 - The numbers to beat (no agent, request only): **Opus 89%, Haiku 79%** of hidden tests.
 
 ## 5. What breaks, and the limits
@@ -73,6 +92,7 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
   - When the sandbox image is missing, `start_server` says "Server crashed while starting" ahead of "No such image". That sounds like the app is broken when really the image was never built.
   - The same Docker problem is worded differently by the two tools: only `start_server` starts with "The sandbox could not start:".
   - `path_guard.py` reports 2 Windows-only attacks as "let through" when run on a Mac, though they are harmless there (row 6). It could mark which attacks apply to which system.
+  - When a backend is killed for using too much memory, `start_server` says "Server crashed while starting:" with nothing after it. Saying "killed: over the 512 MB memory limit" would save a lot of guessing (row 20).
   - If teammates' laptops differ, a Mac can create files like `..\secret.txt` that are awkward to open on Windows. Refusing backslashes in file names on every system would keep projects identical everywhere.
 - **The translation can still miss a valid design** we have not seen yet. If a build fails, read the failing test before blaming the build: in the first round, most failures we read were the tool's fault, not the build's (row 12).
 - **An LLM judge is not stable on borderline tests** (row 9). Use it to find suspects only.
@@ -94,6 +114,8 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 | What is the baseline, and what did it score? | One LLM call writes the whole backend, no agent. From the request alone: Opus 89%, Haiku 79% of hidden tests (row 11) |
 | Why not give the agent the list of operations? | It gives away the tests: with it every model scores about 100% (row 11) |
 | Did you try a local model? | Yes, Qwen 3.5 9B on a laptop. In one go it passed only 1% of tests: 13 of 15 builds crashed, mostly from database setup mistakes. Thinking on made it twice as slow and no better (row 17) |
+| How is a generated backend scored? | `python -m eval.harness <task> <folder>`: it maps the backend with Opus if needed, starts it in the sandbox, runs the hidden tests, saves the score. All 21 correct backends score 100% (row 21) |
+| What if a generated backend is malicious? | It runs in the sandbox: in our test it could not reach the internet or see the repo or `.env`, and a 1 GB memory grab was stopped (row 20) |
 | What was the hardest part? | Making the measurement fair. 7 flaws in our own translation tool failed correct builds, and fixing them reversed a conclusion (row 12) |
 | Why not run the evaluation in subprocess mode, which is faster? | It does not isolate anything: generated code could read and write files outside the project or use the internet (Bernard's row 11). Every scored run uses Docker |
 

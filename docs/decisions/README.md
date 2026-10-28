@@ -41,6 +41,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0032](0032-opus-writes-ops-json.md) | The name map (ops.json) is always written by Opus, whichever model built the backend | Accepted | 2026-10-27 |
 | [0033](0033-builder-never-sees-operations.md) | The agent that builds a backend never sees the task's operations list | Accepted | 2026-10-27 |
 | [0034](0034-benchmark-translation-rules.md) | What the benchmark's name translation handles, and how a change to it is checked | Accepted | 2026-10-27 |
+| [0035](0035-harness-defaults.md) | How the eval harness runs: 4 side by side, stop if Docker is off, flag incomplete maps | Accepted | 2026-10-28 |
 <!-- DECISIONS:END -->
 
 ## Open questions
