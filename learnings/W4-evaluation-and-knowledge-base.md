@@ -93,6 +93,7 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 | Why don't the tests use the backend's real web addresses? | Different valid builds name things differently. Tests call operations by name and a map, written by Opus after the build, translates (rows 10, 12) |
 | What is the baseline, and what did it score? | One LLM call writes the whole backend, no agent. From the request alone: Opus 89%, Haiku 79% of hidden tests (row 11) |
 | Why not give the agent the list of operations? | It gives away the tests: with it every model scores about 100% (row 11) |
+| Did you try a local model? | Yes, Qwen 3.5 9B on a laptop. In one go it passed only 1% of tests: 13 of 15 builds crashed, mostly from database setup mistakes. Thinking on made it twice as slow and no better (row 17) |
 | What was the hardest part? | Making the measurement fair. 7 flaws in our own translation tool failed correct builds, and fixing them reversed a conclusion (row 12) |
 | Why not run the evaluation in subprocess mode, which is faster? | It does not isolate anything: generated code could read and write files outside the project or use the internet (Bernard's row 11). Every scored run uses Docker |
 
