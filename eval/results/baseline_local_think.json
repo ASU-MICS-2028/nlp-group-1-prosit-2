@@ -1,0 +1,360 @@
+[
+  {
+    "task": "church_signup",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 10,
+    "seconds": 649.0,
+    "cost_usd": 0.0,
+    "lines": 112,
+    "stop_reason": "end_turn",
+    "error": "/mapper.py\", line 1573, in _configure_pks\n    raise sa_exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Mapper Mapper[Event(event)] could not assemble any primary key columns for mapped table 'event'\n",
+    "ops": {}
+  },
+  {
+    "task": "clinic_appointments",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 2,
+    "total": 13,
+    "seconds": 213.3,
+    "cost_usd": 0.0308,
+    "lines": 249,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_doctor": {
+        "method": "POST",
+        "path": "/doctors",
+        "request_fields": {
+          "specialty": "specialization"
+        },
+        "response_fields": {
+          "specialty": "specialization"
+        }
+      },
+      "list_doctors": {
+        "method": "GET",
+        "path": "/doctors",
+        "response_fields": {
+          "specialty": "specialization"
+        }
+      },
+      "book_appointment": {
+        "method": "POST",
+        "path": "/appointments",
+        "request_fields": {
+          "time": "time_slot"
+        },
+        "response_fields": {
+          "time": "time_slot"
+        }
+      },
+      "list_doctor_appointments": {
+        "method": "GET",
+        "path": "/appointments/doctor/{id}/day/{date}",
+        "response_fields": {
+          "time": "time_slot"
+        }
+      },
+      "cancel_appointment": {
+        "method": "DELETE",
+        "path": "/appointments/{id}"
+      }
+    },
+    "failing": [
+      "test_created_doctor_appears_in_list",
+      "test_booking_appears_in_doctors_day",
+      "test_day_list_only_shows_that_date",
+      "test_day_list_only_shows_that_doctor",
+      "test_double_booking_same_slot_is_refused",
+      "test_same_slot_with_another_doctor_is_allowed",
+      "test_other_time_or_other_date_is_allowed",
+      "test_booking_unknown_doctor_is_refused",
+      "test_booking_without_patient_name_is_refused",
+      "test_cancel_removes_appointment",
+      "test_cancel_frees_the_slot"
+    ]
+  },
+  {
+    "task": "football_fixtures",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 188.6,
+    "cost_usd": 0.0,
+    "lines": 250,
+    "stop_reason": "end_turn",
+    "error": "m/mapper.py\", line 1573, in _configure_pks\n    raise sa_exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Mapper Mapper[Team(teams)] could not assemble any primary key columns for mapped table 'teams'\n",
+    "ops": {}
+  },
+  {
+    "task": "hostel_booking",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 15,
+    "seconds": 350.7,
+    "cost_usd": 0.0,
+    "lines": 302,
+    "stop_reason": "end_turn",
+    "error": "m/mapper.py\", line 1573, in _configure_pks\n    raise sa_exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Mapper Mapper[Room(rooms)] could not assemble any primary key columns for mapped table 'rooms'\n",
+    "ops": {}
+  },
+  {
+    "task": "library_catalogue",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 185.2,
+    "cost_usd": 0.0,
+    "lines": 225,
+    "stop_reason": "end_turn",
+    "error": "` since we do not call `__get_pydantic_core_schema__` on `<some type>` otherwise to avoid infinite recursion.\n\nFor further information visit https://errors.pydantic.dev/2.14/u/schema-for-unknown-type\n",
+    "ops": {}
+  },
+  {
+    "task": "lost_and_found",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 12,
+    "seconds": 107.8,
+    "cost_usd": 0.0,
+    "lines": 136,
+    "stop_reason": "end_turn",
+    "error": "ll_with_frames_removed\n  File \"/app/app.py\", line 128\n    conn.execute(text(\"CREATE TABLE IF NOT EXISTS items (\n                      ^\nSyntaxError: unterminated string literal (detected at line 128)\n",
+    "ops": {}
+  },
+  {
+    "task": "market_stock",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 1338.2,
+    "cost_usd": 0.0,
+    "lines": 0,
+    "stop_reason": "max_tokens",
+    "error": "Server crashed while starting:\nERROR:    Error loading ASGI app. Attribute \"app\" not found in module \"app\".\n",
+    "ops": {}
+  },
+  {
+    "task": "momo_wallet",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 214.1,
+    "cost_usd": 0.0,
+    "lines": 280,
+    "stop_reason": "end_turn",
+    "error": "ap_external>\", line 1063, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/app/app.py\", line 1\n    ```python\n    ^\nSyntaxError: invalid syntax\n",
+    "ops": {}
+  },
+  {
+    "task": "restaurant_reservations",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 12,
+    "seconds": 206.7,
+    "cost_usd": 0.0,
+    "lines": 279,
+    "stop_reason": "end_turn",
+    "error": "apper.py\", line 1573, in _configure_pks\n    raise sa_exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Mapper Mapper[Table(tables)] could not assemble any primary key columns for mapped table 'tables'\n",
+    "ops": {}
+  },
+  {
+    "task": "school_grades_gpa",
+    "tier": "hard",
+    "vague": true,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 12,
+    "seconds": 367.2,
+    "cost_usd": 0.0,
+    "lines": 410,
+    "stop_reason": "end_turn",
+    "error": "ort SQLModel, Field, create_engine, session, Session\nImportError: cannot import name 'session' from 'sqlmodel' (/usr/local/lib/python3.12/site-packages/sqlmodel/__init__.py). Did you mean: 'Session'?\n",
+    "ops": {}
+  },
+  {
+    "task": "shared_expenses",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 341.5,
+    "cost_usd": 0.0,
+    "lines": 356,
+    "stop_reason": "end_turn",
+    "error": "pper.py\", line 1573, in _configure_pks\n    raise sa_exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Mapper Mapper[Member(member)] could not assemble any primary key columns for mapped table 'member'\n",
+    "ops": {}
+  },
+  {
+    "task": "shop_price_list",
+    "tier": "easy",
+    "vague": true,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 133.2,
+    "cost_usd": 0.0,
+    "lines": 145,
+    "stop_reason": "end_turn",
+    "error": "gumentError: Invalid SQLite URL: sqlite://./provisions_shop.db\nValid SQLite URL forms are:\n sqlite:///:memory: (or, sqlite://)\n sqlite:///relative/path/to/file.db\n sqlite:////absolute/path/to/file.db\n",
+    "ops": {}
+  },
+  {
+    "task": "susu_ledger",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 0,
+    "total": 14,
+    "seconds": 274.9,
+    "cost_usd": 0.0421,
+    "lines": 356,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_group": {
+        "method": "POST",
+        "path": "/groups",
+        "response_fields": {
+          "id": "group_name"
+        }
+      },
+      "add_member": {
+        "method": "POST",
+        "path": "/groups/{id}/members"
+      },
+      "list_members": {
+        "method": "GET",
+        "path": "/groups/{id}/members",
+        "response_key": "members"
+      },
+      "record_contribution": {
+        "method": "POST",
+        "path": "/groups/{id}/rounds/{round}/contribute",
+        "request_fields": {
+          "round": "round_id"
+        }
+      },
+      "pay_out": {
+        "method": "POST",
+        "path": "/groups/{id}/rounds/{round}/collect",
+        "request_fields": {
+          "round": "round_id"
+        },
+        "response_fields": {
+          "amount": "collected_amount"
+        }
+      },
+      "list_payouts": {
+        "method": "GET",
+        "path": "/groups/{id}/rounds",
+        "response_fields": {
+          "round": "round_number",
+          "amount": "collected_amount"
+        },
+        "response_key": "rounds"
+      },
+      "get_statement": {
+        "method": "GET",
+        "path": "/groups/{id}/members/{member_id}/statement",
+        "response_fields": {
+          "total_contributed": "total_paid"
+        }
+      }
+    },
+    "failing": [
+      "test_added_members_are_listed",
+      "test_contribution_is_recorded",
+      "test_statement_totals_a_members_own_contributions",
+      "test_payout_is_that_rounds_total_only",
+      "test_statement_shows_amount_received",
+      "test_member_cannot_collect_twice",
+      "test_round_cannot_be_collected_twice",
+      "test_empty_round_cannot_be_collected",
+      "test_no_contributions_after_round_is_collected",
+      "test_contribution_must_be_more_than_zero",
+      "test_member_of_another_group_cannot_pay_in",
+      "test_payouts_are_listed_per_group",
+      "test_full_cycle_pays_everyone_once",
+      "test_statement_for_missing_member_is_refused"
+    ]
+  },
+  {
+    "task": "tailoring_orders",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 361.2,
+    "cost_usd": 0.0,
+    "lines": 255,
+    "stop_reason": "end_turn",
+    "error": "e 1573, in _configure_pks\n    raise sa_exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Mapper Mapper[CustomerModel(customers)] could not assemble any primary key columns for mapped table 'customers'\n",
+    "ops": {}
+  },
+  {
+    "task": "trotro_fares",
+    "tier": "medium",
+    "vague": true,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 337.7,
+    "cost_usd": 0.0,
+    "lines": 186,
+    "stop_reason": "end_turn",
+    "error": "m/mapper.py\", line 1573, in _configure_pks\n    raise sa_exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Mapper Mapper[Stop(stops)] could not assemble any primary key columns for mapped table 'stops'\n",
+    "ops": {}
+  }
+]
