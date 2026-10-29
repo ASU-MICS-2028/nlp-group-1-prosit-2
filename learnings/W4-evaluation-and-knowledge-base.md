@@ -116,6 +116,7 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 - **The harness scores each backend once** unless you ask for `--repeat N`. For the agent's results (Stage 3) use at least `--repeat 3` on generated builds: one Qwen build changed between runs (row 17).
 - **Search cannot say "nothing fits"** (row 25), and Twi questions return noise (row 26).
 - **Recipes were tried in one build per task, with Qwen only** (row 27). None vs recipes is a big gap; fixed vs searched may be luck. Recipes did not stop a small model leaving out imports when it copied code. Opus and Haiku were not tried with recipes.
+- **One mutant once failed an extra test** (in the first `validate.py` run in a fresh clone, `missing_event_200` also failed the "no name" test, which it should pass). It was still caught, and 3 more runs matched the saved result. Most likely a slow first request in a newly set-up laptop; if it happens often, look at the 10 s request limit in `conftest.py`.
 - **The search comparison used 111 questions labelled by one person.** Differences of a few points are a few questions; only big gaps (95% vs 74%) mean something.
 - **One build per task and model.** Each number comes from a single build, so a lucky or unlucky build moves a task's score a lot. Repeat runs are for the harness (S2.3).
 - **Running a test script from outside the repo fails** with `No module named 'runtime'`. Run scripts from the repo root, as Bernard's example says.
@@ -127,7 +128,7 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 ```
 docker build -t w2-sandbox runtime/sandbox      # Bernard's sandbox image, if you have not built it (1-2 minutes)
 uv run python benchmark/validate.py church_signup
-# expect: church_signup ✅ (reference passes twice and in reverse order, every mutant caught)
+# expect: ✅ church_signup: 10 tests | reference ✅ | mutants killed 5/5   (it rewrites benchmark/validation.json: commit that only if you changed a task)
 uv run python -m eval.harness all --references
 # expect: 21 lines, each 100%, then the total; about 15 s. Free (every reference has its ops.json)
 uv run --extra kb python -m kb.search "two people booked the same room"
@@ -154,6 +155,7 @@ The harness writes `eval/results/harness/<name>.json`, one row per build and rep
 **What surprised me:**
 - Scoring a build with no `ops.json` calls Opus once to write the name map (about $0.02). That needs `--env-file .env --with anthropic`. The map is saved next to `app.py`, so it is paid for once.
 - If a build fails, read the failing test before blaming the build. In the first round, most failures were our tool's fault.
+- With `--repeat`, the first repeat runs alone, so a missing map is written once and the other repeats reuse it. Before the fresh-clone test it was written once per repeat, all side by side ($0.048 instead of $0.016).
 - `--extra kb` is needed only for `search_docs`, because it installs PyTorch. Everything else runs without it.
 - An agent build can vary from run to run, so always use `--repeat 3` for real results.
 - Nothing in Stage 2 was skipped: S2.4 (Should) is done.

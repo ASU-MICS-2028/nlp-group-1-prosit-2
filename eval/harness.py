@@ -79,11 +79,12 @@ def main():
         a.error("give a backend folder, or --references")
     removed = cleanup()
     print(f"cleanup: removed {removed[0]} leftover containers, {removed[1]} networks")
-    todo = [(t, s, f, f"harness_{args.name}_{s}_{i}") for t, s, f in jobs(args.task, args.folder, args.references)
+    todo = [[(t, s, f, f"harness_{args.name}_{s}_{i}") for t, s, f in jobs(args.task, args.folder, args.references)]
             for i in range(args.repeat)]
     start = time.time()
-    with ThreadPoolExecutor(args.workers) as ex:
-        rows = list(ex.map(lambda j: run_one(*j), todo))
+    with ThreadPoolExecutor(args.workers) as ex:  # first repeat alone: it writes any missing map, so later repeats reuse it
+        rows = list(ex.map(lambda j: run_one(*j), todo[0]))
+        rows += list(ex.map(lambda j: run_one(*j), [j for rep in todo[1:] for j in rep]))
     for r in rows:
         print(f"{r['task']:24} {r['backend']:12} {r['passed']:>2}/{r['total']:<2} {r['seconds']:>5}s {r['error'][-80:]}".rstrip())
     passed, total = sum(r["passed"] for r in rows), sum(r["total"] for r in rows)
