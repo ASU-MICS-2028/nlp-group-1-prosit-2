@@ -1,0 +1,600 @@
+[
+  {
+    "task": "church_signup",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 3,
+    "total": 10,
+    "seconds": 109.6,
+    "cost_usd": 0.0207,
+    "lines": 146,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_event": {
+        "method": "POST",
+        "path": "/events",
+        "request_fields": {
+          "capacity": "max_capacity"
+        },
+        "response_fields": {
+          "capacity": "max_capacity"
+        }
+      },
+      "list_events": {
+        "method": "GET",
+        "path": "/events",
+        "response_fields": {
+          "capacity": "max_capacity"
+        }
+      },
+      "get_event": {
+        "method": "GET",
+        "path": "/events/{id}",
+        "response_fields": {
+          "capacity": "max_capacity"
+        }
+      },
+      "sign_up": {
+        "method": "POST",
+        "path": "/events/{id}/signup"
+      },
+      "list_signups": {
+        "method": "GET",
+        "path": "/events/{id}/signups"
+      }
+    }
+  },
+  {
+    "task": "clinic_appointments",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 1,
+    "total": 13,
+    "seconds": 101.1,
+    "cost_usd": 0.0208,
+    "lines": 140,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_doctor": {
+        "method": "POST",
+        "path": "/doctors",
+        "request_fields": {
+          "specialty": "specialisation"
+        },
+        "response_fields": {
+          "specialty": "specialisation"
+        }
+      },
+      "list_doctors": {
+        "method": "GET",
+        "path": "/doctors",
+        "response_fields": {
+          "specialty": "specialisation"
+        }
+      },
+      "book_appointment": {
+        "method": "POST",
+        "path": "/appointments",
+        "request_fields": {
+          "time": "time_slot"
+        },
+        "response_fields": {
+          "time": "time_slot"
+        }
+      },
+      "list_doctor_appointments": {
+        "method": "GET",
+        "path": "/appointments/doctor/{id}/date/{date}",
+        "response_fields": {
+          "time": "time_slot"
+        }
+      },
+      "cancel_appointment": {
+        "method": "DELETE",
+        "path": "/appointments/{id}"
+      }
+    }
+  },
+  {
+    "task": "football_fixtures",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 2,
+    "total": 13,
+    "seconds": 117.8,
+    "cost_usd": 0.0301,
+    "lines": 156,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "add_team": {
+        "method": "POST",
+        "path": "/teams"
+      },
+      "list_teams": {
+        "method": "GET",
+        "path": "/teams"
+      },
+      "create_fixture": {
+        "method": "POST",
+        "path": "/fixtures",
+        "response_fields": {
+          "home_goals": "home_score",
+          "away_goals": "away_score"
+        }
+      },
+      "get_fixture": {
+        "method": "GET",
+        "path": "/fixtures/{id}",
+        "response_fields": {
+          "home_goals": "home_score",
+          "away_goals": "away_score"
+        }
+      },
+      "record_score": {
+        "method": "POST",
+        "path": "/fixtures/{id}/score",
+        "request_fields": {
+          "home_goals": "home_score",
+          "away_goals": "away_score"
+        },
+        "response_fields": {
+          "home_goals": "home_score",
+          "away_goals": "away_score"
+        }
+      },
+      "team_fixtures": {
+        "method": "GET",
+        "path": "/fixtures/team/{id}",
+        "response_fields": {
+          "home_goals": "home_score",
+          "away_goals": "away_score"
+        }
+      }
+    }
+  },
+  {
+    "task": "hostel_booking",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 0,
+    "total": 15,
+    "seconds": 191.6,
+    "cost_usd": 0.0308,
+    "lines": 217,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_room": {
+        "method": "POST",
+        "path": "/rooms"
+      },
+      "book_bed": {
+        "method": "POST",
+        "path": "/bookings",
+        "request_fields": {
+          "id": "room_id",
+          "check_in": "arrival_date",
+          "check_out": "leaving_date"
+        },
+        "response_fields": {
+          "check_in": "arrival_date",
+          "check_out": "leaving_date"
+        }
+      },
+      "cancel_booking": {
+        "method": "DELETE",
+        "path": "/bookings/{id}"
+      },
+      "free_beds": {
+        "method": "GET",
+        "path": "/availability",
+        "request_fields": {
+          "check_in": "arrival_date",
+          "check_out": "leaving_date"
+        }
+      }
+    }
+  },
+  {
+    "task": "library_catalogue",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 241.7,
+    "cost_usd": 0.0,
+    "lines": 279,
+    "stop_reason": "end_turn",
+    "error": "rozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/app/app.py\", line 39, in <module>\n    @contextmanager\n     ^^^^^^^^^^^^^^\nNameError: name 'contextmanager' is not defined\n",
+    "ops": {}
+  },
+  {
+    "task": "lost_and_found",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 6,
+    "total": 12,
+    "seconds": 75.4,
+    "cost_usd": 0.019,
+    "lines": 80,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "report_item": {
+        "method": "POST",
+        "path": "/items",
+        "request_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        },
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items",
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      },
+      "list_unclaimed": {
+        "method": "GET",
+        "path": "/items/unclaimed",
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}",
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      },
+      "claim_item": {
+        "method": "PUT",
+        "path": "/items/{id}/claim",
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      }
+    }
+  },
+  {
+    "task": "market_stock",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 6,
+    "total": 13,
+    "seconds": 70.8,
+    "cost_usd": 0.0171,
+    "lines": 82,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "record_sale": {
+        "method": "POST",
+        "path": "/items/{id}/sell",
+        "request_fields": {
+          "quantity": "sell_amount"
+        }
+      },
+      "record_restock": {
+        "method": "POST",
+        "path": "/items/{id}/restock",
+        "request_fields": {
+          "quantity": "restock_amount"
+        }
+      },
+      "list_low_stock": {
+        "method": "GET",
+        "path": "/items/low-stock"
+      }
+    }
+  },
+  {
+    "task": "momo_wallet",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 296.5,
+    "cost_usd": 0.0,
+    "lines": 421,
+    "stop_reason": "end_turn",
+    "error": "mportlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/app/app.py\", line 113, in <module>\n    @session_required\n     ^^^^^^^^^^^^^^^^\nNameError: name 'session_required' is not defined\n",
+    "ops": {}
+  },
+  {
+    "task": "restaurant_reservations",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 2,
+    "total": 12,
+    "seconds": 163.2,
+    "cost_usd": 0.0247,
+    "lines": 195,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_table": {
+        "method": "POST",
+        "path": "/tables",
+        "request_fields": {
+          "number": "table_number"
+        },
+        "response_fields": {
+          "number": "table_number"
+        }
+      },
+      "list_tables": {
+        "method": "GET",
+        "path": "/tables",
+        "response_fields": {
+          "number": "table_number"
+        }
+      },
+      "make_reservation": {
+        "method": "POST",
+        "path": "/reservations",
+        "request_fields": {
+          "id": "table_number",
+          "party_size": "people"
+        },
+        "response_fields": {
+          "party_size": "people"
+        }
+      },
+      "list_reservations": {
+        "method": "GET",
+        "path": "/reservations",
+        "response_fields": {
+          "party_size": "people"
+        }
+      }
+    }
+  },
+  {
+    "task": "school_grades_gpa",
+    "tier": "hard",
+    "vague": true,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 12,
+    "seconds": 169.9,
+    "cost_usd": 0.0,
+    "lines": 214,
+    "stop_reason": "end_turn",
+    "error": "ython3.12/site-packages/sqlmodel/main.py\", line 776, in get_sqlalchemy_type\n    raise ValueError(f\"{type_} has no matching SQLAlchemy type\")\nValueError: <class 'list'> has no matching SQLAlchemy type\n",
+    "ops": {}
+  },
+  {
+    "task": "shared_expenses",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 381.4,
+    "cost_usd": 0.0,
+    "lines": 396,
+    "stop_reason": "end_turn",
+    "error": "^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/sqlmodel/main.py\", line 136, in __init__\n    raise RuntimeError(\nRuntimeError: Passing foreign_key is not supported when also passing a sa_column\n",
+    "ops": {}
+  },
+  {
+    "task": "shop_price_list",
+    "tier": "easy",
+    "vague": true,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 4,
+    "total": 13,
+    "seconds": 47.7,
+    "cost_usd": 0.0129,
+    "lines": 44,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "add_item": {
+        "method": "POST",
+        "path": "/products"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/products"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/products/{id}"
+      },
+      "change_price": {
+        "method": "PATCH",
+        "path": "/products/{id}"
+      },
+      "remove_item": {
+        "method": "DELETE",
+        "path": "/products/{id}"
+      }
+    }
+  },
+  {
+    "task": "susu_ledger",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 14,
+    "seconds": 274.3,
+    "cost_usd": 0.0,
+    "lines": 326,
+    "stop_reason": "end_turn",
+    "error": ", line 26, in Member\n    __table_args__ = (SQLField(\"name_idx\", \"name\"),)\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: Field() takes from 0 to 1 positional arguments but 2 were given\n",
+    "ops": {}
+  },
+  {
+    "task": "tailoring_orders",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 11,
+    "total": 13,
+    "seconds": 188.1,
+    "cost_usd": 0.0379,
+    "lines": 219,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_customer": {
+        "method": "POST",
+        "path": "/customers",
+        "request_fields": {
+          "phone": "phone_number",
+          "measurements.chest": "chest",
+          "measurements.waist": "waist",
+          "measurements.hip": "hip",
+          "measurements.length": "length"
+        },
+        "response_fields": {
+          "phone": "phone_number",
+          "measurements.chest": "chest",
+          "measurements.waist": "waist",
+          "measurements.hip": "hip",
+          "measurements.length": "length"
+        }
+      },
+      "get_customer": {
+        "method": "GET",
+        "path": "/customers/{id}",
+        "response_fields": {
+          "phone": "phone_number",
+          "measurements.chest": "chest",
+          "measurements.waist": "waist",
+          "measurements.hip": "hip",
+          "measurements.length": "length"
+        }
+      },
+      "create_order": {
+        "method": "POST",
+        "path": "/orders",
+        "request_fields": {
+          "id": "customer_id",
+          "price": "price_cedis",
+          "deposit": "deposit_cedis"
+        },
+        "response_fields": {
+          "price": "price_cedis",
+          "deposit": "deposit_cedis"
+        }
+      },
+      "get_order": {
+        "method": "GET",
+        "path": "/orders/{id}",
+        "response_fields": {
+          "price": "price_cedis",
+          "deposit": "deposit_cedis"
+        }
+      },
+      "list_customer_orders": {
+        "method": "GET",
+        "path": "/orders/customer/{id}",
+        "response_fields": {
+          "price": "price_cedis",
+          "deposit": "deposit_cedis"
+        }
+      },
+      "list_due_orders": {
+        "method": "GET",
+        "path": "/orders/due",
+        "request_fields": {
+          "date": "due_date"
+        },
+        "response_fields": {
+          "price": "price_cedis",
+          "deposit": "deposit_cedis"
+        }
+      },
+      "collect_order": {
+        "method": "PUT",
+        "path": "/orders/{id}/collect",
+        "response_fields": {
+          "price": "price_cedis",
+          "deposit": "deposit_cedis"
+        }
+      }
+    }
+  },
+  {
+    "task": "trotro_fares",
+    "tier": "medium",
+    "vague": true,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 173.4,
+    "cost_usd": 0.0,
+    "lines": 223,
+    "stop_reason": "end_turn",
+    "error": "y\", line 198, in get_sa_type_from_type_annotation\n    raise ValueError(\"Cannot have a (non-optional) union as a SQLAlchemy field\")\nValueError: Cannot have a (non-optional) union as a SQLAlchemy field\n",
+    "ops": {}
+  }
+]

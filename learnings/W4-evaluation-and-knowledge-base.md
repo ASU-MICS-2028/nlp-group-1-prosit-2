@@ -11,7 +11,7 @@ W4 answers one question: **how good is the platform, in numbers?** It has three 
 - **A harness:** the program that starts each generated backend in Bernard's sandbox and scores it with those hidden tests.
 - **A small knowledge base:** recipes the agent can search, which is the retrieval part of RAG.
 
-*(Sections 1 and 2 are completed as S2.2–S2.4 are built. So far: S2.1, checking Bernard's handoff; S2.2, the benchmark; S2.3, the harness.)*
+*(Sections 1 and 2 are completed as S2.2–S2.4 are built. So far: S2.1, checking Bernard's handoff; S2.2, the benchmark; S2.3, the harness; S2.4, the recipe search.)*
 
 ## 2. How it works, step by step
 
@@ -44,6 +44,15 @@ What it does, in order:
 3. Starts the backend in the sandbox, runs the task's hidden tests, stops it. 4 backends side by side.
 4. Prints one line per backend and the total, and saves everything to `eval/results/harness/<run name>.json`.
 
+**S2.4: the recipe knowledge base (the "retrieval" in RAG).**
+
+1. **Recipes** (`kb/recipes/`, 18 files): each is one technique for our exact stack, in plain words plus working code and a check. For example "a database table with an id", "no double booking", "money in pesewas". They use made-up topics (rooms, shirts, workshops), never the benchmark's (decision 0036). `kb/check_recipes.py` runs every recipe inside the sandbox image: 18/18 work.
+2. **Search**: `search_docs("how do I stop two bookings at the same time?")` returns the 3 most relevant recipes. It turns the question and every recipe into lists of numbers that capture meaning ("embeddings", from the small model all-MiniLM-L6-v2) and picks the recipes whose numbers are closest (decision 0037).
+
+```
+uv run --extra kb python -m kb.search "could not assemble any primary key columns"
+```
+
 ## 3. Everything we tried (experiment log)
 
 One row per decision. Every decision compares at least 2 options. Add rows as you go, not at the end.
@@ -71,6 +80,12 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 | 19 | Does a score change between runs, or under load? | Same backends scored 3 times at 8 side by side, and twice at 16 | 21 correct backends | **105 of 105** runs scored 100%. Nothing left running afterwards | Scores are stable. One run per backend is enough for the correct backends; generated builds may still vary (row 17 saw one) |
 | 20 | Does the harness cope with bad backends? | 15 deliberately bad cases (`eval/experiments/harness_failures.py`, free) | Each scored by the harness on the church task | No `app.py`, empty file, crash, no `app`: **0/10 with the real error**, in under 2 s. Hangs while starting: 0/10 after the 20 s start limit. Too much memory (1 GB, limit 512 MB): 0/10, but **the error says nothing** (note for Bernard). Every reply takes 2 s: 10/10, in 46 s. A 52 MB reply: handled. One endpoint never answers: 5/10 (each call gives up after 10 s). Broken `ops.json`: 0/10 with the reason. Tries the internet and the host's files: **blocked** (no internet, `.env` and the repo not visible). A whole test run over 300 s: counted as failed instead of crashing. Docker off: stops with "Docker is not reachable". Killed mid-run: 8 containers left; the next run removed them all | All handled. Three fixes came from this: Docker off used to say "removed 0" and score everything 0; a map with a missing operation now gets a warning (it scored 6/10 silently, which looks like a bad build); a hung test run used to crash the whole program. My first try of two cases tested nothing (wrong path): check that a test really triggers |
 | 21 | Does the harness give the same scores as the baseline? | Baseline scores · the same saved builds and maps through the harness | 66 saved Claude builds; plus one build copied without its map | **66/66 identical**. Without a map: Opus wrote one ($0.024), 13/13, and the second run reused it (free, 2 s instead of 12 s) | One tool, one answer. The harness is what everyone uses from now on |
+| 22 | Do the recipes actually work? | Recipe code as written · after fixing | `kb/check_recipes.py`: each recipe's code and its check, run together in the sandbox image | First try **17/18**: sqlmodel's `Field` refuses `pattern` (only pydantic's accepts it). Fixed and written into the recipe: **18/18** | Never trust an example you have not run. That mistake is now itself in the recipe, because a build would make it too |
+| 23 | Where do test questions come from, so the comparison is fair? | Write them all myself · Haiku writes them from the client requests (never seeing the recipes) · real crash messages · hand-made hard cases | 111 questions, each labelled with the recipe(s) that answer it, or none | 60 from Haiku ($0.002), 14 real Qwen crash lines, 16 rewordings with no shared words, 6 Ghanaian, 8 typos or one word, 10 with no answer, 1 long | Mix sources. Questions written by the same person as the recipes share their words, which flatters keyword search. Haiku's questions are what an agent really asks: technical ("foreign key", "409", "unique constraint") |
+| 24 | Which search finds the right recipe? | None (random) · BM25 (keyword; 3 settings) · dense MiniLM, bge-small (with and without its query prefix), bge-base · hybrid (BM25 + dense) | Same 111 questions; right recipe first (hit@1), in the top 3 (hit@3); time per search | Top 3: random 17%, **BM25 74%**, bge-small 89%, bge-base 89%, **MiniLM 95%**, hybrid 87%. First: BM25 58%, MiniLM 68%, **hybrid 72%**. BM25 is best on crash messages and Ghanaian words, dense on rewordings and agent questions. bge-small needs its prefix (63%→68% first). Recipe text without code: no better | **Dense MiniLM, top 3** (decision 0037): the agent reads 3 recipes, and there it is clearly best. The smallest model won: bigger is not always better. The instructor expected dense; we measured it instead of assuming |
+| 25 | Can search say "no recipe fits"? | A cutoff on the best score, chosen on the same questions | 10 no-answer questions among the 111 | Best cutoff is right **66%** of the time, against 62% for always answering, for every method | No. The agent always gets 3 recipes and must judge whether they apply |
+| 26 | What breaks the search? | Empty, spaces, symbols, emoji, one letter, Twi, Twi+English, Pidgin, French, SQL-injection text, prompt-injection text, 10,000 words, numbers only, unknown method, library not installed | Each run through dense and BM25 | Empty, spaces, symbols, emoji: **nothing returned** (right). 10,000 words: 175 ms. French and Pidgin: dense still finds the right recipe ("make e no allow person book the room twice" → double booking). **Twi: noise** with both. Injection text: just ranked like any words, nothing runs. Missing library: a clear message, BM25 still works. First dense search: 7 s (model loading), then about 5 ms. Accented letters were being split ("réservations" → "r", "servations"): fixed | Safe on every input. Non-English questions, especially Twi, need translating first (or a multilingual model, untested) |
+| 27 | Do recipes make builds better? | No recipes · a fixed set (01 primary key, 02 database setup, 18 one-file checklist) · searched (the top recipe for each of the task's 4 planning questions, 3–4 recipes) | Qwen 3.5 9B, thinking off, the 15 plain requests, one run each; Opus maps only builds that start ($0.39 in all) | Builds that start: none **2/15**, fixed **9/15**, searched **7/15**. Tests passed: none **2/192 (1%)**, fixed **35/192 (18%)**, searched **19/192 (10%)**. The "no primary key" crash: 9 builds with no recipes, 0 with fixed, 1 with searched. Searched recipes were about the topic (bookings, dates, money) and never picked the setup recipes 02 or 18. New crashes with recipes were copied code with a missing import (`StaticPool`, `contextmanager`) | **Recipes help a lot: 9 times more tests pass.** The basics (a fixed set) helped more than topic search. One run per arm with a small, noisy model, so fixed vs searched (35 vs 19) may be partly luck; none vs any recipes is not. Suggestion for Alice: always give the setup recipes, and use search for the topic ones |
 
 ## 4. What we chose, and why
 
@@ -83,6 +98,8 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 - The builder sees only the request and the client's answers, never the operations list (row 11, decision 0033).
 - After any change to the tests or the translation: re-run `validate.py`, then re-score saved builds (row 12, decision 0034).
 - Score every backend with `eval.harness`, 4 side by side (rows 18–21, decision 0035).
+- Recipes: 18, all run and checked; never on benchmark topics (decision 0036).
+- `search_docs` uses dense search (all-MiniLM-L6-v2) and returns 3 recipes (decision 0037).
 - The numbers to beat (no agent, request only): **Opus 89%, Haiku 79%** of hidden tests.
 
 ## 5. What breaks, and the limits
@@ -97,6 +114,8 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 - **The translation can still miss a valid design** we have not seen yet. If a build fails, read the failing test before blaming the build: in the first round, most failures we read were the tool's fault, not the build's (row 12).
 - **An LLM judge is not stable on borderline tests** (row 9). Use it to find suspects only.
 - **The harness scores each backend once** unless you ask for `--repeat N`. For the agent's results (Stage 3) use at least `--repeat 3` on generated builds: one Qwen build changed between runs (row 17).
+- **Search cannot say "nothing fits"** (row 25), and Twi questions return noise (row 26).
+- **The search comparison used 111 questions labelled by one person.** Differences of a few points are a few questions; only big gaps (95% vs 74%) mean something.
 - **One build per task and model.** Each number comes from a single build, so a lucky or unlucky build moves a task's score a lot. Repeat runs are for the harness (S2.3).
 - **Running a test script from outside the repo fails** with `No module named 'runtime'`. Run scripts from the repo root, as Bernard's example says.
 
@@ -117,6 +136,8 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 | Did you try a local model? | Yes, Qwen 3.5 9B on a laptop. In one go it passed only 1% of tests: 13 of 15 builds crashed, mostly from database setup mistakes. Thinking on made it twice as slow and no better (row 17) |
 | How is a generated backend scored? | `python -m eval.harness <task> <folder>`: it maps the backend with Opus if needed, starts it in the sandbox, runs the hidden tests, saves the score. All 21 correct backends score 100% (row 21) |
 | What if a generated backend is malicious? | It runs in the sandbox: in our test it could not reach the internet or see the repo or `.env`, and a 1 GB memory grab was stopped (row 20) |
+| Why dense search and not BM25? | We measured both on 111 questions: the right recipe was in the top 3 for 95% with dense (MiniLM) against 74% with BM25. BM25 wins on crash messages, dense on reworded questions (row 24) |
+| Is RAG worth it here? | Yes, for a small model: with recipes in the prompt Qwen passed 18% of tests instead of 1% (row 27). The basic setup recipes did most of the work; searching by topic helped less. Opus and Haiku already pass most tests without help, so for them it is untested |
 | What was the hardest part? | Making the measurement fair. 7 flaws in our own translation tool failed correct builds, and fixing them reversed a conclusion (row 12) |
 | Why not run the evaluation in subprocess mode, which is faster? | It does not isolate anything: generated code could read and write files outside the project or use the internet (Bernard's row 11). Every scored run uses Docker |
 
@@ -133,4 +154,9 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 - **LLM judge**: an LLM asked to grade something, here whether each test only checks what the client asked.
 - **Workers (side by side)**: how many backends the harness scores at the same time.
 - **Failure case**: a deliberately broken input, used to check that a tool reports the problem instead of crashing or giving a wrong score.
+- **Recipe**: a short, working example of one technique, with a check that proves it runs.
+- **BM25**: keyword search. A recipe scores higher when it contains the question's words, especially rare ones, and is not too long.
+- **Dense search / embedding**: a small model turns text into a list of numbers that captures meaning, so "a spot is taken" can match "full".
+- **hit@1, hit@3**: the share of questions where a right answer is first, or in the top 3.
+- **Hybrid search**: merging the rankings of two searches (here with reciprocal rank fusion: each recipe gets 1/(60 + its place) from each).
 - **`kill -9`**: stopping a program instantly, with no chance to clean up after itself.

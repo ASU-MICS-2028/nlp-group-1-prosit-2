@@ -20,6 +20,24 @@ from eval.llm import ask, SPENT
 
 MODELS = os.environ.get("MODELS", "claude-opus-5-5,claude-haiku-5-5").split(",")
 VARIANTS = os.environ.get("VARIANTS", "request,request+ops,request+ops+brief").split(",")
+RECIPES = os.environ.get("RECIPES", "")  # "" none · "fixed" the same 3 setup recipes · "search" found by kb.search_docs
+FIXED = ["01", "02", "18"]  # table with an id, engine setup, one-file app checklist
+
+
+def recipes_for(name):
+    """The recipes added to the prompt (S2.4, step 5): none, a fixed set, or the best match for each planning question."""
+    if not RECIPES:
+        return ""
+    from kb.search import recipes, search_docs
+
+    if RECIPES == "fixed":
+        found = [r for r in recipes() if r["id"] in FIXED]
+    else:
+        questions = [q["question"] for q in json.loads((bench.ROOT / "kb/agent_questions.json").read_text()) if q["task"] == name]
+        found = list({r["id"]: r for q in questions for r in search_docs(q, k=1)}.values())
+    return "\n\nWorking examples for this exact stack (use what helps):\n\n" + "\n\n".join(r["text"] for r in found)
+
+
 TESTS = json.loads((bench.ROOT / "benchmark/validation.json").read_text())
 OUT = bench.ROOT / "eval/results" / os.environ.get("OUT", "baseline.json")
 BUILD_SYSTEM = """You build backends for people who do not code. Write ONE complete file, app.py, containing a FastAPI
@@ -31,7 +49,7 @@ SCHEMA = {"type": "object", "properties": {"app_py": {"type": "string"}}, "requi
 rows = []
 for name in sys.argv[1:] or bench.task_names():
     t = bench.load(name)
-    variants = {"request": t["request"], "request+ops": f"{t['request']}\n\nThe operations this backend must support:\n{t['operations']}"}
+    variants = {"request": t["request"] + recipes_for(name), "request+ops": f"{t['request']}\n\nThe operations this backend must support:\n{t['operations']}"}
     if t.get("vague"):
         variants["request+ops+brief"] = variants["request+ops"] + f"\n\nThe client's answers to questions:\n{t['answers']}\n\nMore details from the client:\n{t['brief']}"
     for model in MODELS:
@@ -39,7 +57,7 @@ for name in sys.argv[1:] or bench.task_names():
             start = time.time()
             text, build = ask(model, BUILD_SYSTEM, user, schema=SCHEMA)
             app = json.loads(text)["app_py"] if build["stop_reason"] == "end_turn" else ""
-            label = f"baseline_{model}_{variant.replace('+', '_')}" + os.environ.get("LOCAL_THINKING", "")  # think/no-think builds kept apart
+            label = f"baseline_{model}_{variant.replace('+', '_')}" + os.environ.get("LOCAL_THINKING", "") + RECIPES  # kept apart
             got = bench.score(name, label, app, {})  # does it even start? Mapping a build that crashes wastes an Opus call
             ops, mapped = {}, {"cost_usd": 0}
             if got["started"]:
