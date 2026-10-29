@@ -1,0 +1,772 @@
+[
+ {
+  "q": "How do I define two related SQLModel tables with a foreign key and a relationship in FastAPI?",
+  "relevant": [
+   "07"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I create a FastAPI POST endpoint that inserts a record with SQLModel and returns it with a 201 status?",
+  "relevant": [
+   "01"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I count existing rows related to a parent record and reject the request with HTTP 409 when a limit is reached in FastAPI?",
+  "relevant": [
+   "05"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I make a FastAPI endpoint that returns a single item by id or 404 and includes a list of its child records using SQLModel?",
+  "relevant": [
+   "03",
+   "07"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I define SQLModel table models with a foreign key relationship in FastAPI?",
+  "relevant": [
+   "07"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I add a unique constraint across two columns in SQLModel for SQLite?",
+  "relevant": [
+   "06",
+   "15"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I return an HTTP 409 error in FastAPI when a database insert violates a constraint?",
+  "relevant": [
+   "05",
+   "06"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I filter SQLModel query results by a date and foreign key in a FastAPI endpoint?",
+  "relevant": [
+   "08",
+   "07"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I define SQLModel table models with a foreign key relationship to another table in FastAPI?",
+  "relevant": [
+   "07"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I add a database check constraint so a column value cannot be negative in SQLModel with SQLite?",
+  "relevant": [
+   "04"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I prevent a row from referencing the same team as both home and away using a SQLAlchemy CheckConstraint in SQLModel?",
+  "relevant": [
+   "05"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I write a SQLModel query that returns rows where a given id matches either of two foreign key columns?",
+  "relevant": [],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I define SQLModel table models with a foreign key relationship from bookings to rooms in FastAPI?",
+  "relevant": [
+   "07"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I validate that an end date is after a start date and reject the request with HTTP 422 in FastAPI using Pydantic?",
+  "relevant": [
+   "15",
+   "04"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I check for date range overlap in SQLModel/SQLAlchemy queries, treating the end date as exclusive?",
+  "relevant": [
+   "15"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I count available beds per room for a date range in SQLModel by subtracting overlapping bookings from total capacity?",
+  "relevant": [
+   "15"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I define a SQLModel table with a primary key and an integer count field in FastAPI?",
+  "relevant": [
+   "01"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I create a POST endpoint in FastAPI that accepts a JSON body and saves it with a SQLModel session?",
+  "relevant": [
+   "01"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I return a 404 error from a FastAPI path operation when a database row is not found?",
+  "relevant": [
+   "03"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I check and update a related record in SQLModel inside one transaction so two requests cannot overfill a limited resource?",
+  "relevant": [
+   "05"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I define a SQLModel table with a required string, a date field, and an auto-incrementing integer primary key in SQLite?",
+  "relevant": [
+   "01"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I create FastAPI endpoints to create, list, and get a single SQLModel record by id with a 404 when missing?",
+  "relevant": [
+   "03",
+   "01"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I add a filtered list query in FastAPI and SQLModel that returns only rows where a boolean or status column is false?",
+  "relevant": [
+   "10"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I make a FastAPI update endpoint reject a change with HTTP 409 when the record's status is already set, using a Session transaction?",
+  "relevant": [
+   "10"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I define a SQLModel table with a primary key and integer fields in FastAPI?",
+  "relevant": [
+   "01"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I validate that a request field is greater than zero using Pydantic in FastAPI?",
+  "relevant": [
+   "04"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I atomically decrement a quantity in SQLite with SQLModel and reject the update if stock would go negative?",
+  "relevant": [
+   "12"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I write a FastAPI endpoint that filters SQLModel rows where one column is less than or equal to another column?",
+  "relevant": [],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I store money amounts as exact decimals in SQLModel with SQLite without floating point errors?",
+  "relevant": [
+   "09"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I enforce a unique constraint on a phone number column in SQLModel and handle the IntegrityError in FastAPI?",
+  "relevant": [
+   "06"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I perform an atomic balance transfer between two rows in SQLite with SQLAlchemy transactions and prevent negative balances?",
+  "relevant": [
+   "12"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I validate that a Decimal has at most two decimal places and is greater than zero in a Pydantic model?",
+  "relevant": [
+   "09",
+   "04"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I define SQLModel table models with a foreign key relationship in FastAPI?",
+  "relevant": [
+   "07"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I create a POST endpoint in FastAPI that validates a request body and returns 422 or 409 errors?",
+  "relevant": [
+   "04",
+   "05"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I prevent duplicate bookings for the same resource and time with a unique constraint in SQLModel and SQLite?",
+  "relevant": [
+   "15"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I filter SQLModel query results by a date field and return them from a FastAPI GET endpoint?",
+  "relevant": [
+   "08"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I define SQLModel table models with a foreign key relationship between students, courses, and scores in SQLite?",
+  "relevant": [
+   "07"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I add a unique constraint on a pair of columns and upsert a row in SQLModel so re-entering a score overwrites the old value?",
+  "relevant": [
+   "06"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I validate a numeric field range of 0 to 100 using Pydantic Field constraints in a FastAPI request body?",
+  "relevant": [
+   "04"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I compute a per-student GPA from related records with a SQLModel query and a Python aggregation in FastAPI?",
+  "relevant": [
+   "13"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I define SQLModel tables with relationships for groups, members, expenses and expense shares in FastAPI?",
+  "relevant": [
+   "07"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I store money as integer pesewas in SQLite with SQLModel and validate amounts greater than zero?",
+  "relevant": [
+   "09"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I split an integer amount equally among N members so shares differ by at most one unit and sum exactly to the total?",
+  "relevant": [
+   "09"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I compute per-member net balances from expenses and settlements in SQLAlchemy/SQLModel and return them from a FastAPI endpoint?",
+  "relevant": [
+   "12"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I define a SQLModel table class with an id, name, and price field and create the SQLite database on startup in FastAPI?",
+  "relevant": [
+   "01",
+   "02"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I write a FastAPI POST endpoint that accepts a JSON body and saves a new SQLModel record to the session?",
+  "relevant": [
+   "01"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I write FastAPI GET endpoints that return all rows from a SQLModel table and fetch a single row by id, returning 404 when missing?",
+  "relevant": [
+   "03"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I write a FastAPI DELETE endpoint that removes a SQLModel record by id and commits the change to SQLite?",
+  "relevant": [
+   "11"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I define SQLModel table models with foreign key relationships in FastAPI for SQLite?",
+  "relevant": [
+   "07"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I add validation rules that reject non-positive amounts and block writes to a closed record in FastAPI with Pydantic?",
+  "relevant": [
+   "04",
+   "10"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I enforce a unique constraint so one member can only collect once per round in SQLModel with SQLite?",
+  "relevant": [
+   "06"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I compute per-member totals with SQLModel aggregate queries like sum and group by?",
+  "relevant": [
+   "13"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I define one-to-many relationships between SQLModel tables in FastAPI with SQLite?",
+  "relevant": [
+   "07"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I add a validation rule in SQLModel or Pydantic so a field cannot exceed another field's value?",
+  "relevant": [
+   "05",
+   "04"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I write a FastAPI query parameter filter that returns rows where a date column is on or before a given date using SQLModel?",
+  "relevant": [
+   "08"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I create a FastAPI endpoint that updates a boolean status field on a SQLModel record and excludes flagged records from list queries?",
+  "relevant": [
+   "10"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I define a SQLModel table class with a primary key and a float or decimal field in FastAPI?",
+  "relevant": [
+   "01",
+   "09"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I create a FastAPI POST endpoint that inserts a SQLModel record into SQLite and returns it?",
+  "relevant": [
+   "01"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I write a FastAPI GET endpoint that queries SQLModel rows filtered by two field values using select and where?",
+  "relevant": [],
+  "kind": "agent"
+ },
+ {
+  "q": "How do I create a FastAPI PATCH endpoint that updates one field of an existing SQLModel record and returns 404 when the id is missing?",
+  "relevant": [
+   "11"
+  ],
+  "kind": "agent"
+ },
+ {
+  "q": "sqlalchemy.exc.ArgumentError: Mapper Mapper[Team(team)] could not assemble any primary key columns for mapped table 'team'",
+  "relevant": [
+   "01"
+  ],
+  "kind": "error"
+ },
+ {
+  "q": "sqlalchemy.exc.ArgumentError: Mapper Mapper[CustomerModel(customers)] could not assemble any primary key columns for mapped table 'customers'",
+  "relevant": [
+   "01"
+  ],
+  "kind": "error"
+ },
+ {
+  "q": "sqlite:////absolute/path/to/file.db",
+  "relevant": [
+   "02"
+  ],
+  "kind": "error"
+ },
+ {
+  "q": "TypeError: Invalid argument(s) 'check_same_thread' sent to create_engine(), using configuration SQLiteDialect_pysqlite/QueuePool/Engine.",
+  "relevant": [
+   "02"
+  ],
+  "kind": "error"
+ },
+ {
+  "q": "NameError: name 'Field' is not defined",
+  "relevant": [
+   "01",
+   "18"
+  ],
+  "kind": "error"
+ },
+ {
+  "q": "SyntaxError: invalid syntax",
+  "relevant": [
+   "18"
+  ],
+  "kind": "error"
+ },
+ {
+  "q": "SyntaxError: unterminated string literal (detected at line 15)",
+  "relevant": [
+   "18"
+  ],
+  "kind": "error"
+ },
+ {
+  "q": "sqlalchemy.exc.ArgumentError: Argument 'sqlite_autoindex_name_unique' is not accepted by dialect 'sqlite' on behalf of <class 'sqlalchemy.sql.schema.Table'>",
+  "relevant": [
+   "06"
+  ],
+  "kind": "error"
+ },
+ {
+  "q": "ValueError: <class 'dict'> has no matching SQLAlchemy type",
+  "relevant": [
+   "14"
+  ],
+  "kind": "error"
+ },
+ {
+  "q": "For further information visit https://errors.pydantic.dev/2.14/u/schema-for-unknown-type",
+  "relevant": [
+   "14"
+  ],
+  "kind": "error"
+ },
+ {
+  "q": "AttributeError: field",
+  "relevant": [],
+  "kind": "error"
+ },
+ {
+  "q": "ERROR:    Error loading ASGI app. Attribute \"app\" not found in module \"app\".",
+  "relevant": [
+   "18"
+  ],
+  "kind": "error"
+ },
+ {
+  "q": "ImportError: cannot import name 'session' from 'sqlmodel' (/usr/local/lib/python3.12/site-packages/sqlmodel/__init__.py). Did you mean: 'Session'?",
+  "relevant": [
+   "18"
+  ],
+  "kind": "error"
+ },
+ {
+  "q": "TypeError: Field() got an unexpected keyword argument 'pattern'",
+  "relevant": [
+   "04"
+  ],
+  "kind": "error"
+ },
+ {
+  "q": "stop people signing up once every spot is taken",
+  "relevant": [
+   "05"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "two people must not end up with the same login name",
+  "relevant": [
+   "06"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "show only the things that are still waiting to be handled",
+  "relevant": [
+   "10"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "keep a running total of what each person has put in and taken out",
+  "relevant": [
+   "12"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "avoid losing pennies when dividing a bill among friends",
+  "relevant": [
+   "09"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "nobody may reserve the same pitch at an overlapping hour",
+  "relevant": [
+   "15"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "make sure the user can't leave the name box empty",
+  "relevant": [
+   "04"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "remove something from the system for good",
+  "relevant": [
+   "11"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "fetch a single entry, and say it is not there if it does not exist",
+  "relevant": [
+   "03"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "who is top of the table",
+  "relevant": [
+   "13"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "only allow small, medium or large",
+  "relevant": [
+   "16"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "every pupil belongs to one class",
+  "relevant": [
+   "07"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "items due by Friday",
+  "relevant": [
+   "08"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "save a customer's address made of several parts",
+  "relevant": [
+   "14"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "how do I check my work before giving it to the client",
+  "relevant": [
+   "17"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "the server will not start",
+  "relevant": [
+   "18"
+  ],
+  "kind": "paraphrase"
+ },
+ {
+  "q": "susu group contributions and payouts for each member",
+  "relevant": [
+   "12"
+  ],
+  "kind": "ghana"
+ },
+ {
+  "q": "momo wallet cannot go below zero when sending money",
+  "relevant": [
+   "12"
+  ],
+  "kind": "ghana"
+ },
+ {
+  "q": "trotro fare between two stops in cedis",
+  "relevant": [
+   "09"
+  ],
+  "kind": "ghana"
+ },
+ {
+  "q": "split chop bar bill in cedis and pesewas",
+  "relevant": [
+   "09"
+  ],
+  "kind": "ghana"
+ },
+ {
+  "q": "kenkey orders the customer has collected should disappear from the list",
+  "relevant": [
+   "10"
+  ],
+  "kind": "ghana"
+ },
+ {
+  "q": "register okada riders, no two with the same plate number",
+  "relevant": [
+   "06"
+  ],
+  "kind": "ghana"
+ },
+ {
+  "q": "primery key sqlmodle",
+  "relevant": [
+   "01"
+  ],
+  "kind": "typo_or_short"
+ },
+ {
+  "q": "foriegn key one to many",
+  "relevant": [
+   "07"
+  ],
+  "kind": "typo_or_short"
+ },
+ {
+  "q": "404",
+  "relevant": [
+   "03"
+  ],
+  "kind": "typo_or_short"
+ },
+ {
+  "q": "money",
+  "relevant": [
+   "09"
+  ],
+  "kind": "typo_or_short"
+ },
+ {
+  "q": "double booking",
+  "relevant": [
+   "15"
+  ],
+  "kind": "typo_or_short"
+ },
+ {
+  "q": "enum",
+  "relevant": [
+   "16"
+  ],
+  "kind": "typo_or_short"
+ },
+ {
+  "q": "pytest",
+  "relevant": [
+   "17"
+  ],
+  "kind": "typo_or_short"
+ },
+ {
+  "q": "PATCH",
+  "relevant": [
+   "11"
+  ],
+  "kind": "typo_or_short"
+ },
+ {
+  "q": "how do I send an SMS to the customer",
+  "relevant": [],
+  "kind": "no_answer"
+ },
+ {
+  "q": "add login with a password and JWT tokens",
+  "relevant": [],
+  "kind": "no_answer"
+ },
+ {
+  "q": "upload a photo of the item",
+  "relevant": [],
+  "kind": "no_answer"
+ },
+ {
+  "q": "deploy the app to the internet",
+  "relevant": [],
+  "kind": "no_answer"
+ },
+ {
+  "q": "make the API return pages of 20 results",
+  "relevant": [],
+  "kind": "no_answer"
+ },
+ {
+  "q": "connect to a PostgreSQL database",
+  "relevant": [],
+  "kind": "no_answer"
+ },
+ {
+  "q": "I run a small provisions shop and I want an app where I record every bag of rice or tin of milk that comes in from my supplier and every one I sell, and it should never let me sell more than I actually have on the shelf, and I want to be able to look back at everything that came in and went out for each product.",
+  "relevant": [
+   "12"
+  ],
+  "kind": "long"
+ }
+]

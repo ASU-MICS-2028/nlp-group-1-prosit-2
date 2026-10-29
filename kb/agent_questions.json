@@ -1,0 +1,242 @@
+[
+ {
+  "task": "church_signup",
+  "question": "How do I define two related SQLModel tables with a foreign key and a relationship in FastAPI?"
+ },
+ {
+  "task": "church_signup",
+  "question": "How do I create a FastAPI POST endpoint that inserts a record with SQLModel and returns it with a 201 status?"
+ },
+ {
+  "task": "church_signup",
+  "question": "How do I count existing rows related to a parent record and reject the request with HTTP 409 when a limit is reached in FastAPI?"
+ },
+ {
+  "task": "church_signup",
+  "question": "How do I make a FastAPI endpoint that returns a single item by id or 404 and includes a list of its child records using SQLModel?"
+ },
+ {
+  "task": "clinic_appointments",
+  "question": "How do I define SQLModel table models with a foreign key relationship in FastAPI?"
+ },
+ {
+  "task": "clinic_appointments",
+  "question": "How do I add a unique constraint across two columns in SQLModel for SQLite?"
+ },
+ {
+  "task": "clinic_appointments",
+  "question": "How do I return an HTTP 409 error in FastAPI when a database insert violates a constraint?"
+ },
+ {
+  "task": "clinic_appointments",
+  "question": "How do I filter SQLModel query results by a date and foreign key in a FastAPI endpoint?"
+ },
+ {
+  "task": "football_fixtures",
+  "question": "How do I define SQLModel table models with a foreign key relationship to another table in FastAPI?"
+ },
+ {
+  "task": "football_fixtures",
+  "question": "How do I add a database check constraint so a column value cannot be negative in SQLModel with SQLite?"
+ },
+ {
+  "task": "football_fixtures",
+  "question": "How do I prevent a row from referencing the same team as both home and away using a SQLAlchemy CheckConstraint in SQLModel?"
+ },
+ {
+  "task": "football_fixtures",
+  "question": "How do I write a SQLModel query that returns rows where a given id matches either of two foreign key columns?"
+ },
+ {
+  "task": "hostel_booking",
+  "question": "How do I define SQLModel table models with a foreign key relationship from bookings to rooms in FastAPI?"
+ },
+ {
+  "task": "hostel_booking",
+  "question": "How do I validate that an end date is after a start date and reject the request with HTTP 422 in FastAPI using Pydantic?"
+ },
+ {
+  "task": "hostel_booking",
+  "question": "How do I check for date range overlap in SQLModel/SQLAlchemy queries, treating the end date as exclusive?"
+ },
+ {
+  "task": "hostel_booking",
+  "question": "How do I count available beds per room for a date range in SQLModel by subtracting overlapping bookings from total capacity?"
+ },
+ {
+  "task": "library_catalogue",
+  "question": "How do I define a SQLModel table with a primary key and an integer count field in FastAPI?"
+ },
+ {
+  "task": "library_catalogue",
+  "question": "How do I create a POST endpoint in FastAPI that accepts a JSON body and saves it with a SQLModel session?"
+ },
+ {
+  "task": "library_catalogue",
+  "question": "How do I return a 404 error from a FastAPI path operation when a database row is not found?"
+ },
+ {
+  "task": "library_catalogue",
+  "question": "How do I check and update a related record in SQLModel inside one transaction so two requests cannot overfill a limited resource?"
+ },
+ {
+  "task": "lost_and_found",
+  "question": "How do I define a SQLModel table with a required string, a date field, and an auto-incrementing integer primary key in SQLite?"
+ },
+ {
+  "task": "lost_and_found",
+  "question": "How do I create FastAPI endpoints to create, list, and get a single SQLModel record by id with a 404 when missing?"
+ },
+ {
+  "task": "lost_and_found",
+  "question": "How do I add a filtered list query in FastAPI and SQLModel that returns only rows where a boolean or status column is false?"
+ },
+ {
+  "task": "lost_and_found",
+  "question": "How do I make a FastAPI update endpoint reject a change with HTTP 409 when the record's status is already set, using a Session transaction?"
+ },
+ {
+  "task": "market_stock",
+  "question": "How do I define a SQLModel table with a primary key and integer fields in FastAPI?"
+ },
+ {
+  "task": "market_stock",
+  "question": "How do I validate that a request field is greater than zero using Pydantic in FastAPI?"
+ },
+ {
+  "task": "market_stock",
+  "question": "How do I atomically decrement a quantity in SQLite with SQLModel and reject the update if stock would go negative?"
+ },
+ {
+  "task": "market_stock",
+  "question": "How do I write a FastAPI endpoint that filters SQLModel rows where one column is less than or equal to another column?"
+ },
+ {
+  "task": "momo_wallet",
+  "question": "How do I store money amounts as exact decimals in SQLModel with SQLite without floating point errors?"
+ },
+ {
+  "task": "momo_wallet",
+  "question": "How do I enforce a unique constraint on a phone number column in SQLModel and handle the IntegrityError in FastAPI?"
+ },
+ {
+  "task": "momo_wallet",
+  "question": "How do I perform an atomic balance transfer between two rows in SQLite with SQLAlchemy transactions and prevent negative balances?"
+ },
+ {
+  "task": "momo_wallet",
+  "question": "How do I validate that a Decimal has at most two decimal places and is greater than zero in a Pydantic model?"
+ },
+ {
+  "task": "restaurant_reservations",
+  "question": "How do I define SQLModel table models with a foreign key relationship in FastAPI?"
+ },
+ {
+  "task": "restaurant_reservations",
+  "question": "How do I create a POST endpoint in FastAPI that validates a request body and returns 422 or 409 errors?"
+ },
+ {
+  "task": "restaurant_reservations",
+  "question": "How do I prevent duplicate bookings for the same resource and time with a unique constraint in SQLModel and SQLite?"
+ },
+ {
+  "task": "restaurant_reservations",
+  "question": "How do I filter SQLModel query results by a date field and return them from a FastAPI GET endpoint?"
+ },
+ {
+  "task": "school_grades_gpa",
+  "question": "How do I define SQLModel table models with a foreign key relationship between students, courses, and scores in SQLite?"
+ },
+ {
+  "task": "school_grades_gpa",
+  "question": "How do I add a unique constraint on a pair of columns and upsert a row in SQLModel so re-entering a score overwrites the old value?"
+ },
+ {
+  "task": "school_grades_gpa",
+  "question": "How do I validate a numeric field range of 0 to 100 using Pydantic Field constraints in a FastAPI request body?"
+ },
+ {
+  "task": "school_grades_gpa",
+  "question": "How do I compute a per-student GPA from related records with a SQLModel query and a Python aggregation in FastAPI?"
+ },
+ {
+  "task": "shared_expenses",
+  "question": "How do I define SQLModel tables with relationships for groups, members, expenses and expense shares in FastAPI?"
+ },
+ {
+  "task": "shared_expenses",
+  "question": "How do I store money as integer pesewas in SQLite with SQLModel and validate amounts greater than zero?"
+ },
+ {
+  "task": "shared_expenses",
+  "question": "How do I split an integer amount equally among N members so shares differ by at most one unit and sum exactly to the total?"
+ },
+ {
+  "task": "shared_expenses",
+  "question": "How do I compute per-member net balances from expenses and settlements in SQLAlchemy/SQLModel and return them from a FastAPI endpoint?"
+ },
+ {
+  "task": "shop_price_list",
+  "question": "How do I define a SQLModel table class with an id, name, and price field and create the SQLite database on startup in FastAPI?"
+ },
+ {
+  "task": "shop_price_list",
+  "question": "How do I write a FastAPI POST endpoint that accepts a JSON body and saves a new SQLModel record to the session?"
+ },
+ {
+  "task": "shop_price_list",
+  "question": "How do I write FastAPI GET endpoints that return all rows from a SQLModel table and fetch a single row by id, returning 404 when missing?"
+ },
+ {
+  "task": "shop_price_list",
+  "question": "How do I write a FastAPI DELETE endpoint that removes a SQLModel record by id and commits the change to SQLite?"
+ },
+ {
+  "task": "susu_ledger",
+  "question": "How do I define SQLModel table models with foreign key relationships in FastAPI for SQLite?"
+ },
+ {
+  "task": "susu_ledger",
+  "question": "How do I add validation rules that reject non-positive amounts and block writes to a closed record in FastAPI with Pydantic?"
+ },
+ {
+  "task": "susu_ledger",
+  "question": "How do I enforce a unique constraint so one member can only collect once per round in SQLModel with SQLite?"
+ },
+ {
+  "task": "susu_ledger",
+  "question": "How do I compute per-member totals with SQLModel aggregate queries like sum and group by?"
+ },
+ {
+  "task": "tailoring_orders",
+  "question": "How do I define one-to-many relationships between SQLModel tables in FastAPI with SQLite?"
+ },
+ {
+  "task": "tailoring_orders",
+  "question": "How do I add a validation rule in SQLModel or Pydantic so a field cannot exceed another field's value?"
+ },
+ {
+  "task": "tailoring_orders",
+  "question": "How do I write a FastAPI query parameter filter that returns rows where a date column is on or before a given date using SQLModel?"
+ },
+ {
+  "task": "tailoring_orders",
+  "question": "How do I create a FastAPI endpoint that updates a boolean status field on a SQLModel record and excludes flagged records from list queries?"
+ },
+ {
+  "task": "trotro_fares",
+  "question": "How do I define a SQLModel table class with a primary key and a float or decimal field in FastAPI?"
+ },
+ {
+  "task": "trotro_fares",
+  "question": "How do I create a FastAPI POST endpoint that inserts a SQLModel record into SQLite and returns it?"
+ },
+ {
+  "task": "trotro_fares",
+  "question": "How do I write a FastAPI GET endpoint that queries SQLModel rows filtered by two field values using select and where?"
+ },
+ {
+  "task": "trotro_fares",
+  "question": "How do I create a FastAPI PATCH endpoint that updates one field of an existing SQLModel record and returns 404 when the id is missing?"
+ }
+]
