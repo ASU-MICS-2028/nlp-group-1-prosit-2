@@ -7,7 +7,7 @@
 
 | Task | Who | Status |
 |---|---|---|
-| S2.4 Recipe knowledge base and search | Joseph (W4) | 🔵 ready |
+| S2.4 Recipe knowledge base and search | Joseph (W4) | 🟡 doing |
 | S2.5 Handoff: Joseph's learnings, part 1 | Joseph (W4) | ⏳ waiting (on S2.4) |
 
 **Next:** Stage 3: Alice — agent core
