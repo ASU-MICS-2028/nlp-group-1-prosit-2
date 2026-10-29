@@ -11,7 +11,7 @@ W4 answers one question: **how good is the platform, in numbers?** It has three 
 - **A harness:** the program that starts each generated backend in Bernard's sandbox and scores it with those hidden tests.
 - **A small knowledge base:** recipes the agent can search, which is the retrieval part of RAG.
 
-*(Sections 1 and 2 are completed as S2.2–S2.4 are built. So far: S2.1, checking Bernard's handoff; S2.2, the benchmark; S2.3, the harness; S2.4, the recipe search and whether recipes help a build.)*
+*(Covers Stage 2: S2.1, checking Bernard's handoff; S2.2, the benchmark; S2.3, the harness; S2.4, the recipe search and whether recipes help a build. Stage 5 adds the full-system results.)*
 
 ## 2. How it works, step by step
 
@@ -122,7 +122,41 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 
 ## 6. How to run it, and how the next person uses it
 
-*(Filled in at the handoff, S2.5.)*
+**Set up once** (after the steps in `knowledge/environment.md`; run everything from the repo root):
+
+```
+docker build -t w2-sandbox runtime/sandbox      # Bernard's sandbox image, if you have not built it (1-2 minutes)
+uv run python benchmark/validate.py church_signup
+# expect: church_signup ✅ (reference passes twice and in reverse order, every mutant caught)
+uv run python -m eval.harness all --references
+# expect: 21 lines, each 100%, then the total; about 15 s. Free (every reference has its ops.json)
+uv run --extra kb python -m kb.search "two people booked the same room"
+# expect: 15 ... No double booking: one slot, one booking   first. The first run downloads a 90 MB model
+```
+
+**What you get, and how to use it:**
+
+| You want to | Use | Example |
+|---|---|---|
+| The 15 client requests | `bench.task_names()`, `bench.load(name)` | `bench.load("church_signup")["request"]` is the text the agent may see |
+| Score a build | `eval.harness` | Put each build at `builds/<task>/app.py`, then `uv run --env-file .env --with anthropic python -m eval.harness all builds --repeat 3 --name agent_v1` |
+| Recipes for the agent | `search_docs(question, k=3)` | `from kb.search import search_docs`, then `search_docs("how do I refuse a booking when the room is full?")` returns a list of `{"id", "title", "score", "text"}` |
+| Call Claude or Qwen | `eval.llm.ask(model, system, user, schema=...)` | Returns `(text, info)`; `info["cost_usd"]` is what the call cost |
+| The numbers to beat | `eval/results/baseline_v2.json` | One LLM call, request only: **Opus 89%, Haiku 79%** of the 192 hidden tests |
+
+The harness writes `eval/results/harness/<name>.json`, one row per build and repeat: `task`, `passed`, `total`, `started`, `failing` (the names of failed tests), `error` and `map_cost_usd`.
+
+**Must not do:**
+- **Never show the agent `operations.json`, `hidden_tests/`, `reference/` or `mutants/`.** It may see only `request.md`, plus `answers.json` / `client_brief.md` when it asks the client questions. Showing the operations list makes every model score about 100% (decision 0033).
+- **Do not put benchmark topics in recipes** (decision 0036), or the search would give the tests away.
+- **Do not edit `benchmark/conftest.py` or the tests without re-checking:** re-run `validate.py`, then the harness with `--references` (decision 0034).
+
+**What surprised me:**
+- Scoring a build with no `ops.json` calls Opus once to write the name map (about $0.02). That needs `--env-file .env --with anthropic`. The map is saved next to `app.py`, so it is paid for once.
+- If a build fails, read the failing test before blaming the build. In the first round, most failures were our tool's fault.
+- `--extra kb` is needed only for `search_docs`, because it installs PyTorch. Everything else runs without it.
+- An agent build can vary from run to run, so always use `--repeat 3` for real results.
+- Nothing in Stage 2 was skipped: S2.4 (Should) is done.
 
 ## 7. Viva questions you should be able to answer
 
