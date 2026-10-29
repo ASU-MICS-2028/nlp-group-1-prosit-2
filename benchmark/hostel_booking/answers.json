@@ -1,0 +1,8 @@
+{
+  "Does a student book a particular bed, or just a place in the room?": "Just a place in the room; we assign the actual bed at the front desk.",
+  "Is the leaving day counted as a night?": "No. If you leave on the 12th, your last night is the 11th, and someone else can arrive on the 12th.",
+  "Can a stay be zero nights?": "No, the leaving date must be after the arrival date.",
+  "Do you charge for bookings in the system?": "No payments for now.",
+  "What does 'free for the whole stay' mean if a room is busier on some nights?": "Count the busiest night: the number of free beds on the fullest night of that stay.",
+  "Can a cancelled booking be brought back?": "No, the student books again."
+}

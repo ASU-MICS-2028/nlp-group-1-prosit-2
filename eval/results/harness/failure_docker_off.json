@@ -1,0 +1,25 @@
+{
+  "args": {
+    "task": "church_signup",
+    "folder": "/Users/josetseph/Projects/Technical/ashesi/nlp-group-1-prosit-2/projects/_eval/_failures/docker_off",
+    "references": false,
+    "workers": 4,
+    "repeat": 1,
+    "name": "failure_docker_off"
+  },
+  "seconds": 0.0,
+  "rows": [
+    {
+      "task": "church_signup",
+      "backend": "docker_off",
+      "folder": "projects/_eval/_failures/docker_off",
+      "passed": 0,
+      "total": 10,
+      "started": false,
+      "failing": [],
+      "error": "The sandbox could not start: failed to connect to the docker API at unix:///nonexistent.sock; check if the path is correct and if the daemon is running: dial unix /nonexistent.sock: connect: no such file or directory\n",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    }
+  ]
+}

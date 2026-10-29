@@ -1,19 +1,25 @@
 # Prosit 2: A Non-Developer Friendly API Builder
 
 <!-- STATUS:START -->
-## Now: Stage 2: Joseph — benchmark, harness, knowledge base
+## Now: Stage 3: Alice — agent core
 
-**Who:** Joseph (W4)
+**Who:** Alice (W1)
 
 | Task | Who | Status |
 |---|---|---|
-| S2.1 Read Bernard's learnings, run his tools | Joseph (W4) | 🔵 ready |
-| S2.2 15 benchmark tasks | Joseph (W4) | ⏳ waiting (on S2.1) |
-| S2.3 Eval harness | Joseph (W4) | ⏳ waiting (on S2.2) |
-| S2.4 Recipe knowledge base and search | Joseph (W4) | ⏳ waiting (on S2.1) |
-| S2.5 Handoff: Joseph's learnings, part 1 | Joseph (W4) | ⏳ waiting (on S2.3, S2.4) |
+| S3.1 Read Bernard's and Joseph's learnings, run their parts | Alice (W1) | 🔵 ready |
+| S3.2 Single agent from the command line | Alice (W1) | ⏳ waiting (on S3.1) |
+| S3.3 Run record and trace | Alice (W1) | ⏳ waiting (on S3.2) |
+| S3.4 Test-and-repair loop | Alice (W1) | ⏳ waiting (on S3.2) |
+| S3.5 Spec-first plan and approval | Alice (W1) | ⏳ waiting (on S3.2) |
+| S3.6 Planner / Builder / Tester split | Alice (W1) | ⏳ waiting (on S3.4) |
+| S3.7 Retrieval in the agent | Alice (W1) | ⏳ waiting (on S3.2) |
+| S3.8 Clarifying questions | Alice (W1) | ⏳ waiting (on S3.5) |
+| S3.9 Claude vs local Qwen | Alice (W1) | ⏳ waiting (on S3.4) |
+| S3.10 "Change it" edit loop | Alice (W1) | ⏳ waiting (on S3.5) |
+| S3.11 Handoff: Alice's learnings | Alice (W1) | ⏳ waiting (on S3.3, S3.4, S3.5, S3.6, S3.7, S3.8) |
 
-**Next:** Stage 3: Alice — agent core
+**Next:** Stage 4: Michael — UI and usability
 
 Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand.
 <!-- STATUS:END -->

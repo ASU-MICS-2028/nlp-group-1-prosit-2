@@ -1,0 +1,8 @@
+{
+  "create_item": {"method": "POST", "path": "/stock", "fields": {"id": "code", "name": "title", "quantity": "units", "low_level": "alert_level"}},
+  "list_items": {"method": "GET", "path": "/stock", "fields": {"id": "code", "name": "title", "quantity": "units", "low_level": "alert_level"}},
+  "get_item": {"method": "GET", "path": "/stock/{id}", "fields": {"id": "code", "name": "title", "quantity": "units", "low_level": "alert_level"}},
+  "record_sale": {"method": "POST", "path": "/stock/{id}/sell", "fields": {"quantity": "amount"}},
+  "record_restock": {"method": "POST", "path": "/stock/{id}/restock", "fields": {"quantity": "amount"}},
+  "list_low_stock": {"method": "GET", "path": "/reports/low-stock", "fields": {"id": "code", "name": "title", "quantity": "units", "low_level": "alert_level"}}
+}

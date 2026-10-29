@@ -1,0 +1,7 @@
+{
+  "create_doctor": {"method": "POST", "path": "/medics", "fields": {"name": "full_name", "specialty": "field"}},
+  "list_doctors": {"method": "GET", "path": "/medics", "fields": {"name": "full_name", "specialty": "field"}},
+  "book_appointment": {"method": "POST", "path": "/bookings", "fields": {"doctor_id": "medic_id", "patient_name": "patient", "date": "day", "time": "slot"}},
+  "list_doctor_appointments": {"method": "GET", "path": "/medics/{id}/bookings", "fields": {"doctor_id": "medic_id", "patient_name": "patient", "date": "day", "time": "slot"}},
+  "cancel_appointment": {"method": "DELETE", "path": "/bookings/{id}"}
+}

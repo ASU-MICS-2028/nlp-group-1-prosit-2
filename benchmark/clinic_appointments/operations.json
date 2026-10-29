@@ -1,0 +1,7 @@
+{
+  "create_doctor": "Add a doctor. Body: name, specialty (text). Returns the doctor including its id.",
+  "list_doctors": "List all doctors.",
+  "book_appointment": "Book an appointment. Body: doctor_id, patient_name (text), date (YYYY-MM-DD), time (HH:MM, 24-hour, e.g. 09:00). Returns the appointment including its id. Refused when that doctor already has an appointment on that date at that time, or when the doctor does not exist.",
+  "list_doctor_appointments": "List one doctor's appointments on one date. Path params: id (the doctor). Query params: date (YYYY-MM-DD).",
+  "cancel_appointment": "Cancel (remove) an appointment, freeing its slot. Path params: id (the appointment). Refused if there is no such appointment."
+}

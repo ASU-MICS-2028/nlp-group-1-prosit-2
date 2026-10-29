@@ -1,0 +1,7 @@
+{
+  "open_wallet": "Open a wallet. Body: name, phone. Returns the wallet including its id and balance (starts at 0). Refused when a wallet with that phone number already exists.",
+  "get_wallet": "Get one wallet by its id. Path params: id. Returns name, phone, balance. Every money value in every operation is in Ghana cedis and may be returned either as a number (10.5) or as decimal text (\"10.50\"); both are fine.",
+  "deposit": "Put money into a wallet. Path params: id (the wallet). Body: amount (cedis, more than 0, at most 2 decimal places). Refused when the amount is 0 or less or has more than 2 decimal places.",
+  "transfer": "Send money from one wallet to another. Body: from_wallet_id, to_wallet_id, amount (cedis, more than 0, at most 2 decimal places). The sender's balance goes down by the amount and the receiver's goes up by the same amount, exactly to the pesewa. Refused (and nothing changes) when the amount is 0 or less, when the sender's balance is less than the amount, when both ids are the same wallet, or when either wallet does not exist.",
+  "list_transactions": "A wallet's history, in any order. Path params: id (the wallet). One entry per deposit, transfer sent and transfer received. Each entry has amount (the amount moved, always positive) and balance_after (this wallet's balance right after that entry)."
+}

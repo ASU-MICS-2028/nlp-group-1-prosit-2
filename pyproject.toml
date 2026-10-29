@@ -10,6 +10,9 @@ dependencies = [
     "uvicorn",
 ]
 
+[project.optional-dependencies]
+kb = ["sentence-transformers"]  # dense recipe search (kb/search.py): uv run --extra kb ...
+
 [tool.pytest.ini_options]
 testpaths = ["benchmark"]
 python_files = ["test_*.py"]

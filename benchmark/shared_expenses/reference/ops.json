@@ -1,0 +1,7 @@
+{
+  "create_group": {"method": "POST", "path": "/circles", "fields": {"name": "title"}},
+  "add_member": {"method": "POST", "path": "/circles/{id}/people"},
+  "add_expense": {"method": "POST", "path": "/circles/{id}/spending", "fields": {"paid_by": "payer", "amount": "cedis", "split_between": "among"}},
+  "get_balances": {"method": "GET", "path": "/circles/{id}/net", "fields": {"member_id": "who", "balance": "net"}},
+  "settle_up": {"method": "POST", "path": "/circles/{id}/paybacks", "fields": {"from_member_id": "sender", "to_member_id": "receiver", "amount": "cedis"}}
+}

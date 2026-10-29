@@ -1,0 +1,5 @@
+{
+  "tier": "hard",
+  "vague": false,
+  "summary": "Hostel bed booking: per-night bed capacity over date ranges (check-out day not a night), refusal when any night is full, cancellation frees the bed, free-beds-for-a-range query"
+}

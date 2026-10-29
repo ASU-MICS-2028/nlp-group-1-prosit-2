@@ -1,0 +1,493 @@
+[
+  {
+    "task": "church_signup",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 8,
+    "total": 10,
+    "seconds": 88.3,
+    "cost_usd": 0.0187,
+    "lines": 109,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_event": {
+        "method": "POST",
+        "path": "/events",
+        "request_fields": {
+          "capacity": "max_capacity"
+        },
+        "response_fields": {
+          "capacity": "max_capacity"
+        }
+      },
+      "list_events": {
+        "method": "GET",
+        "path": "/events",
+        "response_fields": {
+          "capacity": "max_capacity"
+        }
+      },
+      "get_event": {
+        "method": "GET",
+        "path": "/events/{id}",
+        "response_fields": {
+          "capacity": "max_capacity"
+        }
+      },
+      "sign_up": {
+        "method": "POST",
+        "path": "/events/{id}/signup",
+        "request_fields": {
+          "phone": "phone_number"
+        },
+        "response_fields": {
+          "phone": "phone_number"
+        }
+      },
+      "list_signups": {
+        "method": "GET",
+        "path": "/events/{id}/signup-list",
+        "response_fields": {
+          "phone": "phone_number"
+        }
+      }
+    }
+  },
+  {
+    "task": "clinic_appointments",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 151.4,
+    "cost_usd": 0.0,
+    "lines": 200,
+    "stop_reason": "end_turn",
+    "error": "{\"check_same_thread\": False}, poolclass=StaticPool)\n                                                                                             ^^^^^^^^^^\nNameError: name 'StaticPool' is not defined\n",
+    "ops": {}
+  },
+  {
+    "task": "football_fixtures",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 198.4,
+    "cost_usd": 0.0,
+    "lines": 250,
+    "stop_reason": "end_turn",
+    "error": "                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen abc>\", line 106, in __new__\nTypeError: Fixture.__init_subclass__() takes no keyword arguments\n",
+    "ops": {}
+  },
+  {
+    "task": "hostel_booking",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 15,
+    "seconds": 140.4,
+    "cost_usd": 0.0,
+    "lines": 151,
+    "stop_reason": "end_turn",
+    "error": "{\"check_same_thread\": False}, poolclass=StaticPool)\n                                                                                             ^^^^^^^^^^\nNameError: name 'StaticPool' is not defined\n",
+    "ops": {}
+  },
+  {
+    "task": "library_catalogue",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 1,
+    "total": 13,
+    "seconds": 138.5,
+    "cost_usd": 0.025,
+    "lines": 110,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "add_book": {
+        "method": "POST",
+        "path": "/books",
+        "response_fields": {
+          "available": "available_copies"
+        }
+      },
+      "list_books": {
+        "method": "GET",
+        "path": "/books",
+        "response_fields": {
+          "available": "available_copies"
+        }
+      },
+      "get_book": {
+        "method": "GET",
+        "path": "/books/{id}",
+        "response_fields": {
+          "available": "available_copies"
+        }
+      },
+      "borrow_book": {
+        "method": "POST",
+        "path": "/loans",
+        "request_fields": {
+          "id": "book_id",
+          "student": "student_name"
+        }
+      },
+      "return_book": {
+        "method": "POST",
+        "path": "/loans/{id}/return",
+        "request_fields": {
+          "student": "student_name"
+        }
+      }
+    }
+  },
+  {
+    "task": "lost_and_found",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 12,
+    "seconds": 96.5,
+    "cost_usd": 0.0,
+    "lines": 102,
+    "stop_reason": "end_turn",
+    "error": ") no such table: lostandfounditem\n[SQL: SELECT count(*) AS count_1 \nFROM lostandfounditem]\n(Background on this error at: https://sqlalche.me/e/21/e3q8)\n\nERROR:    Application startup failed. Exiting.\n",
+    "ops": {}
+  },
+  {
+    "task": "market_stock",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 0,
+    "total": 13,
+    "seconds": 128.8,
+    "cost_usd": 0.0217,
+    "lines": 151,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "record_sale": {
+        "method": "POST",
+        "path": "/items/{id}/sell",
+        "request_fields": {
+          "quantity": "amount"
+        },
+        "response_fields": {
+          "quantity": "remaining_quantity"
+        }
+      },
+      "record_restock": {
+        "method": "POST",
+        "path": "/items/{id}/restock",
+        "request_fields": {
+          "quantity": "amount"
+        },
+        "response_fields": {
+          "quantity": "new_quantity"
+        }
+      },
+      "list_low_stock": {
+        "method": "GET",
+        "path": "/items/low",
+        "response_fields": {
+          "quantity": "current_quantity"
+        }
+      }
+    }
+  },
+  {
+    "task": "momo_wallet",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 0,
+    "total": 13,
+    "seconds": 169.5,
+    "cost_usd": 0.0348,
+    "lines": 198,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "open_wallet": {
+        "method": "POST",
+        "path": "/wallets",
+        "request_fields": {
+          "phone": "phone_number"
+        },
+        "response_fields": {
+          "phone": "phone_number"
+        }
+      },
+      "get_wallet": {
+        "method": "GET",
+        "path": "/wallets/{id}",
+        "response_fields": {
+          "phone": "phone_number",
+          "balance": "balance_cedis"
+        }
+      },
+      "deposit": {
+        "method": "POST",
+        "path": "/wallets/{id}/deposit",
+        "request_fields": {
+          "amount": "amount_cedis"
+        },
+        "response_fields": {
+          "amount": "amount_cedis"
+        }
+      },
+      "transfer": {
+        "method": "POST",
+        "path": "/wallets/{from_wallet_id}/transfer",
+        "request_fields": {
+          "to_wallet_id": "target_phone",
+          "amount": "amount_cedis"
+        }
+      },
+      "list_transactions": {
+        "method": "GET",
+        "path": "/wallets/{id}",
+        "response_fields": {
+          "amount": "amount_cedis"
+        },
+        "response_key": "history"
+      }
+    }
+  },
+  {
+    "task": "restaurant_reservations",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 4,
+    "total": 12,
+    "seconds": 197.2,
+    "cost_usd": 0.0267,
+    "lines": 210,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_table": {
+        "method": "POST",
+        "path": "/tables",
+        "request_fields": {
+          "number": "table_number"
+        },
+        "response_fields": {
+          "number": "table_number"
+        }
+      },
+      "list_tables": {
+        "method": "GET",
+        "path": "/tables",
+        "response_fields": {
+          "number": "table_number"
+        }
+      },
+      "make_reservation": {
+        "method": "POST",
+        "path": "/reservations",
+        "request_fields": {
+          "id": "table_id"
+        }
+      },
+      "list_reservations": {
+        "method": "GET",
+        "path": "/reservations",
+        "request_fields": {
+          "date": "date_str"
+        }
+      }
+    }
+  },
+  {
+    "task": "school_grades_gpa",
+    "tier": "hard",
+    "vague": true,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 1,
+    "total": 12,
+    "seconds": 253.5,
+    "cost_usd": 0.0354,
+    "lines": 279,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_student": {
+        "method": "POST",
+        "path": "/students",
+        "request_fields": {
+          "name": "first_name"
+        },
+        "response_fields": {
+          "name": "first_name"
+        }
+      },
+      "create_course": {
+        "method": "POST",
+        "path": "/courses"
+      },
+      "record_score": {
+        "method": "POST",
+        "path": "/students/{id}/results",
+        "request_fields": {
+          "course_id": "course_code"
+        },
+        "response_fields": {
+          "course_id": "course_code"
+        }
+      },
+      "get_results": {
+        "method": "GET",
+        "path": "/students/{id}/grades",
+        "response_fields": {
+          "courses": "grades",
+          "course_id": "course_code",
+          "grade_point": "grade_points"
+        }
+      }
+    }
+  },
+  {
+    "task": "shared_expenses",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 1257.3,
+    "cost_usd": 0.0,
+    "lines": 0,
+    "stop_reason": "max_tokens",
+    "error": "Server crashed while starting:\nERROR:    Error loading ASGI app. Attribute \"app\" not found in module \"app\".\n",
+    "ops": {}
+  },
+  {
+    "task": "shop_price_list",
+    "tier": "easy",
+    "vague": true,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 5,
+    "total": 13,
+    "seconds": 82.7,
+    "cost_usd": 0.017,
+    "lines": 82,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "add_item": {
+        "method": "POST",
+        "path": "/"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/{id}"
+      },
+      "change_price": {
+        "method": "PATCH",
+        "path": "/{id}"
+      },
+      "remove_item": {
+        "method": "DELETE",
+        "path": "/{id}"
+      }
+    }
+  },
+  {
+    "task": "susu_ledger",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 14,
+    "seconds": 514.9,
+    "cost_usd": 0.0,
+    "lines": 662,
+    "stop_reason": "end_turn",
+    "error": "pper.py\", line 1573, in _configure_pks\n    raise sa_exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Mapper Mapper[Member(member)] could not assemble any primary key columns for mapped table 'member'\n",
+    "ops": {}
+  },
+  {
+    "task": "tailoring_orders",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 173.3,
+    "cost_usd": 0.0,
+    "lines": 225,
+    "stop_reason": "end_turn",
+    "error": "                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen abc>\", line 106, in __new__\nTypeError: Customer.__init_subclass__() takes no keyword arguments\n",
+    "ops": {}
+  },
+  {
+    "task": "trotro_fares",
+    "tier": "medium",
+    "vague": true,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 89.7,
+    "cost_usd": 0.0,
+    "lines": 131,
+    "stop_reason": "end_turn",
+    "error": "ine 1063, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/app/app.py\", line 14\n    return = \"return\"\n           ^\nSyntaxError: invalid syntax\n",
+    "ops": {}
+  }
+]

@@ -1,0 +1,357 @@
+[
+  {
+    "task": "church_signup",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 10,
+    "seconds": 75.4,
+    "cost_usd": 0.0,
+    "lines": 109,
+    "stop_reason": "end_turn",
+    "error": "ArgumentError: Invalid SQLite URL: sqlite://./church_events.db\nValid SQLite URL forms are:\n sqlite:///:memory: (or, sqlite://)\n sqlite:///relative/path/to/file.db\n sqlite:////absolute/path/to/file.db\n"
+  },
+  {
+    "task": "clinic_appointments",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 2,
+    "total": 13,
+    "seconds": 128.1,
+    "cost_usd": 0.0232,
+    "lines": 162,
+    "stop_reason": "end_turn",
+    "error": "",
+    "failing": [
+      "test_created_doctor_appears_in_list",
+      "test_booking_appears_in_doctors_day",
+      "test_day_list_only_shows_that_date",
+      "test_day_list_only_shows_that_doctor",
+      "test_double_booking_same_slot_is_refused",
+      "test_same_slot_with_another_doctor_is_allowed",
+      "test_other_time_or_other_date_is_allowed",
+      "test_booking_without_patient_name_is_refused",
+      "test_cancel_removes_appointment",
+      "test_cancel_frees_the_slot",
+      "test_cancel_missing_appointment_is_refused"
+    ],
+    "ops": {
+      "create_doctor": {
+        "method": "POST",
+        "path": "/doctors",
+        "request_fields": {
+          "specialty": "specialization"
+        },
+        "response_fields": {
+          "specialty": "specialization"
+        }
+      },
+      "list_doctors": {
+        "method": "GET",
+        "path": "/doctors",
+        "response_fields": {
+          "specialty": "specialization"
+        }
+      },
+      "book_appointment": {
+        "method": "POST",
+        "path": "/appointments",
+        "request_fields": {
+          "date": "appointment_date",
+          "time": "time_slot"
+        },
+        "response_fields": {
+          "date": "appointment_date",
+          "time": "time_slot"
+        }
+      },
+      "list_doctor_appointments": {
+        "method": "GET",
+        "path": "/doctors/{id}/appointments",
+        "response_fields": {
+          "date": "appointment_date",
+          "time": "time_slot"
+        }
+      },
+      "cancel_appointment": {
+        "method": "DELETE",
+        "path": "/appointments/{id}"
+      }
+    }
+  },
+  {
+    "task": "football_fixtures",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 155.1,
+    "cost_usd": 0.0,
+    "lines": 159,
+    "stop_reason": "end_turn",
+    "error": "orm/mapper.py\", line 1573, in _configure_pks\n    raise sa_exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Mapper Mapper[Team(team)] could not assemble any primary key columns for mapped table 'team'\n"
+  },
+  {
+    "task": "hostel_booking",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 15,
+    "seconds": 305.9,
+    "cost_usd": 0.0,
+    "lines": 381,
+    "stop_reason": "end_turn",
+    "error": "orm/mapper.py\", line 1573, in _configure_pks\n    raise sa_exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Mapper Mapper[Room(room)] could not assemble any primary key columns for mapped table 'room'\n"
+  },
+  {
+    "task": "library_catalogue",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 119.4,
+    "cost_usd": 0.0,
+    "lines": 199,
+    "stop_reason": "end_turn",
+    "error": "importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/app/app.py\", line 191\n    @app.exception_handler(Exception):\n                                     ^\nSyntaxError: invalid syntax\n"
+  },
+  {
+    "task": "lost_and_found",
+    "tier": "easy",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 12,
+    "seconds": 75.3,
+    "cost_usd": 0.0,
+    "lines": 113,
+    "stop_reason": "end_turn",
+    "error": "m/mapper.py\", line 1573, in _configure_pks\n    raise sa_exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Mapper Mapper[Item(items)] could not assemble any primary key columns for mapped table 'items'\n"
+  },
+  {
+    "task": "market_stock",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 136.0,
+    "cost_usd": 0.0,
+    "lines": 194,
+    "stop_reason": "end_turn",
+    "error": " 488, in _call_with_frames_removed\n  File \"/app/app.py\", line 15\n    conn.execute(\"CREATE TABLE IF NOT EXISTS items (\n                 ^\nSyntaxError: unterminated string literal (detected at line 15)\n"
+  },
+  {
+    "task": "momo_wallet",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 185.4,
+    "cost_usd": 0.0,
+    "lines": 275,
+    "stop_reason": "end_turn",
+    "error": "ialect_kwargs\n    raise exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Argument 'sqlite_autoindex_name_unique' is not accepted by dialect 'sqlite' on behalf of <class 'sqlalchemy.sql.schema.Table'>\n"
+  },
+  {
+    "task": "restaurant_reservations",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 12,
+    "seconds": 106.8,
+    "cost_usd": 0.0,
+    "lines": 168,
+    "stop_reason": "end_turn",
+    "error": ".exc.ArgumentError: Invalid SQLite URL: sqlite://./chop_bar.db\nValid SQLite URL forms are:\n sqlite:///:memory: (or, sqlite://)\n sqlite:///relative/path/to/file.db\n sqlite:////absolute/path/to/file.db\n"
+  },
+  {
+    "task": "school_grades_gpa",
+    "tier": "hard",
+    "vague": true,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 12,
+    "seconds": 188.3,
+    "cost_usd": 0.0,
+    "lines": 285,
+    "stop_reason": "end_turn",
+    "error": "py\", line 1573, in _configure_pks\n    raise sa_exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Mapper Mapper[Student(students)] could not assemble any primary key columns for mapped table 'students'\n"
+  },
+  {
+    "task": "shared_expenses",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 455.3,
+    "cost_usd": 0.0,
+    "lines": 518,
+    "stop_reason": "end_turn",
+    "error": "er.py\", line 1573, in _configure_pks\n    raise sa_exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Mapper Mapper[Member(members)] could not assemble any primary key columns for mapped table 'members'\n"
+  },
+  {
+    "task": "shop_price_list",
+    "tier": "easy",
+    "vague": true,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 95.8,
+    "cost_usd": 0.0,
+    "lines": 147,
+    "stop_reason": "end_turn",
+    "error": "m/mapper.py\", line 1573, in _configure_pks\n    raise sa_exc.ArgumentError(\nsqlalchemy.exc.ArgumentError: Mapper Mapper[Item(items)] could not assemble any primary key columns for mapped table 'items'\n"
+  },
+  {
+    "task": "susu_ledger",
+    "tier": "hard",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": true,
+    "passed": 0,
+    "total": 14,
+    "seconds": 216.1,
+    "cost_usd": 0.0436,
+    "lines": 294,
+    "stop_reason": "end_turn",
+    "error": "",
+    "failing": [
+      "test_added_members_are_listed",
+      "test_contribution_is_recorded",
+      "test_statement_totals_a_members_own_contributions",
+      "test_payout_is_that_rounds_total_only",
+      "test_statement_shows_amount_received",
+      "test_member_cannot_collect_twice",
+      "test_round_cannot_be_collected_twice",
+      "test_empty_round_cannot_be_collected",
+      "test_no_contributions_after_round_is_collected",
+      "test_contribution_must_be_more_than_zero",
+      "test_member_of_another_group_cannot_pay_in",
+      "test_payouts_are_listed_per_group",
+      "test_full_cycle_pays_everyone_once",
+      "test_statement_for_missing_member_is_refused"
+    ],
+    "ops": {
+      "create_group": {
+        "method": "POST",
+        "path": "/rounds"
+      },
+      "add_member": {
+        "method": "POST",
+        "path": "/members",
+        "request_fields": {
+          "phone": "phone_number"
+        },
+        "response_fields": {
+          "phone": "phone_number"
+        }
+      },
+      "list_members": {
+        "method": "GET",
+        "path": "/members",
+        "response_fields": {
+          "phone": "phone_number"
+        }
+      },
+      "record_contribution": {
+        "method": "POST",
+        "path": "/rounds/{round}/contribute",
+        "response_fields": {
+          "round": "round_id"
+        }
+      },
+      "pay_out": {
+        "method": "POST",
+        "path": "/rounds/{round}/collect",
+        "request_fields": {
+          "member_id": "collector_id"
+        },
+        "response_fields": {
+          "member_id": "collector_id",
+          "amount": "total_collected",
+          "round": "id"
+        }
+      },
+      "list_payouts": {
+        "method": "GET",
+        "path": "/collections",
+        "response_fields": {
+          "member_id": "collector_name",
+          "amount": "total_collected",
+          "round": "round_name"
+        }
+      },
+      "get_statement": {
+        "method": "GET",
+        "path": "/statements/{member_id}",
+        "response_fields": {
+          "total_contributed": "total_paid"
+        }
+      }
+    }
+  },
+  {
+    "task": "tailoring_orders",
+    "tier": "medium",
+    "vague": false,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 163.5,
+    "cost_usd": 0.0,
+    "lines": 295,
+    "stop_reason": "end_turn",
+    "error": "ython3.12/site-packages/sqlmodel/main.py\", line 776, in get_sqlalchemy_type\n    raise ValueError(f\"{type_} has no matching SQLAlchemy type\")\nValueError: <class 'dict'> has no matching SQLAlchemy type\n"
+  },
+  {
+    "task": "trotro_fares",
+    "tier": "medium",
+    "vague": true,
+    "model": "qwen3.5-9b-local",
+    "variant": "request",
+    "started": false,
+    "passed": 0,
+    "total": 13,
+    "seconds": 156.2,
+    "cost_usd": 0.0,
+    "lines": 232,
+    "stop_reason": "end_turn",
+    "error": "               ^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/pydantic/_internal/_model_construction.py\", line 287, in __getattr__\n    raise AttributeError(item)\nAttributeError: field\n"
+  }
+]

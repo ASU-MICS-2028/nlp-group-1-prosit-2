@@ -1,0 +1,8 @@
+{
+  "Is the fare the same in both directions?": "Yes. Circle to Madina costs the same as Madina to Circle, so we keep one route for both directions and passengers can ask either way.",
+  "How will passengers look up a fare?": "By giving the two stop names, where they are coming from and where they are going.",
+  "What should happen if there is no route between the two stops?": "Say it was not found. Do not try to join two routes together; only direct routes count.",
+  "Can the same route be added twice?": "No. If a route between those two stops already exists, in either direction, adding it again must be refused. Change the fare instead.",
+  "Can fares have pesewas?": "Yes, like 7.50 cedis. A fare must be more than zero.",
+  "Do you need to delete routes?": "Not for now."
+}

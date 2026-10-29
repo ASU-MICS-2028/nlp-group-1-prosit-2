@@ -63,6 +63,18 @@ We run two models and compare them (task P1.7 in `docs/PLAN.md`). The code reads
 - Thinking is on by default. To turn it off for a request, send `"chat_template_kwargs": {"enable_thinking": false}`. The model card's recommended settings without thinking: temperature 0.7, top_p 0.8, top_k 20.
 - **First measurement** (Oct 20, Apple M3, 24 GB): it made a correct `write_file` tool call that wrote a FastAPI hello-world. Speed was about 5 output tokens per second and 89 prompt tokens per second, so a reply of a few hundred tokens takes about a minute. It needs about 6–8 GB of free memory.
 
+## Cleaning up leftover sandbox containers
+
+If a program using Bernard's tools is killed mid-run (Ctrl-C twice, a crash, `kill -9`), its server can stay running: two containers and a network, all named `w2-…`. Check and remove them:
+
+```
+docker ps -a --filter name=^w2-                                  # list leftovers
+docker rm -f $(docker ps -aq --filter name=^w2-)                 # remove the containers
+docker network rm $(docker network ls -q --filter name=^w2-)     # remove the networks
+```
+
+Tested on macOS (Oct 26): a killed program left 2 containers and 1 network; these commands removed all of them. A program that ends normally cleans up by itself.
+
 ## Notes
 
 - The known setup is macOS on Apple Silicon (arm64). Linux has not been checked yet. If you find a difference, write it here.

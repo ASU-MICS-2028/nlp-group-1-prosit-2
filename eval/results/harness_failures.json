@@ -1,0 +1,192 @@
+{
+  "no_app_py": {
+    "task": "church_signup",
+    "backend": "no_app_py",
+    "folder": "projects/_eval/_failures/no_app_py",
+    "passed": 0,
+    "total": 10,
+    "started": false,
+    "failing": [],
+    "error": "no app.py",
+    "map_cost_usd": 0.0,
+    "seconds": 0.0,
+    "wall_seconds": 0.0
+  },
+  "empty_app_py": {
+    "task": "church_signup",
+    "backend": "empty_app_py",
+    "folder": "projects/_eval/_failures/empty_app_py",
+    "passed": 0,
+    "total": 10,
+    "started": false,
+    "failing": [],
+    "error": "Server crashed while starting:\nERROR:    Error loading ASGI app. Attribute \"app\" not found in module \"app\".\n",
+    "map_cost_usd": 0.0,
+    "seconds": 1.9,
+    "wall_seconds": 1.9
+  },
+  "crash_on_import": {
+    "task": "church_signup",
+    "backend": "crash_on_import",
+    "folder": "projects/_eval/_failures/crash_on_import",
+    "passed": 0,
+    "total": 10,
+    "started": false,
+    "failing": [],
+    "error": " line 935, in _load_unlocked\n  File \"<frozen importlib._bootstrap_external>\", line 999, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/app/app.py\", line 1, in <module>\n    raise RuntimeError('broken on purpose')\nRuntimeError: broken on purpose\n",
+    "map_cost_usd": 0.0,
+    "seconds": 1.8,
+    "wall_seconds": 1.8
+  },
+  "no_app_object": {
+    "task": "church_signup",
+    "backend": "no_app_object",
+    "folder": "projects/_eval/_failures/no_app_object",
+    "passed": 0,
+    "total": 10,
+    "started": false,
+    "failing": [],
+    "error": "Server crashed while starting:\nERROR:    Error loading ASGI app. Attribute \"app\" not found in module \"app\".\n",
+    "map_cost_usd": 0.0,
+    "seconds": 1.8,
+    "wall_seconds": 1.8
+  },
+  "hangs_while_starting": {
+    "task": "church_signup",
+    "backend": "hangs_while_starting",
+    "folder": "projects/_eval/_failures/hangs_while_starting",
+    "passed": 0,
+    "total": 10,
+    "started": false,
+    "failing": [],
+    "error": "Server did not answer within 20 seconds:\n",
+    "map_cost_usd": 0.0,
+    "seconds": 20.6,
+    "wall_seconds": 20.6
+  },
+  "every_reply_takes_2s": {
+    "task": "church_signup",
+    "backend": "every_reply_takes_2s",
+    "folder": "projects/_eval/_failures/every_reply_takes_2s",
+    "passed": 10,
+    "total": 10,
+    "started": true,
+    "failing": [],
+    "error": "",
+    "map_cost_usd": 0.0,
+    "seconds": 46.2,
+    "wall_seconds": 46.2
+  },
+  "huge_reply_50mb": {
+    "task": "church_signup",
+    "backend": "huge_reply_50mb",
+    "folder": "projects/_eval/_failures/huge_reply_50mb",
+    "passed": 10,
+    "total": 10,
+    "started": true,
+    "failing": [],
+    "error": "",
+    "map_cost_usd": 0.0,
+    "seconds": 2.6,
+    "wall_seconds": 2.6
+  },
+  "uses_too_much_memory": {
+    "task": "church_signup",
+    "backend": "uses_too_much_memory",
+    "folder": "projects/_eval/_failures/uses_too_much_memory",
+    "passed": 0,
+    "total": 10,
+    "started": false,
+    "failing": [],
+    "error": "Server crashed while starting:\n",
+    "map_cost_usd": 0.0,
+    "seconds": 1.9,
+    "wall_seconds": 1.9
+  },
+  "ops_json_not_json": {
+    "task": "church_signup",
+    "backend": "ops_json_not_json",
+    "folder": "projects/_eval/_failures/ops_json_not_json",
+    "passed": 0,
+    "total": 10,
+    "started": false,
+    "failing": [],
+    "error": "ops.json is not valid JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+    "map_cost_usd": 0.0,
+    "seconds": 0.0,
+    "wall_seconds": 0.0
+  },
+  "ops_json_missing_an_operation": {
+    "task": "church_signup",
+    "backend": "ops_json_missing_an_operation",
+    "folder": "projects/_eval/_failures/ops_json_missing_an_operation",
+    "passed": 6,
+    "total": 10,
+    "started": true,
+    "failing": [
+      "test_sign_up_then_appears_in_signups",
+      "test_full_event_refuses_signup",
+      "test_sign_up_for_missing_event_is_404",
+      "test_signups_are_per_event"
+    ],
+    "error": "ops.json has no entry for: sign_up. ",
+    "map_cost_usd": 0.0,
+    "seconds": 1.3,
+    "wall_seconds": 1.3
+  },
+  "tries_internet_and_files": {
+    "task": "church_signup",
+    "backend": "tries_internet_and_files",
+    "folder": "projects/_eval/_failures/tries_internet_and_files",
+    "passed": 10,
+    "total": 10,
+    "started": true,
+    "failing": [],
+    "error": "",
+    "map_cost_usd": 0.0,
+    "seconds": 1.6,
+    "wall_seconds": 1.6,
+    "flags": {
+      "internet": false,
+      "env_file_visible": false,
+      "repo_visible": false
+    }
+  },
+  "one_endpoint_never_answers": {
+    "task": "church_signup",
+    "backend": "one_endpoint_never_answers",
+    "folder": "projects/_eval/_failures/one_endpoint_never_answers",
+    "passed": 5,
+    "total": 10,
+    "started": true,
+    "failing": [
+      "test_created_event_appears_in_list",
+      "test_get_event_by_id",
+      "test_get_missing_event_is_404",
+      "test_sign_up_then_appears_in_signups",
+      "test_new_event_has_no_signups"
+    ],
+    "error": "",
+    "map_cost_usd": 0.0,
+    "seconds": 61.4,
+    "wall_seconds": 61.4
+  },
+  "test_run_over_300s": {
+    "passed": 0,
+    "failed": 0,
+    "failing": [],
+    "error": "hidden tests took over 300 s"
+  },
+  "docker_off": {
+    "exit_code": 1,
+    "output": "Docker is not reachable, so nothing can be scored:\nfailed to connect to the docker API at unix:///nonexistent.sock; check if the path is correct and if the daemon is running: dial unix /nonexistent.sock: connect: no such file or directory\n"
+  },
+  "killed_mid_run": {
+    "left_running": 8,
+    "cleanup_removed": [
+      8,
+      4
+    ],
+    "left_after_cleanup": 0
+  }
+}

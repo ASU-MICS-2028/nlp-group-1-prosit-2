@@ -36,6 +36,14 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0027](0027-docker-sandbox.md) | Generated code runs in a locked Docker container; subprocess only when chosen on purpose | Proposed | 2026-10-25 |
 | [0028](0028-test-time-limit.md) | run_tests stops tests after 60 seconds and removes their container | Proposed | 2026-10-25 |
 | [0029](0029-safety-layers.md) | Safety comes from the tools and the sandbox, with no filter on the user's request | Proposed | 2026-10-26 |
+| [0030](0030-harness-uses-docker-sandbox.md) | The evaluation harness runs every backend in the Docker sandbox, side by side, and cleans up first | Accepted | 2026-10-26 |
+| [0031](0031-benchmark-format-and-checker.md) | Benchmark tasks are checked for being too weak, too strict and flaky before anything is measured | Accepted | 2026-10-27 |
+| [0032](0032-opus-writes-ops-json.md) | The name map (ops.json) is always written by Opus, whichever model built the backend | Accepted | 2026-10-27 |
+| [0033](0033-builder-never-sees-operations.md) | The agent that builds a backend never sees the task's operations list | Accepted | 2026-10-27 |
+| [0034](0034-benchmark-translation-rules.md) | What the benchmark's name translation handles, and how a change to it is checked | Accepted | 2026-10-27 |
+| [0035](0035-harness-defaults.md) | How the eval harness runs: 4 side by side, stop if Docker is off, flag incomplete maps | Accepted | 2026-10-28 |
+| [0036](0036-recipes-never-use-benchmark-topics.md) | Recipes never use the benchmark's topics | Accepted | 2026-10-29 |
+| [0037](0037-dense-minilm-search.md) | search_docs uses dense search (all-MiniLM-L6-v2) and returns the top 3 | Accepted | 2026-10-29 |
 <!-- DECISIONS:END -->
 
 ## Open questions

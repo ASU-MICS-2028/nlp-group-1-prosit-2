@@ -1,0 +1,5 @@
+{
+  "tier": "medium",
+  "vague": false,
+  "summary": "Clinic doctors and appointments: no double-booking per doctor/date/slot, list a doctor's day, cancel frees the slot"
+}

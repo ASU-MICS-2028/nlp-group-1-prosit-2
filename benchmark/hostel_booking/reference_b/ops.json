@@ -1,0 +1,6 @@
+{
+  "create_room": {"method": "POST", "path": "/rooms", "fields": {"name": "room_name", "beds": "bed_total"}},
+  "book_bed": {"method": "POST", "path": "/rooms/{id}/reservations", "fields": {"student_name": "occupant", "check_in": "from_date", "check_out": "to_date"}},
+  "cancel_booking": {"method": "POST", "path": "/reservations/{id}/cancel"},
+  "free_beds": {"method": "GET", "path": "/free-beds", "fields": {"check_in": "from_date", "check_out": "to_date", "free_beds": "beds_free"}}
+}

@@ -1,0 +1,8 @@
+{
+  "create_item": {"method": "POST", "path": "/goods", "fields": {"name": "label", "quantity": "on_hand", "low_level": "reorder_at"}},
+  "list_items": {"method": "GET", "path": "/goods", "fields": {"name": "label", "quantity": "on_hand", "low_level": "reorder_at"}},
+  "get_item": {"method": "GET", "path": "/goods/{id}", "fields": {"name": "label", "quantity": "on_hand", "low_level": "reorder_at"}},
+  "record_sale": {"method": "POST", "path": "/goods/{id}/sales", "fields": {"quantity": "count"}},
+  "record_restock": {"method": "POST", "path": "/goods/{id}/restocks", "fields": {"quantity": "count"}},
+  "list_low_stock": {"method": "GET", "path": "/goods/low", "fields": {"name": "label", "quantity": "on_hand", "low_level": "reorder_at"}}
+}

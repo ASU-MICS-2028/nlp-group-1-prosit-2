@@ -1,0 +1,6 @@
+{
+  "create_table": "Add a table. Body: number (whole number, the table number), seats (whole number). Returns the table including its id.",
+  "list_tables": "List all tables.",
+  "make_reservation": "Reserve a table. Path params: id (the table). Body: name, phone (text), party_size (whole number of people), date (YYYY-MM-DD), time (HH:MM, 24-hour, e.g. 19:30). Returns the reservation including its id. Refused when party_size is more than the table's seats, when that table already has a reservation at that date and time, or when the table does not exist.",
+  "list_reservations": "List all reservations on a date, across all tables. Query params: date (YYYY-MM-DD)."
+}

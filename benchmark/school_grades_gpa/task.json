@@ -1,0 +1,5 @@
+{
+  "tier": "hard",
+  "vague": true,
+  "summary": "College results: courses with credit hours, score-to-grade scale, credit-weighted GPA rounded to 2 decimals, re-entered scores replace old ones (scale, weighting and rounding left out of the request)"
+}

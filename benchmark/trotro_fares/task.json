@@ -1,0 +1,5 @@
+{
+  "tier": "medium",
+  "vague": true,
+  "summary": "Trotro routes between two stops with fares: lookup by stops in either direction, fare updates, duplicates and bad fares refused"
+}

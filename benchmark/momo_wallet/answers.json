@@ -1,0 +1,8 @@
+{
+  "Is there a fee on transfers?": "No fees for now.",
+  "Can a customer have more than one wallet?": "No, one phone number, one wallet.",
+  "What happens if someone tries to send more than they have?": "Refuse it and leave both balances as they were.",
+  "Do you need withdrawals to cash?": "Not for now, only deposits and transfers.",
+  "Should the history show both sides of a transfer?": "Yes, the sender sees it going out and the receiver sees it coming in.",
+  "Is there a maximum balance or daily limit?": "No limits for now."
+}

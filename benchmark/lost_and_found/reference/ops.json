@@ -1,0 +1,7 @@
+{
+  "report_item": {"method": "POST", "path": "/board/items", "fields": {"description": "what", "place": "found_at", "date_found": "found_on", "claimed": "collected", "owner_name": "collected_by"}},
+  "list_items": {"method": "GET", "path": "/board/items", "fields": {"description": "what", "place": "found_at", "date_found": "found_on", "claimed": "collected", "owner_name": "collected_by"}},
+  "list_unclaimed": {"method": "GET", "path": "/board/waiting", "fields": {"description": "what", "place": "found_at", "date_found": "found_on", "claimed": "collected", "owner_name": "collected_by"}},
+  "get_item": {"method": "GET", "path": "/board/items/{id}", "fields": {"description": "what", "place": "found_at", "date_found": "found_on", "claimed": "collected", "owner_name": "collected_by"}},
+  "claim_item": {"method": "POST", "path": "/board/items/{id}/claim", "fields": {"description": "what", "place": "found_at", "date_found": "found_on", "claimed": "collected", "owner_name": "collected_by"}}
+}

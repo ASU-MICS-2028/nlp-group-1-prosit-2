@@ -1,0 +1,7 @@
+{
+  "add_book": {"method": "POST", "path": "/books", "fields": {"id": "book_id", "title": "name", "author": "by", "copies": "count", "available": "left"}},
+  "list_books": {"method": "GET", "path": "/books", "fields": {"id": "book_id", "title": "name", "author": "by", "copies": "count", "available": "left"}},
+  "get_book": {"method": "GET", "path": "/books/{id}", "fields": {"id": "book_id", "title": "name", "author": "by", "copies": "count", "available": "left"}},
+  "borrow_book": {"method": "POST", "path": "/books/{id}/borrow", "fields": {"student": "student_name", "available": "left"}},
+  "return_book": {"method": "POST", "path": "/books/{id}/return", "fields": {"student": "student_name", "available": "left"}}
+}

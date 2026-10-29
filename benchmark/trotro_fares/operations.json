@@ -1,0 +1,6 @@
+{
+  "create_route": "Add a route. Body: from_stop, to_stop (stop names, text), fare (number of Ghana cedis, may have pesewas, e.g. 7.5). Returns the route including its id. Refused when the fare is zero or less, or when a route between the same two stops already exists in either direction.",
+  "list_routes": "List all routes.",
+  "find_fare": "Look up the route between two stops. Query params: from_stop, to_stop. Returns the route including fare. Works in both directions (the fare is the same either way). 404 when there is no route between those two stops.",
+  "update_fare": "Change the fare of a route. Path params: id (the route). Body: fare (number of Ghana cedis). Refused when the fare is zero or less; 404 if there is no such route."
+}

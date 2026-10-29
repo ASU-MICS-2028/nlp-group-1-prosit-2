@@ -1,0 +1,7 @@
+{
+  "Do people need to log in to report an item?": "No, anyone can report.",
+  "Should claimed items disappear from the board?": "No, they stay on the full list, but the list of waiting items should only show unclaimed ones.",
+  "What if two people try to claim the same item?": "The first claim counts; after that it cannot be claimed again.",
+  "Do we need photos of the items?": "Not for now.",
+  "Can a report be edited or deleted?": "Not needed for now."
+}

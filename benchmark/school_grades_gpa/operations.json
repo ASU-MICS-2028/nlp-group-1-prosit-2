@@ -1,0 +1,6 @@
+{
+  "create_student": "Register a student. Body: name. Returns the student including its id.",
+  "create_course": "Add a course. Body: name, credits (credit hours, a whole number from 1 to 6). Returns the course including its id. Refused when credits is outside 1 to 6.",
+  "record_score": "Enter a student's score for a course. Path params: id (the student). Body: course_id, score (whole number from 0 to 100). Entering a score again for the same student and course replaces the old one. Refused when the score is outside 0 to 100 or the course does not exist.",
+  "get_results": "A student's results. Path params: id (the student). Returns gpa and courses: a list (any order) with one entry per course the student has a score in, each with course_id, score, grade (letter) and grade_point. The grade, grade_point and gpa are computed by the backend using the college's grading scale and GPA rule (see the client)."
+}

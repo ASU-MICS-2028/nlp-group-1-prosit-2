@@ -1,0 +1,9 @@
+{
+  "create_group": {"method": "POST", "path": "/susu-groups", "fields": {"name": "label"}},
+  "add_member": {"method": "POST", "path": "/susu-groups/{id}/people", "fields": {"name": "full_name"}},
+  "list_members": {"method": "GET", "path": "/susu-groups/{id}/people", "fields": {"name": "full_name"}},
+  "record_contribution": {"method": "POST", "path": "/susu-groups/{id}/dues", "fields": {"member_id": "member", "round": "round_no", "amount": "cedis"}},
+  "pay_out": {"method": "POST", "path": "/susu-groups/{id}/collections", "fields": {"member_id": "member", "round": "round_no", "amount": "cedis"}},
+  "list_payouts": {"method": "GET", "path": "/susu-groups/{id}/collections", "fields": {"member_id": "member", "round": "round_no", "amount": "cedis"}},
+  "get_statement": {"method": "GET", "path": "/susu-groups/{id}/people/{member_id}/statement", "fields": {"member_id": "member", "name": "full_name", "total_contributed": "paid_in", "total_received": "collected"}}
+}

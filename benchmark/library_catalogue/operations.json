@@ -1,0 +1,7 @@
+{
+  "add_book": "Add a book. Body: title, author, copies (whole number of copies the library owns). Returns the book including its id and available (copies on the shelf, equal to copies for a new book).",
+  "list_books": "List all books, each with id, title, author, copies and available.",
+  "get_book": "Get one book by its id, including available (copies still on the shelf). Path params: id.",
+  "borrow_book": "A student borrows one copy of a book. Path params: id (the book). Body: student (the student's name). Refused when no copies are on the shelf.",
+  "return_book": "A student returns a copy of a book. Path params: id (the book). Body: student (the student's name). Refused when that student has no borrowed copy of this book."
+}

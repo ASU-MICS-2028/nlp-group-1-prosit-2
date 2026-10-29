@@ -1,0 +1,8 @@
+{
+  "add_team": {"method": "POST", "path": "/league/clubs", "fields": {"name": "club"}},
+  "list_teams": {"method": "GET", "path": "/league/clubs", "fields": {"name": "club"}},
+  "create_fixture": {"method": "POST", "path": "/league/matches", "fields": {"home_team_id": "host", "away_team_id": "visitor", "date": "kickoff_date", "home_goals": "host_score", "away_goals": "visitor_score"}},
+  "get_fixture": {"method": "GET", "path": "/league/matches/{id}", "fields": {"home_team_id": "host", "away_team_id": "visitor", "date": "kickoff_date", "home_goals": "host_score", "away_goals": "visitor_score"}},
+  "record_score": {"method": "PUT", "path": "/league/matches/{id}/result", "fields": {"home_team_id": "host", "away_team_id": "visitor", "date": "kickoff_date", "home_goals": "host_score", "away_goals": "visitor_score"}},
+  "team_fixtures": {"method": "GET", "path": "/league/clubs/{id}/matches", "fields": {"home_team_id": "host", "away_team_id": "visitor", "date": "kickoff_date", "home_goals": "host_score", "away_goals": "visitor_score"}}
+}

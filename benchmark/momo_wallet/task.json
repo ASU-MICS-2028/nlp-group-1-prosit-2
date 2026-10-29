@@ -1,0 +1,5 @@
+{
+  "tier": "hard",
+  "vague": false,
+  "summary": "Mobile-money wallets: unique phone per wallet, deposits and transfers with exact pesewa arithmetic, balance never negative, no self-transfer, history with running balance"
+}
