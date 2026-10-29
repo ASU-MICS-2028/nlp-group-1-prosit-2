@@ -11,7 +11,7 @@ W4 answers one question: **how good is the platform, in numbers?** It has three 
 - **A harness:** the program that starts each generated backend in Bernard's sandbox and scores it with those hidden tests.
 - **A small knowledge base:** recipes the agent can search, which is the retrieval part of RAG.
 
-*(Sections 1 and 2 are completed as S2.2–S2.4 are built. So far: S2.1, checking Bernard's handoff; S2.2, the benchmark; S2.3, the harness; S2.4, the recipe search.)*
+*(Sections 1 and 2 are completed as S2.2–S2.4 are built. So far: S2.1, checking Bernard's handoff; S2.2, the benchmark; S2.3, the harness; S2.4, the recipe search and whether recipes help a build.)*
 
 ## 2. How it works, step by step
 
@@ -115,6 +115,7 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 - **An LLM judge is not stable on borderline tests** (row 9). Use it to find suspects only.
 - **The harness scores each backend once** unless you ask for `--repeat N`. For the agent's results (Stage 3) use at least `--repeat 3` on generated builds: one Qwen build changed between runs (row 17).
 - **Search cannot say "nothing fits"** (row 25), and Twi questions return noise (row 26).
+- **Recipes were tried in one build per task, with Qwen only** (row 27). None vs recipes is a big gap; fixed vs searched may be luck. Recipes did not stop a small model leaving out imports when it copied code. Opus and Haiku were not tried with recipes.
 - **The search comparison used 111 questions labelled by one person.** Differences of a few points are a few questions; only big gaps (95% vs 74%) mean something.
 - **One build per task and model.** Each number comes from a single build, so a lucky or unlucky build moves a task's score a lot. Repeat runs are for the harness (S2.3).
 - **Running a test script from outside the repo fails** with `No module named 'runtime'`. Run scripts from the repo root, as Bernard's example says.
@@ -158,5 +159,6 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 - **BM25**: keyword search. A recipe scores higher when it contains the question's words, especially rare ones, and is not too long.
 - **Dense search / embedding**: a small model turns text into a list of numbers that captures meaning, so "a spot is taken" can match "full".
 - **hit@1, hit@3**: the share of questions where a right answer is first, or in the top 3.
+- **RAG (retrieval-augmented generation)**: search for helpful text first (retrieval), then put it in the prompt so the model writes with it in front of it (generation). Here: find recipes, add them to the build request.
 - **Hybrid search**: merging the rankings of two searches (here with reciprocal rank fusion: each recipe gets 1/(60 + its place) from each).
 - **`kill -9`**: stopping a program instantly, with no chance to clean up after itself.
