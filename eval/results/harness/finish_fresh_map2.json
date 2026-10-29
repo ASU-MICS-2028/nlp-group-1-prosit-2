@@ -1,0 +1,25 @@
+{
+  "args": {
+    "task": "library_catalogue",
+    "folder": "projects/_eval/_fresh_build",
+    "references": false,
+    "workers": 4,
+    "repeat": 1,
+    "name": "finish_fresh_map2"
+  },
+  "seconds": 2.1,
+  "rows": [
+    {
+      "task": "library_catalogue",
+      "backend": "_fresh_build",
+      "folder": "projects/_eval/_fresh_build",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.1
+    }
+  ]
+}

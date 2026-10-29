@@ -70,7 +70,7 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 | 18 | How many backends should the harness run side by side? | 1 · 2 · 4 · 8 · 16 | All 21 correct backends, on an 8-core Apple M3 | 1: **51 s**. 2: 24 s. 4: **13 s**. 8: 11 s. 16: no faster. Every run 272/272 | **4** (the default, `--workers`): almost all the gain; more adds little and loads the laptop |
 | 19 | Does a score change between runs, or under load? | Same backends scored 3 times at 8 side by side, and twice at 16 | 21 correct backends | **105 of 105** runs scored 100%. Nothing left running afterwards | Scores are stable. One run per backend is enough for the correct backends; generated builds may still vary (row 17 saw one) |
 | 20 | Does the harness cope with bad backends? | 15 deliberately bad cases (`eval/experiments/harness_failures.py`, free) | Each scored by the harness on the church task | No `app.py`, empty file, crash, no `app`: **0/10 with the real error**, in under 2 s. Hangs while starting: 0/10 after the 20 s start limit. Too much memory (1 GB, limit 512 MB): 0/10, but **the error says nothing** (note for Bernard). Every reply takes 2 s: 10/10, in 46 s. A 52 MB reply: handled. One endpoint never answers: 5/10 (each call gives up after 10 s). Broken `ops.json`: 0/10 with the reason. Tries the internet and the host's files: **blocked** (no internet, `.env` and the repo not visible). A whole test run over 300 s: counted as failed instead of crashing. Docker off: stops with "Docker is not reachable". Killed mid-run: 8 containers left; the next run removed them all | All handled. Three fixes came from this: Docker off used to say "removed 0" and score everything 0; a map with a missing operation now gets a warning (it scored 6/10 silently, which looks like a bad build); a hung test run used to crash the whole program. My first try of two cases tested nothing (wrong path): check that a test really triggers |
-| 21 | Does the harness give the same scores as the baseline? | Baseline scores · the same saved builds and maps through the harness | 66 saved Claude builds | **66/66 identical** | One tool, one answer. The harness is what everyone uses from now on |
+| 21 | Does the harness give the same scores as the baseline? | Baseline scores · the same saved builds and maps through the harness | 66 saved Claude builds; plus one build copied without its map | **66/66 identical**. Without a map: Opus wrote one ($0.024), 13/13, and the second run reused it (free, 2 s instead of 12 s) | One tool, one answer. The harness is what everyone uses from now on |
 
 ## 4. What we chose, and why
 
@@ -96,6 +96,7 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
   - If teammates' laptops differ, a Mac can create files like `..\secret.txt` that are awkward to open on Windows. Refusing backslashes in file names on every system would keep projects identical everywhere.
 - **The translation can still miss a valid design** we have not seen yet. If a build fails, read the failing test before blaming the build: in the first round, most failures we read were the tool's fault, not the build's (row 12).
 - **An LLM judge is not stable on borderline tests** (row 9). Use it to find suspects only.
+- **The harness scores each backend once** unless you ask for `--repeat N`. For the agent's results (Stage 3) use at least `--repeat 3` on generated builds: one Qwen build changed between runs (row 17).
 - **One build per task and model.** Each number comes from a single build, so a lucky or unlucky build moves a task's score a lot. Repeat runs are for the harness (S2.3).
 - **Running a test script from outside the repo fails** with `No module named 'runtime'`. Run scripts from the repo root, as Bernard's example says.
 
@@ -130,4 +131,6 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 - **Name map (`ops.json`)**: says where each operation lives in one backend and what its fields are called there.
 - **Baseline**: the simplest possible approach (one LLM call, no agent), measured so a better approach has something to beat.
 - **LLM judge**: an LLM asked to grade something, here whether each test only checks what the client asked.
+- **Workers (side by side)**: how many backends the harness scores at the same time.
+- **Failure case**: a deliberately broken input, used to check that a tool reports the problem instead of crashing or giving a wrong score.
 - **`kill -9`**: stopping a program instantly, with no chance to clean up after itself.
