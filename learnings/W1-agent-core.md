@@ -28,6 +28,18 @@ The final design in a few bullets, each pointing to a row in the log.
 
 Failure cases you saw, with examples. What you would do with more time.
 
+**Starting check (S3.1, Nov 2, macOS).** Before building anything, Bernard's and Joseph's parts were run exactly as their learnings files say:
+
+| Check | Expected | Got |
+|---|---|---|
+| `uv run pytest runtime -q` (Bernard's tools and sandbox) | 51 passed | 51 passed in 45 s |
+| `benchmark/validate.py church_signup` | 10 tests, 5/5 mutants | same |
+| `eval.harness all --references` | 21 backends at 100% | 272/272 tests, 21/21, 16 s, $0 |
+| `kb.search "two people booked the same room"` | recipe 15 first | recipe 15 first (score 0.34) |
+| One tiny Opus call through `eval.llm.ask` (is the key OK?) | a reply | `'OK'`, cost $0.00016 |
+
+- **Do not run the harness while Bernard's tests are running.** The first time, both ran at once and 3 of the 51 tests failed (the ones that check stuck tests and the sandbox network). The harness begins by deleting "leftover" sandbox containers, and it deleted containers the tests were still using. Run alone, all 51 passed. Not tested yet, but the same is likely if two harness runs, or an agent build and a harness run, happen at the same time on one laptop.
+
 ## 6. How to run it, and how the next person uses it
 
 Exact commands and what you should see. Then the handoff: what the next person in the relay gets from you (functions, files, commands, formats), with an example they can copy. They will build only on what is written here.
