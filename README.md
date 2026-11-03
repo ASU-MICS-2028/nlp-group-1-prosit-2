@@ -7,7 +7,7 @@
 
 | Task | Who | Status |
 |---|---|---|
-| S3.2 Single agent from the command line | Alice (W1) | 🔵 ready |
+| S3.2 Single agent from the command line | Alice (W1) | 🟡 doing |
 | S3.3 Run record and trace | Alice (W1) | ⏳ waiting (on S3.2) |
 | S3.4 Test-and-repair loop | Alice (W1) | ⏳ waiting (on S3.2) |
 | S3.5 Spec-first plan and approval | Alice (W1) | ⏳ waiting (on S3.2) |
