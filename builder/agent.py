@@ -199,8 +199,9 @@ def load_plan(root):
 
 
 def endpoint(method, path):
-    """'GET /events/{event_id}/' -> 'GET /events/{}': names inside {} and a last / do not change the endpoint."""
-    return f"{method.upper()} {re.sub(r'{[^}]*}', '{}', path).rstrip('/') or '/'}"
+    """'GET /events/{event_id}/?date=X' -> 'GET /events/{}': names inside {}, a last / and the ?search part do not
+    change the endpoint (plans write '/fares?from=STOP&to=STOP', the code '/fares')."""
+    return f"{method.upper()} {re.sub(r'{[^}]*}', '{}', path.split('?')[0]).rstrip('/') or '/'}"
 
 
 def routes_of(code):

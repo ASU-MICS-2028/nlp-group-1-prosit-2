@@ -256,6 +256,8 @@ def remove(id: int): ...
 def test_follows_plan_ignores_names_in_braces_and_last_slash():
     assert agent.follows_plan(APP, PLAN) == {"missing": [], "extra": ["DELETE /events/{}"]}
     assert agent.follows_plan("def broken(:", PLAN) == {"missing": ["GET /events/{}", "POST /events"], "extra": []}
+    search = {**PLAN, "endpoints": [{"method": "GET", "path": "/fares?from=STOP&to=STOP", "does": "Find a fare"}]}
+    assert agent.follows_plan('@app.get("/fares")\ndef f(): ...', search) == {"missing": [], "extra": []}  # real S3.5 case
 
 
 def test_reading_routes_never_runs_the_code(tmp_path):
