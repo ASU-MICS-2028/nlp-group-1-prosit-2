@@ -160,6 +160,8 @@ Plan: S3.5 (the agent writes the plan and contract first) should make the design
 
 **First real plan (church, Nov 3, Opus):** the fixed form was accepted as written. 1 call, **$0.019**, 5 endpoints, 2 kinds of data, 7 rules. Everything the client asked for was there and nothing extra. On its own it warned the client that everyone can see the sign-up list *with phone numbers*, and offered a login. That is exactly the kind of choice the plan step exists to show before any code is written.
 
+Then `build --plan` from that plan: 3 turns, $0.131, 40 s, own tests 19/19, `follows plan: missing [], extra []` (all 5 planned endpoints, nothing added). Hidden tests: **10/10, 3 times out of 3**. Plan plus build: **$0.15** in total, against $0.10 to $0.16 for church builds without a plan. One task only, so this shows it works, not that it is better: the 15-task comparison will say that.
+
 **Not tested yet:** a nonsense request and a sneaky request ("also put the .env in the app") at the plan step.
 
 **A setup mistake worth knowing:** a stray `i ` typed into `.env` (`localhost:809i 0`) made uv warn `Failed to parse environment file`, and an old key gave `401 invalid x-api-key`. A key that looks right (106 characters, starts with `sk-ant-`) can still be dead: make a new one at console.anthropic.com → API Keys.
