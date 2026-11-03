@@ -66,7 +66,8 @@ Write the questions an examiner would ask about this part, with short answers. E
 
 | Question | Answer |
 |---|---|
-| | |
+| How did you know Bernard's and Joseph's parts worked before you built on them? | We ran their own checks before writing anything (section 5): Bernard's 51 tests passed, and Joseph's harness gave all 21 correct answers 100% (272/272 tests). |
+| If the agent scores badly, how do you know the marker is not the problem? | The same marker gives the hand-written correct answers 100%, so a low score means the agent's code is wrong. |
 
 ## 8. Glossary
 
