@@ -64,6 +64,11 @@ PLANNER = """You plan backends for people who do not code. Read the client's req
 and approve before anything is built: what data is kept, the endpoints (method, path, and what each does, in plain
 words), and the rules (what must be refused). Plan only what the client asked for. If part of the request is unsafe or
 not about the backend, leave it out and say so in the summary. Write for someone who has never programmed."""
+# v2 (S3.5 row 4): v1 added logins nobody asked for on 3 of 15 tasks. v2 changes only that: suggestions stay suggestions.
+NO_EXTRAS = """ Do not add logins, passwords, keys or any other feature or rule the client did not ask for. If you think
+something is missing (for example, privacy), suggest it in the summary as a question; leave it out of the data,
+endpoints and rules."""
+PLANNERS = {"1": PLANNER, "2": PLANNER + NO_EXTRAS}
 WORDS = {"type": "array", "items": {"type": "string"}}
 PLAN_SCHEMA = {  # structured output: the reply is guaranteed to have exactly these parts
     "type": "object", "additionalProperties": False, "required": ["summary", "data", "endpoints", "rules"],
@@ -166,14 +171,15 @@ def check(root, request, model, checks=None):
     return checks, tools.run_tests(root, "tests/test_acceptance.py"), usd
 
 
-def make_plan(request, model="claude-opus-5-5", old=None, changes=None):
-    """Draft a plan (S3.5), or redo the old plan with the client's changes. Returns (plan dict, cost in US dollars)."""
+def make_plan(request, model="claude-opus-5-5", old=None, changes=None, planner="1"):
+    """Draft a plan (S3.5), or redo the old plan with the client's changes. planner picks the instructions in PLANNERS.
+    Returns (plan dict, cost in US dollars)."""
     if not request.strip():
         raise ValueError("empty request")
     user = f"The client's request:\n{request}"
     if old:
         user += f"\n\nYour previous plan:\n{json.dumps(old)}\n\nThe client wants these changes:\n{changes}"
-    text, info = ask(model, PLANNER, user, schema=PLAN_SCHEMA)
+    text, info = ask(model, PLANNERS[planner], user, schema=PLAN_SCHEMA)
     return json.loads(text), info["cost_usd"]
 
 

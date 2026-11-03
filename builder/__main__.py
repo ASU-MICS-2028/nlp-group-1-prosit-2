@@ -28,6 +28,7 @@ p.add_argument("--effort", default="medium")
 p.add_argument("--prompt", default="B", choices=["A", "B", "C", "D"])
 p.add_argument("--repairs", type=int, default=0, help="most repair rounds after the independent check")
 p.add_argument("--yes", action="store_true", help="plan: approve without asking")
+p.add_argument("--planner", default="1", choices=["1", "2"], help="plan: v1, or v2 that may not add unasked features")
 p.add_argument("--plan", action="store_true", help="build: follow the approved plan.json")
 p.add_argument("--run", default="agent_v1")
 a = p.parse_args()
@@ -37,14 +38,14 @@ for task in bench.task_names() if a.tasks == ["all"] else a.tasks:
     root = Path("projects") / a.run / task
     if a.command == "plan":
         try:
-            plan, usd = make_plan(request, a.model)
+            plan, usd = make_plan(request, a.model, planner=a.planner)
             while not a.yes:
                 print(f"\n{task}\n\n{plan_text(plan)}\n")
                 answer = input("Approve? y = yes, n = stop, or type the changes you want: ").strip()
                 if answer.lower() in ("y", "n", ""):
                     plan = plan if answer.lower() == "y" else None
                     break
-                plan, more = make_plan(request, a.model, plan, answer)
+                plan, more = make_plan(request, a.model, plan, answer, a.planner)
                 usd += more
         except (ValueError, RuntimeError, anthropic.AnthropicError) as e:  # empty request, budget, network, key
             print(f"{task:24} error: {type(e).__name__}: {e}"[:300])

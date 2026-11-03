@@ -327,3 +327,10 @@ def test_cli_build_with_plan_flag_refuses_without_a_plan(monkeypatch, tmp_path, 
     made = pretend(monkeypatch, [done_reply()])
     root = run_cli(monkeypatch, tmp_path, ["build", "church_signup", "--plan", "--run", "t"], [])
     assert "not built: no approved plan" in capsys.readouterr().out and made == [] and not root.exists()
+
+
+def test_planner_v2_forbids_unasked_extras_and_v1_is_unchanged(monkeypatch):
+    made = pretend_planner(monkeypatch, [PLAN, PLAN])
+    agent.make_plan("church events")
+    agent.make_plan("church events", planner="2")
+    assert made[0][0] == agent.PLANNER and "Do not add logins" in made[1][0] and made[1][0].startswith(agent.PLANNER)
