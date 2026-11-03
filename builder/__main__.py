@@ -1,13 +1,13 @@
 """Build backends from the command line.
 
-    uv run --env-file .env --with anthropic python -m builder build church_signup [more tasks | all] [--model M] [--run NAME]
+    uv run --env-file .env --with anthropic python -m builder build church_signup [more tasks | all] [--prompt B] [--run NAME]
 
 Reads ONLY benchmark/<task>/request.md (decision 0033) and builds in projects/<run>/<task>/, the layout the
 harness scores: uv run --env-file .env --with anthropic python -m eval.harness all projects/<run> --repeat 3
+Each build leaves run.json (the totals) and trace.jsonl (every step) next to app.py.
 """
 
 import argparse
-import json
 from pathlib import Path
 
 from builder.agent import build
@@ -24,8 +24,7 @@ a = p.parse_args()
 
 for task in bench.task_names() if a.tasks == ["all"] else a.tasks:
     request = (bench.BENCH / task / "request.md").read_text().strip()
-    root = Path("projects") / a.run / task
-    result = build(request, root, a.model, a.effort, a.prompt)
-    (root / "build.json").write_text(json.dumps(result, indent=2) + "\n")
-    print(f"{task:24} {result['stop']:9} {result['turns']:>2} turns {len(result['tool_calls']):>2} tools "
-          f"${result['cost_usd']} {result['seconds']}s", flush=True)
+    r = build(request, Path("projects") / a.run / task, a.model, a.effort, a.prompt)
+    tests = f"own tests {r['tests']['passed']} passed {r['tests']['failed']} failed" if r["tests"] else "own tests not run"
+    print(f"{task:24} {r['stop']:9} {r['turns']:>2} turns {len(r['tool_calls']):>2} tools ${r['cost_usd']} "
+          f"{r['seconds']}s  {tests}", flush=True)

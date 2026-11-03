@@ -20,7 +20,19 @@ The code is two files: `builder/__main__.py` (the command you type) and `builder
 3. Claude replies, either with a request for tools or with "I'm finished".
 4. If it asked for tools, our code runs each one **in the project folder that our code chose** (Claude never picks the folder, so it cannot write anywhere else), then sends back what happened. If the tool failed, the result is marked as an error.
 5. Repeat from step 3, at most 40 times, so it can never loop forever.
-6. At the end, always stop the server, then save a report (`build.json`): why it stopped, the tools used, the cost and the time.
+6. At the end, always stop the server, then save the totals in `run.json`: why it stopped, the turns, the tools used, the tokens, the cost, the time and the last test result.
+
+**The diary (S3.3).** While it works, the agent writes `trace.jsonl`, one line per thing that happens, the moment it happens. Real lines from a church build (Nov 3), shortened:
+```
+{"event": "start", "t": 0.0,   "request": "Our church organises events ...", "model": "claude-opus-5-5", "prompt": "B"}
+{"event": "reply", "t": 25.21, "turn": 0, "stop_reason": "tool_use", "tokens": {"in": 4, "out": 3436, "cache_write": 1416, "cache_read": 0}, "cost_usd": 0.07582}
+{"event": "tool",  "t": 25.21, "tool": "write_file", "input": {"path": "app.py", "content": "..."}, "ok": true, "output": "Wrote 4091 characters to app.py"}
+{"event": "tool",  "t": 25.21, "tool": "write_file", "input": {"path": "tests/test_app.py", ...}, "ok": true}
+{"event": "tool",  "t": 26.34, "tool": "run_tests", "ok": true, "seconds": 1.13, "tests": {"passed": 7, "failed": 0}}
+{"event": "reply", "t": 31.81, "turn": 1, "stop_reason": "end_turn", "cost_usd": 0.02883, "text": "I've built the sign-up system ..."}
+{"event": "end",   "t": 31.81, "stop": "end_turn", "turns": 2, "cost_usd": 0.1047, "seconds": 31.8, "tests": {"passed": 7, "failed": 0}}
+```
+What this build's diary tells us: of the 31.8 seconds, Claude spent 25 writing the code in its first reply, and all the tools together took about 1 second. About 75% of the $0.105 paid for the words Claude wrote (3,907 tokens out). Re-reading the conversation was cheap because of caching. The diary was 11.5 KB.
 
 This loop is called **ReAct** (reason, then act, then look at the result). The team chose to write it by hand rather than use a library (decision 0003), so every line can be explained.
 
@@ -47,6 +59,8 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 |---|---|---|---|---|---|
 | 1 | Which instructions (system prompt) should the agent use? (S3.2) | **A** first version, data in memory · **B** A but data in SQLite (team rule 0002) · **C** short, 36 words · **D** B without "write and run your own tests" | All 15 tasks, 1 build each per version, Opus, harness `--repeat 3`. Baseline (1 call, no tools) = 89% | Hidden tests passed: A **87.5%** · B **87.0%** · C **88.5%** · D **86.5%**. Tasks fully passing: 12 / 10 / 11 / 11 of 15. Cost for 15 builds: $1.51 / $1.73 / $2.56 / $1.60. Time per build: 31 / 34 / 53 / 35 s | **B** (decision 0038). The four are within 2 points, less than one build choosing a different design (7 to 12 tests), so the score cannot pick a winner. B follows the team rule and costs about the same as A. C took 1.5x longer and cost more. In D, Claude tested anyway by hand (109 requests to the server) |
 
+| 2 | How should a build record what happened? (S3.3) | **One JSON file at the end** · **only print to the screen** · **a line per event written as it happens (`trace.jsonl`) plus totals at the end (`run.json`)** | Free tests with a pretend Claude, including a network error halfway, then one real church build | Only the line-per-event option keeps a record when a build breaks (the test sees `start` and the error) and lets a UI follow it live. Real church trace: 11.5 KB with the full code inside, 7 lines | **Line per event + totals** (decision 0039): live, survives a crash, small enough to keep everything |
+
 **What row 1 taught us, in plain words:**
 - **The agent fixed the hardest task.** `momo_wallet` went from 3/13 (baseline) to **13/13 with every version**. Writing and running its own tests made Claude catch its money mistakes.
 - **But overall it is not yet above the baseline** (87% vs 89%). It lost points on tasks where it chose a sensible design that the hidden tests did not expect (section 5).
@@ -62,6 +76,7 @@ The final design in a few bullets, each pointing to a row in the log.
 
 - **A hand-written loop over Bernard's 8 tools** (decision 0003): Claude asks, our code acts in the sandbox, up to 40 turns or $2.
 - **Prompt B** (row 1, decision 0038): one file `app.py`, FastAPI, data in SQLite with SQLModel, write tests, run them, fix until they pass, add nothing extra.
+- **A diary and a summary for every build** (row 2, decision 0039): `trace.jsonl` line by line as it happens, `run.json` at the end.
 
 ## 5. What breaks, and the limits
 
@@ -130,7 +145,7 @@ uv run --with anthropic python -m pytest builder -q        # the 8 free failure 
 uv run --env-file .env --with anthropic python -m builder build church_signup --run try1     # one task, about $0.10
 uv run --env-file .env --with anthropic python -m eval.harness church_signup projects/try1/church_signup --repeat 3 --name try1
 ```
-The build prints one line per task, such as `church_signup  end_turn  3 turns  4 tools $0.1008 30.8s` (prompt B, Nov 3), and leaves `app.py`, `tests/` and `build.json` in `projects/try1/church_signup/`. Use `all` instead of a task name for all 15 (about $1.70, about 9 minutes). Options: `--prompt A|B|C|D` (default B), `--model`, `--effort`.
+The build prints one line per task, such as `church_signup  end_turn  3 turns  4 tools $0.1008 30.8s` (prompt B, Nov 3), and leaves `app.py`, `tests/`, `run.json` and `trace.jsonl` in `projects/try1/church_signup/`. Since S3.3 the line ends with the agent's own test result, e.g. `own tests 7 passed 0 failed`. Use `all` instead of a task name for all 15 (about $1.70, about 9 minutes). Options: `--prompt A|B|C|D` (default B), `--model`, `--effort`.
 
 From Python:
 ```python
@@ -140,6 +155,29 @@ result = build("I need a sign-up sheet for church events ...", "projects/demo/ch
 #  'cost_usd': 0.1008, 'seconds': 30.8, 'summary': 'Endpoints: ...'}   (the church build with prompt B)
 ```
 `stop` is `end_turn` when Claude finished. Otherwise it is `max_turns`, `max_usd`, `empty request` or `error: ...`.
+
+### For Michael (Stage 4): showing a build live
+
+Pass a function as `on_event`. The agent calls it with every event, the same lines it writes to `trace.jsonl`:
+```python
+from builder.agent import build
+
+def show(event):
+    if event["event"] == "tool":
+        print("Claude used", event["tool"], "ok" if event["ok"] else "FAILED")
+
+result = build(request_text, "projects/web/shop1", on_event=show)
+```
+Or read `trace.jsonl` from another program while the build runs: each line is complete once written.
+
+| Event | When | Fields (every event also has `event` and `t`, the seconds since the start) |
+|---|---|---|
+| `start` | once, first | `request`, `model`, `prompt`, `effort` |
+| `reply` | each time Claude answers | `turn` (0, 1, 2 ...), `stop_reason` (`tool_use` = it wants tools, `end_turn` = finished), `tokens` (`in`, `out`, `cache_write`, `cache_read`), `cost_usd` (this reply), `text` (what Claude wrote, can be empty) |
+| `tool` | each tool Claude used | `turn`, `tool`, `input` (what Claude filled in, e.g. the code), `ok`, `output` (at most about 4,000 characters), `seconds`; for `run_tests` also `tests`: `{"passed": n, "failed": n}` |
+| `end` | once, last, even after an error | `stop`, `turns`, `tokens` (totals), `cost_usd` (total), `seconds`, `tests` (the last test run, or `null`) |
+
+`run.json` holds the same totals plus `request`, `model`, `prompt`, `effort`, `tool_calls` (one `{"turn", "tool", "ok"}` per call) and `summary` (Claude's last message to the client).
 - **A few failures in check 1:** something else was using the sandbox at the same time. Close it and run check 1 again.
 
 ## 7. Viva questions you should be able to answer
@@ -154,6 +192,8 @@ Write the questions an examiner would ask about this part, with short answers. E
 | Can Claude damage the computer or read secrets? | It never acts itself, only asks. Our code always picks the project folder, Bernard's path guard refuses paths outside it, and code runs in a Docker sandbox with no internet. Asked to paste `.env` into the app, Claude refused, and the guard would have blocked it anyway. |
 | What stops a build from running forever or costing too much? | 40 turns at most and $2 at most per build. An empty request costs nothing. A network error ends the build with a message instead of a crash. |
 | Which prompt did you choose and why? | B. Four versions scored 86.5 to 88.5%, too close to separate with one build per task. B follows the team's SQLite rule and costs about the same as the cheapest. |
+| What does the agent record about each build, and why? | A diary (`trace.jsonl`, one line per event, written the moment it happens) and totals (`run.json`). Written live so a UI can follow it and a crash keeps what happened. It showed that most time and money go to Claude writing code, not to our tools. |
+| What happens if the API key is missing? | The build stops with "LLM_API_KEY is not set" in its report instead of crashing. A free test found that, without this check, the Anthropic library raised an error the agent did not catch. |
 | Is the agent better than the baseline? | Not yet overall (87% vs 89%). It wins the hardest task but loses where it picks a design the tests did not expect. The next tasks (repair loop, plan first, questions) are meant to close that gap. |
 
 ## 8. Glossary
@@ -167,6 +207,11 @@ Every technical word used above, in one plain sentence each.
 - **Token:** a piece of a word. Claude's price is per million tokens in and out.
 - **Tool call:** Claude asking our code to do one action, such as "write this file".
 - **Turn:** one reply from Claude. One turn can ask for several tools at once.
+- **Callback (`on_event`):** a function you hand to the agent. The agent calls it every time something happens, so another program (the UI) hears about it at once.
+- **Event:** one thing that happened in a build: it started, Claude replied, a tool ran, it ended.
+- **JSON:** a plain-text way to write data with names and values, like `{"cost_usd": 0.10}`. Easy for both people and programs to read.
+- **JSON Lines (`.jsonl`):** a file with one JSON record per line. New lines can be added without rewriting the file.
+- **Trace:** the diary of one build, step by step.
 - **Agent:** a program that lets an AI (here Claude) do a job by itself, step by step, using tools, until the job is done.
 - **API key:** a secret password that lets our program use Claude. It is kept in `.env` and never shared.
 - **Backend:** the invisible part of an app that stores the data and answers requests like "list all orders".

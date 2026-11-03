@@ -3,6 +3,7 @@
     uv run --with anthropic python -m pytest builder -q
 """
 
+import json
 from types import SimpleNamespace as Obj
 
 import anthropic
@@ -86,3 +87,43 @@ def test_network_error_is_reported_not_raised(monkeypatch, tmp_path):
     monkeypatch.setattr(agent, "call", broken)
     result = agent.build("make an app", tmp_path)
     assert result["stop"].startswith("error: APIConnectionError") and result["turns"] == 0
+
+
+def read_trace(root):
+    return [json.loads(line) for line in (root / "trace.jsonl").read_text().splitlines()]
+
+
+def test_every_run_writes_a_trace_and_a_run_record(monkeypatch, tmp_path):
+    pretend(monkeypatch, [tool_reply("write_file", {"path": "app.py", "content": "x = 1\n"}), done_reply("Endpoints: none")])
+    seen = []
+    result = agent.build("make an app", tmp_path, on_event=seen.append)
+    trace = read_trace(tmp_path)
+    assert [e["event"] for e in trace] == ["start", "reply", "tool", "reply", "end"]
+    assert trace == seen  # a UI gets exactly what the file gets
+    assert trace[2]["tool"] == "write_file" and trace[2]["ok"] and trace[2]["input"]["path"] == "app.py"
+    assert trace[1]["tokens"] == {"in": 1000, "out": 1000, "cache_write": 0, "cache_read": 0}
+    run = json.loads((tmp_path / "run.json").read_text())
+    assert run == result and run["tokens"]["out"] == 2000 and run["cost_usd"] == 0.048 and run["tests"] is None
+
+
+def test_trace_is_written_even_when_the_build_breaks(monkeypatch, tmp_path):
+    def broken(*args):
+        raise anthropic.APIConnectionError(request=httpx.Request("POST", "https://api.anthropic.com"))
+    monkeypatch.setattr(agent, "call", broken)
+    agent.build("make an app", tmp_path)
+    trace = read_trace(tmp_path)
+    assert [e["event"] for e in trace] == ["start", "end"] and trace[-1]["stop"].startswith("error")
+
+
+def test_missing_key_is_reported_not_raised(monkeypatch, tmp_path):
+    monkeypatch.delenv("LLM_API_KEY", raising=False)
+    monkeypatch.setattr(agent, "_client", None)
+    result = agent.build("make an app", tmp_path)
+    assert "LLM_API_KEY is not set" in result["stop"] and result["turns"] == 0
+
+
+def test_test_counts_reads_pytest_last_line():
+    assert agent.test_counts("....\n7 passed in 0.12s") == {"passed": 7, "failed": 0}
+    assert agent.test_counts("F..\n1 failed, 6 passed in 0.31s") == {"passed": 6, "failed": 1}
+    assert agent.test_counts("E\n1 error in 0.05s") == {"passed": 0, "failed": 1}
+    assert agent.test_counts("Tests stopped: still running after 60 seconds") == {"passed": 0, "failed": 0}

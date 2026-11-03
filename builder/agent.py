@@ -5,11 +5,12 @@
 
 Each turn: send Claude the conversation and the tool list; run every tool it asks for, always in our project
 folder (the LLM never chooses root); send the results back, marked as errors when ok is false. Stop when Claude
-answers without asking for a tool, or after max_turns.
+answers without asking for a tool, or after max_turns. Every run leaves trace.jsonl and run.json in the folder (S3.3).
 """
 
 import json
 import os
+import re
 import time
 from pathlib import Path
 
@@ -66,7 +67,10 @@ _client = None
 def call(model, system, messages, effort):
     """One request. Top-level cache_control caches the conversation so far: each turn re-reads it at 10% of the price."""
     global _client
-    _client = _client or anthropic.Anthropic(api_key=os.environ["LLM_API_KEY"], max_retries=4)
+    if not _client:
+        if not os.environ.get("LLM_API_KEY"):  # build() reports this as an error instead of crashing
+            raise anthropic.AnthropicError("LLM_API_KEY is not set: run with --env-file .env")
+        _client = anthropic.Anthropic(api_key=os.environ["LLM_API_KEY"], max_retries=4)
     args = dict(model=model, max_tokens=16000, system=system, tools=TOOLS, messages=messages,
                 output_config={"effort": effort}, cache_control={"type": "ephemeral"})
     if model.startswith("claude-opus"):  # same refusal fallback as Joseph's eval.llm
@@ -91,38 +95,84 @@ def run_tool(root, name, args):
         return {"ok": False, "output": f"Bad arguments for {name}: {e}"}
 
 
-def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", max_turns=40, max_usd=2.0):
-    """Run the loop. Stops when Claude finishes ("end_turn"), or at max_turns, max_usd or an error (always reported)."""
-    if not request.strip():  # nothing to build: do not pay for a call
-        return {"stop": "empty request", "turns": 0, "tool_calls": [], "cost_usd": 0.0, "seconds": 0.0, "summary": ""}
-    Path(root).mkdir(parents=True, exist_ok=True)
+def tokens_of(u):
+    """The four token counts of one reply."""
+    return {"in": u.input_tokens, "out": u.output_tokens,
+            "cache_write": getattr(u, "cache_creation_input_tokens", 0) or 0,
+            "cache_read": getattr(u, "cache_read_input_tokens", 0) or 0}
+
+
+def text_of(content):
+    """The text Claude wrote in one reply (tool requests and thinking left out)."""
+    return "".join(b.text for b in content if getattr(b, "type", "") == "text")
+
+
+def test_counts(output):
+    """Pytest's last line, e.g. "1 failed, 6 passed in 0.31s", as {"passed": 6, "failed": 1}. Errors count as failed."""
+    found = {word: int(n) for n, word in re.findall(r"(\d+) (passed|failed|error)", output)}
+    return {"passed": found.get("passed", 0), "failed": found.get("failed", 0) + found.get("error", 0)}
+
+
+def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", max_turns=40, max_usd=2.0, on_event=None):
+    """Run the loop. Stops when Claude finishes ("end_turn"), or at max_turns, max_usd or an error (always reported).
+
+    Writes two files in root: trace.jsonl, one line per event as it happens (start, reply, tool, end), and run.json,
+    the totals. on_event, if given, is called with every event too, so a UI can show the build live."""
+    root = Path(root)
+    root.mkdir(parents=True, exist_ok=True)
+    start = time.time()
     messages = [{"role": "user", "content": request}]
-    calls, usd, start, stop, turns = [], 0.0, time.time(), "max_turns", 0
-    try:
-        for turn in range(max_turns):
-            if usd >= max_usd:
-                stop = "max_usd"
-                break
-            reply = call(model, PROMPTS[prompt], messages, effort)
-            turns += 1
-            usd += cost(model, reply.usage)
-            messages.append({"role": "assistant", "content": reply.content})  # whole reply, thinking blocks included
-            if reply.stop_reason != "tool_use":
-                stop = reply.stop_reason
-                break
-            results = []
-            for block in reply.content:
-                if block.type == "tool_use":
-                    out = run_tool(root, block.name, block.input)
-                    calls.append({"turn": turn, "tool": block.name, "ok": out["ok"]})
-                    results.append({"type": "tool_result", "tool_use_id": block.id, "content": out["output"],
-                                    "is_error": not out["ok"]})
-            messages.append({"role": "user", "content": results})  # all results of one turn in one message
-    except anthropic.APIError as e:  # network down, bad key, overloaded after the retries: report it, do not crash
-        stop = f"error: {type(e).__name__}: {e}"[:300]
-    finally:
-        tools.stop_server(root)  # never leave a server running
-    last = messages[-1]["content"] if messages[-1]["role"] == "assistant" else []
-    summary = "".join(b.text for b in last if getattr(b, "type", "") == "text")
-    return {"stop": stop, "turns": turns, "tool_calls": calls,
-            "cost_usd": round(usd, 4), "seconds": round(time.time() - start, 1), "summary": summary}
+    calls, usd, stop, turns, tests = [], 0.0, "max_turns", 0, None
+    tokens = {"in": 0, "out": 0, "cache_write": 0, "cache_read": 0}
+    if not request.strip():  # nothing to build: do not pay for a call
+        stop, max_turns = "empty request", 0
+    with open(root / "trace.jsonl", "w", encoding="utf-8") as trace:
+
+        def log(event, **fields):
+            line = {"event": event, "t": round(time.time() - start, 2), **fields}  # t = seconds since the start
+            trace.write(json.dumps(line, default=str) + "\n")
+            trace.flush()  # on disk at once: a UI can follow it, and a crash keeps what happened so far
+            if on_event:
+                on_event(line)
+
+        log("start", request=request, model=model, prompt=prompt, effort=effort)
+        try:
+            for turn in range(max_turns):
+                if usd >= max_usd:
+                    stop = "max_usd"
+                    break
+                reply = call(model, PROMPTS[prompt], messages, effort)
+                turns += 1
+                used, price = tokens_of(reply.usage), cost(model, reply.usage)
+                tokens = {k: tokens[k] + used[k] for k in tokens}
+                usd += price
+                log("reply", turn=turn, stop_reason=reply.stop_reason, tokens=used, cost_usd=round(price, 5),
+                    text=text_of(reply.content))
+                messages.append({"role": "assistant", "content": reply.content})  # whole reply, thinking included
+                if reply.stop_reason != "tool_use":
+                    stop = reply.stop_reason
+                    break
+                results = []
+                for block in reply.content:
+                    if block.type == "tool_use":
+                        began = time.time()
+                        out = run_tool(root, block.name, block.input)
+                        extra = {"tests": test_counts(out["output"])} if block.name == "run_tests" else {}
+                        tests = extra.get("tests", tests)
+                        calls.append({"turn": turn, "tool": block.name, "ok": out["ok"]})
+                        log("tool", turn=turn, tool=block.name, input=block.input, ok=out["ok"], output=out["output"],
+                            seconds=round(time.time() - began, 2), **extra)
+                        results.append({"type": "tool_result", "tool_use_id": block.id, "content": out["output"],
+                                        "is_error": not out["ok"]})
+                messages.append({"role": "user", "content": results})  # all results of one turn in one message
+        except anthropic.AnthropicError as e:  # no key, network down, overloaded after the retries: report, do not crash
+            stop = f"error: {type(e).__name__}: {e}"[:300]
+        finally:
+            tools.stop_server(root)  # never leave a server running
+        last = messages[-1]["content"] if messages[-1]["role"] == "assistant" else []
+        run = {"request": request, "model": model, "prompt": prompt, "effort": effort, "stop": stop, "turns": turns,
+               "tool_calls": calls, "tokens": tokens, "cost_usd": round(usd, 4), "seconds": round(time.time() - start, 1),
+               "tests": tests, "summary": text_of(last)}
+        (root / "run.json").write_text(json.dumps(run, indent=2) + "\n")
+        log("end", **{k: run[k] for k in ("stop", "turns", "tokens", "cost_usd", "seconds", "tests")})
+    return run
