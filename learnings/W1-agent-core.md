@@ -8,9 +8,36 @@ Owner: Alice
 
 Plain words. What goes in, what comes out, why the system needs it.
 
+The agent is the "brain" of the system. **In:** a client's request in plain words, such as "I need a sign-up sheet for church events". **Out:** a folder with a working program (`app.py`) that does what the client asked, plus a short report of what it cost. Claude does the thinking, but it never touches the computer itself. It asks for actions ("write this file", "run the tests"), our code does them in Bernard's sandbox and tells Claude what happened, and this repeats until Claude says it is finished.
+
 ## 2. How it works, step by step
 
-A numbered walk-through using a real example from our system (e.g. the tailoring shop request). Paste real inputs and outputs. Add a diagram if it helps.
+The code is two files: `builder/__main__.py` (the command you type) and `builder/agent.py` (the loop).
+
+**The idea: a phone call with a builder who cannot see your computer.**
+1. We tell Claude the job: the client's request, plus fixed instructions (the *system prompt*): "write one file, `app.py`, with FastAPI; write tests; run them; fix `app.py` until they pass; add nothing the client did not ask for".
+2. We also give Claude a **menu of 8 tools**, Bernard's tools: write, read and edit a file, list files, run the tests, start the server, send it a request, stop it.
+3. Claude replies, either with a request for tools or with "I'm finished".
+4. If it asked for tools, our code runs each one **in the project folder that our code chose** (Claude never picks the folder, so it cannot write anywhere else), then sends back what happened. If the tool failed, the result is marked as an error.
+5. Repeat from step 3, at most 40 times, so it can never loop forever.
+6. At the end, always stop the server, then save a report (`build.json`): why it stopped, the tools used, the cost and the time.
+
+This loop is called **ReAct** (reason, then act, then look at the result). The team chose to write it by hand rather than use a library (decision 0003), so every line can be explained.
+
+**Safety nets in the loop:**
+- Claude asks for a tool that is not on the menu: it is told "Unknown tool" instead of the program crashing.
+- Claude fills a tool in wrongly: it is told "Bad arguments" and can try again.
+- The agent only ever reads `benchmark/<task>/request.md`, never the hidden tests (decision 0033).
+
+**Money savers:** every turn, Claude re-reads the whole conversation. *Prompt caching* makes the re-read part cost 10% of the normal price.
+
+**Real example (church sign-up, Nov 1):**
+```
+uv run --env-file .env --with anthropic python -m builder build church_signup --run s32_try1
+```
+Claude asked for 3 tools in its first reply (write `app.py`, write `tests/test_app.py`, run the tests). The tests passed, so its second reply was "finished". It took 25 seconds and cost $0.08. Joseph's harness then gave the program **10/10** hidden tests, 3 times out of 3.
+
+**The number to beat:** Joseph's baseline (one Claude call, no tools, no testing) already scores **89%** with Opus. It fails mostly on `momo_wallet` (3/13), `school_grades_gpa` (2/12, vague) and `shop_price_list` (11/13, vague). The agent is only worth it if it beats 89%.
 
 ## 3. Everything we tried (experiment log)
 
