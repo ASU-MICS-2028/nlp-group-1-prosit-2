@@ -18,13 +18,14 @@ p.add_argument("command", choices=["build"])
 p.add_argument("tasks", nargs="+")
 p.add_argument("--model", default="claude-opus-5-5")
 p.add_argument("--effort", default="medium")
+p.add_argument("--prompt", default="B", choices=["A", "B", "C", "D"])
 p.add_argument("--run", default="agent_v1")
 a = p.parse_args()
 
 for task in bench.task_names() if a.tasks == ["all"] else a.tasks:
     request = (bench.BENCH / task / "request.md").read_text().strip()
     root = Path("projects") / a.run / task
-    result = build(request, root, a.model, a.effort)
+    result = build(request, root, a.model, a.effort, a.prompt)
     (root / "build.json").write_text(json.dumps(result, indent=2) + "\n")
     print(f"{task:24} {result['stop']:9} {result['turns']:>2} turns {len(result['tool_calls']):>2} tools "
           f"${result['cost_usd']} {result['seconds']}s", flush=True)

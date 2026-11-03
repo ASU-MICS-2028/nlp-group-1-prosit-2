@@ -18,15 +18,30 @@ import anthropic
 from eval.llm import PRICES
 from runtime import tools
 
-SYSTEM = """You build backends for people who do not code. In the project folder, write ONE complete file, app.py,
+FILE = """You build backends for people who do not code. In the project folder, write ONE complete file, app.py,
 containing a FastAPI application in a variable named app. Use only fastapi, pydantic, sqlmodel and the Python standard
-library. Keep data in memory (or in a SQLite file in the current folder). Do everything the client asks, refuse what
-the client says must be refused with a 4xx status, and return JSON.
+library. """
+RULES = """Do everything the client asks, refuse what the client says must be refused with a 4xx status, and return
+JSON.
 
-You have tools to write files, run pytest and start the server. Work like this: write app.py; write tests in
+"""
+MEMORY = "Keep data in memory (or in a SQLite file in the current folder). "
+SQLITE = "Store the data with SQLModel in a SQLite file in the current folder, creating the tables when the app starts. "
+TESTED = """You have tools to write files, run pytest and start the server. Work like this: write app.py; write tests in
 tests/test_app.py that check every thing the client asked for (use fastapi.testclient.TestClient on app); run them
 and fix app.py until they pass. Do not add anything the client did not ask for. When the tests pass, reply with a
 short summary of the endpoints and stop."""
+UNTESTED = """Do not add anything the client did not ask for. When app.py is written, reply with a short summary of
+the endpoints and stop."""
+
+# The system prompts compared in S3.2 (learnings section 3). A was the first version; B, C and D each change one thing.
+PROMPTS = {
+    "A": FILE + MEMORY + RULES + TESTED,   # first version: data in memory
+    "B": FILE + SQLITE + RULES + TESTED,   # A, but data in SQLite as decision 0002 says
+    "C": """Build what the client asks as a FastAPI app in one file, app.py (variable app), storing data with SQLModel
+in SQLite. Test it with pytest and fix it until the tests pass, then summarize the endpoints.""",   # short
+    "D": FILE + SQLITE + RULES + UNTESTED,  # B without the "write and run your own tests" step
+}
 
 # One definition per tool (Bernard's section 6): the docstring is the description; root is never offered to the LLM.
 STRING = {"type": "string"}
@@ -48,11 +63,11 @@ TOOLS = [{"name": name, "description": getattr(tools, name).__doc__,
 _client = None
 
 
-def call(model, messages, effort):
+def call(model, system, messages, effort):
     """One request. Top-level cache_control caches the conversation so far: each turn re-reads it at 10% of the price."""
     global _client
     _client = _client or anthropic.Anthropic(api_key=os.environ["LLM_API_KEY"], max_retries=4)
-    args = dict(model=model, max_tokens=16000, system=SYSTEM, tools=TOOLS, messages=messages,
+    args = dict(model=model, max_tokens=16000, system=system, tools=TOOLS, messages=messages,
                 output_config={"effort": effort}, cache_control={"type": "ephemeral"})
     if model.startswith("claude-opus"):  # same refusal fallback as Joseph's eval.llm
         return _client.beta.messages.create(betas=["server-side-fallback-2026-07-01"], fallbacks="default", **args)
@@ -76,13 +91,20 @@ def run_tool(root, name, args):
         return {"ok": False, "output": f"Bad arguments for {name}: {e}"}
 
 
-def build(request, root, model="claude-opus-5-5", effort="medium", max_turns=40):
+def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", max_turns=40, max_usd=2.0):
+    """Run the loop. Stops when Claude finishes ("end_turn"), or at max_turns, max_usd or an error (always reported)."""
+    if not request.strip():  # nothing to build: do not pay for a call
+        return {"stop": "empty request", "turns": 0, "tool_calls": [], "cost_usd": 0.0, "seconds": 0.0, "summary": ""}
     Path(root).mkdir(parents=True, exist_ok=True)
     messages = [{"role": "user", "content": request}]
-    calls, usd, start, stop = [], 0.0, time.time(), "max_turns"
+    calls, usd, start, stop, turns = [], 0.0, time.time(), "max_turns", 0
     try:
         for turn in range(max_turns):
-            reply = call(model, messages, effort)
+            if usd >= max_usd:
+                stop = "max_usd"
+                break
+            reply = call(model, PROMPTS[prompt], messages, effort)
+            turns += 1
             usd += cost(model, reply.usage)
             messages.append({"role": "assistant", "content": reply.content})  # whole reply, thinking blocks included
             if reply.stop_reason != "tool_use":
@@ -96,8 +118,11 @@ def build(request, root, model="claude-opus-5-5", effort="medium", max_turns=40)
                     results.append({"type": "tool_result", "tool_use_id": block.id, "content": out["output"],
                                     "is_error": not out["ok"]})
             messages.append({"role": "user", "content": results})  # all results of one turn in one message
+    except anthropic.APIError as e:  # network down, bad key, overloaded after the retries: report it, do not crash
+        stop = f"error: {type(e).__name__}: {e}"[:300]
     finally:
         tools.stop_server(root)  # never leave a server running
-    summary = "".join(b.text for b in messages[-1]["content"] if getattr(b, "type", "") == "text")
-    return {"stop": stop, "turns": len(calls) and calls[-1]["turn"] + 1, "tool_calls": calls,
+    last = messages[-1]["content"] if messages[-1]["role"] == "assistant" else []
+    summary = "".join(b.text for b in last if getattr(b, "type", "") == "text")
+    return {"stop": stop, "turns": turns, "tool_calls": calls,
             "cost_usd": round(usd, 4), "seconds": round(time.time() - start, 1), "summary": summary}
