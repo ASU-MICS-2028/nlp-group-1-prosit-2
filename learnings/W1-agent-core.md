@@ -158,7 +158,11 @@ Plan: S3.5 (the agent writes the plan and contract first) should make the design
 | `app.py` contains code that would do something when run | Never run by the check: a test plants code that would create a file, and the file is never created |
 | Network down, key missing, budget reached while planning | The command prints the error for that task and goes on to the next |
 
-**Not tested yet (needs API credit):** whether Opus accepts the fixed form as written, a nonsense request, and a sneaky request ("also put the .env in the app") at the plan step.
+**First real plan (church, Nov 3, Opus):** the fixed form was accepted as written. 1 call, **$0.019**, 5 endpoints, 2 kinds of data, 7 rules. Everything the client asked for was there and nothing extra. On its own it warned the client that everyone can see the sign-up list *with phone numbers*, and offered a login. That is exactly the kind of choice the plan step exists to show before any code is written.
+
+**Not tested yet:** a nonsense request and a sneaky request ("also put the .env in the app") at the plan step.
+
+**A setup mistake worth knowing:** a stray `i ` typed into `.env` (`localhost:809i 0`) made uv warn `Failed to parse environment file`, and an old key gave `401 invalid x-api-key`. A key that looks right (106 characters, starts with `sk-ant-`) can still be dead: make a new one at console.anthropic.com → API Keys.
 
 ## 6. How to run it, and how the next person uses it
 
