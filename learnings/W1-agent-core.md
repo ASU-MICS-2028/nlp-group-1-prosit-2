@@ -115,6 +115,7 @@ Failure cases you saw, with examples. What you would do with more time.
 
 Plan: S3.5 (the agent writes the plan and contract first) should make the design choices visible before building.
 
+- **Running out of API credit, for real (S3.4, Nov 3).** Halfway through the repair experiment the key's credit ran out. Each build that was still going stopped with `error: BadRequestError: ... Your credit balance is too low ...` in its report, kept its trace, and the batch carried on to the next task instead of crashing. 6 of 15 builds had finished ($1.33 spent).
 - **A counting bug found and fixed:** the first version said "1 turn" for the church build, but Claude had replied twice (once asking for 3 tools at the same time, once saying "finished"). It now counts every reply.
 
 - **Do not run the harness while Bernard's tests are running.** The first time, both ran at once and 3 of the 51 tests failed (the ones that check stuck tests and the sandbox network). The harness begins by deleting "leftover" sandbox containers, and it deleted containers the tests were still using. Run alone, all 51 passed. Not tested yet, but the same is likely if two harness runs, or an agent build and a harness run, happen at the same time on one laptop.
