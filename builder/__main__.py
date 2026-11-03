@@ -19,12 +19,13 @@ p.add_argument("tasks", nargs="+")
 p.add_argument("--model", default="claude-opus-5-5")
 p.add_argument("--effort", default="medium")
 p.add_argument("--prompt", default="B", choices=["A", "B", "C", "D"])
+p.add_argument("--repairs", type=int, default=0, help="most repair rounds after the independent check")
 p.add_argument("--run", default="agent_v1")
 a = p.parse_args()
 
 for task in bench.task_names() if a.tasks == ["all"] else a.tasks:
     request = (bench.BENCH / task / "request.md").read_text().strip()
-    r = build(request, Path("projects") / a.run / task, a.model, a.effort, a.prompt)
+    r = build(request, Path("projects") / a.run / task, a.model, a.effort, a.prompt, max_repairs=a.repairs)
     tests = f"own tests {r['tests']['passed']} passed {r['tests']['failed']} failed" if r["tests"] else "own tests not run"
     print(f"{task:24} {r['stop']:9} {r['turns']:>2} turns {len(r['tool_calls']):>2} tools ${r['cost_usd']} "
-          f"{r['seconds']}s  {tests}", flush=True)
+          f"{r['seconds']}s  {tests}  repairs {r['repairs']}", flush=True)

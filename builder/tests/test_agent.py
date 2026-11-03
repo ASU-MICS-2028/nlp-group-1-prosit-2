@@ -127,3 +127,72 @@ def test_test_counts_reads_pytest_last_line():
     assert agent.test_counts("F..\n1 failed, 6 passed in 0.31s") == {"passed": 6, "failed": 1}
     assert agent.test_counts("E\n1 error in 0.05s") == {"passed": 0, "failed": 1}
     assert agent.test_counts("Tests stopped: still running after 60 seconds") == {"passed": 0, "failed": 0}
+
+
+# S3.4: the repair loop, with a pretend checker
+FAILED = {"ok": False, "output": "F.\n1 failed, 1 passed in 0.1s"}
+PASSED = {"ok": True, "output": "..\n2 passed in 0.1s"}
+
+
+def pretend_checker(monkeypatch, results):
+    """Make agent.check return these run_tests results in order (the last one forever). Returns the calls made."""
+    made = []
+
+    def fake_check(root, request, model, checks=None):
+        made.append((root / "app.py").read_text())
+        return "the checks", results[min(len(made), len(results)) - 1], 0.01
+    monkeypatch.setattr(agent, "check", fake_check)
+    return made
+
+
+def write_app(text):
+    return tool_reply("write_file", {"path": "app.py", "content": text})
+
+
+def test_failed_check_is_sent_back_and_fixed(monkeypatch, tmp_path):
+    made = pretend(monkeypatch, [write_app("v1"), done_reply(), write_app("v2"), done_reply()])
+    checked = pretend_checker(monkeypatch, [FAILED, PASSED])
+    result = agent.build("make an app", tmp_path, max_repairs=3)
+    assert checked == ["v1", "v2"] and result["repairs"] == 1 and result["stop"] == "end_turn"
+    assert "1 failed, 1 passed" in made[-1][4]["content"]  # the 5th message is the repair request
+    assert (tmp_path / "rounds/app_0.py").read_text() == "v1" and (tmp_path / "rounds/app_1.py").read_text() == "v2"
+    assert [e["event"] for e in read_trace(tmp_path)].count("check") == 2
+
+
+def test_repairs_stop_at_the_limit(monkeypatch, tmp_path):
+    replies = [write_app("v1"), done_reply(), write_app("v2"), done_reply(), write_app("v3"), done_reply()]
+    pretend(monkeypatch, replies)
+    pretend_checker(monkeypatch, [FAILED])
+    assert agent.build("make an app", tmp_path, max_repairs=2)["repairs"] == 2
+
+
+def test_no_check_when_repairs_are_off(monkeypatch, tmp_path):
+    pretend(monkeypatch, [write_app("v1"), done_reply()])
+    checked = pretend_checker(monkeypatch, [FAILED])
+    result = agent.build("make an app", tmp_path)
+    assert checked == [] and result["repairs"] == 0 and (tmp_path / "rounds/app_0.py").exists()
+
+
+def test_unchanged_app_is_not_checked_again(monkeypatch, tmp_path):
+    pretend(monkeypatch, [write_app("v1"), done_reply("That check asks for something the client did not want.")])
+    checked = pretend_checker(monkeypatch, [FAILED])
+    result = agent.build("make an app", tmp_path, max_repairs=5)
+    assert checked == ["v1"] and result["repairs"] == 1
+
+
+def test_broken_checker_is_not_sent_to_the_builder(monkeypatch, tmp_path):
+    pretend(monkeypatch, [write_app("v1"), done_reply()])
+    pretend_checker(monkeypatch, [{"ok": False, "output": "E\n1 error in 0.1s"}])  # nothing passed: the checks are broken
+    assert agent.build("make an app", tmp_path, max_repairs=3)["repairs"] == 0
+
+
+def test_check_restores_the_checks_and_empties_the_database(monkeypatch, tmp_path):
+    (tmp_path / "app.py").write_text("x = 1\n")
+    (tmp_path / "old.db").write_text("leftover data")
+    monkeypatch.setattr(agent, "ask", lambda *a, **k: ("```python\ndef test_x():\n    pass\n```", {"cost_usd": 0.02}))
+    monkeypatch.setattr(agent.tools, "run_tests", lambda root, path: PASSED)
+    checks, result, usd = agent.check(tmp_path, "make an app", "claude-opus-5-5")
+    assert checks == "def test_x():\n    pass\n" and usd == 0.02 and not (tmp_path / "old.db").exists()
+    (tmp_path / "tests/test_acceptance.py").write_text("def test_x(): pass  # the builder cheated")
+    agent.check(tmp_path, "make an app", "claude-opus-5-5", checks)
+    assert (tmp_path / "tests/test_acceptance.py").read_text() == checks

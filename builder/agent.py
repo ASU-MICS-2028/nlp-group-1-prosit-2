@@ -16,7 +16,7 @@ from pathlib import Path
 
 import anthropic
 
-from eval.llm import PRICES
+from eval.llm import PRICES, ask
 from runtime import tools
 
 FILE = """You build backends for people who do not code. In the project folder, write ONE complete file, app.py,
@@ -43,6 +43,20 @@ PROMPTS = {
 in SQLite. Test it with pytest and fix it until the tests pass, then summarize the endpoints.""",   # short
     "D": FILE + SQLITE + RULES + UNTESTED,  # B without the "write and run your own tests" step
 }
+
+# S3.4: a second Claude call checks the build against the request, because the builder's own tests never failed (0 of 58).
+CHECKER = """You check backends built for people who do not code. You get the client's request and the backend's app.py.
+Write pytest tests that check every thing the client asked for, judged ONLY by the request: if the code does something
+differently from what the client asked, the test must fail. Read app.py only to use its paths and field names.
+Rules: one file; use `from fastapi.testclient import TestClient` and `from app import app`; do not assume the database
+starts empty and do not let tests depend on each other (use unique names, e.g. with uuid); test only what the client
+asked for. Reply with the Python file only."""
+REPAIR = """An independent checker tested app.py against the client's request, and these checks failed:
+
+{output}
+
+Fix app.py so that what the client asked for works. Do not edit tests/test_acceptance.py. If a check asks for something
+the client did not ask for, leave it and say so. Run your tests again, then reply with a short summary and stop."""
 
 # One definition per tool (Bernard's section 6): the docstring is the description; root is never offered to the LLM.
 STRING = {"type": "string"}
@@ -113,16 +127,40 @@ def test_counts(output):
     return {"passed": found.get("passed", 0), "failed": found.get("failed", 0) + found.get("error", 0)}
 
 
-def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", max_turns=40, max_usd=2.0, on_event=None):
+def code_of(text):
+    """The Python code in a reply, without the ``` fences Claude may put around it."""
+    found = re.search(r"```(?:python)?\n(.*?)```", text, re.S)
+    return found.group(1) if found else text
+
+
+def check(root, request, model, checks=None):
+    """Run the independent checker's tests on app.py. checks is the test file's text; the first time it is None and a
+    separate Claude call writes it from the request. Returns (checks, run_tests result, cost in US dollars)."""
+    usd = 0.0
+    if checks is None:
+        text, info = ask(model, CHECKER, f"The client's request:\n{request}\n\napp.py:\n{(root / 'app.py').read_text()}")
+        checks, usd = code_of(text), info["cost_usd"]
+    tools.write_file(root, "tests/test_acceptance.py", checks)  # put the original back, in case the builder changed it
+    for db in root.glob("*.db"):  # start from an empty database, as the harness does
+        db.unlink()
+    return checks, tools.run_tests(root, "tests/test_acceptance.py"), usd
+
+
+def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", max_turns=40, max_usd=2.0, on_event=None,
+          max_repairs=0):
     """Run the loop. Stops when Claude finishes ("end_turn"), or at max_turns, max_usd or an error (always reported).
 
-    Writes two files in root: trace.jsonl, one line per event as it happens (start, reply, tool, end), and run.json,
-    the totals. on_event, if given, is called with every event too, so a UI can show the build live."""
+    With max_repairs > 0, each time Claude finishes, an independent checker tests app.py against the request; failures
+    are sent back to Claude to fix, at most max_repairs times. app.py is saved after every round as rounds/app_N.py.
+
+    Writes two files in root: trace.jsonl, one line per event as it happens (start, reply, tool, check, end), and
+    run.json, the totals. on_event, if given, is called with every event too, so a UI can show the build live."""
     root = Path(root)
     root.mkdir(parents=True, exist_ok=True)
     start = time.time()
     messages = [{"role": "user", "content": request}]
     calls, usd, stop, turns, tests = [], 0.0, "max_turns", 0, None
+    repairs, checks, checked = 0, None, None  # repairs used, the checker's test file, the app.py it last checked
     tokens = {"in": 0, "out": 0, "cache_write": 0, "cache_read": 0}
     if not request.strip():  # nothing to build: do not pay for a call
         stop, max_turns = "empty request", 0
@@ -151,6 +189,22 @@ def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", m
                 messages.append({"role": "assistant", "content": reply.content})  # whole reply, thinking included
                 if reply.stop_reason != "tool_use":
                     stop = reply.stop_reason
+                    app = root / "app.py"
+                    if stop == "end_turn" and app.exists():
+                        (root / "rounds").mkdir(exist_ok=True)
+                        (root / "rounds" / f"app_{repairs}.py").write_text(app.read_text())
+                    # check only if repairs are left and app.py changed since the last check (else nothing new to test)
+                    if stop == "end_turn" and repairs < max_repairs and app.exists() and app.read_text() != checked:
+                        checked = app.read_text()
+                        checks, result, price = check(root, request, model, checks)
+                        usd += price
+                        counts = test_counts(result["output"])
+                        log("check", round=repairs, ok=result["ok"], tests=counts, output=result["output"],
+                            cost_usd=round(price, 5))
+                        if not result["ok"] and counts["passed"] > 0:  # if no check passes, the checker is likely wrong
+                            repairs += 1
+                            messages.append({"role": "user", "content": REPAIR.format(output=result["output"])})
+                            continue
                     break
                 results = []
                 for block in reply.content:
@@ -171,8 +225,8 @@ def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", m
             tools.stop_server(root)  # never leave a server running
         last = messages[-1]["content"] if messages[-1]["role"] == "assistant" else []
         run = {"request": request, "model": model, "prompt": prompt, "effort": effort, "stop": stop, "turns": turns,
-               "tool_calls": calls, "tokens": tokens, "cost_usd": round(usd, 4), "seconds": round(time.time() - start, 1),
+               "repairs": repairs, "tool_calls": calls, "tokens": tokens, "cost_usd": round(usd, 4), "seconds": round(time.time() - start, 1),
                "tests": tests, "summary": text_of(last)}
         (root / "run.json").write_text(json.dumps(run, indent=2) + "\n")
-        log("end", **{k: run[k] for k in ("stop", "turns", "tokens", "cost_usd", "seconds", "tests")})
+        log("end", **{k: run[k] for k in ("stop", "turns", "repairs", "tokens", "cost_usd", "seconds", "tests")})
     return run
