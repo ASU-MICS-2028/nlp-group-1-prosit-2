@@ -7,8 +7,8 @@
 
 | Task | Who | Status |
 |---|---|---|
-| S3.4 Test-and-repair loop | Alice (W1) | 🔵 ready |
-| S3.5 Spec-first plan and approval | Alice (W1) | 🔵 ready |
+| S3.4 Test-and-repair loop | Alice (W1) | 🟡 doing |
+| S3.5 Spec-first plan and approval | Alice (W1) | 🟡 doing |
 | S3.6 Planner / Builder / Tester split | Alice (W1) | ⏳ waiting (on S3.4) |
 | S3.7 Retrieval in the agent | Alice (W1) | 🔵 ready |
 | S3.8 Clarifying questions | Alice (W1) | ⏳ waiting (on S3.5) |
