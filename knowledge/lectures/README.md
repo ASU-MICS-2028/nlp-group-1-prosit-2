@@ -12,5 +12,6 @@ Summarized from the lecture recordings. Each file says what was covered, what th
 | [lecture-05.md](lecture-05.md) | Transformers and LLM training | Instruction tuning (a), embeddings, token pricing |
 | [lecture-06.md](lecture-06.md) | Alignment and parameter-efficient fine-tuning | Alignment and 3H (c), preference learning (b), LoRA maths, RL basics for RLHF (j) |
 | [lecture-07.md](lecture-07.md) | Trusting generative AI; Prosit 2 check-in | Viva rule: explain any code you submit; minimal code (attack surface); length roughly as Prosit 1; groups behind timeline. Coding agents (m), human-in-the-loop (l), security (k) |
+| [lecture-08.md](lecture-08.md) | **Frontend, backend and agent; what Prosit 2 must deliver** | **Read this.** The output is a hosted, running backend with a real database, returned as its link and endpoints (Swagger is fine). The page talks to our backend, never to the agent directly. The agent loop runs until the tests pass and must take follow-up messages mid-build. Tools, MCP, frameworks (LangGraph, ADK) are advised but optional. Agentic AI (f), multi-agent (g), security (k), human-in-the-loop (l), ReAct (n), tools (o) |
 
 Before citing anything from these summaries in a report, check it against the textbook or the original paper. Recordings are imperfect.

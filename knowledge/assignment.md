@@ -46,7 +46,7 @@ Section B must cover:
 
 ## Deadline
 
-**We are working with no fixed deadline** (team decision, Oct 21; see [decision 0013](../docs/decisions/0013-relay.md)). For reference, the course schedule puts **Close Prosit 2 in Week 7 (Oct 19–23, 2026)**: technical presentations, technical report, viva quiz and Quiz 2. The exact days are not in the brief. Week 8 (Oct 26–30) is the mid-semester break.
+**There is no fixed deadline**: the instructor confirmed it (relayed by a team member, Nov 3). The team is aiming to finish the week of Nov 9. For reference, the course schedule had put **Close Prosit 2 in Week 7 (Oct 19–23, 2026)**, and Week 8 (Oct 26–30) was the mid-semester break.
 
 For Prosit 1, the instructor said there would be no extensions, but late submissions would not be penalised. Do not assume the same applies to Prosit 2.
 
@@ -57,6 +57,8 @@ From the [lecture summaries](lectures/README.md). Recordings are imperfect, so c
 - **Lecture 4 (the Prosit 2 launch):** Section A is 3–5 pages **in total** and should be told as one story, from next-token prediction to agents, not as 18 separate answers. The instructor said projects will "most likely" use dense retrieval. If we use BM25, be ready to defend that with our comparison numbers.
 - **Lecture 1:** each prosit is graded 20% presentation, 45% report, 35% viva. The repo must be public. Section A must be in your own words, and every member must understand the code.
 - **Lecture 7:** you must be able to explain **any code you submit**. Last year's viva was 5 minutes on one code file picked at random; this year's method will be "better" but was not described. The instructor advised submitting the **smallest code that works**: "code is liability", and more code means a bigger attack surface. Prosit 2's write-up should be roughly the length of Prosit 1's.
+- **Lecture 8:** the platform's output is a **fully working backend that we host**, with a real database. The agent returns its link and its endpoints (Swagger docs are fine), and requests sent to it must work. The prompt page talks to our backend, never directly to the agent. The agent loop runs until the tests pass and must take follow-up messages during a build. A framework (LangGraph, Google ADK) is advised over pure Python, but it is our choice.
+- **Instructor's answers to our questions** (relayed by a team member, Nov 3): the built backend must be **hosted publicly**, not only on a laptop. **SQLite is fine**: "anything you want so far as we get the results". There is no fixed deadline.
 - **Lecture 2:** the shared sections must be identical across the group, and each student submits their own document. The next prosit only unlocks once you submit.
 
 ## Report conventions the instructor asked for (Prosit 1, likely the same now)
