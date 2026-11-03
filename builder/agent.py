@@ -8,6 +8,7 @@ folder (the LLM never chooses root); send the results back, marked as errors whe
 answers without asking for a tool, or after max_turns. Every run leaves trace.jsonl and run.json in the folder (S3.3).
 """
 
+import ast
 import json
 import os
 import re
@@ -57,6 +58,25 @@ REPAIR = """An independent checker tested app.py against the client's request, a
 
 Fix app.py so that what the client asked for works. Do not edit tests/test_acceptance.py. If a check asks for something
 the client did not ask for, leave it and say so. Run your tests again, then reply with a short summary and stop."""
+
+# S3.5: spec-first (decision 0004). One Claude call with no tools writes a plan; nothing is built until it is approved.
+PLANNER = """You plan backends for people who do not code. Read the client's request and write the plan they will read
+and approve before anything is built: what data is kept, the endpoints (method, path, and what each does, in plain
+words), and the rules (what must be refused). Plan only what the client asked for. If part of the request is unsafe or
+not about the backend, leave it out and say so in the summary. Write for someone who has never programmed."""
+WORDS = {"type": "array", "items": {"type": "string"}}
+PLAN_SCHEMA = {  # structured output: the reply is guaranteed to have exactly these parts
+    "type": "object", "additionalProperties": False, "required": ["summary", "data", "endpoints", "rules"],
+    "properties": {
+        "summary": {"type": "string"},
+        "data": {"type": "array", "items": {"type": "object", "additionalProperties": False, "required": ["name", "fields"],
+                                            "properties": {"name": {"type": "string"}, "fields": WORDS}}},
+        "endpoints": {"type": "array", "items": {
+            "type": "object", "additionalProperties": False, "required": ["method", "path", "does"],
+            "properties": {"method": {"enum": ["GET", "POST", "PUT", "PATCH", "DELETE"]}, "path": {"type": "string"},
+                           "does": {"type": "string"}}}},
+        "rules": WORDS}}
+FOLLOW = "\n\nThe client approved this plan. Build exactly these endpoints, with these paths:\n{plan}"
 
 # One definition per tool (Bernard's section 6): the docstring is the description; root is never offered to the LLM.
 STRING = {"type": "string"}
@@ -146,19 +166,75 @@ def check(root, request, model, checks=None):
     return checks, tools.run_tests(root, "tests/test_acceptance.py"), usd
 
 
+def make_plan(request, model="claude-opus-5-5", old=None, changes=None):
+    """Draft a plan (S3.5), or redo the old plan with the client's changes. Returns (plan dict, cost in US dollars)."""
+    if not request.strip():
+        raise ValueError("empty request")
+    user = f"The client's request:\n{request}"
+    if old:
+        user += f"\n\nYour previous plan:\n{json.dumps(old)}\n\nThe client wants these changes:\n{changes}"
+    text, info = ask(model, PLANNER, user, schema=PLAN_SCHEMA)
+    return json.loads(text), info["cost_usd"]
+
+
+def plan_text(plan):
+    """The plan in plain words, for the client to read."""
+    lines = [plan["summary"], "", "What is kept:"]
+    lines += [f"- {d['name']}: {', '.join(d['fields'])}" for d in plan["data"]]
+    lines += ["", "What you can do:"] + [f"- {e['does']}  ({e['method']} {e['path']})" for e in plan["endpoints"]]
+    lines += ["", "Rules:"] + [f"- {r}" for r in plan["rules"] or ["none"]]
+    return "\n".join(lines)
+
+
+def load_plan(root):
+    """The approved plan saved in root/plan.json. Raises ValueError if there is none or it is broken: no plan, no build."""
+    try:
+        plan = json.loads((Path(root) / "plan.json").read_text())
+        plan_text(plan)  # every part a plan needs is there, with the right shape
+        return plan
+    except FileNotFoundError:
+        raise ValueError("no approved plan: run the plan command first") from None
+    except (ValueError, KeyError, TypeError) as e:
+        raise ValueError(f"plan.json is broken ({type(e).__name__}): run the plan command again") from None
+
+
+def endpoint(method, path):
+    """'GET /events/{event_id}/' -> 'GET /events/{}': names inside {} and a last / do not change the endpoint."""
+    return f"{method.upper()} {re.sub(r'{[^}]*}', '{}', path).rstrip('/') or '/'}"
+
+
+def routes_of(code):
+    """The endpoints in app.py, found by READING it (never running it): decorators like @app.get("/events").
+    Does not see APIRouter prefixes. A file that is not valid Python has none."""
+    try:
+        tree = ast.parse(code)
+    except SyntaxError:
+        return set()
+    return {endpoint(d.func.attr, d.args[0].value) for node in ast.walk(tree) for d in getattr(node, "decorator_list", [])
+            if isinstance(d, ast.Call) and isinstance(d.func, ast.Attribute) and d.func.attr in ("get", "post", "put", "patch", "delete")
+            and d.args and isinstance(d.args[0], ast.Constant) and isinstance(d.args[0].value, str)}
+
+
+def follows_plan(code, plan):
+    """Which planned endpoints app.py lacks, and which it has that were not planned."""
+    planned, built = {endpoint(e["method"], e["path"]) for e in plan["endpoints"]}, routes_of(code)
+    return {"missing": sorted(planned - built), "extra": sorted(built - planned)}
+
+
 def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", max_turns=40, max_usd=2.0, on_event=None,
-          max_repairs=0):
+          max_repairs=0, plan=None):
     """Run the loop. Stops when Claude finishes ("end_turn"), or at max_turns, max_usd or an error (always reported).
 
     With max_repairs > 0, each time Claude finishes, an independent checker tests app.py against the request; failures
     are sent back to Claude to fix, at most max_repairs times. app.py is saved after every round as rounds/app_N.py.
+    With plan (an approved plan from make_plan), Claude gets the request plus the plan; the checker still sees only the request.
 
     Writes two files in root: trace.jsonl, one line per event as it happens (start, reply, tool, check, end), and
     run.json, the totals. on_event, if given, is called with every event too, so a UI can show the build live."""
     root = Path(root)
     root.mkdir(parents=True, exist_ok=True)
     start = time.time()
-    messages = [{"role": "user", "content": request}]
+    messages = [{"role": "user", "content": request + (FOLLOW.format(plan=json.dumps(plan, indent=1)) if plan else "")}]
     calls, usd, stop, turns, tests = [], 0.0, "max_turns", 0, None
     repairs, checks, checked = 0, None, None  # repairs used, the checker's test file, the app.py it last checked
     tokens = {"in": 0, "out": 0, "cache_write": 0, "cache_read": 0}
@@ -173,7 +249,7 @@ def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", m
             if on_event:
                 on_event(line)
 
-        log("start", request=request, model=model, prompt=prompt, effort=effort)
+        log("start", request=request, model=model, prompt=prompt, effort=effort, plan=plan)
         try:
             for turn in range(max_turns):
                 if usd >= max_usd:
@@ -226,7 +302,8 @@ def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", m
         last = messages[-1]["content"] if messages[-1]["role"] == "assistant" else []
         run = {"request": request, "model": model, "prompt": prompt, "effort": effort, "stop": stop, "turns": turns,
                "repairs": repairs, "tool_calls": calls, "tokens": tokens, "cost_usd": round(usd, 4), "seconds": round(time.time() - start, 1),
-               "tests": tests, "summary": text_of(last)}
+               "tests": tests, "summary": text_of(last), "plan": plan,
+               "follows_plan": follows_plan((root / "app.py").read_text(), plan) if plan and (root / "app.py").exists() else None}
         (root / "run.json").write_text(json.dumps(run, indent=2) + "\n")
         log("end", **{k: run[k] for k in ("stop", "turns", "repairs", "tokens", "cost_usd", "seconds", "tests")})
     return run

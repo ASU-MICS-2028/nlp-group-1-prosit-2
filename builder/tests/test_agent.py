@@ -196,3 +196,132 @@ def test_check_restores_the_checks_and_empties_the_database(monkeypatch, tmp_pat
     (tmp_path / "tests/test_acceptance.py").write_text("def test_x(): pass  # the builder cheated")
     agent.check(tmp_path, "make an app", "claude-opus-5-5", checks)
     assert (tmp_path / "tests/test_acceptance.py").read_text() == checks
+
+
+# S3.5: spec-first, with a pretend planner
+PLAN = {"summary": "Sign people up for church events.",
+        "data": [{"name": "Event", "fields": ["name", "date", "capacity"]}],
+        "endpoints": [{"method": "POST", "path": "/events", "does": "Add an event"},
+                      {"method": "GET", "path": "/events/{event_id}", "does": "Look at one event"}],
+        "rules": ["Nobody can sign up once an event is full"]}
+
+
+def pretend_planner(monkeypatch, plans):
+    """Make agent.ask return these plans in order as JSON text. Returns the (system, user, schema) of each call."""
+    made = []
+
+    def fake_ask(model, system, user, effort="medium", schema=None):
+        made.append((system, user, schema))
+        return json.dumps(plans[len(made) - 1]), {"cost_usd": 0.01}
+    monkeypatch.setattr(agent, "ask", fake_ask)
+    return made
+
+
+def test_plan_of_empty_request_costs_nothing(monkeypatch):
+    made = pretend_planner(monkeypatch, [PLAN])
+    try:
+        agent.make_plan("  ")
+        assert False, "should refuse"
+    except ValueError as e:
+        assert "empty" in str(e) and made == []
+
+
+def test_plan_uses_the_fixed_form_and_changes_resend_the_old_plan(monkeypatch):
+    made = pretend_planner(monkeypatch, [PLAN, PLAN])
+    plan, usd = agent.make_plan("church events")
+    assert plan == PLAN and usd == 0.01 and made[0][2] == agent.PLAN_SCHEMA
+    agent.make_plan("church events", old=plan, changes="add a phone number")
+    assert "Look at one event" in made[1][1] and "add a phone number" in made[1][1]
+
+
+def test_plan_text_is_plain_words():
+    text = agent.plan_text(PLAN)
+    assert "- Event: name, date, capacity" in text and "- Add an event  (POST /events)" in text
+    assert "- Nobody can sign up once an event is full" in text
+    assert "Rules:\n- none" in agent.plan_text({**PLAN, "rules": []})
+
+
+APP = '''
+from fastapi import FastAPI
+app = FastAPI()
+@app.post("/events/")
+def add(): ...
+@app.get("/events/{id}")
+def one(id: int): ...
+@app.delete("/events/{id}")
+def remove(id: int): ...
+'''
+
+
+def test_follows_plan_ignores_names_in_braces_and_last_slash():
+    assert agent.follows_plan(APP, PLAN) == {"missing": [], "extra": ["DELETE /events/{}"]}
+    assert agent.follows_plan("def broken(:", PLAN) == {"missing": ["GET /events/{}", "POST /events"], "extra": []}
+
+
+def test_reading_routes_never_runs_the_code(tmp_path):
+    bomb = tmp_path / "ran.txt"
+    agent.routes_of(f"open({str(bomb)!r}, 'w')\n" + APP)
+    assert not bomb.exists()
+
+
+def test_build_with_plan_sends_it_and_records_whether_it_was_followed(monkeypatch, tmp_path):
+    made = pretend(monkeypatch, [tool_reply("write_file", {"path": "app.py", "content": APP}), done_reply()])
+    result = agent.build("church events", tmp_path, plan=PLAN)
+    assert made[0][0]["content"].startswith("church events\n\nThe client approved this plan")
+    assert "/events/{event_id}" in made[0][0]["content"]
+    assert result["plan"] == PLAN and result["follows_plan"]["extra"] == ["DELETE /events/{}"]
+    assert read_trace(tmp_path)[0]["plan"] == PLAN
+
+
+def test_build_without_plan_is_unchanged(monkeypatch, tmp_path):
+    made = pretend(monkeypatch, [done_reply()])
+    result = agent.build("church events", tmp_path)
+    assert made[0][0]["content"] == "church events" and result["plan"] is None and result["follows_plan"] is None
+
+
+def test_no_build_without_a_good_plan_file(tmp_path):
+    for content, says in [(None, "no approved plan"), ("{not json", "broken"), ('{"summary": "x"}', "broken"),
+                          ('{"summary": "x", "data": 5, "endpoints": [], "rules": []}', "broken")]:
+        if content is not None:
+            (tmp_path / "plan.json").write_text(content)
+        try:
+            agent.load_plan(tmp_path)
+            assert False, content
+        except ValueError as e:
+            assert says in str(e)
+    (tmp_path / "plan.json").write_text(json.dumps(PLAN))
+    assert agent.load_plan(tmp_path) == PLAN
+
+
+def run_cli(monkeypatch, tmp_path, args, answers):
+    """Run `python -m builder ...` in tmp_path with these answers typed at the approval question."""
+    import runpy
+    import sys
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(sys, "argv", ["builder", *args])
+    typed = iter(answers)
+    monkeypatch.setattr("builtins.input", lambda prompt: next(typed))
+    runpy.run_module("builder", run_name="__main__")
+    return tmp_path / "projects" / "t" / "church_signup"
+
+
+def test_cli_change_then_approve_saves_the_changed_plan(monkeypatch, tmp_path):
+    changed = {**PLAN, "summary": "With phone numbers."}
+    made = pretend_planner(monkeypatch, [PLAN, changed])
+    root = run_cli(monkeypatch, tmp_path, ["plan", "church_signup", "--run", "t"], ["add a phone number", "y"])
+    assert len(made) == 2 and json.loads((root / "plan.json").read_text()) == changed
+
+
+def test_cli_saying_no_removes_an_older_approval(monkeypatch, tmp_path):
+    pretend_planner(monkeypatch, [PLAN])
+    old = tmp_path / "projects" / "t" / "church_signup"
+    old.mkdir(parents=True)
+    (old / "plan.json").write_text(json.dumps(PLAN))
+    run_cli(monkeypatch, tmp_path, ["plan", "church_signup", "--run", "t"], ["n"])
+    assert not (old / "plan.json").exists()
+
+
+def test_cli_build_with_plan_flag_refuses_without_a_plan(monkeypatch, tmp_path, capsys):
+    made = pretend(monkeypatch, [done_reply()])
+    root = run_cli(monkeypatch, tmp_path, ["build", "church_signup", "--plan", "--run", "t"], [])
+    assert "not built: no approved plan" in capsys.readouterr().out and made == [] and not root.exists()

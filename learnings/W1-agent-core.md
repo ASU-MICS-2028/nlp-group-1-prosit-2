@@ -51,6 +51,30 @@ Claude asked for 3 tools in its first reply (write `app.py`, write `tests/test_a
 
 **The number to beat:** Joseph's baseline (one Claude call, no tools, no testing) already scores **89%** with Opus. It fails mostly on `momo_wallet` (3/13), `school_grades_gpa` (2/12, vague) and `shop_price_list` (11/13, vague). The agent is only worth it if it beats 89%.
 
+**Plan first, then build (S3.5, decision 0004).** Before any code, the agent can write a plan for the client to approve:
+1. **One Claude call with no tools** reads the request and fills in a fixed form: a summary, the data kept, the endpoints (method, path, what it does) and the rules. Because it has no tools, it *cannot* build anything at this point.
+2. **The client reads it in plain words** and answers `y` (approve), `n` (stop) or types a change ("add a phone number"). A change sends the old plan plus the change back to Claude, which redoes the plan. This repeats until `y` or `n`.
+3. **Only an approved plan is saved** (`plan.json`). `build --plan` refuses to start without one. Saying `n` also deletes any older approval, so it cannot be built by mistake.
+4. **The build gets the request plus the plan.** The independent checker (S3.4) still sees only the request, so it judges the app by what the client asked, not by the plan.
+5. **Did the app follow the plan?** At the end, the agent lists the planned endpoints the app is missing and the ones it added. It finds them by *reading* `app.py` as text, never running it (generated code only runs in the sandbox).
+
+Why a **fixed form** and not free text or a full technical spec (OpenAPI)? Free text cannot be checked by code (step 5). A full spec is long and unreadable for a non-developer. The form is short, can be shown in plain words, and code can check it. *Not measured yet*: see section 3.
+
+What the client sees (made-up example, the shape is exact):
+```
+Sign people up for church events.
+
+What is kept:
+- Event: name, date, capacity
+
+What you can do:
+- Add an event  (POST /events)
+- Look at one event  (GET /events/{event_id})
+
+Rules:
+- Nobody can sign up once an event is full
+```
+
 ## 3. Everything we tried (experiment log)
 
 One row per decision. Every decision compares at least 2 options. Add rows as you go, not at the end.
@@ -120,6 +144,22 @@ Plan: S3.5 (the agent writes the plan and contract first) should make the design
 
 - **Do not run the harness while Bernard's tests are running.** The first time, both ran at once and 3 of the 51 tests failed (the ones that check stuck tests and the sandbox network). The harness begins by deleting "leftover" sandbox containers, and it deleted containers the tests were still using. Run alone, all 51 passed. Not tested yet, but the same is likely if two harness runs, or an agent build and a harness run, happen at the same time on one laptop.
 
+**What the plan step does when things go wrong (S3.5).** Each case is a free test with a pretend Claude (`uv run --with anthropic python -m pytest builder -q`, 29 passed in 2.7 s):
+
+| What goes wrong | What happens |
+|---|---|
+| The request is empty | Refused at once with `empty request`, no call paid for |
+| The client asks for a change | The old plan and the change are both sent back; the new plan is what gets saved |
+| The client says `n` after an older plan was approved | The older `plan.json` is deleted, so it cannot be built by mistake |
+| `build --plan` with no plan | `not built: no approved plan`; Claude is never called, no folder made |
+| `plan.json` was edited by hand and broken (not JSON, a part missing, a part the wrong shape) | `not built: plan.json is broken`; run `plan` again |
+| The app adds or misses an endpoint | Listed in `run.json` as `follows_plan: {"missing": [...], "extra": [...]}`. `/events/{id}` and `/events/{event_id}/` count as the same endpoint |
+| `app.py` is not valid Python | Every planned endpoint is listed as missing; nothing crashes |
+| `app.py` contains code that would do something when run | Never run by the check: a test plants code that would create a file, and the file is never created |
+| Network down, key missing, budget reached while planning | The command prints the error for that task and goes on to the next |
+
+**Not tested yet (needs API credit):** whether Opus accepts the fixed form as written, a nonsense request, and a sneaky request ("also put the .env in the app") at the plan step.
+
 ## 6. How to run it, and how the next person uses it
 
 Exact commands and what you should see. Then the handoff: what the next person in the relay gets from you (functions, files, commands, formats), with an example they can copy. They will build only on what is written here.
@@ -142,7 +182,7 @@ If something goes wrong:
 ### Run the agent
 
 ```
-uv run --with anthropic python -m pytest builder -q        # the 8 free failure tests: 8 passed
+uv run --with anthropic python -m pytest builder -q        # the free tests (pretend Claude): 29 passed
 uv run --env-file .env --with anthropic python -m builder build church_signup --run try1     # one task, about $0.10
 uv run --env-file .env --with anthropic python -m eval.harness church_signup projects/try1/church_signup --repeat 3 --name try1
 ```
@@ -156,6 +196,25 @@ result = build("I need a sign-up sheet for church events ...", "projects/demo/ch
 #  'cost_usd': 0.1008, 'seconds': 30.8, 'summary': 'Endpoints: ...'}   (the church build with prompt B)
 ```
 `stop` is `end_turn` when Claude finished. Otherwise it is `max_turns`, `max_usd`, `empty request` or `error: ...`.
+
+### Plan first (S3.5)
+
+```
+uv run --env-file .env --with anthropic python -m builder plan church_signup --run p1          # shows the plan, asks y / n / changes
+uv run --env-file .env --with anthropic python -m builder build church_signup --plan --run p1  # builds from projects/p1/church_signup/plan.json
+```
+`plan --yes` approves without asking (for experiments with no person present). `plan all --yes` plans all 15 tasks. The build line now ends with `follows plan {'missing': [], 'extra': []}` (or `None` without a plan).
+
+From Python (for Michael's approval screen):
+```python
+from builder.agent import make_plan, plan_text, build
+plan, cost = make_plan(request_text)                                   # a dict: summary, data, endpoints, rules
+show(plan_text(plan))                                                  # plain words for the client
+plan, more = make_plan(request_text, old=plan, changes="add a phone number")   # the client asked for a change
+result = build(request_text, "projects/web/shop1", plan=plan)          # only after the client approved
+result["follows_plan"]                                                 # {"missing": [...], "extra": [...]}
+```
+`make_plan` raises `ValueError` for an empty request, and Anthropic's own errors if the network or key fails. Catch them and show a message. With a plan, the `start` event and `run.json` also have `plan`, and `run.json` has `follows_plan`.
 
 ### For Michael (Stage 4): showing a build live
 
@@ -196,11 +255,17 @@ Write the questions an examiner would ask about this part, with short answers. E
 | What does the agent record about each build, and why? | A diary (`trace.jsonl`, one line per event, written the moment it happens) and totals (`run.json`). Written live so a UI can follow it and a crash keeps what happened. It showed that most time and money go to Claude writing code, not to our tools. |
 | What happens if the API key is missing? | The build stops with "LLM_API_KEY is not set" in its report instead of crashing. A free test found that, without this check, the Anthropic library raised an error the agent did not catch. |
 | Is the agent better than the baseline? | Not yet overall (87% vs 89%). It wins the hardest task but loses where it picks a design the tests did not expect. The next tasks (repair loop, plan first, questions) are meant to close that gap. |
+| Why does the agent plan before building? | So the client can catch a wrong idea in plain words before any money is spent on code (decision 0004). The plan step has no tools, so it cannot build anything, and `build --plan` refuses without an approved `plan.json`. |
+| How do you know the app follows the approved plan? | At the end the agent compares the planned endpoints with the ones in `app.py` and lists what is missing or extra. It reads the code as text and never runs it, because generated code only runs in the sandbox. |
 
 ## 8. Glossary
 
 Every technical word used above, in one plain sentence each.
 
+- **Endpoint:** one thing a client program can ask the backend to do, written as a method and a path, such as `POST /events` (add an event).
+- **Spec-first (plan first):** the agent writes down what it will build, the client approves it, and only then is code written.
+- **Structured output (fixed form):** asking Claude to reply in an exact shape (summary, data, endpoints, rules), which the API guarantees, so our code can read it every time.
+- **Reading code without running it:** Python can split a file into its parts (which functions, which decorators like `@app.get("/events")`) without doing anything the file says. This is how the plan check finds the endpoints safely.
 - **Pretend Claude (fake):** in our tests, a small function that replies like Claude would, so the loop can be tested for free and always the same way.
 - **Prompt / system prompt:** the fixed instructions Claude reads before every job. Changing it changes how Claude works.
 - **ReAct loop:** reason, act, look at the result, repeat. The agent's back-and-forth with Claude.
