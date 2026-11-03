@@ -1,0 +1,643 @@
+{
+  "args": {
+    "task": "all",
+    "folder": "projects/s32_B",
+    "references": false,
+    "workers": 4,
+    "repeat": 3,
+    "name": "s32_B"
+  },
+  "seconds": 48.1,
+  "rows": [
+    {
+      "task": "church_signup",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/church_signup",
+      "passed": 10,
+      "total": 10,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.01654,
+      "seconds": 7.4
+    },
+    {
+      "task": "clinic_appointments",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/clinic_appointments",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.01883,
+      "seconds": 6.9
+    },
+    {
+      "task": "football_fixtures",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/football_fixtures",
+      "passed": 9,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_fixture_keeps_its_teams_and_date",
+        "test_new_fixture_has_no_score_yet",
+        "test_recorded_score_is_kept_for_each_side",
+        "test_negative_score_is_refused"
+      ],
+      "error": "",
+      "map_cost_usd": 0.01957,
+      "seconds": 7.9
+    },
+    {
+      "task": "hostel_booking",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/hostel_booking",
+      "passed": 15,
+      "total": 15,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.02046,
+      "seconds": 9.4
+    },
+    {
+      "task": "library_catalogue",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/library_catalogue",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.01681,
+      "seconds": 6.9
+    },
+    {
+      "task": "lost_and_found",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/lost_and_found",
+      "passed": 12,
+      "total": 12,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0195,
+      "seconds": 6.6
+    },
+    {
+      "task": "market_stock",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/market_stock",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.01665,
+      "seconds": 6.3
+    },
+    {
+      "task": "momo_wallet",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/momo_wallet",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.02382,
+      "seconds": 8.0
+    },
+    {
+      "task": "restaurant_reservations",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/restaurant_reservations",
+      "passed": 5,
+      "total": 12,
+      "started": true,
+      "failing": [
+        "test_reservation_appears_on_its_date",
+        "test_list_for_a_date_leaves_out_other_dates",
+        "test_party_equal_to_seats_is_allowed",
+        "test_party_bigger_than_seats_is_refused",
+        "test_same_table_same_date_and_time_is_refused",
+        "test_same_table_other_time_or_date_is_allowed",
+        "test_other_table_same_date_and_time_is_allowed"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0182,
+      "seconds": 6.8
+    },
+    {
+      "task": "school_grades_gpa",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/school_grades_gpa",
+      "passed": 3,
+      "total": 12,
+      "started": true,
+      "failing": [
+        "test_create_student_and_course",
+        "test_score_appears_in_results_with_grade",
+        "test_grading_scale_bands",
+        "test_grading_scale_boundaries",
+        "test_gpa_is_weighted_by_credit_hours",
+        "test_gpa_is_rounded_to_two_decimals",
+        "test_entering_a_score_again_replaces_it",
+        "test_score_outside_0_to_100_is_refused",
+        "test_results_are_per_student"
+      ],
+      "error": "",
+      "map_cost_usd": 0.02126,
+      "seconds": 8.5
+    },
+    {
+      "task": "shared_expenses",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/shared_expenses",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.02658,
+      "seconds": 6.5
+    },
+    {
+      "task": "shop_price_list",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/shop_price_list",
+      "passed": 9,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_get_item_shows_its_price_and_category",
+        "test_price_can_be_changed",
+        "test_adding_with_zero_or_negative_price_is_refused",
+        "test_list_can_show_one_category"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0164,
+      "seconds": 8.4
+    },
+    {
+      "task": "susu_ledger",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/susu_ledger",
+      "passed": 14,
+      "total": 14,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.02981,
+      "seconds": 9.0
+    },
+    {
+      "task": "tailoring_orders",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/tailoring_orders",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.02641,
+      "seconds": 8.6
+    },
+    {
+      "task": "trotro_fares",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/trotro_fares",
+      "passed": 12,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_same_route_in_reverse_is_refused"
+      ],
+      "error": "",
+      "map_cost_usd": 0.02314,
+      "seconds": 9.0
+    },
+    {
+      "task": "church_signup",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/church_signup",
+      "passed": 10,
+      "total": 10,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 1.6
+    },
+    {
+      "task": "clinic_appointments",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/clinic_appointments",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.0
+    },
+    {
+      "task": "football_fixtures",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/football_fixtures",
+      "passed": 9,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_fixture_keeps_its_teams_and_date",
+        "test_new_fixture_has_no_score_yet",
+        "test_recorded_score_is_kept_for_each_side",
+        "test_negative_score_is_refused"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.2
+    },
+    {
+      "task": "hostel_booking",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/hostel_booking",
+      "passed": 15,
+      "total": 15,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.4
+    },
+    {
+      "task": "library_catalogue",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/library_catalogue",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.3
+    },
+    {
+      "task": "lost_and_found",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/lost_and_found",
+      "passed": 12,
+      "total": 12,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 1.8
+    },
+    {
+      "task": "market_stock",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/market_stock",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.2
+    },
+    {
+      "task": "momo_wallet",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/momo_wallet",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.3
+    },
+    {
+      "task": "restaurant_reservations",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/restaurant_reservations",
+      "passed": 5,
+      "total": 12,
+      "started": true,
+      "failing": [
+        "test_reservation_appears_on_its_date",
+        "test_list_for_a_date_leaves_out_other_dates",
+        "test_party_equal_to_seats_is_allowed",
+        "test_party_bigger_than_seats_is_refused",
+        "test_same_table_same_date_and_time_is_refused",
+        "test_same_table_other_time_or_date_is_allowed",
+        "test_other_table_same_date_and_time_is_allowed"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.1
+    },
+    {
+      "task": "school_grades_gpa",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/school_grades_gpa",
+      "passed": 3,
+      "total": 12,
+      "started": true,
+      "failing": [
+        "test_create_student_and_course",
+        "test_score_appears_in_results_with_grade",
+        "test_grading_scale_bands",
+        "test_grading_scale_boundaries",
+        "test_gpa_is_weighted_by_credit_hours",
+        "test_gpa_is_rounded_to_two_decimals",
+        "test_entering_a_score_again_replaces_it",
+        "test_score_outside_0_to_100_is_refused",
+        "test_results_are_per_student"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 1.8
+    },
+    {
+      "task": "shared_expenses",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/shared_expenses",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.6
+    },
+    {
+      "task": "shop_price_list",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/shop_price_list",
+      "passed": 9,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_get_item_shows_its_price_and_category",
+        "test_price_can_be_changed",
+        "test_adding_with_zero_or_negative_price_is_refused",
+        "test_list_can_show_one_category"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 1.7
+    },
+    {
+      "task": "susu_ledger",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/susu_ledger",
+      "passed": 14,
+      "total": 14,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 3.2
+    },
+    {
+      "task": "tailoring_orders",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/tailoring_orders",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.2
+    },
+    {
+      "task": "trotro_fares",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/trotro_fares",
+      "passed": 12,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_same_route_in_reverse_is_refused"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 1.7
+    },
+    {
+      "task": "church_signup",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/church_signup",
+      "passed": 10,
+      "total": 10,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 1.6
+    },
+    {
+      "task": "clinic_appointments",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/clinic_appointments",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.1
+    },
+    {
+      "task": "football_fixtures",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/football_fixtures",
+      "passed": 9,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_fixture_keeps_its_teams_and_date",
+        "test_new_fixture_has_no_score_yet",
+        "test_recorded_score_is_kept_for_each_side",
+        "test_negative_score_is_refused"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.0
+    },
+    {
+      "task": "hostel_booking",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/hostel_booking",
+      "passed": 15,
+      "total": 15,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.7
+    },
+    {
+      "task": "library_catalogue",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/library_catalogue",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.0
+    },
+    {
+      "task": "lost_and_found",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/lost_and_found",
+      "passed": 12,
+      "total": 12,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 1.9
+    },
+    {
+      "task": "market_stock",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/market_stock",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 1.9
+    },
+    {
+      "task": "momo_wallet",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/momo_wallet",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.3
+    },
+    {
+      "task": "restaurant_reservations",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/restaurant_reservations",
+      "passed": 5,
+      "total": 12,
+      "started": true,
+      "failing": [
+        "test_reservation_appears_on_its_date",
+        "test_list_for_a_date_leaves_out_other_dates",
+        "test_party_equal_to_seats_is_allowed",
+        "test_party_bigger_than_seats_is_refused",
+        "test_same_table_same_date_and_time_is_refused",
+        "test_same_table_other_time_or_date_is_allowed",
+        "test_other_table_same_date_and_time_is_allowed"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 1.6
+    },
+    {
+      "task": "school_grades_gpa",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/school_grades_gpa",
+      "passed": 3,
+      "total": 12,
+      "started": true,
+      "failing": [
+        "test_create_student_and_course",
+        "test_score_appears_in_results_with_grade",
+        "test_grading_scale_bands",
+        "test_grading_scale_boundaries",
+        "test_gpa_is_weighted_by_credit_hours",
+        "test_gpa_is_rounded_to_two_decimals",
+        "test_entering_a_score_again_replaces_it",
+        "test_score_outside_0_to_100_is_refused",
+        "test_results_are_per_student"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 1.6
+    },
+    {
+      "task": "shared_expenses",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/shared_expenses",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.8
+    },
+    {
+      "task": "shop_price_list",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/shop_price_list",
+      "passed": 9,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_get_item_shows_its_price_and_category",
+        "test_price_can_be_changed",
+        "test_adding_with_zero_or_negative_price_is_refused",
+        "test_list_can_show_one_category"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.2
+    },
+    {
+      "task": "susu_ledger",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/susu_ledger",
+      "passed": 14,
+      "total": 14,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 3.3
+    },
+    {
+      "task": "tailoring_orders",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/tailoring_orders",
+      "passed": 13,
+      "total": 13,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 1.9
+    },
+    {
+      "task": "trotro_fares",
+      "backend": "s32_B",
+      "folder": "projects/s32_B/trotro_fares",
+      "passed": 12,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_same_route_in_reverse_is_refused"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 1.8
+    }
+  ]
+}

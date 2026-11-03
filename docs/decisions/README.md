@@ -44,6 +44,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0035](0035-harness-defaults.md) | How the eval harness runs: 4 side by side, stop if Docker is off, flag incomplete maps | Accepted | 2026-10-28 |
 | [0036](0036-recipes-never-use-benchmark-topics.md) | Recipes never use the benchmark's topics | Accepted | 2026-10-29 |
 | [0037](0037-dense-minilm-search.md) | search_docs uses dense search (all-MiniLM-L6-v2) and returns the top 3 | Accepted | 2026-10-29 |
+| [0038](0038-agent-prompt-b.md) | The agent's system prompt is version B (SQLite, write and run your own tests) | Proposed | 2026-11-03 |
 <!-- DECISIONS:END -->
 
 ## Open questions
