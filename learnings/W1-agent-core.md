@@ -121,7 +121,7 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 - **Row 6: good answers are not enough for school.** All 4 builds got the full grading scale, but 3 of them invented a required field the client never mentioned (a "student number", a "course code"), so the very first hidden test failed and everything after it. Joseph saw the same habit in his baseline (W4 row 15).
 - **Row 6: "you decide" is dangerous.** A question about a feature the client never mentioned (a PIN), answered "no preference", became a reason to build it. That is the plan-v1 login problem again, this time invited by a question.
 - **Row 6: the brief client knows too much.** Playing the client from the full brief, Haiku sometimes answers in technical words a shop owner would not use ("They should just see 'not found' (404)"). The prepared-answers client sounds more like a real person, and it scored higher.
-- **Cost of row 6:** about $5.10 (31 builds with questions $4.00, scoring $0.73, plus the checks before).
+- **Cost of row 6:** about $4.60 (31 builds, questions included, $3.85; scoring $0.73; the first real check of the questions $0.05).
 
 ## 4. What we chose, and why
 
