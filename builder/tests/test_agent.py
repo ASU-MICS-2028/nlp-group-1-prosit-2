@@ -511,3 +511,41 @@ def test_local_build_needs_no_api_key(monkeypatch, tmp_path):
     monkeypatch.setattr(agent, "_client", None)
     pretend_llama(monkeypatch, [openai_reply("Done")])
     assert agent.build("make an app", tmp_path, model="qwen3.5-9b-local")["stop"] == "end_turn"
+
+
+# S3.10: "change it"
+def test_change_without_an_app_or_with_no_change_costs_nothing(monkeypatch, tmp_path):
+    made = pretend(monkeypatch, [done_reply()])
+    assert agent.build("church events", tmp_path, change="add cancelling")["stop"] == "no app.py to change: build it first"
+    (tmp_path / "app.py").write_text("x = 1\n")
+    assert agent.build("church events", tmp_path, change="  ")["stop"] == "nothing to change" and made == []
+
+
+def test_change_sends_the_old_request_and_the_change_and_keeps_history(monkeypatch, tmp_path):
+    pretend(monkeypatch, [tool_reply("write_file", {"path": "app.py", "content": "v1\n"}), done_reply("Built")])
+    agent.build("church events", tmp_path)
+    made = pretend(monkeypatch, [tool_reply("edit_file", {"path": "app.py", "old": "v1", "new": "v2"}), done_reply("Changed")])
+    result = agent.build("church events", tmp_path, change="add cancelling a sign-up")
+    first = made[0][0]["content"]
+    assert first.startswith("The client's app is already built") and "church events" in first and "add cancelling a sign-up" in first
+    assert (tmp_path / "app.py").read_text() == "v2\n" and (tmp_path / "history/app_1.py").read_text() == "v1\n"
+    assert json.loads((tmp_path / "history/run_1.json").read_text())["summary"] == "Built"
+    assert result["change"] == "add cancelling a sign-up" and result["summary"] == "Changed"
+
+
+def test_change_is_checked_against_the_request_and_the_change(monkeypatch, tmp_path):
+    (tmp_path / "app.py").write_text("v1\n")
+    pretend(monkeypatch, [tool_reply("edit_file", {"path": "app.py", "old": "v1", "new": "v2"}), done_reply()])
+    asked = []
+    monkeypatch.setattr(agent, "check", lambda root, request, model, checks=None: (asked.append(request), ("t", PASSED, 0.0))[1])
+    agent.build("church events", tmp_path, change="add cancelling", max_repairs=1)
+    assert asked == ["church events\n\nLater change asked by the client: add cancelling"]
+
+
+def test_cli_change_edits_the_app_in_the_run_folder(monkeypatch, tmp_path):
+    root = tmp_path / "projects" / "t" / "church_signup"
+    root.mkdir(parents=True)
+    (root / "app.py").write_text("v1\n")
+    made = pretend(monkeypatch, [done_reply()])
+    run_cli(monkeypatch, tmp_path, ["change", "church_signup", "--what", "add cancelling", "--run", "t"], [])
+    assert "add cancelling" in made[0][0]["content"] and (root / "history/app_1.py").exists()

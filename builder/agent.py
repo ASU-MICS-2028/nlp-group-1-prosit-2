@@ -117,6 +117,17 @@ SEARCH_TOOL = {"name": "search_docs", "input_schema": {"type": "object", "proper
                "description": "Search the team's 18 short recipes for FastAPI, SQLModel and pytest (for example 'two people "
                               "booked the same room' or 'table has no primary key'). Returns the 3 best; judge whether they fit."}
 SEARCH_HINT = " You can also search_docs for a short recipe when you are unsure how to do something or a test fails."
+# S3.10: a follow-up request edits the existing app instead of rebuilding it.
+CHANGE = """The client's app is already built in this folder (app.py and its tests). They first asked for it like this:
+
+{request}
+
+Now they want this change:
+
+{change}
+
+Read app.py, change only what is needed with edit_file (do not rewrite the whole file), keep everything else working,
+add tests for the change, run all the tests, and reply with a short summary of what changed."""
 LOCAL_URL = os.environ.get("LOCAL_LLM_URL", "http://localhost:8090/v1") + "/chat/completions"  # S3.9, knowledge/environment.md
 
 _client = None
@@ -316,25 +327,37 @@ def follows_plan(code, plan):
 
 
 def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", max_turns=40, max_usd=2.0, on_event=None,
-          max_repairs=0, plan=None, search=False):
+          max_repairs=0, plan=None, search=False, change=None):
     """Run the loop. Stops when Claude finishes ("end_turn"), or at max_turns, max_usd or an error (always reported).
 
     With max_repairs > 0, each time Claude finishes, an independent checker tests app.py against the request; failures
     are sent back to Claude to fix, at most max_repairs times. app.py is saved after every round as rounds/app_N.py.
     With plan (an approved plan from make_plan), Claude gets the request plus the plan; the checker still sees only the request.
     With search, Claude also gets the search_docs tool (S3.7). A model ending in -local runs on llama.cpp (S3.9).
+    With change (S3.10), Claude edits the app already in root; the last run's files are kept in root/history/.
 
     Writes two files in root: trace.jsonl, one line per event as it happens (start, reply, tool, check, end), and
     run.json, the totals. on_event, if given, is called with every event too, so a UI can show the build live."""
     root = Path(root)
     root.mkdir(parents=True, exist_ok=True)
     start = time.time()
-    messages = [{"role": "user", "content": request + (FOLLOW.format(plan=json.dumps(plan, indent=1)) if plan else "")}]
+    if change:  # keep the last run's record and app, numbered: history/run_1.json, trace_1.jsonl, app_1.py, ...
+        n = len(list((root / "history").glob("run_*.json"))) + 1
+        (root / "history").mkdir(exist_ok=True)
+        for name, saved in (("run.json", f"run_{n}.json"), ("trace.jsonl", f"trace_{n}.jsonl"), ("app.py", f"app_{n}.py")):
+            if (root / name).exists():
+                (root / "history" / saved).write_text((root / name).read_text())
+        first = CHANGE.format(request=request, change=change)
+    else:
+        first = request + (FOLLOW.format(plan=json.dumps(plan, indent=1)) if plan else "")
+    messages = [{"role": "user", "content": first}]
     calls, usd, stop, turns, tests = [], 0.0, "max_turns", 0, None
     repairs, checks, checked = 0, None, None  # repairs used, the checker's test file, the app.py it last checked
     tokens = {"in": 0, "out": 0, "cache_write": 0, "cache_read": 0}
     if not request.strip():  # nothing to build: do not pay for a call
         stop, max_turns = "empty request", 0
+    elif change is not None and (not change.strip() or not (root / "app.py").exists()):
+        stop, max_turns = "nothing to change" if not change.strip() else "no app.py to change: build it first", 0
     with open(root / "trace.jsonl", "w", encoding="utf-8") as trace:
 
         def log(event, **fields):
@@ -344,7 +367,7 @@ def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", m
             if on_event:
                 on_event(line)
 
-        log("start", request=request, model=model, prompt=prompt, effort=effort, plan=plan, search=search)
+        log("start", request=request, model=model, prompt=prompt, effort=effort, plan=plan, search=search, change=change)
         try:
             for turn in range(max_turns):
                 if usd >= max_usd:
@@ -368,7 +391,8 @@ def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", m
                     # check only if repairs are left and app.py changed since the last check (else nothing new to test)
                     if stop == "end_turn" and repairs < max_repairs and app.exists() and app.read_text() != checked:
                         checked = app.read_text()
-                        checks, result, price = check(root, request, model, checks)
+                        asked = f"{request}\n\nLater change asked by the client: {change}" if change else request
+                        checks, result, price = check(root, asked, model, checks)
                         usd += price
                         counts = test_counts(result["output"])
                         log("check", round=repairs, ok=result["ok"], tests=counts, output=result["output"],
@@ -398,7 +422,7 @@ def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", m
         last = messages[-1]["content"] if messages[-1]["role"] == "assistant" else []
         run = {"request": request, "model": model, "prompt": prompt, "effort": effort, "search": search, "stop": stop, "turns": turns,
                "repairs": repairs, "tool_calls": calls, "tokens": tokens, "cost_usd": round(usd, 4), "seconds": round(time.time() - start, 1),
-               "tests": tests, "summary": text_of(last), "plan": plan,
+               "tests": tests, "summary": text_of(last), "plan": plan, "change": change,
                "follows_plan": follows_plan((root / "app.py").read_text(), plan) if plan and (root / "app.py").exists() else None}
         (root / "run.json").write_text(json.dumps(run, indent=2) + "\n")
         log("end", **{k: run[k] for k in ("stop", "turns", "repairs", "tokens", "cost_usd", "seconds", "tests")})

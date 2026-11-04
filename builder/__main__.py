@@ -5,6 +5,7 @@
 
 plan (S3.5) shows the plan and asks: y approves it (saved as plan.json), n stops, any other text is a change to make.
 --yes approves without asking (for experiments). build --plan follows plan.json and refuses to build without one.
+change --what "..." (S3.10) edits the app already in the folder.
 --search (S3.7) adds Joseph's recipe search as a tool. --model qwen3.5-9b-local (S3.9) runs on llama.cpp.
 --ask N (S3.8, plan or build) first asks the client up to N questions; --client person (you type, default), answers or
 brief (pretend clients for benchmark tasks, builder/client.py). The answers are saved in questions.json and added to
@@ -26,7 +27,7 @@ from builder.agent import build, clarify, load_plan, make_plan, plan_text, with_
 from eval import bench
 
 p = argparse.ArgumentParser()
-p.add_argument("command", choices=["plan", "build"])
+p.add_argument("command", choices=["plan", "build", "change"])
 p.add_argument("tasks", nargs="+")
 p.add_argument("--model", default="claude-opus-5-5")
 p.add_argument("--effort", default="medium")
@@ -38,6 +39,8 @@ p.add_argument("--plan", action="store_true", help="build: follow the approved p
 p.add_argument("--ask", type=int, default=0, help="ask the client up to N questions first")
 p.add_argument("--client", default="person", choices=["person", "answers", "brief"], help="who answers --ask questions")
 p.add_argument("--search", action="store_true", help="build: give the agent Joseph's recipe search (S3.7)")
+p.add_argument("--what", default="", help="change: the change the client wants, in their words")
+p.add_argument("--max-turns", type=int, default=40, help="build: most replies before stopping")
 p.add_argument("--run", default="agent_v1")
 a = p.parse_args()
 
@@ -89,13 +92,14 @@ for task in bench.task_names() if a.tasks == ["all"] else a.tasks:
     try:
         if a.ask:
             request = clarified(task, request, root)
-        elif plan and (root / "questions.json").exists():  # the answers the approved plan was made with
+        elif (plan or a.command == "change") and (root / "questions.json").exists():  # the answers it was made with
             q = json.loads((root / "questions.json").read_text())
             request = with_answers(request, q["questions"], q["answers"])
     except (ValueError, KeyError, RuntimeError, anthropic.AnthropicError) as e:
         print(f"{task:24} not built: {type(e).__name__}: {e}"[:300])
         continue
-    r = build(request, root, a.model, a.effort, a.prompt, max_repairs=a.repairs, plan=plan, search=a.search)
+    r = build(request, root, a.model, a.effort, a.prompt, a.max_turns, max_repairs=a.repairs, plan=plan, search=a.search,
+              change=a.what if a.command == "change" else None)
     tests = f"own tests {r['tests']['passed']} passed {r['tests']['failed']} failed" if r["tests"] else "own tests not run"
     print(f"{task:24} {r['stop']:9} {r['turns']:>2} turns {len(r['tool_calls']):>2} tools ${r['cost_usd']} "
           f"{r['seconds']}s  {tests}  repairs {r['repairs']}  follows plan {r['follows_plan']}", flush=True)
