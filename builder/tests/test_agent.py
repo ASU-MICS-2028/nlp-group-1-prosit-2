@@ -334,3 +334,82 @@ def test_planner_v2_forbids_unasked_extras_and_v1_is_unchanged(monkeypatch):
     agent.make_plan("church events", planner="1")
     agent.make_plan("church events")  # v2 is the default (decision 0041)
     assert made[0][0] == agent.PLANNER and "Do not add logins" in made[1][0] and made[1][0].startswith(agent.PLANNER)
+
+
+# S3.8: clarifying questions, with a pretend asker and pretend clients
+from builder import client  # noqa: E402
+
+
+def test_no_questions_cost_nothing(monkeypatch):
+    made = pretend_planner(monkeypatch, [{"questions": ["x?"]}])
+    assert agent.clarify("church events", n=0) == ([], 0.0) and agent.clarify("  ") == ([], 0.0) and made == []
+
+
+def test_at_most_n_questions_and_blank_ones_dropped(monkeypatch):
+    made = pretend_planner(monkeypatch, [{"questions": ["Scale?", " ", "Credits?", "Rounding?", "Extra?"]}])
+    questions, usd = agent.clarify("school grades", n=3)
+    assert questions == ["Scale?", "Credits?", "Rounding?"] and usd == 0.01
+    assert "at most 3" in made[0][0] and made[0][2] == agent.QUESTIONS
+
+
+def test_answers_are_added_to_the_request():
+    assert agent.with_answers("grades", [], []) == "grades"
+    assert agent.with_answers("grades", ["Scale?"], ["80+ is A"]).endswith(
+        "The client's answers to your questions:\nQ: Scale?\nA: 80+ is A")
+
+
+def test_pretend_client_gives_exactly_one_answer_per_question(monkeypatch):
+    seen = []
+
+    def fake_ask(model, system, user, effort="medium", schema=None):
+        seen.append((model, system, user))
+        return json.dumps({"answers": ["only one"]}), {"cost_usd": 0.001}
+    monkeypatch.setattr(client, "ask", fake_ask)
+    assert client.answer("trotro_fares", [], "answers") == ([], 0.0) and seen == []
+    answers, _ = client.answer("trotro_fares", ["Both directions?", "Delete routes?"], "answers")
+    assert answers == ["only one", client.NONE]  # a missing answer becomes "no preference"
+    assert seen[0][0] == client.MODEL and "Is the fare the same in both directions?" in seen[0][2]  # answers.json
+    client.answer("trotro_fares", ["Both directions?"], "brief")
+    assert seen[1][1] == client.FROM_BRIEF and "Client:" in seen[1][2]  # client_brief.md
+
+
+def test_pretend_client_without_prepared_answers_has_no_preference(monkeypatch, tmp_path):
+    monkeypatch.setattr(client.bench, "BENCH", tmp_path)
+    (tmp_path / "t").mkdir()
+    assert client.answer("t", ["Q?"], "answers") == ([client.NONE], 0.0)
+
+
+def test_cli_build_with_questions_sends_the_answers_and_saves_them(monkeypatch, tmp_path):
+    monkeypatch.setattr(agent, "clarify", lambda request, n, model: (["Scale?", "Credits?"][:n], 0.01))
+    monkeypatch.setattr(client, "answer", lambda task, qs, mode: (["80+ is A", "Yes"][:len(qs)], 0.001))
+    made = pretend(monkeypatch, [done_reply()])
+    root = run_cli(monkeypatch, tmp_path, ["build", "church_signup", "--ask", "2", "--client", "answers", "--run", "t"], [])
+    assert "Q: Scale?\nA: 80+ is A\nQ: Credits?\nA: Yes" in made[0][0]["content"]
+    saved = json.loads((root / "questions.json").read_text())
+    assert saved["answers"] == ["80+ is A", "Yes"] and saved["client"] == "answers"
+
+
+def test_cli_person_answers_and_a_blank_answer_means_no_preference(monkeypatch, tmp_path):
+    monkeypatch.setattr(agent, "clarify", lambda request, n, model: (["Scale?", "Credits?"], 0.01))
+    made = pretend(monkeypatch, [done_reply()])
+    run_cli(monkeypatch, tmp_path, ["build", "church_signup", "--ask", "2", "--run", "t"], ["80+ is A", ""])
+    assert f"A: 80+ is A\nQ: Credits?\nA: {client.NONE}" in made[0][0]["content"]
+
+
+def test_cli_build_from_plan_uses_the_answers_the_plan_was_made_with(monkeypatch, tmp_path):
+    root = tmp_path / "projects" / "t" / "church_signup"
+    root.mkdir(parents=True)
+    (root / "plan.json").write_text(json.dumps(PLAN))
+    (root / "questions.json").write_text(json.dumps({"questions": ["Scale?"], "answers": ["80+ is A"]}))
+    made = pretend(monkeypatch, [done_reply()])
+    run_cli(monkeypatch, tmp_path, ["build", "church_signup", "--plan", "--run", "t"], [])
+    assert "Q: Scale?\nA: 80+ is A" in made[0][0]["content"] and "approved this plan" in made[0][0]["content"]
+
+
+def test_cli_question_step_failing_is_reported_not_raised(monkeypatch, tmp_path, capsys):
+    def broken(*args):
+        raise anthropic.APIConnectionError(request=httpx.Request("POST", "https://api.anthropic.com"))
+    monkeypatch.setattr(agent, "clarify", broken)
+    made = pretend(monkeypatch, [done_reply()])
+    run_cli(monkeypatch, tmp_path, ["build", "church_signup", "--ask", "3", "--run", "t"], [])
+    assert "not built: APIConnectionError" in capsys.readouterr().out and made == []

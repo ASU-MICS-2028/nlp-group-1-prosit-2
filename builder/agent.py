@@ -83,6 +83,13 @@ PLAN_SCHEMA = {  # structured output: the reply is guaranteed to have exactly th
         "rules": WORDS}}
 FOLLOW = "\n\nThe client approved this plan. Build exactly these endpoints, with these paths:\n{plan}"
 
+# S3.8: before planning or building, ask the client what would otherwise be guessed (S3.5 row 5: unanswered = left out).
+ASKER = """You build backends for people who do not code. Before anything is built, read the client's request and ask
+the questions whose answers would change what gets built: missing rules, numbers, formats or choices you would
+otherwise have to guess. Ask at most {n}, the most important first, each one short and in plain words. If the request
+is already clear, ask none."""
+QUESTIONS = {"type": "object", "additionalProperties": False, "required": ["questions"], "properties": {"questions": WORDS}}
+
 # One definition per tool (Bernard's section 6): the docstring is the description; root is never offered to the LLM.
 STRING = {"type": "string"}
 PARAMS = {
@@ -190,6 +197,22 @@ def plan_text(plan):
     lines += ["", "What you can do:"] + [f"- {e['does']}  ({e['method']} {e['path']})" for e in plan["endpoints"]]
     lines += ["", "Rules:"] + [f"- {r}" for r in plan["rules"] or ["none"]]
     return "\n".join(lines)
+
+
+def clarify(request, n=3, model="claude-opus-5-5"):
+    """Up to n questions for the client (S3.8), most important first. Returns (questions, cost in US dollars)."""
+    if n <= 0 or not request.strip():
+        return [], 0.0
+    text, info = ask(model, ASKER.format(n=n), f"The client's request:\n{request}", schema=QUESTIONS)
+    return [q for q in json.loads(text)["questions"] if q.strip()][:n], info["cost_usd"]
+
+
+def with_answers(request, questions, answers):
+    """The request with the client's answers added, as the builder (and the checker) will read it."""
+    if not questions:
+        return request
+    qa = "\n".join(f"Q: {q}\nA: {a}" for q, a in zip(questions, answers))
+    return f"{request}\n\nThe client's answers to your questions:\n{qa}"
 
 
 def load_plan(root):

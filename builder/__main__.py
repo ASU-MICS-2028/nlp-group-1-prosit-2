@@ -5,6 +5,9 @@
 
 plan (S3.5) shows the plan and asks: y approves it (saved as plan.json), n stops, any other text is a change to make.
 --yes approves without asking (for experiments). build --plan follows plan.json and refuses to build without one.
+--ask N (S3.8, plan or build) first asks the client up to N questions; --client person (you type, default), answers or
+brief (pretend clients for benchmark tasks, builder/client.py). The answers are saved in questions.json and added to
+the request; build --plan adds the answers saved when the plan was made.
 
 Reads ONLY benchmark/<task>/request.md (decision 0033) and builds in projects/<run>/<task>/, the layout the
 harness scores: uv run --env-file .env --with anthropic python -m eval.harness all projects/<run> --repeat 3
@@ -17,7 +20,8 @@ from pathlib import Path
 
 import anthropic
 
-from builder.agent import build, load_plan, make_plan, plan_text
+from builder import client
+from builder.agent import build, clarify, load_plan, make_plan, plan_text, with_answers
 from eval import bench
 
 p = argparse.ArgumentParser()
@@ -30,14 +34,32 @@ p.add_argument("--repairs", type=int, default=0, help="most repair rounds after 
 p.add_argument("--yes", action="store_true", help="plan: approve without asking")
 p.add_argument("--planner", default="2", choices=["1", "2"], help="plan: v2 (default, decision 0041) or v1 (S3.5 row 4)")
 p.add_argument("--plan", action="store_true", help="build: follow the approved plan.json")
+p.add_argument("--ask", type=int, default=0, help="ask the client up to N questions first")
+p.add_argument("--client", default="person", choices=["person", "answers", "brief"], help="who answers --ask questions")
 p.add_argument("--run", default="agent_v1")
 a = p.parse_args()
+
+
+def clarified(task, request, root):
+    """S3.8: the request plus the client's answers to up to --ask questions, also saved in questions.json."""
+    questions, usd = clarify(request, a.ask, a.model)
+    if a.client == "person":
+        answers = [input(f"\n{q}\n> ").strip() or client.NONE for q in questions]
+    else:
+        answers, more = client.answer(task, questions, a.client)
+        usd += more
+    root.mkdir(parents=True, exist_ok=True)
+    saved = {"questions": questions, "answers": answers, "client": a.client, "cost_usd": round(usd, 5)}
+    (root / "questions.json").write_text(json.dumps(saved, indent=2) + "\n")
+    return with_answers(request, questions, answers)
+
 
 for task in bench.task_names() if a.tasks == ["all"] else a.tasks:
     request = (bench.BENCH / task / "request.md").read_text().strip()
     root = Path("projects") / a.run / task
     if a.command == "plan":
         try:
+            request = clarified(task, request, root) if a.ask else request
             plan, usd = make_plan(request, a.model, planner=a.planner)
             while not a.yes:
                 print(f"\n{task}\n\n{plan_text(plan)}\n")
@@ -61,6 +83,15 @@ for task in bench.task_names() if a.tasks == ["all"] else a.tasks:
         plan = load_plan(root) if a.plan else None
     except ValueError as e:
         print(f"{task:24} not built: {e}")
+        continue
+    try:
+        if a.ask:
+            request = clarified(task, request, root)
+        elif plan and (root / "questions.json").exists():  # the answers the approved plan was made with
+            q = json.loads((root / "questions.json").read_text())
+            request = with_answers(request, q["questions"], q["answers"])
+    except (ValueError, KeyError, RuntimeError, anthropic.AnthropicError) as e:
+        print(f"{task:24} not built: {type(e).__name__}: {e}"[:300])
         continue
     r = build(request, root, a.model, a.effort, a.prompt, max_repairs=a.repairs, plan=plan)
     tests = f"own tests {r['tests']['passed']} passed {r['tests']['failed']} failed" if r["tests"] else "own tests not run"
