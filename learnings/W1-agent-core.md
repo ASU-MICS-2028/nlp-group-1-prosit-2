@@ -51,7 +51,15 @@ Claude asked for 3 tools in its first reply (write `app.py`, write `tests/test_a
 
 **The number to beat:** Joseph's baseline (one Claude call, no tools, no testing) already scores **89%** with Opus. It fails mostly on `momo_wallet` (3/13), `school_grades_gpa` (2/12, vague) and `shop_price_list` (11/13, vague). The agent is only worth it if it beats 89%.
 
-**Plan first, then build (S3.5, decision 0004).** Before any code, the agent can write a plan for the client to approve:
+**A second opinion and repairs (S3.4, decision 0040).** The builder's own tests never failed (0 of 58 runs), because it writes the code *and* the tests that judge it. So, with `--repairs N`:
+1. When Claude says "finished", `app.py` is saved as `rounds/app_0.py`.
+2. **A separate Claude call (the checker)** reads only the client's request and the code, and writes its own tests (`tests/test_acceptance.py`), judged by the request alone.
+3. The checker's tests run on a fresh, empty database. If some fail, the failures are sent back to the builder: "an independent checker found these problems, fix `app.py`". The new version is saved as `rounds/app_1.py`, checked again, and so on, at most N times.
+4. If *every* check fails, the checker itself is probably wrong (for example, it guessed the wrong paths), so nothing is sent back.
+
+In the real experiment the checker passed all 15 apps the first time, so step 3 never happened (row 3).
+
+**Plan first, then build (S3.5, decisions 0004 and 0041).** Before any code, the agent can write a plan for the client to approve:
 1. **One Claude call with no tools** reads the request and fills in a fixed form: a summary, the data kept, the endpoints (method, path, what it does) and the rules. Because it has no tools, it *cannot* build anything at this point.
 2. **The client reads it in plain words** and answers `y` (approve), `n` (stop) or types a change ("add a phone number"). A change sends the old plan plus the change back to Claude, which redoes the plan. This repeats until `y` or `n`.
 3. **Only an approved plan is saved** (`plan.json`). `build --plan` refuses to start without one. Saying `n` also deletes any older approval, so it cannot be built by mistake.
@@ -162,6 +170,18 @@ Plan: S3.5 (the agent writes the plan and contract first) should make the design
 
 - **Do not run the harness while Bernard's tests are running.** The first time, both ran at once and 3 of the 51 tests failed (the ones that check stuck tests and the sandbox network). The harness begins by deleting "leftover" sandbox containers, and it deleted containers the tests were still using. Run alone, all 51 passed. Not tested yet, but the same is likely if two harness runs, or an agent build and a harness run, happen at the same time on one laptop.
 
+**What the repair loop does when things go wrong (S3.4).** Free tests with a pretend Claude and a pretend checker:
+
+| What goes wrong | What happens |
+|---|---|
+| The checker finds a failure | It is sent back; the builder's fix is saved as the next round and checked again |
+| The builder never gets it right | Stops after N repairs (`--repairs N`) |
+| The builder says "finished" but did not change `app.py` | Not checked again (nothing new to test, no money spent) |
+| Every check fails | The checker is probably wrong: nothing sent back |
+| The builder edits the checker's test file to make it pass | The original file is put back before every check |
+| Old data left in the database from the builder's own tests | Deleted before every check, as the harness does |
+| Repairs are off (the default) | No checker call; `rounds/app_0.py` is still saved |
+
 **What the plan step does when things go wrong (S3.5).** Each case is a free test with a pretend Claude (`uv run --with anthropic python -m pytest builder -q`, 29 passed in 2.7 s):
 
 | What goes wrong | What happens |
@@ -210,7 +230,7 @@ uv run --with anthropic python -m pytest builder -q        # the free tests (pre
 uv run --env-file .env --with anthropic python -m builder build church_signup --run try1     # one task, about $0.10
 uv run --env-file .env --with anthropic python -m eval.harness church_signup projects/try1/church_signup --repeat 3 --name try1
 ```
-The build prints one line per task, such as `church_signup  end_turn  3 turns  4 tools $0.1008 30.8s` (prompt B, Nov 3), and leaves `app.py`, `tests/`, `run.json` and `trace.jsonl` in `projects/try1/church_signup/`. Since S3.3 the line ends with the agent's own test result, e.g. `own tests 7 passed 0 failed`. Use `all` instead of a task name for all 15 (about $1.70, about 9 minutes). Options: `--prompt A|B|C|D` (default B), `--model`, `--effort`.
+The build prints one line per task, such as `church_signup  end_turn  3 turns  4 tools $0.1008 30.8s` (prompt B, Nov 3), and leaves `app.py`, `tests/`, `run.json` and `trace.jsonl` in `projects/try1/church_signup/`. Since S3.3 the line ends with the agent's own test result, e.g. `own tests 7 passed 0 failed`. Use `all` instead of a task name for all 15 (about $1.70, about 9 minutes). Options: `--prompt A|B|C|D` (default B), `--model`, `--effort`, `--repairs N` (the second opinion and up to N repairs, default 0, decision 0040).
 
 From Python:
 ```python
@@ -281,11 +301,19 @@ Write the questions an examiner would ask about this part, with short answers. E
 | Is the agent better than the baseline? | Not yet overall (87% vs 89%). It wins the hardest task but loses where it picks a design the tests did not expect. The next tasks (repair loop, plan first, questions) are meant to close that gap. |
 | Why does the agent plan before building? | So the client can catch a wrong idea in plain words before any money is spent on code (decision 0004). The plan step has no tools, so it cannot build anything, and `build --plan` refuses without an approved `plan.json`. |
 | How do you know the app follows the approved plan? | At the end the agent compares the planned endpoints with the ones in `app.py` and lists what is missing or extra. It reads the code as text and never runs it, because generated code only runs in the sandbox. |
+| Why is there a second Claude checking the work? | The builder writes both the code and the tests that judge it, and its own tests never failed (0 of 58). A separate call reads only the request and writes its own tests, so it does not share the builder's assumptions. |
+| Did the repair loop improve the score? | No. 0, 1, 3 and 5 repairs all gave 87.0%, because the checker passed all 15 apps first time. The apps that lose points are not broken: they understood the request differently from the hidden tests, which a request-only checker cannot see. So it is off by default (decision 0040). |
+| Why did planning first lower the score? | v1 (74.5%) added a password nobody asked for on 3 tasks, and the hidden tests were refused. v2 (82.8%) forbids additions, but its questions went unanswered in the automatic run, so the build left those features out (return trips in trotro, price changes in shop). No plan scored 87.0%. |
+| Then why keep the plan step? | Because a real client reads it. It shows the design in plain words before any code is paid for and asks the right questions (grading scale, return trips, privacy). The benchmark approves plans automatically, so it cannot measure that; Michael's usability test can. |
+| Are 1 or 2 point differences meaningful? | No. Each task was built once per option. Restaurant scored 5/12, 12/12 and 5/12 across three runs of similar options, so one build can be luck. |
 
 ## 8. Glossary
 
 Every technical word used above, in one plain sentence each.
 
+- **Checker (independent checker):** a second Claude call that writes tests from the client's request alone, to judge the builder's app without sharing its assumptions.
+- **Repair (round):** sending the checker's failed tests back to the builder to fix `app.py`. Each fix is one round.
+- **Auto-approve (`--yes`):** accepting every plan without a person reading it. Used for experiments, never for a real client.
 - **Endpoint:** one thing a client program can ask the backend to do, written as a method and a path, such as `POST /events` (add an event).
 - **Spec-first (plan first):** the agent writes down what it will build, the client approves it, and only then is code written.
 - **Structured output (fixed form):** asking Claude to reply in an exact shape (summary, data, endpoints, rules), which the API guarantees, so our code can read it every time.
