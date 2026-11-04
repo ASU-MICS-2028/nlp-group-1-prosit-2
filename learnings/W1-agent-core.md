@@ -59,6 +59,14 @@ Claude asked for 3 tools in its first reply (write `app.py`, write `tests/test_a
 
 In the real experiment the checker passed all 15 apps the first time, so step 3 never happened (row 3).
 
+**Questions before building (S3.8).** With `--ask N`, before anything is planned or built:
+1. **One Claude call with no tools** reads the request and writes at most N short questions, most important first, about what it would otherwise have to guess. If the request is clear, it asks none.
+2. **The client answers.** A real person types each answer (an empty answer counts as "No preference: you decide"). For the benchmark, a pretend client answers instead (`builder/client.py`, Haiku): either from the task's prepared answers (`answers.json`) or playing the client from the full brief (`client_brief.md`). The agent sees these files only as answers to its own questions (decision 0033).
+3. **The answers are added to the request** ("The client's answers to your questions: Q: ... A: ..."), plus one line: where the client has no preference, choose the simplest option and add nothing they did not ask for. Everything after this (plan, build, checker) reads the request with the answers.
+4. They are saved in `questions.json` (questions, answers, who answered, cost). `build --plan` adds the answers the plan was made with.
+
+Real example (trotro, Nov 4): Opus asked "Does a route work both ways with the same fare?", and the client's prepared answer was "Yes. Circle to Madina costs the same as Madina to Circle, so we keep one route for both directions". One question round cost $0.009 (Opus) plus $0.0002 (Haiku).
+
 **Plan first, then build (S3.5, decisions 0004 and 0041).** Before any code, the agent can write a plan for the client to approve:
 1. **One Claude call with no tools** reads the request and fills in a fixed form: a summary, the data kept, the endpoints (method, path, what it does) and the rules. Because it has no tools, it *cannot* build anything at this point.
 2. **The client reads it in plain words** and answers `y` (approve), `n` (stop) or types a change ("add a phone number"). A change sends the old plan plus the change back to Claude, which redoes the plan. This repeats until `y` or `n`.
@@ -187,6 +195,18 @@ Plan: S3.5 (the agent writes the plan and contract first) should make the design
 | Old data left in the database from the builder's own tests | Deleted before every check, as the harness does |
 | Repairs are off (the default) | No checker call; `rounds/app_0.py` is still saved |
 
+**What the question step does when things go wrong (S3.8).** Free tests (`uv run --with anthropic python -m pytest builder -q`):
+
+| What goes wrong | What happens |
+|---|---|
+| `--ask 0`, or an empty request | No call, nothing paid |
+| Claude asks more than N, or a blank question | Only the first N non-blank ones are kept |
+| The pretend client gives too few or too many answers | Exactly one per question; a missing one becomes "No preference: you decide" |
+| The task has no prepared answers | Every answer is "No preference: you decide", no call |
+| A person presses Enter without answering | "No preference: you decide" |
+| The network or key fails while asking | `not built: APIConnectionError ...`, nothing is built, the batch goes on |
+| The client has no preference about a feature they never mentioned (a PIN) | Found for real in row 6 (a PIN was built). Now the builder is told to choose the simplest option and add nothing |
+
 **What the plan step does when things go wrong (S3.5).** Each case is a free test with a pretend Claude (`uv run --with anthropic python -m pytest builder -q`, 29 passed in 2.7 s):
 
 | What goes wrong | What happens |
@@ -265,6 +285,15 @@ result["follows_plan"]                                                 # {"missi
 ```
 `make_plan` raises `ValueError` for an empty request, and Anthropic's own errors if the network or key fails. Catch them and show a message. With a plan, the `start` event and `run.json` also have `plan`, and `run.json` has `follows_plan`.
 
+### Questions first (S3.8)
+
+```
+uv run --env-file .env --with anthropic python -m builder build school_grades_gpa --ask 3 --run q1                     # you answer in the terminal
+uv run --env-file .env --with anthropic python -m builder build school_grades_gpa --ask 3 --client answers --run q1     # the pretend client answers
+uv run --env-file .env --with anthropic python -m builder plan church_signup --ask 3 --run q1                          # questions, then the plan
+```
+From Python (for Michael's screen): `questions, cost = clarify(request_text, 3)`, show them, collect the answers, then `build(with_answers(request_text, questions, answers), folder)` or `make_plan(with_answers(...))`.
+
 ### For Michael (Stage 4): showing a build live
 
 Pass a function as `on_event`. The agent calls it with every event, the same lines it writes to `trace.jsonl`:
@@ -316,6 +345,8 @@ Write the questions an examiner would ask about this part, with short answers. E
 
 Every technical word used above, in one plain sentence each.
 
+- **Clarifying question:** a question the agent asks the client before building, about something the request leaves out (the grading scale, whether a fare works both ways).
+- **Pretend client (simulated client):** a cheap Claude (Haiku) that answers the agent's questions from the task's hidden answers, so experiments need no person.
 - **Checker (independent checker):** a second Claude call that writes tests from the client's request alone, to judge the builder's app without sharing its assumptions.
 - **Repair (round):** sending the checker's failed tests back to the builder to fix `app.py`. Each fix is one round.
 - **Auto-approve (`--yes`):** accepting every plan without a person reading it. Used for experiments, never for a real client.
