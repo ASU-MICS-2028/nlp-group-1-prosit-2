@@ -1,25 +1,20 @@
 # Prosit 2: A Non-Developer Friendly API Builder
 
 <!-- STATUS:START -->
-## Now: Stage 3: Alice — agent core
+## Now: Stage 4: Michael — UI and usability
 
-**Who:** Alice (W1)
+**Who:** Michael (W3)
 
 | Task | Who | Status |
 |---|---|---|
-| S3.1 Read Bernard's and Joseph's learnings, run their parts | Alice (W1) | 🔵 ready |
-| S3.2 Single agent from the command line | Alice (W1) | ⏳ waiting (on S3.1) |
-| S3.3 Run record and trace | Alice (W1) | ⏳ waiting (on S3.2) |
-| S3.4 Test-and-repair loop | Alice (W1) | ⏳ waiting (on S3.2) |
-| S3.5 Spec-first plan and approval | Alice (W1) | ⏳ waiting (on S3.2) |
-| S3.6 Planner / Builder / Tester split | Alice (W1) | ⏳ waiting (on S3.4) |
-| S3.7 Retrieval in the agent | Alice (W1) | ⏳ waiting (on S3.2) |
-| S3.8 Clarifying questions | Alice (W1) | ⏳ waiting (on S3.5) |
-| S3.9 Claude vs local Qwen | Alice (W1) | ⏳ waiting (on S3.4) |
-| S3.10 "Change it" edit loop | Alice (W1) | ⏳ waiting (on S3.5) |
-| S3.11 Handoff: Alice's learnings | Alice (W1) | ⏳ waiting (on S3.3, S3.4, S3.5, S3.6, S3.7, S3.8) |
+| S4.1 Read Alice's learnings, run a build | Michael (W3) | 🔵 ready |
+| S4.2 UI on a recorded session | Michael (W3) | ⏳ waiting (on S4.1) |
+| S4.3 UI on the live agent | Michael (W3) | ⏳ waiting (on S4.2) |
+| S4.4 UI alternatives compared | Michael (W3) | ⏳ waiting (on S4.3) |
+| S4.5 Usability test | Michael (W3) | ⏳ waiting (on S4.4) |
+| S4.6 Handoff: Michael's learnings | Michael (W3) | ⏳ waiting (on S4.3, S4.5) |
 
-**Next:** Stage 4: Michael — UI and usability
+**Next:** Stage 5: Joseph — full evaluation
 
 Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand.
 <!-- STATUS:END -->

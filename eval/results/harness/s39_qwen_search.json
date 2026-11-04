@@ -1,0 +1,643 @@
+{
+  "args": {
+    "task": "all",
+    "folder": "projects/s39_qwen_search",
+    "references": false,
+    "workers": 4,
+    "repeat": 3,
+    "name": "s39_qwen_search"
+  },
+  "seconds": 24.0,
+  "rows": [
+    {
+      "task": "church_signup",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/church_signup",
+      "passed": 6,
+      "total": 10,
+      "started": true,
+      "failing": [
+        "test_sign_up_then_appears_in_signups",
+        "test_new_event_has_no_signups",
+        "test_full_event_refuses_signup",
+        "test_signups_are_per_event"
+      ],
+      "error": "",
+      "map_cost_usd": 0.01857,
+      "seconds": 9.1
+    },
+    {
+      "task": "clinic_appointments",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/clinic_appointments",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "football_fixtures",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/football_fixtures",
+      "passed": 11,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_record_score_for_missing_fixture_is_404",
+        "test_get_missing_fixture_is_404"
+      ],
+      "error": "",
+      "map_cost_usd": 0.03243,
+      "seconds": 9.6
+    },
+    {
+      "task": "hostel_booking",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/hostel_booking",
+      "passed": 0,
+      "total": 15,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "library_catalogue",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/library_catalogue",
+      "passed": 7,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_borrowing_takes_one_copy_off_the_shelf",
+        "test_borrowing_is_refused_when_no_copies_left",
+        "test_returned_copy_can_be_borrowed_again",
+        "test_student_who_did_not_borrow_cannot_return",
+        "test_cannot_return_a_different_book_than_borrowed",
+        "test_borrow_missing_book_is_404"
+      ],
+      "error": "",
+      "map_cost_usd": 0.03109,
+      "seconds": 10.2
+    },
+    {
+      "task": "lost_and_found",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/lost_and_found",
+      "passed": 11,
+      "total": 12,
+      "started": true,
+      "failing": [
+        "test_unclaimed_list_shows_only_waiting_items"
+      ],
+      "error": "",
+      "map_cost_usd": 0.01931,
+      "seconds": 9.2
+    },
+    {
+      "task": "market_stock",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/market_stock",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "momo_wallet",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/momo_wallet",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "restaurant_reservations",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/restaurant_reservations",
+      "passed": 0,
+      "total": 12,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "school_grades_gpa",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/school_grades_gpa",
+      "passed": 0,
+      "total": 12,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "shared_expenses",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/shared_expenses",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "shop_price_list",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/shop_price_list",
+      "passed": 1,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_add_item_returns_it_with_an_id",
+        "test_added_item_appears_in_list",
+        "test_get_item_shows_its_price_and_category",
+        "test_get_missing_item_is_404",
+        "test_price_can_be_changed",
+        "test_changing_price_to_zero_or_less_is_refused",
+        "test_adding_with_zero_or_negative_price_is_refused",
+        "test_duplicate_name_is_refused_ignoring_case",
+        "test_removed_item_is_gone",
+        "test_removing_one_item_keeps_the_others",
+        "test_list_can_show_one_category",
+        "test_remove_missing_item_is_404"
+      ],
+      "error": "",
+      "map_cost_usd": 0.01488,
+      "seconds": 5.2
+    },
+    {
+      "task": "susu_ledger",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/susu_ledger",
+      "passed": 0,
+      "total": 14,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "tailoring_orders",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/tailoring_orders",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "trotro_fares",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/trotro_fares",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "church_signup",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/church_signup",
+      "passed": 6,
+      "total": 10,
+      "started": true,
+      "failing": [
+        "test_sign_up_then_appears_in_signups",
+        "test_new_event_has_no_signups",
+        "test_full_event_refuses_signup",
+        "test_signups_are_per_event"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 3.4
+    },
+    {
+      "task": "clinic_appointments",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/clinic_appointments",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "football_fixtures",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/football_fixtures",
+      "passed": 11,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_record_score_for_missing_fixture_is_404",
+        "test_get_missing_fixture_is_404"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 3.8
+    },
+    {
+      "task": "hostel_booking",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/hostel_booking",
+      "passed": 0,
+      "total": 15,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "library_catalogue",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/library_catalogue",
+      "passed": 7,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_borrowing_takes_one_copy_off_the_shelf",
+        "test_borrowing_is_refused_when_no_copies_left",
+        "test_returned_copy_can_be_borrowed_again",
+        "test_student_who_did_not_borrow_cannot_return",
+        "test_cannot_return_a_different_book_than_borrowed",
+        "test_borrow_missing_book_is_404"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 3.7
+    },
+    {
+      "task": "lost_and_found",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/lost_and_found",
+      "passed": 11,
+      "total": 12,
+      "started": true,
+      "failing": [
+        "test_unclaimed_list_shows_only_waiting_items"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 3.6
+    },
+    {
+      "task": "market_stock",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/market_stock",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "momo_wallet",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/momo_wallet",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "restaurant_reservations",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/restaurant_reservations",
+      "passed": 0,
+      "total": 12,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "school_grades_gpa",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/school_grades_gpa",
+      "passed": 0,
+      "total": 12,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "shared_expenses",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/shared_expenses",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "shop_price_list",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/shop_price_list",
+      "passed": 1,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_add_item_returns_it_with_an_id",
+        "test_added_item_appears_in_list",
+        "test_get_item_shows_its_price_and_category",
+        "test_get_missing_item_is_404",
+        "test_price_can_be_changed",
+        "test_changing_price_to_zero_or_less_is_refused",
+        "test_adding_with_zero_or_negative_price_is_refused",
+        "test_duplicate_name_is_refused_ignoring_case",
+        "test_removed_item_is_gone",
+        "test_removing_one_item_keeps_the_others",
+        "test_list_can_show_one_category",
+        "test_remove_missing_item_is_404"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 3.8
+    },
+    {
+      "task": "susu_ledger",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/susu_ledger",
+      "passed": 0,
+      "total": 14,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "tailoring_orders",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/tailoring_orders",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "trotro_fares",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/trotro_fares",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "church_signup",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/church_signup",
+      "passed": 6,
+      "total": 10,
+      "started": true,
+      "failing": [
+        "test_sign_up_then_appears_in_signups",
+        "test_new_event_has_no_signups",
+        "test_full_event_refuses_signup",
+        "test_signups_are_per_event"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 4.0
+    },
+    {
+      "task": "clinic_appointments",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/clinic_appointments",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "football_fixtures",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/football_fixtures",
+      "passed": 11,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_record_score_for_missing_fixture_is_404",
+        "test_get_missing_fixture_is_404"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 4.4
+    },
+    {
+      "task": "hostel_booking",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/hostel_booking",
+      "passed": 0,
+      "total": 15,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "library_catalogue",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/library_catalogue",
+      "passed": 7,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_borrowing_takes_one_copy_off_the_shelf",
+        "test_borrowing_is_refused_when_no_copies_left",
+        "test_returned_copy_can_be_borrowed_again",
+        "test_student_who_did_not_borrow_cannot_return",
+        "test_cannot_return_a_different_book_than_borrowed",
+        "test_borrow_missing_book_is_404"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 4.2
+    },
+    {
+      "task": "lost_and_found",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/lost_and_found",
+      "passed": 11,
+      "total": 12,
+      "started": true,
+      "failing": [
+        "test_unclaimed_list_shows_only_waiting_items"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 2.5
+    },
+    {
+      "task": "market_stock",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/market_stock",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "momo_wallet",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/momo_wallet",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "restaurant_reservations",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/restaurant_reservations",
+      "passed": 0,
+      "total": 12,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "school_grades_gpa",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/school_grades_gpa",
+      "passed": 0,
+      "total": 12,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "shared_expenses",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/shared_expenses",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "shop_price_list",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/shop_price_list",
+      "passed": 1,
+      "total": 13,
+      "started": true,
+      "failing": [
+        "test_add_item_returns_it_with_an_id",
+        "test_added_item_appears_in_list",
+        "test_get_item_shows_its_price_and_category",
+        "test_get_missing_item_is_404",
+        "test_price_can_be_changed",
+        "test_changing_price_to_zero_or_less_is_refused",
+        "test_adding_with_zero_or_negative_price_is_refused",
+        "test_duplicate_name_is_refused_ignoring_case",
+        "test_removed_item_is_gone",
+        "test_removing_one_item_keeps_the_others",
+        "test_list_can_show_one_category",
+        "test_remove_missing_item_is_404"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 1.9
+    },
+    {
+      "task": "susu_ledger",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/susu_ledger",
+      "passed": 0,
+      "total": 14,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "tailoring_orders",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/tailoring_orders",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    },
+    {
+      "task": "trotro_fares",
+      "backend": "s39_qwen_search",
+      "folder": "projects/s39_qwen_search/trotro_fares",
+      "passed": 0,
+      "total": 13,
+      "started": false,
+      "failing": [],
+      "error": "no app.py",
+      "map_cost_usd": 0.0,
+      "seconds": 0.0
+    }
+  ]
+}

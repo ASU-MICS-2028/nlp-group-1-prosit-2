@@ -10,7 +10,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0001](0001-two-team-rules.md) | Two team rules: explain simply, test every alternative | Accepted | 2026-10-18 |
 | [0002](0002-fixed-backend-stack.md) | Generated backends always use FastAPI + SQLModel + SQLite + pytest | Proposed | 2026-10-18 |
 | [0003](0003-hand-written-agent-loop.md) | Hand-written ReAct loop and a plain Python orchestrator | Proposed | 2026-10-18 |
-| [0004](0004-spec-first.md) | Spec-first: the user approves the API contract before any code is written | Proposed | 2026-10-18 |
+| [0004](0004-spec-first.md) | Spec-first: the user approves the API contract before any code is written | Superseded by 0041 | 2026-10-18 |
 | [0005](0005-three-agents.md) | Planner, Builder and Tester agents, with a single agent as the baseline | Proposed | 2026-10-18 |
 | [0006](0006-sandbox.md) | Generated code runs in a Docker sandbox, with a subprocess fallback | Superseded by 0027 | 2026-10-18 |
 | [0007](0007-benchmark-operations.md) | Benchmark tests call named operations, not fixed URLs | Proposed | 2026-10-18 |
@@ -44,6 +44,15 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0035](0035-harness-defaults.md) | How the eval harness runs: 4 side by side, stop if Docker is off, flag incomplete maps | Accepted | 2026-10-28 |
 | [0036](0036-recipes-never-use-benchmark-topics.md) | Recipes never use the benchmark's topics | Accepted | 2026-10-29 |
 | [0037](0037-dense-minilm-search.md) | search_docs uses dense search (all-MiniLM-L6-v2) and returns the top 3 | Accepted | 2026-10-29 |
+| [0038](0038-agent-prompt-b.md) | The agent's system prompt is version B (SQLite, write and run your own tests) | Proposed | 2026-11-03 |
+| [0039](0039-run-record-and-trace.md) | Every build writes trace.jsonl as it happens and run.json at the end | Proposed | 2026-11-03 |
+| [0040](0040-repairs-off-by-default.md) | The repair loop stays in the code but is off by default | Accepted | 2026-11-04 |
+| [0041](0041-plan-v2-when-a-person-approves.md) | Plan first (planner v2) when a person approves; no plan in automatic benchmark runs | Accepted | 2026-11-04 |
+| [0042](0042-ask-up-to-3-questions.md) | Ask the client up to 3 questions before planning or building | Proposed | 2026-11-04 |
+| [0043](0043-search-off-for-opus.md) | Recipe search stays available but off for Opus | Proposed | 2026-11-04 |
+| [0044](0044-one-agent-not-a-split.md) | One agent that asks questions, not a Planner / Builder / Tester split | Proposed | 2026-11-04 |
+| [0045](0045-changes-edit-the-existing-app.md) | A requested change edits the existing app instead of rebuilding it | Proposed | 2026-11-04 |
+| [0046](0046-opus-default-qwen-only-with-search.md) | Opus is the agent's default model; the local Qwen is used only with recipe search | Proposed | 2026-11-04 |
 <!-- DECISIONS:END -->
 
 ## Open questions

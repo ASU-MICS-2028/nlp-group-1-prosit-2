@@ -13,9 +13,9 @@
 <!-- BOARD:START -->
 | Who | Stage 0<br>Set up (everyone) | Stage 1<br>Bernard — tools and sandbox | Stage 2<br>Joseph — benchmark, harness, knowledge base | Stage 3<br>Alice — agent core | Stage 4<br>Michael — UI and usability | Stage 5<br>Joseph — full evaluation | Stage 6<br>Eric — integration and writing | Stage 7<br>Everyone — review, viva, submit |
 |---|---|---|---|---|---|---|---|---|
-| Alice (W1) | — | — | — | 🔵 S3.1 Read Bernard's and Joseph's learnings, run their parts<br>⏳ S3.2 Single agent from the command line<br>⏳ S3.3 Run record and trace<br>⏳ S3.4 Test-and-repair loop<br>⏳ S3.5 Spec-first plan and approval<br>⏳ S3.6 Planner / Builder / Tester split<br>⏳ S3.7 Retrieval in the agent<br>⏳ S3.8 Clarifying questions<br>⏳ S3.9 Claude vs local Qwen<br>⏳ S3.10 "Change it" edit loop<br>⏳ S3.11 Handoff: Alice's learnings | — | — | — | — |
+| Alice (W1) | — | — | — | ✅ S3.1 Read Bernard's and Joseph's learnings, run their parts<br>✅ S3.2 Single agent from the command line<br>✅ S3.3 Run record and trace<br>✅ S3.4 Test-and-repair loop<br>✅ S3.5 Spec-first plan and approval<br>✅ S3.6 Planner / Builder / Tester split<br>✅ S3.7 Retrieval in the agent<br>✅ S3.8 Clarifying questions<br>✅ S3.9 Claude vs local Qwen<br>✅ S3.10 "Change it" edit loop<br>✅ S3.11 Handoff: Alice's learnings | — | — | — | — |
 | Bernard (W2) | — | ✅ S1.1 The agent's tools<br>✅ S1.2 Sandbox<br>✅ S1.3 Safety tests<br>🔵 S1.4 MCP server<br>✅ S1.5 Handoff: Bernard's learnings | — | — | — | — | — | — |
-| Michael (W3) | — | — | — | — | ⏳ S4.1 Read Alice's learnings, run a build<br>⏳ S4.2 UI on a recorded session<br>⏳ S4.3 UI on the live agent<br>⏳ S4.4 UI alternatives compared<br>⏳ S4.5 Usability test<br>⏳ S4.6 Handoff: Michael's learnings | — | — | — |
+| Michael (W3) | — | — | — | — | 🔵 S4.1 Read Alice's learnings, run a build<br>⏳ S4.2 UI on a recorded session<br>⏳ S4.3 UI on the live agent<br>⏳ S4.4 UI alternatives compared<br>⏳ S4.5 Usability test<br>⏳ S4.6 Handoff: Michael's learnings | — | — | — |
 | Joseph (W4) | ✅ S0.2 LLM setup | — | ✅ S2.1 Read Bernard's learnings, run his tools<br>✅ S2.2 15 benchmark tasks<br>✅ S2.3 Eval harness<br>✅ S2.4 Recipe knowledge base and search<br>✅ S2.5 Handoff: Joseph's learnings, part 1 | — | — | ⏳ S5.1 Read Alice's and Michael's learnings<br>⏳ S5.2 Full system on all 15 tasks<br>⏳ S5.3 Ablations<br>⏳ S5.4 Model comparison<br>⏳ S5.5 Results tables and charts<br>⏳ S5.6 Handoff: Joseph's learnings, part 2 | — | — |
 | Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>✅ S0.4 Ask the instructor about "Section C" | — | — | — | — | — | ⏳ S6.1 Read every learnings file, run everything<br>⏳ S6.2 Fix what doesn't fit together<br>⏳ S6.3 Section B draft<br>⏳ S6.4 Slides and recorded demo<br>⏳ S6.5 Handoff: Eric's learnings | — |
 | Everyone | 🔵 S0.6 Docker on every laptop | — | — | — | — | — | — | ⏳ S7.1 Review Section B for your part<br>🔵 S7.2 Section A (individual, any time)<br>⏳ S7.3 Viva walkthrough<br>⏳ S7.4 Rehearse and submit |
@@ -52,20 +52,20 @@ flowchart LR
     S2_5["S2.5 Handoff: Joseph's learnings, part 1<br/>W4 · Must"]:::done
   end
   subgraph Stage3["Stage 3: Alice — agent core"]
-    S3_1["S3.1 Read Bernard's and Joseph's learnings, run their parts<br/>W1 · Must"]:::ready
-    S3_2["S3.2 Single agent from the command line<br/>W1 · Must"]:::waiting
-    S3_3["S3.3 Run record and trace<br/>W1 · Must"]:::waiting
-    S3_4["S3.4 Test-and-repair loop<br/>W1 · Must"]:::waiting
-    S3_5["S3.5 Spec-first plan and approval<br/>W1 · Must"]:::waiting
-    S3_6["S3.6 Planner / Builder / Tester split<br/>W1 · Should"]:::waiting
-    S3_7["S3.7 Retrieval in the agent<br/>W1 · Should"]:::waiting
-    S3_8["S3.8 Clarifying questions<br/>W1 · Should"]:::waiting
-    S3_9["S3.9 Claude vs local Qwen<br/>W1 · Should"]:::waiting
-    S3_10["S3.10 'Change it' edit loop<br/>W1 · Could"]:::waiting
-    S3_11["S3.11 Handoff: Alice's learnings<br/>W1 · Must"]:::waiting
+    S3_1["S3.1 Read Bernard's and Joseph's learnings, run their parts<br/>W1 · Must"]:::done
+    S3_2["S3.2 Single agent from the command line<br/>W1 · Must"]:::done
+    S3_3["S3.3 Run record and trace<br/>W1 · Must"]:::done
+    S3_4["S3.4 Test-and-repair loop<br/>W1 · Must"]:::done
+    S3_5["S3.5 Spec-first plan and approval<br/>W1 · Must"]:::done
+    S3_6["S3.6 Planner / Builder / Tester split<br/>W1 · Should"]:::done
+    S3_7["S3.7 Retrieval in the agent<br/>W1 · Should"]:::done
+    S3_8["S3.8 Clarifying questions<br/>W1 · Should"]:::done
+    S3_9["S3.9 Claude vs local Qwen<br/>W1 · Should"]:::done
+    S3_10["S3.10 'Change it' edit loop<br/>W1 · Could"]:::done
+    S3_11["S3.11 Handoff: Alice's learnings<br/>W1 · Must"]:::done
   end
   subgraph Stage4["Stage 4: Michael — UI and usability"]
-    S4_1["S4.1 Read Alice's learnings, run a build<br/>W3 · Must"]:::waiting
+    S4_1["S4.1 Read Alice's learnings, run a build<br/>W3 · Must"]:::ready
     S4_2["S4.2 UI on a recorded session<br/>W3 · Must"]:::waiting
     S4_3["S4.3 UI on the live agent<br/>W3 · Must"]:::waiting
     S4_4["S4.4 UI alternatives compared<br/>W3 · Should"]:::waiting
@@ -185,17 +185,17 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 
 | ID | Task | Who | Needs | Priority | Status | Done when |
 |---|---|---|---|---|---|---|
-| S3.1 | Read Bernard's and Joseph's learnings, run their parts | W1 | S2.5, S0.2 | Must | todo | Tools, sandbox and harness run on your laptop, and the Claude key works |
-| S3.2 | Single agent from the command line | W1 | S3.1 | Must | todo | `python -m builder build` turns `church_signup/request.md` into a backend that passes its hidden tests. Prompt variants compared with the harness |
-| S3.3 | Run record and trace | W1 | S3.2 | Must | todo | Every run writes `run.json` and `trace.jsonl` (time, tokens, cost, tool calls, test results) |
-| S3.4 | Test-and-repair loop | W1 | S3.2 | Must | todo | Failing tests are fed back and fixed. 0, 1, 3 and 5 repair attempts compared |
-| S3.5 | Spec-first plan and approval | W1 | S3.2 | Must | todo | The agent drafts a plan and contract first and builds nothing until approved. With vs without spec-first compared |
-| S3.6 | Planner / Builder / Tester split | W1 | S3.4 | Should | todo | Split vs single agent compared on the benchmark |
-| S3.7 | Retrieval in the agent | W1 | S3.2 | Should | todo | Joseph's `search_docs` wired in; with vs without compared |
-| S3.8 | Clarifying questions | W1 | S3.5 | Should | todo | No questions vs up to 3 vs a simulated client, compared on the vague tasks |
-| S3.9 | Claude vs local Qwen | W1 | S3.4 | Should | todo | Same tasks on both models: pass rate, time, cost |
-| S3.10 | "Change it" edit loop | W1 | S3.5 | Could | todo | A follow-up request edits an existing project instead of rebuilding it |
-| S3.11 | Handoff: Alice's learnings | W1 | S3.3, S3.4, S3.5, S3.6, S3.7, S3.8 | Must | todo | `learnings/W1-*.md` complete, including the events the agent sends and how a UI drives it |
+| S3.1 | Read Bernard's and Joseph's learnings, run their parts | W1 | S2.5, S0.2 | Must | done | Tools, sandbox and harness run on your laptop, and the Claude key works |
+| S3.2 | Single agent from the command line | W1 | S3.1 | Must | done | `python -m builder build` turns `church_signup/request.md` into a backend that passes its hidden tests. Prompt variants compared with the harness |
+| S3.3 | Run record and trace | W1 | S3.2 | Must | done | Every run writes `run.json` and `trace.jsonl` (time, tokens, cost, tool calls, test results) |
+| S3.4 | Test-and-repair loop | W1 | S3.2 | Must | done | Failing tests are fed back and fixed. 0, 1, 3 and 5 repair attempts compared |
+| S3.5 | Spec-first plan and approval | W1 | S3.2 | Must | done | The agent drafts a plan and contract first and builds nothing until approved. With vs without spec-first compared |
+| S3.6 | Planner / Builder / Tester split | W1 | S3.4 | Should | done | Split vs single agent compared on the benchmark |
+| S3.7 | Retrieval in the agent | W1 | S3.2 | Should | done | Joseph's `search_docs` wired in; with vs without compared |
+| S3.8 | Clarifying questions | W1 | S3.5 | Should | done | No questions vs up to 3 vs a simulated client, compared on the vague tasks |
+| S3.9 | Claude vs local Qwen | W1 | S3.4 | Should | done | Same tasks on both models: pass rate, time, cost |
+| S3.10 | "Change it" edit loop | W1 | S3.5 | Could | done | A follow-up request edits an existing project instead of rebuilding it |
+| S3.11 | Handoff: Alice's learnings | W1 | S3.3, S3.4, S3.5, S3.6, S3.7, S3.8 | Must | done | `learnings/W1-*.md` complete, including the events the agent sends and how a UI drives it |
 
 ## Stage 4: Michael — UI and usability
 
@@ -253,17 +253,17 @@ What each person owns. The task list under the table is generated.
 <!-- PEOPLE:START -->
 **Alice (W1)**
 
-1. S3.1 Read Bernard's and Joseph's learnings, run their parts — Must, ready
-2. S3.2 Single agent from the command line — Must, waiting (waiting on S3.1)
-3. S3.3 Run record and trace — Must, waiting (waiting on S3.2)
-4. S3.4 Test-and-repair loop — Must, waiting (waiting on S3.2)
-5. S3.5 Spec-first plan and approval — Must, waiting (waiting on S3.2)
-6. S3.6 Planner / Builder / Tester split — Should, waiting (waiting on S3.4)
-7. S3.7 Retrieval in the agent — Should, waiting (waiting on S3.2)
-8. S3.8 Clarifying questions — Should, waiting (waiting on S3.5)
-9. S3.9 Claude vs local Qwen — Should, waiting (waiting on S3.4)
-10. S3.10 "Change it" edit loop — Could, waiting (waiting on S3.5)
-11. S3.11 Handoff: Alice's learnings — Must, waiting (waiting on S3.3, S3.4, S3.5, S3.6, S3.7, S3.8)
+1. S3.1 Read Bernard's and Joseph's learnings, run their parts — Must, done
+2. S3.2 Single agent from the command line — Must, done
+3. S3.3 Run record and trace — Must, done
+4. S3.4 Test-and-repair loop — Must, done
+5. S3.5 Spec-first plan and approval — Must, done
+6. S3.6 Planner / Builder / Tester split — Should, done
+7. S3.7 Retrieval in the agent — Should, done
+8. S3.8 Clarifying questions — Should, done
+9. S3.9 Claude vs local Qwen — Should, done
+10. S3.10 "Change it" edit loop — Could, done
+11. S3.11 Handoff: Alice's learnings — Must, done
 
 **Bernard (W2)**
 
@@ -275,7 +275,7 @@ What each person owns. The task list under the table is generated.
 
 **Michael (W3)**
 
-1. S4.1 Read Alice's learnings, run a build — Must, waiting (waiting on S3.11)
+1. S4.1 Read Alice's learnings, run a build — Must, ready
 2. S4.2 UI on a recorded session — Must, waiting (waiting on S4.1)
 3. S4.3 UI on the live agent — Must, waiting (waiting on S4.2)
 4. S4.4 UI alternatives compared — Should, waiting (waiting on S4.3)
@@ -322,7 +322,6 @@ What each person owns. The task list under the table is generated.
 Generated: every place where one person's task cannot finish until another person's task is done. In a relay, these are the handoffs.
 
 <!-- BLOCKERS:START -->
-- S4.1 Read Alice's learnings, run a build (Michael (W3)) waits on S3.11 Handoff: Alice's learnings (Alice (W1))
 - S5.1 Read Alice's and Michael's learnings (Joseph (W4)) waits on S4.6 Handoff: Michael's learnings (Michael (W3))
 - S6.1 Read every learnings file, run everything (Eric (W5)) waits on S5.6 Handoff: Joseph's learnings, part 2 (Joseph (W4))
 - S7.1 Review Section B for your part (Everyone) waits on S6.3 Section B draft (Eric (W5))

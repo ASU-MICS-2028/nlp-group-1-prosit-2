@@ -1,0 +1,73 @@
+{
+  "args": {
+    "task": "church_signup",
+    "folder": "projects/s39_try/church_signup",
+    "references": false,
+    "workers": 4,
+    "repeat": 3,
+    "name": "s39_try"
+  },
+  "seconds": 20.9,
+  "rows": [
+    {
+      "task": "church_signup",
+      "backend": "church_signup",
+      "folder": "projects/s39_try/church_signup",
+      "passed": 3,
+      "total": 10,
+      "started": true,
+      "failing": [
+        "test_create_event_returns_it_with_an_id",
+        "test_created_event_appears_in_list",
+        "test_get_event_by_id",
+        "test_sign_up_then_appears_in_signups",
+        "test_new_event_has_no_signups",
+        "test_full_event_refuses_signup",
+        "test_signups_are_per_event"
+      ],
+      "error": "",
+      "map_cost_usd": 0.02392,
+      "seconds": 11.4
+    },
+    {
+      "task": "church_signup",
+      "backend": "church_signup",
+      "folder": "projects/s39_try/church_signup",
+      "passed": 3,
+      "total": 10,
+      "started": true,
+      "failing": [
+        "test_create_event_returns_it_with_an_id",
+        "test_created_event_appears_in_list",
+        "test_get_event_by_id",
+        "test_sign_up_then_appears_in_signups",
+        "test_new_event_has_no_signups",
+        "test_full_event_refuses_signup",
+        "test_signups_are_per_event"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 9.3
+    },
+    {
+      "task": "church_signup",
+      "backend": "church_signup",
+      "folder": "projects/s39_try/church_signup",
+      "passed": 3,
+      "total": 10,
+      "started": true,
+      "failing": [
+        "test_create_event_returns_it_with_an_id",
+        "test_created_event_appears_in_list",
+        "test_get_event_by_id",
+        "test_sign_up_then_appears_in_signups",
+        "test_new_event_has_no_signups",
+        "test_full_event_refuses_signup",
+        "test_signups_are_per_event"
+      ],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 9.5
+    }
+  ]
+}
