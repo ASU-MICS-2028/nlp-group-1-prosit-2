@@ -344,12 +344,13 @@ Or read `trace.jsonl` from another program while the build runs: each line is co
 
 | Event | When | Fields (every event also has `event` and `t`, the seconds since the start) |
 |---|---|---|
-| `start` | once, first | `request`, `model`, `prompt`, `effort` |
+| `start` | once, first | `request`, `model`, `prompt`, `effort`, `plan` (the approved plan or `null`), `search` (true/false), `change` (the change asked for, or `null`) |
 | `reply` | each time Claude answers | `turn` (0, 1, 2 ...), `stop_reason` (`tool_use` = it wants tools, `end_turn` = finished), `tokens` (`in`, `out`, `cache_write`, `cache_read`), `cost_usd` (this reply), `text` (what Claude wrote, can be empty) |
 | `tool` | each tool Claude used | `turn`, `tool`, `input` (what Claude filled in, e.g. the code), `ok`, `output` (at most about 4,000 characters), `seconds`; for `run_tests` also `tests`: `{"passed": n, "failed": n}` |
-| `end` | once, last, even after an error | `stop`, `turns`, `tokens` (totals), `cost_usd` (total), `seconds`, `tests` (the last test run, or `null`) |
+| `check` | only with `--repairs N`, each time the independent checker runs | `round` (0, 1 ...), `ok`, `tests` (`passed`, `failed`), `output` (pytest's report), `cost_usd` |
+| `end` | once, last, even after an error | `stop`, `turns`, `repairs`, `tokens` (totals), `cost_usd` (total), `seconds`, `tests` (the last test run, or `null`) |
 
-`run.json` holds the same totals plus `request`, `model`, `prompt`, `effort`, `tool_calls` (one `{"turn", "tool", "ok"}` per call) and `summary` (Claude's last message to the client).
+`run.json` holds the same totals plus `request`, `model`, `prompt`, `effort`, `search`, `tool_calls` (one `{"turn", "tool", "ok"}` per call), `summary` (Claude's last message to the client), `plan`, `follows_plan` (`{"missing": [...], "extra": [...]}` or `null`) and `change`. Next to it: `plan.json` (an approved plan), `questions.json` (questions, answers, who answered, cost), `rounds/app_N.py` (`app.py` after each round), `history/` (earlier runs, after a change).
 - **A few failures in check 1:** something else was using the sandbox at the same time. Close it and run check 1 again.
 
 ## 7. Viva questions you should be able to answer
