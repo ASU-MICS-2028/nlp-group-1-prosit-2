@@ -26,10 +26,12 @@ def done_reply(text="Done."):
 def pretend(monkeypatch, replies):
     """Make agent.call return these replies in order (the last one forever). Returns the list of calls made.
     Each call gets the same, growing conversation: [request, Claude asks for a tool, tool result, ...]."""
-    made = []
+    made, offered = [], []
+    pretend.offered = offered  # what the agent offered each turn: (system prompt, tool names)
 
-    def fake_call(model, system, messages, effort):
+    def fake_call(model, system, messages, effort, tools=agent.TOOLS):
         made.append(messages)
+        offered.append((system, [x["name"] for x in tools]))
         return replies[min(len(made), len(replies)) - 1]
     monkeypatch.setattr(agent, "call", fake_call)
     return made
@@ -413,3 +415,98 @@ def test_cli_question_step_failing_is_reported_not_raised(monkeypatch, tmp_path,
     made = pretend(monkeypatch, [done_reply()])
     run_cli(monkeypatch, tmp_path, ["build", "church_signup", "--ask", "3", "--run", "t"], [])
     assert "not built: APIConnectionError" in capsys.readouterr().out and made == []
+
+
+# S3.7: the recipe search tool
+def test_search_is_off_by_default_and_then_unknown(monkeypatch, tmp_path):
+    made = pretend(monkeypatch, [tool_reply("search_docs", {"query": "primary key"}), done_reply()])
+    agent.build("make an app", tmp_path)
+    assert "search_docs" not in pretend.offered[0][1] and "Unknown tool" in made[-1][2]["content"][0]["content"]
+
+
+def test_search_on_offers_the_tool_and_returns_recipes(monkeypatch, tmp_path):
+    import kb.search
+    monkeypatch.setattr(kb.search, "search_docs", lambda q, k=3, method="dense": [{"id": "01", "text": f"# Primary key ({q})"}])
+    made = pretend(monkeypatch, [tool_reply("search_docs", {"query": "no primary key"}), done_reply()])
+    result = agent.build("make an app", tmp_path, search=True)
+    system, names = pretend.offered[0]
+    assert "search_docs" in names and system.endswith(agent.SEARCH_HINT) and result["search"] is True
+    sent_back = made[-1][2]["content"][0]
+    assert not sent_back["is_error"] and sent_back["content"] == "Recipe 01: # Primary key (no primary key)"
+
+
+def test_search_without_the_dense_library_falls_back_to_keywords(monkeypatch):
+    import kb.search
+
+    def find(q, k=3, method="dense"):
+        if method == "dense":
+            raise ImportError("dense search needs sentence-transformers")
+        return [{"id": "15", "text": "No double booking"}]
+    monkeypatch.setattr(kb.search, "search_docs", find)
+    assert agent.search_docs("booked twice")["output"] == "Recipe 15: No double booking"
+    monkeypatch.setattr(kb.search, "search_docs", lambda q, k=3, method="dense": [])
+    assert agent.search_docs("!!!")["output"] == "No recipe matches."
+
+
+def test_search_with_wrong_arguments_is_reported(monkeypatch, tmp_path):
+    made = pretend(monkeypatch, [tool_reply("search_docs", {"q": "x"}), done_reply()])
+    agent.build("make an app", tmp_path, search=True)
+    assert "Bad arguments for search_docs" in made[-1][2]["content"][0]["content"]
+
+
+# S3.9: the local model through llama.cpp, with a pretend server
+def openai_reply(content="", calls=(), finish="stop"):
+    message = {"role": "assistant", "content": content}
+    if calls:
+        message["tool_calls"] = [{"id": f"c{i}", "type": "function", "function": {"name": n, "arguments": a}}
+                                 for i, (n, a) in enumerate(calls)]
+    return {"choices": [{"message": message, "finish_reason": "tool_calls" if calls else finish}],
+            "usage": {"prompt_tokens": 300, "completion_tokens": 40}}
+
+
+def pretend_llama(monkeypatch, replies):
+    """Make httpx.post return these OpenAI-style replies in order. Returns the request bodies sent."""
+    sent = []
+
+    def post(url, json, timeout):
+        sent.append(json)
+        return Obj(json=lambda: replies[min(len(sent), len(replies)) - 1])
+    monkeypatch.setattr(agent.httpx, "post", post)
+    return sent
+
+
+def test_local_build_translates_both_ways_and_costs_nothing(monkeypatch, tmp_path):
+    sent = pretend_llama(monkeypatch, [
+        openai_reply(calls=[("write_file", '{"path": "app.py", "content": "x = 1\\n"}'), ("read_file", '{"path": "nope.py"}')]),
+        openai_reply("Endpoints: none")])
+    result = agent.build("make an app", tmp_path, model="qwen3.5-9b-local")
+    assert (tmp_path / "app.py").read_text() == "x = 1\n"
+    assert result["stop"] == "end_turn" and result["turns"] == 2 and result["cost_usd"] == 0 and result["summary"] == "Endpoints: none"
+    first, second = sent[0], sent[1]["messages"]
+    assert first["messages"][0]["role"] == "system" and first["tools"][0]["function"]["name"] == "write_file"
+    assert first["chat_template_kwargs"] == {"enable_thinking": False}  # off: twice as slow for nothing (W4 row 17)
+    assert second[2]["tool_calls"][0]["function"]["name"] == "write_file"
+    assert second[3]["role"] == "tool" and second[3]["tool_call_id"] == "c0" and not second[3]["content"].startswith("ERROR")
+    assert second[4]["role"] == "tool" and second[4]["content"].startswith("ERROR: ")  # the failed read is marked
+
+
+def test_local_unreadable_arguments_become_bad_arguments(monkeypatch, tmp_path):
+    sent = pretend_llama(monkeypatch, [openai_reply(calls=[("write_file", "{path: app.py")]), openai_reply("Done")])
+    agent.build("make an app", tmp_path, model="qwen3.5-9b-local")
+    assert "Bad arguments for write_file" in sent[1]["messages"][3]["content"]
+
+
+def test_local_server_down_or_full_is_reported_not_raised(monkeypatch, tmp_path):
+    def down(url, json, timeout):
+        raise httpx.ConnectError("connection refused")
+    monkeypatch.setattr(agent.httpx, "post", down)
+    assert agent.build("make an app", tmp_path, model="qwen3.5-9b-local")["stop"].startswith("error: ConnectError")
+    pretend_llama(monkeypatch, [{"error": {"message": "the request exceeds the available context size"}}])
+    assert "context size" in agent.build("make an app", tmp_path, model="qwen3.5-9b-local")["stop"]
+
+
+def test_local_build_needs_no_api_key(monkeypatch, tmp_path):
+    monkeypatch.delenv("LLM_API_KEY", raising=False)
+    monkeypatch.setattr(agent, "_client", None)
+    pretend_llama(monkeypatch, [openai_reply("Done")])
+    assert agent.build("make an app", tmp_path, model="qwen3.5-9b-local")["stop"] == "end_turn"

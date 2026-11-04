@@ -14,8 +14,10 @@ import os
 import re
 import time
 from pathlib import Path
+from types import SimpleNamespace as Obj
 
 import anthropic
+import httpx
 
 from eval.llm import PRICES, ask
 from runtime import tools
@@ -107,21 +109,75 @@ TOOLS = [{"name": name, "description": getattr(tools, name).__doc__,
           "input_schema": {"type": "object", "properties": props, "required": required}}
          for name, (props, required) in PARAMS.items()]
 
+# S3.7: Joseph's recipe search (kb/search.py, decision 0037) as one more tool, only when build(search=True).
+SEARCH_TOOL = {"name": "search_docs", "input_schema": {"type": "object", "properties": {"query": STRING}, "required": ["query"]},
+               "description": "Search the team's 18 short recipes for FastAPI, SQLModel and pytest (for example 'two people "
+                              "booked the same room' or 'table has no primary key'). Returns the 3 best; judge whether they fit."}
+SEARCH_HINT = " You can also search_docs for a short recipe when you are unsure how to do something or a test fails."
+LOCAL_URL = os.environ.get("LOCAL_LLM_URL", "http://localhost:8090/v1") + "/chat/completions"  # S3.9, knowledge/environment.md
+
 _client = None
 
 
-def call(model, system, messages, effort):
+def call(model, system, messages, effort, tools=TOOLS):
     """One request. Top-level cache_control caches the conversation so far: each turn re-reads it at 10% of the price."""
     global _client
+    if model.endswith("-local"):
+        return call_local(system, messages, tools)
     if not _client:
         if not os.environ.get("LLM_API_KEY"):  # build() reports this as an error instead of crashing
             raise anthropic.AnthropicError("LLM_API_KEY is not set: run with --env-file .env")
         _client = anthropic.Anthropic(api_key=os.environ["LLM_API_KEY"], max_retries=4)
-    args = dict(model=model, max_tokens=16000, system=system, tools=TOOLS, messages=messages,
+    args = dict(model=model, max_tokens=16000, system=system, tools=tools, messages=messages,
                 output_config={"effort": effort}, cache_control={"type": "ephemeral"})
     if model.startswith("claude-opus"):  # same refusal fallback as Joseph's eval.llm
         return _client.beta.messages.create(betas=["server-side-fallback-2026-07-01"], fallbacks="default", **args)
     return _client.messages.create(**args)
+
+
+def call_local(system, messages, tools):
+    """The same turn on the local model (S3.9). llama.cpp speaks OpenAI's format, so translate there and back: our
+    conversation becomes OpenAI messages, and its reply comes back shaped like Claude's (text and tool_use blocks)."""
+    chat = [{"role": "system", "content": system}]
+    for m in messages:
+        c = m["content"]
+        if isinstance(c, str):  # the request, a repair request
+            chat.append({"role": m["role"], "content": c})
+        elif m["role"] == "assistant":
+            calls = [{"id": b.id, "type": "function", "function": {"name": b.name, "arguments": json.dumps(b.input)}}
+                     for b in c if b.type == "tool_use"]
+            chat.append({"role": "assistant", "content": text_of(c), **({"tool_calls": calls} if calls else {})})
+        else:  # the results of our tools, one message each
+            chat += [{"role": "tool", "tool_call_id": r["tool_use_id"],
+                      "content": ("ERROR: " if r["is_error"] else "") + r["content"]} for r in c]
+    body = {"messages": chat, "max_tokens": 16000, "chat_template_kwargs": {"enable_thinking": os.environ.get("LOCAL_THINKING") == "1"},
+            "tools": [{"type": "function", "function": {"name": t["name"], "description": t["description"],
+                                                         "parameters": t["input_schema"]}} for t in tools]}
+    r = httpx.post(LOCAL_URL, json=body, timeout=3600).json()
+    if "choices" not in r:  # e.g. the conversation no longer fits the context window
+        raise RuntimeError(f"local model: {r.get('error', r)}"[:300])
+    choice, u = r["choices"][0], r["usage"]
+    msg = choice["message"]
+    content = [Obj(type="text", text=msg["content"])] if msg.get("content") else []
+    for t in msg.get("tool_calls") or []:
+        try:
+            args = json.loads(t["function"]["arguments"])
+        except ValueError:  # not JSON: run_tool will answer "Bad arguments"
+            args = {"unreadable": t["function"]["arguments"]}
+        content.append(Obj(type="tool_use", id=t["id"], name=t["function"]["name"], input=args))
+    stop = "tool_use" if msg.get("tool_calls") else {"stop": "end_turn", "length": "max_tokens"}.get(choice["finish_reason"], choice["finish_reason"])
+    return Obj(stop_reason=stop, content=content, usage=Obj(input_tokens=u["prompt_tokens"], output_tokens=u["completion_tokens"],
+                                                            cache_creation_input_tokens=0, cache_read_input_tokens=0))
+
+
+def search_docs(query):
+    """The 3 best recipes as text. Dense search needs `uv run --extra kb`; without it, keyword search (BM25)."""
+    from kb.search import search_docs as find
+    try:
+        found = find(query, 3)
+    except ImportError:
+        found = find(query, 3, method="bm25")
+    return {"ok": True, "output": "\n\n".join(f"Recipe {r['id']}: {r['text']}" for r in found) or "No recipe matches."}
 
 
 def cost(model, u):
@@ -132,7 +188,12 @@ def cost(model, u):
     return (u.input_tokens * price_in + written * price_in * 1.25 + read * price_in * 0.1 + u.output_tokens * price_out) / 1e6
 
 
-def run_tool(root, name, args):
+def run_tool(root, name, args, search=False):
+    if search and name == "search_docs":
+        try:
+            return search_docs(**args)
+        except TypeError as e:
+            return {"ok": False, "output": f"Bad arguments for search_docs: {e}"}
     if name not in PARAMS:
         return {"ok": False, "output": f"Unknown tool {name!r}"}
     try:
@@ -252,12 +313,13 @@ def follows_plan(code, plan):
 
 
 def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", max_turns=40, max_usd=2.0, on_event=None,
-          max_repairs=0, plan=None):
+          max_repairs=0, plan=None, search=False):
     """Run the loop. Stops when Claude finishes ("end_turn"), or at max_turns, max_usd or an error (always reported).
 
     With max_repairs > 0, each time Claude finishes, an independent checker tests app.py against the request; failures
     are sent back to Claude to fix, at most max_repairs times. app.py is saved after every round as rounds/app_N.py.
     With plan (an approved plan from make_plan), Claude gets the request plus the plan; the checker still sees only the request.
+    With search, Claude also gets the search_docs tool (S3.7). A model ending in -local runs on llama.cpp (S3.9).
 
     Writes two files in root: trace.jsonl, one line per event as it happens (start, reply, tool, check, end), and
     run.json, the totals. on_event, if given, is called with every event too, so a UI can show the build live."""
@@ -279,13 +341,14 @@ def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", m
             if on_event:
                 on_event(line)
 
-        log("start", request=request, model=model, prompt=prompt, effort=effort, plan=plan)
+        log("start", request=request, model=model, prompt=prompt, effort=effort, plan=plan, search=search)
         try:
             for turn in range(max_turns):
                 if usd >= max_usd:
                     stop = "max_usd"
                     break
-                reply = call(model, PROMPTS[prompt], messages, effort)
+                reply = call(model, PROMPTS[prompt] + (SEARCH_HINT if search else ""), messages, effort,
+                             TOOLS + [SEARCH_TOOL] if search else TOOLS)
                 turns += 1
                 used, price = tokens_of(reply.usage), cost(model, reply.usage)
                 tokens = {k: tokens[k] + used[k] for k in tokens}
@@ -316,7 +379,7 @@ def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", m
                 for block in reply.content:
                     if block.type == "tool_use":
                         began = time.time()
-                        out = run_tool(root, block.name, block.input)
+                        out = run_tool(root, block.name, block.input, search)
                         extra = {"tests": test_counts(out["output"])} if block.name == "run_tests" else {}
                         tests = extra.get("tests", tests)
                         calls.append({"turn": turn, "tool": block.name, "ok": out["ok"]})
@@ -325,12 +388,12 @@ def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", m
                         results.append({"type": "tool_result", "tool_use_id": block.id, "content": out["output"],
                                         "is_error": not out["ok"]})
                 messages.append({"role": "user", "content": results})  # all results of one turn in one message
-        except anthropic.AnthropicError as e:  # no key, network down, overloaded after the retries: report, do not crash
+        except (anthropic.AnthropicError, httpx.HTTPError, RuntimeError) as e:  # no key, network or local server down: report
             stop = f"error: {type(e).__name__}: {e}"[:300]
         finally:
             tools.stop_server(root)  # never leave a server running
         last = messages[-1]["content"] if messages[-1]["role"] == "assistant" else []
-        run = {"request": request, "model": model, "prompt": prompt, "effort": effort, "stop": stop, "turns": turns,
+        run = {"request": request, "model": model, "prompt": prompt, "effort": effort, "search": search, "stop": stop, "turns": turns,
                "repairs": repairs, "tool_calls": calls, "tokens": tokens, "cost_usd": round(usd, 4), "seconds": round(time.time() - start, 1),
                "tests": tests, "summary": text_of(last), "plan": plan,
                "follows_plan": follows_plan((root / "app.py").read_text(), plan) if plan and (root / "app.py").exists() else None}
