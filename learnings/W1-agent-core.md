@@ -292,6 +292,7 @@ The agent uses Bernard's tools and is scored by Joseph's harness, so check both 
 
 If something goes wrong:
 - **Many Docker errors:** Docker Desktop is not running.
+- **`No environment file found at: Processing/...`:** `uv` cuts a path at its spaces (this repo lives in "Natural Language Processing"). Run the commands from the repo folder with `--env-file .env`, never a full path.
 
 ### Run the agent
 

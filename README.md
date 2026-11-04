@@ -1,15 +1,20 @@
 # Prosit 2: A Non-Developer Friendly API Builder
 
 <!-- STATUS:START -->
-## Now: Stage 3: Alice — agent core
+## Now: Stage 4: Michael — UI and usability
 
-**Who:** Alice (W1)
+**Who:** Michael (W3)
 
 | Task | Who | Status |
 |---|---|---|
-| S3.11 Handoff: Alice's learnings | Alice (W1) | 🔵 ready |
+| S4.1 Read Alice's learnings, run a build | Michael (W3) | 🔵 ready |
+| S4.2 UI on a recorded session | Michael (W3) | ⏳ waiting (on S4.1) |
+| S4.3 UI on the live agent | Michael (W3) | ⏳ waiting (on S4.2) |
+| S4.4 UI alternatives compared | Michael (W3) | ⏳ waiting (on S4.3) |
+| S4.5 Usability test | Michael (W3) | ⏳ waiting (on S4.4) |
+| S4.6 Handoff: Michael's learnings | Michael (W3) | ⏳ waiting (on S4.3, S4.5) |
 
-**Next:** Stage 4: Michael — UI and usability
+**Next:** Stage 5: Joseph — full evaluation
 
 Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand.
 <!-- STATUS:END -->
