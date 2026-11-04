@@ -48,6 +48,8 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0039](0039-run-record-and-trace.md) | Every build writes trace.jsonl as it happens and run.json at the end | Proposed | 2026-11-03 |
 | [0040](0040-repairs-off-by-default.md) | The repair loop stays in the code but is off by default | Accepted | 2026-11-04 |
 | [0041](0041-plan-v2-when-a-person-approves.md) | Plan first (planner v2) when a person approves; no plan in automatic benchmark runs | Accepted | 2026-11-04 |
+| [0042](0042-ask-up-to-3-questions.md) | Ask the client up to 3 questions before planning or building | Proposed | 2026-11-04 |
+| [0043](0043-search-off-for-opus.md) | Recipe search stays available but off for Opus | Proposed | 2026-11-04 |
 <!-- DECISIONS:END -->
 
 ## Open questions
