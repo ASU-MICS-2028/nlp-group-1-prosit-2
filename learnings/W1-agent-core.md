@@ -59,6 +59,12 @@ Claude asked for 3 tools in its first reply (write `app.py`, write `tests/test_a
 
 In the real experiment the checker passed all 15 apps the first time, so step 3 never happened (row 3).
 
+**Recipe search as a tool (S3.7, decision 0043).** With `--search`, the agent's menu gets a 9th tool, `search_docs(query)`, and one line in its instructions: "You can also search_docs for a short recipe when you are unsure how to do something or a test fails." The tool runs Joseph's search (`kb/search.py`) and sends back his 3 best recipes. If the dense-search library is not installed, it uses his keyword search (BM25) instead. Real example: in a hostel build Opus searched "two people booked the same room" and got recipe 15, "No double booking". Opus used it only twice in 15 builds (row 8).
+
+**The local model (S3.9).** `--model qwen3.5-9b-local` runs the same loop on Qwen 3.5 9B on this laptop, through llama.cpp (start it with `llama-server -m models/Qwen_Qwen3.5-9B-Q4_K_M.gguf --jinja -c 32768 --port 8090`). llama.cpp speaks a different message format (OpenAI's), so `call_local` translates each turn: our conversation becomes OpenAI messages, and Qwen's reply comes back shaped like Claude's, so nothing else in the loop changes. Thinking is off (Joseph: twice as slow for nothing, W4 row 17). It costs $0 but is slow: the first church build used 40 turns in 19.5 minutes and scored 3/10.
+
+**"Change it" (S3.10).** `change TASK --what "..."` sends Claude the original request, the change in the client's words, and the instruction to edit `app.py` with `edit_file` instead of rewriting it, keep everything else working, and add and run tests for the change. Before it starts, the last `run.json`, `trace.jsonl` and `app.py` are copied into `history/` with a number (`app_1.py`, ...), so nothing is lost. With no `app.py` yet, it refuses at once ("build it first"). The checker (if on) judges the app against the request *plus* the change.
+
 **Questions before building (S3.8).** With `--ask N`, before anything is planned or built:
 1. **One Claude call with no tools** reads the request and writes at most N short questions, most important first, about what it would otherwise have to guess. If the request is clear, it asks none.
 2. **The client answers.** A real person types each answer (an empty answer counts as "No preference: you decide"). For the benchmark, a pretend client answers instead (`builder/client.py`, Haiku): either from the task's prepared answers (`answers.json`) or playing the client from the full brief (`client_brief.md`). The agent sees these files only as answers to its own questions (decision 0033).
@@ -199,6 +205,21 @@ Plan: S3.5 (the agent writes the plan and contract first) should make the design
 | Old data left in the database from the builder's own tests | Deleted before every check, as the harness does |
 | Repairs are off (the default) | No checker call; `rounds/app_0.py` is still saved |
 
+**What search, the local model and "change it" do when things go wrong (S3.7, S3.9, S3.10).** Free tests:
+
+| What goes wrong | What happens |
+|---|---|
+| Claude asks for `search_docs` when search is off | "Unknown tool", as for any tool not on the menu |
+| Search is called with the wrong argument name | "Bad arguments for search_docs" |
+| The dense-search library is not installed | Keyword search (BM25) instead |
+| No recipe matches | "No recipe matches." |
+| Qwen writes tool arguments that are not valid JSON | "Bad arguments", Qwen can try again |
+| The llama.cpp server is not running | `error: ConnectError ...` in the report, no crash |
+| The conversation grows past Qwen's context window (32,768 tokens) | `error: RuntimeError: local model: ... context size` in the report |
+| A local build has no API key | Fine: the key is only needed for Claude |
+| `change` with no app yet, or an empty change | Refused at once, nothing paid |
+| A second change to the same app | The first change's record and app are kept as `history/*_1`, the second's as `*_2` |
+
 **What the question step does when things go wrong (S3.8).** Free tests (`uv run --with anthropic python -m pytest builder -q`):
 
 | What goes wrong | What happens |
@@ -298,6 +319,15 @@ uv run --env-file .env --with anthropic python -m builder plan church_signup --a
 ```
 From Python (for Michael's screen): `questions, cost = clarify(request_text, 3)`, show them, collect the answers, then `build(with_answers(request_text, questions, answers), folder)` or `make_plan(with_answers(...))`.
 
+### Recipe search, the local model, "change it" (S3.7, S3.9, S3.10)
+
+```
+uv run --env-file .env --with anthropic --extra kb python -m builder build church_signup --search --run s1             # with Joseph's recipes
+uv run --env-file .env --with anthropic python -m builder build church_signup --model qwen3.5-9b-local --max-turns 20 --run l1   # free, slow; llama-server must run
+uv run --env-file .env --with anthropic python -m builder change church_signup --what "People must be able to cancel" --run q1  # edits projects/q1/church_signup/app.py
+```
+From Python: `build(request, folder, search=True)`, `build(request, folder, model="qwen3.5-9b-local")`, `build(request, folder, change="...")`. `run.json` has `search` and `change`; the `start` event has them too.
+
 ### For Michael (Stage 4): showing a build live
 
 Pass a function as `on_event`. The agent calls it with every event, the same lines it writes to `trace.jsonl`:
@@ -349,6 +379,10 @@ Write the questions an examiner would ask about this part, with short answers. E
 
 Every technical word used above, in one plain sentence each.
 
+- **Local model:** an AI that runs on this laptop instead of on Anthropic's computers. Free, private, much slower and much weaker (Qwen 3.5 9B).
+- **llama.cpp (`llama-server`):** the program that runs the local model and answers requests at `http://localhost:8090`.
+- **Context window:** how much text a model can read at once. Qwen's is set to 32,768 tokens; a long build can go past it.
+- **Translator (adapter):** code that turns one message format into another, so the same loop can talk to Claude and to llama.cpp.
 - **Clarifying question:** a question the agent asks the client before building, about something the request leaves out (the grading scale, whether a fare works both ways).
 - **Pretend client (simulated client):** a cheap Claude (Haiku) that answers the agent's questions from the task's hidden answers, so experiments need no person.
 - **Checker (independent checker):** a second Claude call that writes tests from the client's request alone, to judge the builder's app without sharing its assumptions.
