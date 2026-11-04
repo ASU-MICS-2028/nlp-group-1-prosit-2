@@ -10,6 +10,8 @@ Plain words. What goes in, what comes out, why the system needs it.
 
 The agent is the "brain" of the system. **In:** a client's request in plain words, such as "I need a sign-up sheet for church events". **Out:** a folder with a working program (`app.py`) that does what the client asked, plus a short report of what it cost. Claude does the thinking, but it never touches the computer itself. It asks for actions ("write this file", "run the tests"), our code does them in Bernard's sandbox and tells Claude what happened, and this repeats until Claude says it is finished.
 
+**Where it ended up (Stage 3):** the agent first asks the client up to 3 questions, then builds and tests the app in one go. On the 15 benchmark tasks it passes **95.8%** of the hidden tests, against **89%** for a single Claude call with no tools (Joseph's baseline), for about 13 cents and 40 seconds per task. A client can also approve a plan first (`plan`), ask for a change later (`change`), or run it free on this laptop with Qwen (59% on the easy tasks, much slower).
+
 ## 2. How it works, step by step
 
 The code is two files: `builder/__main__.py` (the command you type) and `builder/agent.py` (the loop).
@@ -294,9 +296,13 @@ If something goes wrong:
 ### Run the agent
 
 ```
-uv run --with anthropic python -m pytest builder -q        # the free tests (pretend Claude): 29 passed
+uv run --with anthropic python -m pytest builder -q        # the free tests (pretend Claude): 51 passed
 uv run --env-file .env --with anthropic python -m builder build church_signup --run try1     # one task, about $0.10
 uv run --env-file .env --with anthropic python -m eval.harness church_signup projects/try1/church_signup --repeat 3 --name try1
+```
+**The best setup (95.8%, row 7):** add `--ask 3`. A person types the answers; for benchmark tasks add `--client answers` so the pretend client answers:
+```
+uv run --env-file .env --with anthropic python -m builder build church_signup --ask 3 --client answers --run best1   # about $0.13
 ```
 The build prints one line per task, such as `church_signup  end_turn  3 turns  4 tools $0.1008 30.8s` (prompt B, Nov 3), and leaves `app.py`, `tests/`, `run.json` and `trace.jsonl` in `projects/try1/church_signup/`. Since S3.3 the line ends with the agent's own test result, e.g. `own tests 7 passed 0 failed`. Use `all` instead of a task name for all 15 (about $1.70, about 9 minutes). Options: `--prompt A|B|C|D` (default B), `--model`, `--effort`, `--repairs N` (the second opinion and up to N repairs, default 0, decision 0040).
 
