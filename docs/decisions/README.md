@@ -50,6 +50,9 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0041](0041-plan-v2-when-a-person-approves.md) | Plan first (planner v2) when a person approves; no plan in automatic benchmark runs | Accepted | 2026-11-04 |
 | [0042](0042-ask-up-to-3-questions.md) | Ask the client up to 3 questions before planning or building | Proposed | 2026-11-04 |
 | [0043](0043-search-off-for-opus.md) | Recipe search stays available but off for Opus | Proposed | 2026-11-04 |
+| [0044](0044-one-agent-not-a-split.md) | One agent that asks questions, not a Planner / Builder / Tester split | Proposed | 2026-11-04 |
+| [0045](0045-changes-edit-the-existing-app.md) | A requested change edits the existing app instead of rebuilding it | Proposed | 2026-11-04 |
+| [0046](0046-opus-default-qwen-only-with-search.md) | Opus is the agent's default model; the local Qwen is used only with recipe search | Proposed | 2026-11-04 |
 <!-- DECISIONS:END -->
 
 ## Open questions
