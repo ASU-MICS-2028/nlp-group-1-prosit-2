@@ -357,7 +357,8 @@ def test_at_most_n_questions_and_blank_ones_dropped(monkeypatch):
 def test_answers_are_added_to_the_request():
     assert agent.with_answers("grades", [], []) == "grades"
     assert agent.with_answers("grades", ["Scale?"], ["80+ is A"]).endswith(
-        "The client's answers to your questions:\nQ: Scale?\nA: 80+ is A")
+        "The client's answers to your questions:\nQ: Scale?\nA: 80+ is A\n\n" + agent.SIMPLEST)
+    assert "no logins, PINs" in agent.SIMPLEST
 
 
 def test_pretend_client_gives_exactly_one_answer_per_question(monkeypatch):

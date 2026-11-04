@@ -90,6 +90,9 @@ ASKER = """You build backends for people who do not code. Before anything is bui
 the questions whose answers would change what gets built: missing rules, numbers, formats or choices you would
 otherwise have to guess. Ask at most {n}, the most important first, each one short and in plain words. If the request
 is already clear, ask none."""
+# S3.8 row: asked "Should customers need a PIN?", a client with no preference got a PIN built in (momo 13/13 to 1/13).
+SIMPLEST = ("Where the client has no preference or did not answer, choose the simplest option and add nothing they did "
+            "not ask for (no logins, PINs or extra required fields).")
 QUESTIONS = {"type": "object", "additionalProperties": False, "required": ["questions"], "properties": {"questions": WORDS}}
 
 # One definition per tool (Bernard's section 6): the docstring is the description; root is never offered to the LLM.
@@ -273,7 +276,7 @@ def with_answers(request, questions, answers):
     if not questions:
         return request
     qa = "\n".join(f"Q: {q}\nA: {a}" for q, a in zip(questions, answers))
-    return f"{request}\n\nThe client's answers to your questions:\n{qa}"
+    return f"{request}\n\nThe client's answers to your questions:\n{qa}\n\n{SIMPLEST}"
 
 
 def load_plan(root):
