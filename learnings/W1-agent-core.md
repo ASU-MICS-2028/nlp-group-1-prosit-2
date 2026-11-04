@@ -117,6 +117,8 @@ The final design in a few bullets, each pointing to a row in the log.
 - **A hand-written loop over Bernard's 8 tools** (decision 0003): Claude asks, our code acts in the sandbox, up to 40 turns or $2.
 - **Prompt B** (row 1, decision 0038): one file `app.py`, FastAPI, data in SQLite with SQLModel, write tests, run them, fix until they pass, add nothing extra.
 - **A diary and a summary for every build** (row 2, decision 0039): `trace.jsonl` line by line as it happens, `run.json` at the end.
+- **Repairs off by default** (row 3, decision 0040): the independent checker passed all 15 apps, so 0 to 5 repairs all scored 87.0%. `--repairs N` turns it on.
+- **Plan first with planner v2 when a person approves; no plan in automatic benchmark runs** (rows 4 and 5, decision 0041): no plan 87.0%, v1 74.5% (added logins), v2 82.8% (unanswered questions became missing features).
 
 ## 5. What breaks, and the limits
 
@@ -225,7 +227,7 @@ result = build("I need a sign-up sheet for church events ...", "projects/demo/ch
 uv run --env-file .env --with anthropic python -m builder plan church_signup --run p1          # shows the plan, asks y / n / changes
 uv run --env-file .env --with anthropic python -m builder build church_signup --plan --run p1  # builds from projects/p1/church_signup/plan.json
 ```
-`plan --yes` approves without asking (for experiments with no person present). `plan all --yes` plans all 15 tasks. The build line now ends with `follows plan {'missing': [], 'extra': []}` (or `None` without a plan).
+`plan --yes` approves without asking (for experiments with no person present). `--planner 2` (the default, decision 0041) may not add features the client did not ask for; `--planner 1` is the first version, kept to repeat row 4. `plan all --yes` plans all 15 tasks. The build line now ends with `follows plan {'missing': [], 'extra': []}` (or `None` without a plan).
 
 From Python (for Michael's approval screen):
 ```python

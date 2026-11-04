@@ -1,6 +1,6 @@
 # 0004. Spec-first: the user approves the API contract before any code is written
 
-- Status: Proposed
+- Status: Superseded by 0041
 - Date: 2026-10-18
 - Decided by: —
 

@@ -171,7 +171,7 @@ def check(root, request, model, checks=None):
     return checks, tools.run_tests(root, "tests/test_acceptance.py"), usd
 
 
-def make_plan(request, model="claude-opus-5-5", old=None, changes=None, planner="1"):
+def make_plan(request, model="claude-opus-5-5", old=None, changes=None, planner="2"):
     """Draft a plan (S3.5), or redo the old plan with the client's changes. planner picks the instructions in PLANNERS.
     Returns (plan dict, cost in US dollars)."""
     if not request.strip():
