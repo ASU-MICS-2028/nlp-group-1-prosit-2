@@ -13,7 +13,7 @@
 <!-- BOARD:START -->
 | Who | Stage 0<br>Set up (everyone) | Stage 1<br>Bernard — tools and sandbox | Stage 2<br>Joseph — benchmark, harness, knowledge base | Stage 3<br>Alice — agent core | Stage 4<br>Michael — UI and usability | Stage 5<br>Joseph — full evaluation | Stage 6<br>Eric — integration and writing | Stage 7<br>Everyone — review, viva, submit |
 |---|---|---|---|---|---|---|---|---|
-| Alice (W1) | — | — | — | ✅ S3.1 Read Bernard's and Joseph's learnings, run their parts<br>✅ S3.2 Single agent from the command line<br>✅ S3.3 Run record and trace<br>✅ S3.4 Test-and-repair loop<br>✅ S3.5 Spec-first plan and approval<br>🔵 S3.6 Planner / Builder / Tester split<br>🟡 S3.7 Retrieval in the agent<br>🟡 S3.8 Clarifying questions<br>🟡 S3.9 Claude vs local Qwen<br>🔵 S3.10 "Change it" edit loop<br>⏳ S3.11 Handoff: Alice's learnings | — | — | — | — |
+| Alice (W1) | — | — | — | ✅ S3.1 Read Bernard's and Joseph's learnings, run their parts<br>✅ S3.2 Single agent from the command line<br>✅ S3.3 Run record and trace<br>✅ S3.4 Test-and-repair loop<br>✅ S3.5 Spec-first plan and approval<br>🔵 S3.6 Planner / Builder / Tester split<br>🟡 S3.7 Retrieval in the agent<br>🟡 S3.8 Clarifying questions<br>🟡 S3.9 Claude vs local Qwen<br>🟡 S3.10 "Change it" edit loop<br>⏳ S3.11 Handoff: Alice's learnings | — | — | — | — |
 | Bernard (W2) | — | ✅ S1.1 The agent's tools<br>✅ S1.2 Sandbox<br>✅ S1.3 Safety tests<br>🔵 S1.4 MCP server<br>✅ S1.5 Handoff: Bernard's learnings | — | — | — | — | — | — |
 | Michael (W3) | — | — | — | — | ⏳ S4.1 Read Alice's learnings, run a build<br>⏳ S4.2 UI on a recorded session<br>⏳ S4.3 UI on the live agent<br>⏳ S4.4 UI alternatives compared<br>⏳ S4.5 Usability test<br>⏳ S4.6 Handoff: Michael's learnings | — | — | — |
 | Joseph (W4) | ✅ S0.2 LLM setup | — | ✅ S2.1 Read Bernard's learnings, run his tools<br>✅ S2.2 15 benchmark tasks<br>✅ S2.3 Eval harness<br>✅ S2.4 Recipe knowledge base and search<br>✅ S2.5 Handoff: Joseph's learnings, part 1 | — | — | ⏳ S5.1 Read Alice's and Michael's learnings<br>⏳ S5.2 Full system on all 15 tasks<br>⏳ S5.3 Ablations<br>⏳ S5.4 Model comparison<br>⏳ S5.5 Results tables and charts<br>⏳ S5.6 Handoff: Joseph's learnings, part 2 | — | — |
@@ -61,7 +61,7 @@ flowchart LR
     S3_7["S3.7 Retrieval in the agent<br/>W1 · Should"]:::doing
     S3_8["S3.8 Clarifying questions<br/>W1 · Should"]:::doing
     S3_9["S3.9 Claude vs local Qwen<br/>W1 · Should"]:::doing
-    S3_10["S3.10 'Change it' edit loop<br/>W1 · Could"]:::ready
+    S3_10["S3.10 'Change it' edit loop<br/>W1 · Could"]:::doing
     S3_11["S3.11 Handoff: Alice's learnings<br/>W1 · Must"]:::waiting
   end
   subgraph Stage4["Stage 4: Michael — UI and usability"]
@@ -194,7 +194,7 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 | S3.7 | Retrieval in the agent | W1 | S3.2 | Should | doing | Joseph's `search_docs` wired in; with vs without compared |
 | S3.8 | Clarifying questions | W1 | S3.5 | Should | doing | No questions vs up to 3 vs a simulated client, compared on the vague tasks |
 | S3.9 | Claude vs local Qwen | W1 | S3.4 | Should | doing | Same tasks on both models: pass rate, time, cost |
-| S3.10 | "Change it" edit loop | W1 | S3.5 | Could | todo | A follow-up request edits an existing project instead of rebuilding it |
+| S3.10 | "Change it" edit loop | W1 | S3.5 | Could | doing | A follow-up request edits an existing project instead of rebuilding it |
 | S3.11 | Handoff: Alice's learnings | W1 | S3.3, S3.4, S3.5, S3.6, S3.7, S3.8 | Must | todo | `learnings/W1-*.md` complete, including the events the agent sends and how a UI drives it |
 
 ## Stage 4: Michael — UI and usability
@@ -262,7 +262,7 @@ What each person owns. The task list under the table is generated.
 7. S3.7 Retrieval in the agent — Should, doing
 8. S3.8 Clarifying questions — Should, doing
 9. S3.9 Claude vs local Qwen — Should, doing
-10. S3.10 "Change it" edit loop — Could, ready
+10. S3.10 "Change it" edit loop — Could, doing
 11. S3.11 Handoff: Alice's learnings — Must, waiting (waiting on S3.6, S3.7, S3.8)
 
 **Bernard (W2)**

@@ -11,7 +11,7 @@
 | S3.7 Retrieval in the agent | Alice (W1) | 🟡 doing |
 | S3.8 Clarifying questions | Alice (W1) | 🟡 doing |
 | S3.9 Claude vs local Qwen | Alice (W1) | 🟡 doing |
-| S3.10 "Change it" edit loop | Alice (W1) | 🔵 ready |
+| S3.10 "Change it" edit loop | Alice (W1) | 🟡 doing |
 | S3.11 Handoff: Alice's learnings | Alice (W1) | ⏳ waiting (on S3.6, S3.7, S3.8) |
 
 **Next:** Stage 4: Michael — UI and usability
