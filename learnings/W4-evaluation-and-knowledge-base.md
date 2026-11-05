@@ -53,6 +53,13 @@ What it does, in order:
 uv run --extra kb python -m kb.search "could not assemble any primary key columns"
 ```
 
+**Hosting: keeping a backend running at a public address (decision 0047).** After Lecture 8, a build must stay up.
+
+1. **The server:** one Google Cloud machine with Docker and Caddy. Caddy answers on `https://34-78-38-126.sslip.io` and gives every backend its own path.
+2. **`deploy(folder, "church-demo")`** copies only `app.py` to `/srv/deployed/church-demo/` and starts it with the same locks as the sandbox (no internet, 512 MB, 1 CPU, read-only system files). Then it tells Caddy about the new path.
+3. **It returns** `url`, `docs_url` and `endpoints`, which is what the client needs (Lecture 8).
+4. **The data** is the SQLite file in that folder. Deploying the same name again changes the code and keeps the file. Docker restarts everything after a reboot.
+
 ## 3. Everything we tried (experiment log)
 
 One row per decision. Every decision compares at least 2 options. Add rows as you go, not at the end.
@@ -86,6 +93,9 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 | 25 | Can search say "no recipe fits"? | A cutoff on the best score, chosen on the same questions | 10 no-answer questions among the 111 | Best cutoff is right **66%** of the time, against 62% for always answering, for every method | No. The agent always gets 3 recipes and must judge whether they apply |
 | 26 | What breaks the search? | Empty, spaces, symbols, emoji, one letter, Twi, Twi+English, Pidgin, French, SQL-injection text, prompt-injection text, 10,000 words, numbers only, unknown method, library not installed | Each run through dense and BM25 | Empty, spaces, symbols, emoji: **nothing returned** (right). 10,000 words: 175 ms. French and Pidgin: dense still finds the right recipe ("make e no allow person book the room twice" → double booking). **Twi: noise** with both. Injection text: just ranked like any words, nothing runs. Missing library: a clear message, BM25 still works. First dense search: 7 s (model loading), then about 5 ms. Accented letters were being split ("réservations" → "r", "servations"): fixed | Safe on every input. Non-English questions, especially Twi, need translating first (or a multilingual model, untested) |
 | 27 | Do recipes make builds better? | No recipes · a fixed set (01 primary key, 02 database setup, 18 one-file checklist) · searched (the top recipe for each of the task's 4 planning questions, 3–4 recipes) | Qwen 3.5 9B, thinking off, the 15 plain requests, one run each; Opus maps only builds that start ($0.39 in all) | Builds that start: none **2/15**, fixed **9/15**, searched **7/15**. Tests passed: none **2/192 (1%)**, fixed **35/192 (18%)**, searched **19/192 (10%)**. The "no primary key" crash: 9 builds with no recipes, 0 with fixed, 1 with searched. Searched recipes were about the topic (bookings, dates, money) and never picked the setup recipes 02 or 18. New crashes with recipes were copied code with a missing import (`StaticPool`, `contextmanager`) | **Recipes help a lot: 9 times more tests pass.** The basics (a fixed set) helped more than topic search. One run per arm with a small, noisy model, so fixed vs searched (35 vs 19) may be partly luck; none vs any recipes is not. Suggestion for Alice: always give the setup recipes, and use search for the topic ones |
+| 28 | Where should built backends live? | One server with Docker and Caddy · a managed service per backend · a subdomain per backend | Reasoned from what each needs; the first was then built and tested (decision 0047) | One server: one HTTPS address, SQLite file simply kept on disk, about $30 a month | **One server, each backend at `/b/NAME`.** Fewest moving parts for a demo. Not measured against the others |
+| 29 | Does a hosted backend work, and is it still locked in? | 24 checks in `runtime/experiments/deploy_check.py`, run on the server, free. Also Bernard's tests and the harness on Linux | Real calls through the public HTTPS address; a deliberately nosy backend; a crashing app; 7 bad names | **24 of 24 pass.** Add and read back over HTTPS, `/docs` loads, data kept after a container restart and after a redeploy. The nosy backend had no internet and could not see `.env`, another backend, another backend's data or Caddy's admin port. A crashing app is refused with its error and leaves nothing behind. Bernard's 51 tests pass and the harness scores 272/272 on Linux, after two fixes: the sandbox must run as the folder's owner, and one test demanded user 1000 when it meant "not root" | **Works.** The Linux problem would have stopped every build on the server, not just deploys |
+| 30 | Does data survive the server going down? | Normal reboot · pull the plug (`gcloud compute instances reset`) right after a write · pull the plug 60 s after a write | A real agent-built church backend, live on the public address | Normal reboot: **kept**. Plug pulled 5 s after a write: **that write lost** (seen twice). Plug pulled 60 s after: **kept**. The backend came back by itself every time | **Good enough for this project.** Only a crash of the whole server loses data, and only the last moments. Why SQLite's own safeguards did not cover those seconds was not investigated. One real build (church, built by the agent, $0.12 with its map) scored **30/30** over 3 runs on the server |
 
 ## 4. What we chose, and why
 
@@ -114,6 +124,10 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 - **The translation can still miss a valid design** we have not seen yet. If a build fails, read the failing test before blaming the build: in the first round, most failures we read were the tool's fault, not the build's (row 12).
 - **An LLM judge is not stable on borderline tests** (row 9). Use it to find suspects only.
 - **The harness scores each backend once** unless you ask for `--repeat N`. For the agent's results (Stage 3) use at least `--repeat 3` on generated builds: one Qwen build changed between runs (row 17).
+- **The agent can finish without testing anything.** With Docker off, every `run_tests` failed, yet the build ended normally (`end_turn`, own tests 0 passed), and its summary said it could not run anything. So `build()` finishing does not mean the app works. Before deploying, check `result["tests"]` shows passes and no failures. This check is not written yet.
+- **A crash of the whole server can lose the last few seconds of writes** (row 30). Normal restarts lose nothing. There are no backups.
+- **One small server:** 4 GB shared by every backend and build. The limit has not been measured. Generated backends have no login unless the client asked for one, so anyone with the link can add data. Rate limits and cleaning the input are still to do.
+- **Generated apps must store data in a file.** An app that keeps data in memory passes its tests but loses everything on restart, and `deploy()` cannot tell. The agent's prompt asks for SQLite (decision 0038), and the church build used it.
 - **Search cannot say "nothing fits"** (row 25), and Twi questions return noise (row 26).
 - **Recipes were tried in one build per task, with Qwen only** (row 27). None vs recipes is a big gap; fixed vs searched may be luck. Recipes did not stop a small model leaving out imports when it copied code. Opus and Haiku were not tried with recipes.
 - **One mutant once failed an extra test** (in the first `validate.py` run in a fresh clone, `missing_event_200` also failed the "no name" test, which it should pass). It was still caught, and 3 more runs matched the saved result. Most likely a slow first request in a newly set-up laptop; if it happens often, look at the 10 s request limit in `conftest.py`.
@@ -152,6 +166,18 @@ The harness writes `eval/results/harness/<name>.json`, one row per build and rep
 - **Do not put benchmark topics in recipes** (decision 0036), or the search would give the tests away.
 - **Do not edit `benchmark/conftest.py` or the tests without re-checking:** re-run `validate.py`, then the harness with `--references` (decision 0034).
 
+**Hosting (on the server only; the server's address and access are with Joseph):**
+
+```python
+from runtime.deploy import deploy, undeploy
+deploy("/home/platform/builds/church-demo", "church-demo")
+# {"ok": True, "url": "https://34-78-38-126.sslip.io/b/church-demo", "docs_url": ".../docs", "endpoints": ["GET /events", ...], "output": "..."}
+# ok False, with the reason in "output", if the app crashes, the name is bad or there is no app.py
+undeploy("church-demo")                     # add delete_data=True to delete its database as well
+```
+
+Check it: `uv run python -m runtime.experiments.deploy_check` on the server prints 24 PASS lines (free).
+
 **What surprised me:**
 - Scoring a build with no `ops.json` calls Opus once to write the name map (about $0.02). That needs `--env-file .env --with anthropic`. The map is saved next to `app.py`, so it is paid for once.
 - If a build fails, read the failing test before blaming the build. In the first round, most failures were our tool's fault.
@@ -176,6 +202,8 @@ The harness writes `eval/results/harness/<name>.json`, one row per build and rep
 | Why dense search and not BM25? | We measured both on 111 questions: the right recipe was in the top 3 for 95% with dense (MiniLM) against 74% with BM25. BM25 wins on crash messages, dense on reworded questions (row 24) |
 | Is RAG worth it here? | Yes, for a small model: with recipes in the prompt Qwen passed 18% of tests instead of 1% (row 27). The basic setup recipes did most of the work; searching by topic helped less. Opus and Haiku already pass most tests without help, so for them it is untested |
 | What was the hardest part? | Making the measurement fair. 7 flaws in our own translation tool failed correct builds, and fixing them reversed a conclusion (row 12) |
+| Where does a built backend run? | On our Google Cloud server, in a locked-down container, at its own public address with `/docs`. Its data is a SQLite file kept on disk. It survives restarts and redeploys (rows 28–30) |
+| Isn't it dangerous to host generated code publicly? | It keeps the sandbox's locks: in our test it could not reach the internet, `.env`, other backends or their data (row 29). Anyone with the link can still add data unless the client asked for a login |
 | Why not run the evaluation in subprocess mode, which is faster? | It does not isolate anything: generated code could read and write files outside the project or use the internet (Bernard's row 11). Every scored run uses Docker |
 
 ## 8. Glossary
@@ -195,6 +223,8 @@ The harness writes `eval/results/harness/<name>.json`, one row per build and rep
 - **BM25**: keyword search. A recipe scores higher when it contains the question's words, especially rare ones, and is not too long.
 - **Dense search / embedding**: a small model turns text into a list of numbers that captures meaning, so "a spot is taken" can match "full".
 - **hit@1, hit@3**: the share of questions where a right answer is first, or in the top 3.
+- **Caddy**: a small web server that sits in front of the backends. It gets the HTTPS certificate and sends each path to the right backend.
+- **`sslip.io`**: a free service that turns an address like `34-78-38-126.sslip.io` into that IP number, so we get HTTPS without buying a domain.
 - **RAG (retrieval-augmented generation)**: search for helpful text first (retrieval), then put it in the prompt so the model writes with it in front of it (generation). Here: find recipes, add them to the build request.
 - **Hybrid search**: merging the rankings of two searches (here with reciprocal rank fusion: each recipe gets 1/(60 + its place) from each).
 - **`kill -9`**: stopping a program instantly, with no chance to clean up after itself.
