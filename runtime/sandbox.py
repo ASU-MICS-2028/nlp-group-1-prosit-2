@@ -18,6 +18,8 @@ IMAGE = "w2-sandbox"  # built from runtime/sandbox/Dockerfile
 DOOR_IMAGE = "alpine/socat:1.8.0.3"  # a tiny program that only forwards connections
 LIMITS = ["--memory", "512m", "--memory-swap", "512m", "--cpus", "1", "--pids-limit", "128"]
 LOCKS = ["--read-only", "--tmpfs", "/tmp", "--cap-drop", "ALL", "--security-opt", "no-new-privileges"]
+if sys.platform == "linux" and os.getuid() > 0:  # Linux: run as the folder's owner, or the code cannot write its database
+    LOCKS += ["--user", f"{os.getuid()}:{os.getgid()}"]
 
 
 def clean_env():
