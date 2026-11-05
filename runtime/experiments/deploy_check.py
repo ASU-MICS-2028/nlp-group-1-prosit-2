@@ -15,12 +15,14 @@ from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 app = FastAPI()
 engine = create_engine("sqlite:///notes.db", connect_args={"check_same_thread": False})
-SQLModel.metadata.create_all(engine)
 
 
 class Note(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     text: str
+
+
+SQLModel.metadata.create_all(engine)
 
 
 @app.post("/notes", status_code=201)
