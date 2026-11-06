@@ -1,0 +1,842 @@
+[
+  {
+    "who": "Alice",
+    "row": 1,
+    "what": "s32_A score %",
+    "claimed": "87.5",
+    "found": "87.5",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 1,
+    "what": "s32_B score %",
+    "claimed": "87.0",
+    "found": "87.0",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 1,
+    "what": "s32_C score %",
+    "claimed": "88.5",
+    "found": "88.5",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 1,
+    "what": "s32_D score %",
+    "claimed": "86.5",
+    "found": "86.5",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 3,
+    "what": "s34_r0 score %",
+    "claimed": "87.0",
+    "found": "87.0",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 3,
+    "what": "s34_r1 score %",
+    "claimed": "87.0",
+    "found": "87.0",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 3,
+    "what": "s34_r3 score %",
+    "claimed": "87.0",
+    "found": "87.0",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 3,
+    "what": "s34_r5 score %",
+    "claimed": "87.0",
+    "found": "87.0",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 4,
+    "what": "s35 score %",
+    "claimed": "74.5",
+    "found": "74.5",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 5,
+    "what": "s35v2 score %",
+    "claimed": "82.8",
+    "found": "82.8",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 7,
+    "what": "s38_list_all score %",
+    "claimed": "95.8",
+    "found": "95.8",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 8,
+    "what": "s37_search score %",
+    "claimed": "92.7",
+    "found": "92.7",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 10,
+    "what": "s36_split score %",
+    "claimed": "84.4",
+    "found": "84.4",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 3,
+    "what": "s34_r0 fully passing of 45",
+    "claimed": "33",
+    "found": "33",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 4,
+    "what": "s35 fully passing of 45",
+    "claimed": "24",
+    "found": "24",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 5,
+    "what": "s35v2 fully passing of 45",
+    "claimed": "24",
+    "found": "24",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 7,
+    "what": "s38_list_all fully passing of 45",
+    "claimed": "39",
+    "found": "39",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 8,
+    "what": "s37_search fully passing of 45",
+    "claimed": "39",
+    "found": "39",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 10,
+    "what": "s36_split fully passing of 45",
+    "claimed": "30",
+    "found": "30",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 1,
+    "what": "s32_A tasks fully passing of 15",
+    "claimed": "12",
+    "found": "12",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 1,
+    "what": "s32_B tasks fully passing of 15",
+    "claimed": "10",
+    "found": "10",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 1,
+    "what": "s32_C tasks fully passing of 15",
+    "claimed": "11",
+    "found": "11",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 1,
+    "what": "s32_D tasks fully passing of 15",
+    "claimed": "11",
+    "found": "11",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 6,
+    "what": "vague tasks, prepared answers %",
+    "claimed": "77.2",
+    "found": "77.2",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 6,
+    "what": "vague tasks, brief %",
+    "claimed": "68.4",
+    "found": "68.4",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 6,
+    "what": "vague tasks, no questions % (S3.2 + S3.4 + 1 new)",
+    "claimed": "64.0",
+    "found": "64.0",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 11,
+    "what": "Opus on the 5 easy tasks %",
+    "claimed": "85.2",
+    "found": "85.2",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 11,
+    "what": "Qwen alone on the 5 easy tasks %",
+    "claimed": "0.0",
+    "found": "0.0",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 12,
+    "what": "Qwen with search on the 5 easy tasks %",
+    "claimed": "59.0",
+    "found": "59.0",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 9,
+    "what": "s310_change church_signup passed",
+    "claimed": "10",
+    "found": "10",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 9,
+    "what": "s310_change shop_price_list passed",
+    "claimed": "11",
+    "found": "11",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 9,
+    "what": "s310_rebuild church_signup passed",
+    "claimed": "10",
+    "found": "10",
+    "match": true
+  },
+  {
+    "who": "Alice",
+    "row": 9,
+    "what": "s310_rebuild shop_price_list passed",
+    "claimed": "13",
+    "found": "13",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 7,
+    "what": "tasks in validation.json",
+    "claimed": "15",
+    "found": "15",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 7,
+    "what": "hidden tests",
+    "claimed": "192",
+    "found": "192",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 7,
+    "what": "broken copies caught",
+    "claimed": "75",
+    "found": "75",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 8,
+    "what": "median tests catching a broken copy",
+    "claimed": "1",
+    "found": "1",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 11,
+    "what": "request only, claude-opus-5-5 %",
+    "claimed": "89",
+    "found": "89",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 11,
+    "what": "request only, claude-haiku-5-5 %",
+    "claimed": "79",
+    "found": "79",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 11,
+    "what": "with operations list, claude-opus-5-5 %",
+    "claimed": "99",
+    "found": "99",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 11,
+    "what": "with operations list, claude-haiku-5-5 %",
+    "claimed": "100",
+    "found": "100",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 14,
+    "what": "plain easy %",
+    "claimed": "100",
+    "found": "100",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 14,
+    "what": "plain medium %",
+    "claimed": "100",
+    "found": "100",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 14,
+    "what": "plain hard %",
+    "claimed": "66",
+    "found": "66",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 14,
+    "what": "vague easy %",
+    "claimed": "77",
+    "found": "77",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 14,
+    "what": "vague medium %",
+    "claimed": "100",
+    "found": "100",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 14,
+    "what": "vague hard %",
+    "claimed": "17",
+    "found": "17",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 17,
+    "what": "baseline_local_nothink.json builds that start",
+    "claimed": "2",
+    "found": "2",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 17,
+    "what": "baseline_local_nothink.json tests passed",
+    "claimed": "2",
+    "found": "2",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 17,
+    "what": "baseline_local_think.json builds that start",
+    "claimed": "2",
+    "found": "2",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 17,
+    "what": "baseline_local_think.json tests passed",
+    "claimed": "2",
+    "found": "2",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 27,
+    "what": "baseline_local_recipes_fixed.json builds that start",
+    "claimed": "9",
+    "found": "9",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 27,
+    "what": "baseline_local_recipes_fixed.json tests passed",
+    "claimed": "35",
+    "found": "35",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 27,
+    "what": "baseline_local_recipes_search.json builds that start",
+    "claimed": "7",
+    "found": "7",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 27,
+    "what": "baseline_local_recipes_search.json tests passed",
+    "claimed": "19",
+    "found": "19",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 18,
+    "what": "1 workers, seconds",
+    "claimed": "51",
+    "found": "51",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 18,
+    "what": "1 workers, 272/272",
+    "claimed": "272",
+    "found": "272",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 18,
+    "what": "2 workers, seconds",
+    "claimed": "24",
+    "found": "24",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 18,
+    "what": "2 workers, 272/272",
+    "claimed": "272",
+    "found": "272",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 18,
+    "what": "4 workers, seconds",
+    "claimed": "13",
+    "found": "13",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 18,
+    "what": "4 workers, 272/272",
+    "claimed": "272",
+    "found": "272",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 18,
+    "what": "8 workers, seconds",
+    "claimed": "11",
+    "found": "11",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 18,
+    "what": "8 workers, 272/272",
+    "claimed": "272",
+    "found": "272",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 19,
+    "what": "repeat runs at 8 workers all 100%",
+    "claimed": "63",
+    "found": "63",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 24,
+    "what": "random (no search) hit@3 %",
+    "claimed": "17",
+    "found": "17",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 24,
+    "what": "bm25 full recipe hit@3 %",
+    "claimed": "74",
+    "found": "74",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 24,
+    "what": "dense MiniLM-L6 (22M) hit@3 %",
+    "claimed": "95",
+    "found": "95",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 24,
+    "what": "dense bge-small + query prefix hit@3 %",
+    "claimed": "89",
+    "found": "89",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 24,
+    "what": "dense bge-base (110M) hit@3 %",
+    "claimed": "89",
+    "found": "89",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 24,
+    "what": "hybrid bm25 + MiniLM hit@3 %",
+    "claimed": "87",
+    "found": "87",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 24,
+    "what": "bm25 full recipe hit@1 %",
+    "claimed": "58",
+    "found": "58",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 24,
+    "what": "dense MiniLM-L6 (22M) hit@1 %",
+    "claimed": "68",
+    "found": "68",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 24,
+    "what": "hybrid bm25 + MiniLM hit@1 %",
+    "claimed": "72",
+    "found": "72",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 25,
+    "what": "MiniLM best cutoff %",
+    "claimed": "66",
+    "found": "66",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 25,
+    "what": "MiniLM always answering %",
+    "claimed": "62",
+    "found": "62",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 25,
+    "what": "BM25 best cutoff %",
+    "claimed": "54",
+    "found": "54",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 25,
+    "what": "BM25 always answering %",
+    "claimed": "53",
+    "found": "53",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 24,
+    "what": "BM25 text only hit@3 %",
+    "claimed": "78",
+    "found": "78",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 24,
+    "what": "bge-small text only hit@3 %",
+    "claimed": "79",
+    "found": "79",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 10,
+    "what": "maps right, claude-opus-5-5, of 21",
+    "claimed": "21",
+    "found": "21",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 10,
+    "what": "maps right, claude-haiku-5-5, of 21",
+    "claimed": "10",
+    "found": "10",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 9,
+    "what": "tests flagged by the judge",
+    "claimed": "6",
+    "found": "6",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 20,
+    "what": "bad cases recorded",
+    "claimed": "15",
+    "found": "15",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 20,
+    "what": "every_reply_takes_2s passed",
+    "claimed": "10",
+    "found": "10",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 20,
+    "what": "one_endpoint_never_answers passed",
+    "claimed": "5",
+    "found": "5",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 20,
+    "what": "no_app_py passed",
+    "claimed": "0",
+    "found": "0",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 20,
+    "what": "uses_too_much_memory passed",
+    "claimed": "0",
+    "found": "0",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 20,
+    "what": "tries_internet_and_files blocked",
+    "claimed": "False False False",
+    "found": "False False False",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 23,
+    "what": "labelled questions",
+    "claimed": "111",
+    "found": "111",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 23,
+    "what": "questions with no right recipe",
+    "claimed": "10",
+    "found": "10",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 23,
+    "what": "written to have no answer",
+    "claimed": "6",
+    "found": "6",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 29,
+    "what": "hosting checks passed",
+    "claimed": "24",
+    "found": "24",
+    "match": true
+  },
+  {
+    "who": "Joseph",
+    "row": 30,
+    "what": "church live build tests passed",
+    "claimed": "30",
+    "found": "30",
+    "match": true
+  },
+  {
+    "who": "Bernard",
+    "row": 1,
+    "what": "path_guard: says 'A text check: 5 attacks wrongly allowed'",
+    "claimed": "True",
+    "found": "True",
+    "match": true
+  },
+  {
+    "who": "Bernard",
+    "row": 1,
+    "what": "path_guard: says 'B resolve then compare: 0 attacks wrongly allowed [], 0 good paths wrongly refused []'",
+    "claimed": "True",
+    "found": "True",
+    "match": true
+  },
+  {
+    "who": "Bernard",
+    "row": 4,
+    "what": "file_tools: says '2588 characters'",
+    "claimed": "True",
+    "found": "True",
+    "match": true
+  },
+  {
+    "who": "Bernard",
+    "row": 9,
+    "what": "error_format: says 'A raw           fixed 21/21'",
+    "claimed": "True",
+    "found": "True",
+    "match": true
+  },
+  {
+    "who": "Bernard",
+    "row": 9,
+    "what": "error_format: says 'B reason first  fixed 21/21'",
+    "claimed": "True",
+    "found": "True",
+    "match": true
+  },
+  {
+    "who": "Bernard",
+    "row": 9,
+    "what": "error_format: says 'total $0.85'",
+    "claimed": "True",
+    "found": "True",
+    "match": true
+  },
+  {
+    "who": "Bernard",
+    "row": 12,
+    "what": "timeout_choice: says 'slowest of 5 = 5.4 s'",
+    "claimed": "True",
+    "found": "True",
+    "match": true
+  },
+  {
+    "who": "Bernard",
+    "row": 12,
+    "what": "timeout_choice: says 'stopped after 60.8 s'",
+    "claimed": "True",
+    "found": "True",
+    "match": true
+  },
+  {
+    "who": "Bernard",
+    "row": 13,
+    "what": "attacks: says 'blocked 14/16'",
+    "claimed": "True",
+    "found": "True",
+    "match": true
+  },
+  {
+    "who": "Bernard",
+    "row": 13,
+    "what": "attacks: says 'blocked 5/16'",
+    "claimed": "True",
+    "found": "True",
+    "match": true
+  },
+  {
+    "who": "Bernard",
+    "row": 11,
+    "what": "sandbox_compare: says 'killed (exit code 137)'",
+    "claimed": "True",
+    "found": "True",
+    "match": true
+  },
+  {
+    "who": "Bernard",
+    "row": 7,
+    "what": "server_start: says 'fixed port 8001, second: died'",
+    "claimed": "True",
+    "found": "True",
+    "match": true
+  }
+]

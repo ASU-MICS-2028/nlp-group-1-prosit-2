@@ -15,7 +15,7 @@ import pytest
 
 class Api:
     def __init__(self, base_url, ops):
-        self.client = httpx.Client(base_url=base_url, timeout=10)
+        self.client = httpx.Client(base_url=base_url, timeout=10, limits=httpx.Limits(max_keepalive_connections=0))  # a backend that crashes drops its connection: reusing it would fail the next test too
         self.ops = ops
 
     def call(self, op, path_params=None, json=None, params=None):

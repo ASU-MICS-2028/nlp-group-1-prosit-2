@@ -39,6 +39,14 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 | Whole journey with a message during the build | `sessions/animal_shelter.jsonl` | live; colour added but optional |
 | Whole journey through the public page in Chrome | `sessions/bakery_through_the_page.jsonl` · `browser_check/*.png` | live, no page errors. Screenshots are from before three small page fixes |
 
+## Checking the numbers
+
+| Question | Files | Result |
+|---|---|---|
+| **Does every written number match a file? Row by row, for everyone** | `AUDIT.md` · `audit_numbers.json` | 105 of 105 |
+| Does everything free give the same result again? | `replicated/` | Yes, apart from timings: see `AUDIT.md` |
+| Does a crash make the next test fail? | `replicated/flaky_check.json` | Was 5 of 12; 0 of 20 after the fix |
+
 ## Not here
 
 The apps themselves are in `projects/`, which git ignores. So is each build's `run.json` (its time and cost), and those live on the laptop that ran them.

@@ -1,0 +1,16 @@
+empty [] []
+spaces [] []
+symbols [] []
+emoji [] []
+W1106 01:45:29.763000 45159 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 8092.26it/s]
+one letter ['Records that belong to another record (one-to-many)'] ['No duplicates: a value must be unique']
+twi ['Required fields and simple input checks (422 for bad input)'] ['Change part of a record (PATCH) and delete a record']
+twi and english ['Get one record by id, or 404 if it does not exist'] ['Get one record by id, or 404 if it does not exist']
+pidgin ['No double booking: one slot, one booking'] ['Get one record by id, or 404 if it does not exist']
+french ['No double booking: one slot, one booking'] []
+sql injection ['Keeping a group of values (an object, a list) in a table'] ['A database table with an id (primary key)']
+prompt injection ['Testing the backend with pytest and TestClient'] ['Checklist for a complete one-file FastAPI app (app.py)']
+numbers ['No duplicates: a value must be unique'] []
+ten thousand words ['No double booking: one slot, one booking'] ['No double booking: one slot, one booking']
+exit 0 
