@@ -1,0 +1,602 @@
+{
+  "controls": {
+    "database file, must keep": {
+      "keeps_data": true,
+      "checked": 6,
+      "kept": 6,
+      "right": true
+    },
+    "memory only, must lose": {
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0,
+      "right": true
+    },
+    "database wiped at every start, must lose": {
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0,
+      "right": true
+    }
+  },
+  "builds": [
+    {
+      "task": "church_signup",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0
+    },
+    {
+      "task": "church_signup",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0
+    },
+    {
+      "task": "church_signup",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0
+    },
+    {
+      "task": "church_signup",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0
+    },
+    {
+      "task": "clinic_appointments",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "clinic_appointments",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "clinic_appointments",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "clinic_appointments",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "football_fixtures",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "football_fixtures",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "football_fixtures",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "football_fixtures",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "hostel_booking",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 7,
+      "kept": 0
+    },
+    {
+      "task": "hostel_booking",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 7,
+      "kept": 0
+    },
+    {
+      "task": "hostel_booking",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 7,
+      "kept": 0
+    },
+    {
+      "task": "hostel_booking",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 7,
+      "kept": 0
+    },
+    {
+      "task": "library_catalogue",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 9,
+      "kept": 0
+    },
+    {
+      "task": "library_catalogue",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 9,
+      "kept": 0
+    },
+    {
+      "task": "library_catalogue",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 9,
+      "kept": 0
+    },
+    {
+      "task": "library_catalogue",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 9,
+      "kept": 0
+    },
+    {
+      "task": "lost_and_found",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 7,
+      "kept": 0
+    },
+    {
+      "task": "lost_and_found",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 7,
+      "kept": 0
+    },
+    {
+      "task": "lost_and_found",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 7,
+      "kept": 0
+    },
+    {
+      "task": "lost_and_found",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 7,
+      "kept": 0
+    },
+    {
+      "task": "market_stock",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 9,
+      "kept": 0
+    },
+    {
+      "task": "market_stock",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 9,
+      "kept": 0
+    },
+    {
+      "task": "market_stock",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 9,
+      "kept": 0
+    },
+    {
+      "task": "market_stock",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 9,
+      "kept": 0
+    },
+    {
+      "task": "momo_wallet",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 1,
+      "kept": 0
+    },
+    {
+      "task": "momo_wallet",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 16,
+      "kept": 0
+    },
+    {
+      "task": "momo_wallet",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 16,
+      "kept": 0
+    },
+    {
+      "task": "momo_wallet",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 16,
+      "kept": 0
+    },
+    {
+      "task": "restaurant_reservations",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 2,
+      "kept": 0
+    },
+    {
+      "task": "restaurant_reservations",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 2,
+      "kept": 0
+    },
+    {
+      "task": "restaurant_reservations",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 2,
+      "kept": 0
+    },
+    {
+      "task": "restaurant_reservations",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 2,
+      "kept": 0
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": null,
+      "checked": 0,
+      "kept": 0
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops+brief",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": null,
+      "checked": 0,
+      "kept": 0
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops+brief",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "shared_expenses",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 13,
+      "kept": 0
+    },
+    {
+      "task": "shared_expenses",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 13,
+      "kept": 0
+    },
+    {
+      "task": "shared_expenses",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": null,
+      "checked": 0,
+      "kept": 0
+    },
+    {
+      "task": "shared_expenses",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 13,
+      "kept": 0
+    },
+    {
+      "task": "shop_price_list",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": true,
+      "checked": 6,
+      "kept": 6
+    },
+    {
+      "task": "shop_price_list",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0
+    },
+    {
+      "task": "shop_price_list",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops+brief",
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0
+    },
+    {
+      "task": "shop_price_list",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 5,
+      "kept": 0
+    },
+    {
+      "task": "shop_price_list",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0
+    },
+    {
+      "task": "shop_price_list",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops+brief",
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0
+    },
+    {
+      "task": "susu_ledger",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 15,
+      "kept": 0
+    },
+    {
+      "task": "susu_ledger",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 15,
+      "kept": 0
+    },
+    {
+      "task": "susu_ledger",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": null,
+      "checked": 0,
+      "kept": 0
+    },
+    {
+      "task": "susu_ledger",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 15,
+      "kept": 0
+    },
+    {
+      "task": "tailoring_orders",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "tailoring_orders",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "tailoring_orders",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "tailoring_orders",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 8,
+      "kept": 0
+    },
+    {
+      "task": "trotro_fares",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0
+    },
+    {
+      "task": "trotro_fares",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0
+    },
+    {
+      "task": "trotro_fares",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops+brief",
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0
+    },
+    {
+      "task": "trotro_fares",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0
+    },
+    {
+      "task": "trotro_fares",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0
+    },
+    {
+      "task": "trotro_fares",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops+brief",
+      "keeps_data": false,
+      "checked": 6,
+      "kept": 0
+    }
+  ],
+  "summary": [
+    {
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "builds": 15,
+      "keeps": 0,
+      "loses": 12,
+      "cannot_tell": 3
+    },
+    {
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "builds": 15,
+      "keeps": 0,
+      "loses": 15,
+      "cannot_tell": 0
+    },
+    {
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops+brief",
+      "builds": 3,
+      "keeps": 0,
+      "loses": 3,
+      "cannot_tell": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "builds": 15,
+      "keeps": 1,
+      "loses": 13,
+      "cannot_tell": 1
+    },
+    {
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "builds": 15,
+      "keeps": 0,
+      "loses": 15,
+      "cannot_tell": 0
+    },
+    {
+      "model": "claude-opus-5-5",
+      "variant": "request+ops+brief",
+      "builds": 3,
+      "keeps": 0,
+      "loses": 3,
+      "cannot_tell": 0
+    }
+  ]
+}

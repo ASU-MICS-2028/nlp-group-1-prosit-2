@@ -28,8 +28,10 @@ BENCH = pathlib.Path(__file__).resolve().parent
 WORK = BENCH.parent / "projects" / "_validate"
 
 
-def hidden_tests(task, url, ops_file, order="normal"):
+def hidden_tests(task, url, ops_file, order="normal", get_log=None):
     env = {**os.environ, "BASE_URL": url, "OPS_FILE": str(ops_file), "BENCH_ORDER": order}
+    if get_log:
+        env["GET_LOG"] = str(get_log)
     try:
         r = subprocess.run([sys.executable, "-m", "pytest", str(BENCH / task / "hidden_tests"), "-q", "-p", "no:cacheprovider"],
                            env=env, capture_output=True, text=True, timeout=300)

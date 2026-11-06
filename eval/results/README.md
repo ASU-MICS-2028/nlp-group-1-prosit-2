@@ -39,6 +39,12 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 | Whole journey with a message during the build | `sessions/animal_shelter.jsonl` | live; colour added but optional |
 | Whole journey through the public page in Chrome | `sessions/bakery_through_the_page.jsonl` · `browser_check/*.png` | live, no page errors. Screenshots are from before three small page fixes |
 
+## Keeping data after a restart
+
+| Question | Files | Result |
+|---|---|---|
+| Does the data survive a restart? | `restart_check.json` · `harness/restart_church_agent_build.json` · `harness/restart_references.json` | One call: Opus keeps 1 of 15, loses 13; Haiku keeps 0, loses 12. Agent church build keeps. Check proved on 3 known backends |
+
 ## Checking the numbers
 
 | Question | Files | Result |

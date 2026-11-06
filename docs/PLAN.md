@@ -232,7 +232,7 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 | ID | Task | Who | Needs | Priority | Status | Done when |
 |---|---|---|---|---|---|---|
 | S5.1 | Read Alice's learnings, try the live platform | W4 | S3.14 | Must | todo | A backend built through the live page, and the agent and harness run on your laptop |
-| S5.2 | Full system on all 15 tasks | W4 | S5.1 | Must | todo | Every task run with repeats; hidden-test pass rate, time and cost per task |
+| S5.2 | Full system on all 15 tasks | W4 | S5.1 | Must | todo | Every task run with repeats; hidden-test pass rate, whether the data survives a restart (`--restart`), time and cost per task |
 | S5.3 | Ablations | W4 | S5.2 | Must | todo | No repair, single agent, no retrieval, no spec-first, no questions: each scored the same way |
 | S5.4 | Model comparison | W4 | S5.2 | Should | todo | Opus vs Sonnet vs Haiku vs local Qwen: quality against cost |
 | S5.5 | Results tables and charts | W4 | S5.3, S5.4 | Must | todo | In `eval/results/`, ready for Section B |

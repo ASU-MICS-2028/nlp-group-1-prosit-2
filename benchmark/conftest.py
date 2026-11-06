@@ -55,6 +55,9 @@ class Api:
             data = r.json()
         except ValueError:
             data = None
+        if spec["method"] == "GET" and r.is_success and os.environ.get("GET_LOG"):  # the restart check replays these reads
+            with open(os.environ["GET_LOG"], "a") as f:
+                f.write(r.url.raw_path.decode() + "\n")
         key = spec.get("response_key")
         if key and isinstance(data, dict) and key in data:
             data = data[key]

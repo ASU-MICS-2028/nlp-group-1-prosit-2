@@ -31,7 +31,7 @@
 | Task | Status | Done when |
 |---|---|---|
 | S5.1 Read Alice's learnings, try the live platform | 🔵 ready | A backend built through the live page, and the agent and harness run on your laptop |
-| S5.2 Full system on all 15 tasks | ⏳ waiting (on S5.1) | Every task run with repeats; hidden-test pass rate, time and cost per task |
+| S5.2 Full system on all 15 tasks | ⏳ waiting (on S5.1) | Every task run with repeats; hidden-test pass rate, whether the data survives a restart (`--restart`), time and cost per task |
 | S5.3 Ablations | ⏳ waiting (on S5.2) | No repair, single agent, no retrieval, no spec-first, no questions: each scored the same way |
 | S5.4 Model comparison | ⏳ waiting (on S5.2) | Opus vs Sonnet vs Haiku vs local Qwen: quality against cost |
 | S5.5 Results tables and charts | ⏳ waiting (on S5.3, S5.4) | In `eval/results/`, ready for Section B |

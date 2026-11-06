@@ -1,0 +1,29 @@
+{
+  "args": {
+    "task": "church_signup",
+    "folder": "projects/host1/church_signup",
+    "references": false,
+    "restart": true,
+    "workers": 4,
+    "repeat": 1,
+    "name": "restart_try"
+  },
+  "seconds": 4.1,
+  "rows": [
+    {
+      "task": "church_signup",
+      "backend": "church_signup",
+      "folder": "projects/host1/church_signup",
+      "passed": 10,
+      "total": 10,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 4.1,
+      "keeps_data": true,
+      "checked": 6,
+      "kept": 6
+    }
+  ]
+}
