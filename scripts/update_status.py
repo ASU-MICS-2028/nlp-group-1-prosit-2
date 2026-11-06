@@ -37,7 +37,7 @@ def parse(plan):
             continue
         c = [x.strip() for x in line.strip().strip("|").split("|")]
         if re.fullmatch(r"S\d+\.\d+", c[0]) and len(c) == 7:
-            tasks.append(dict(id=c[0], name=c[1], who=c[2], priority=c[4], status=c[5], stage=stage,
+            tasks.append(dict(id=c[0], name=c[1], who=c[2], priority=c[4], status=c[5], done_when=c[6], stage=stage,
                               needs=[n.strip() for n in c[3].split(",") if n.strip() not in ("", "—")]))
         elif re.fullmatch(r"W\d", c[0]):
             owners[c[0]] = c[-1]
@@ -103,23 +103,20 @@ def render(plan):
              for t in tasks for n in blockers(t) if by_id[n]["who"] != t["who"] and t["status"] != "done"]
     waits = waits or ["- Nothing: no task is waiting on someone else's work."]
 
-    # The README shows only the current stage: the first stage with an unfinished Must task.
-    # Leftover Should/Could work in earlier stages stays in docs/PLAN.md and does not hold the README back.
-    in_stage = lambda s: [t for t in tasks if t["stage"] == s]
-    current = next((s for s in stages if any(t["priority"] == "Must" and t["status"] != "done" for t in in_stage(s))), None)
+    # The README lists each person's unfinished Must and Should tasks (decision 0050). Could tasks stay in docs/PLAN.md.
     note = "Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand."
-    if current is None:
-        status = ["## Now: all stages done", "", note]
-    else:
-        who = sorted({t["who"] for t in in_stage(current) if t["status"] != "done"}, key=WHO.index)
-        later = stages[stages.index(current) + 1:]
-        status = [f"## Now: {current[0]}: {current[1]}", "",
-                  f"**Who:** {', '.join(person(w) for w in who)}", "",
-                  "| Task | Who | Status |", "|---|---|---|"]
-        status += [f"| {t['id']} {t['name']} | {person(t['who'])} | {icon[state(t, by_id)]} {state(t, by_id)}"
-                   + (f" (on {', '.join(blockers(t))})" if state(t, by_id) == "waiting" else "") + " |"
-                   for t in in_stage(current) if t["status"] != "done"]
-        status += ["", (f"**Next:** {later[0][0]}: {later[0][1]}" if later else "**Next:** nothing, this is the last stage"), "", note]
+    status = ["## What each person does now", ""]
+    for w in WHO:
+        rows = [t for t in tasks if t["who"] == w and t["status"] != "done" and t["priority"] != "Could"]
+        status += [f"### {person(w)}", ""]
+        if not rows:
+            status += ["Nothing left of your own: see Everyone.", ""]
+            continue
+        status += ["| Task | Status | Done when |", "|---|---|---|"]
+        status += [f"| {t['id']} {t['name']} | {icon[state(t, by_id)]} {state(t, by_id)}"
+                   + (f" (on {', '.join(blockers(t))})" if state(t, by_id) == "waiting" else "") + f" | {t['done_when']} |" for t in rows]
+        status.append("")
+    status.append(note)
     return {"BOARD": board, "FLOW": flow, "PEOPLE": people, "BLOCKERS": waits, "STATUS": status}
 
 

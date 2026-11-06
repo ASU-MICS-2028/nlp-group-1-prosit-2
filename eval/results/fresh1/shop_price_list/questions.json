@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a price changes, do you want to be able to edit the price of something already on the list, or will you just remove it and add it again?",
+    "Do some things come in different sizes or packs (for example, one tin of milk vs. a carton) with different prices? Should each size be listed separately?",
+    "When you look up a price, will you type the full exact name, or do you want it to find things from part of the name (for example, typing 'rice' shows all the rice)?"
+  ],
+  "answers": [
+    "Yes, prices change all the time, especially sugar, rice and oil. I need to change the price of an item.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.01051
+}

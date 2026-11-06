@@ -59,6 +59,10 @@ It starts each backend in Bernard's sandbox, exactly as the harness will, and ru
 
 Results go to `benchmark/validation.json`. The checker was itself tested on 5 deliberately bad tasks (a mutant identical to the reference, a wrong reference, one that does not start, an order-dependent test, a test that needs an empty server): it flagged all 5.
 
+## Keeping data: `--restart`
+
+The hidden tests never restart a backend, so they cannot see whether data is kept. `uv run python -m eval.harness <task> <folder> --restart` adds a `keeps_data` result (True, False, or None for cannot tell). It replays the reads the tests made after a restart, and needs nothing per task.
+
 ## Rules for writing hidden tests
 
 - Test behaviour, not wording: "after signing up, the person appears in the list", "signing up for a full event is refused (any 4xx)".

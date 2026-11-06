@@ -1,0 +1,16 @@
+no_app_py                         0/10    0.0s  'no app.py'
+empty_app_py                      0/10    0.7s  'le starting:\nERROR:    Error loading ASGI app. Attribute "app" not found in module "app".\n'
+crash_on_import                   0/10    0.8s  ", in <module>\n    raise RuntimeError('broken on purpose')\nRuntimeError: broken on purpose\n"
+no_app_object                     0/10    0.8s  'le starting:\nERROR:    Error loading ASGI app. Attribute "app" not found in module "app".\n'
+hangs_while_starting              0/10   20.6s  'Server did not answer within 20 seconds:\n'
+every_reply_takes_2s             10/10   46.0s  ''
+huge_reply_50mb                  10/10    2.6s  ''
+uses_too_much_memory              0/10    0.7s  'Server crashed while starting:\n'
+ops_json_not_json                 0/10    0.0s  'ot valid JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)'
+ops_json_missing_an_operation     6/10    1.3s  'ops.json has no entry for: sign_up. '
+tries_internet_and_files         10/10    1.0s {'internet': False, 'env_file_visible': False, 'repo_visible': False} ''
+one_endpoint_never_answers        5/10   61.5s  ''
+test_run_over_300s {'passed': 0, 'failed': 0, 'failing': [], 'error': 'hidden tests took over 300 s'}
+docker_off {'exit_code': 1, 'output': 'Docker is not reachable, so nothing can be scored:\nfailed to connect to the docker API at unix:///nonexistent.sock; check if the path is correct and if the daemon is running: dial unix /nonexistent.sock: connect: no such file or directory\n'}
+killed_mid_run {'left_running': 2, 'cleanup_removed': (2, 4), 'left_after_cleanup': 0}
+exit 0 

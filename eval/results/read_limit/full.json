@@ -1,0 +1,92 @@
+[
+  {
+    "task": "momo_wallet",
+    "arm": "full",
+    "change": "When depositing or sending money, the person can add an optional short note. The note must show in the wallet's history.",
+    "app_chars_before": 9845,
+    "app_chars_after": 10472,
+    "stop": "end_turn",
+    "turns": 5,
+    "cost_usd": 0.1611,
+    "seconds": 46.7,
+    "tests": {
+      "passed": 9,
+      "failed": 0
+    },
+    "app_reads": 1,
+    "reads_that_were_cut": 0,
+    "edits": 8,
+    "edits_failed": 0,
+    "whole_file_writes": 0,
+    "printed_the_file_through_a_failing_test": 0,
+    "other_tools": [
+      "list_files",
+      "run_tests"
+    ],
+    "word_in_app": true,
+    "hidden_before": 3,
+    "hidden_after": 3,
+    "hidden_total": 13,
+    "summary": "I've added the optional note to deposits and transfers, and it now appears in the wallet history. All 9 tests pass.\n\n**Serious problem you should know about first:** this app doesn't save anything to disk. Every wallet, balance and transaction is held only in memory, so restarting the server or the machine erases all of it. It was supposed to store data in a database file; it doesn't. You asked me to change only what the note needed, so I left this alone. For a money service I'd strongly recommend letting me fix it before real customers use the app.\n\n**What changed:**\n- **Deposit** (`POST /wallets/{wallet_id}/deposit`) and **send money** (`POST /wallets/{wallet_id}/transfer`) now accept an optional `\"note\"` along with the amount, e.g. `{\"amount\": \"7.50\", \"note\": \"For rice\"}`.\n- **The note shows in the history** (`GET /wallets/{wallet_id}/history`) as `\"note\"` on each entry. When money is sent, it appears in both the sender's and the receiver's history.\n- **No note is fine.** Entries without one show `\"note\": null`, and so do notes that are only spaces. Spaces at the start and end are trimmed off.\n- **Refused:** a note longer than 140 characters, or one that isn't text, gets an error. The money doesn't move in that case. You only asked for a \"short\" note, so I chose 140 as the limit; it's easy to change.\n\n**Tests:** there was no test file in the folder, so I wrote `tests/test_app.py`. It checks the original features (one wallet per phone number, exact pesewa sums, invalid amounts refused, only the wallet's owner can deposit or send, no overdrawing, no sending to yourself, correct history) and the new note behaviour."
+  },
+  {
+    "task": "susu_ledger",
+    "arm": "full",
+    "change": "Each member also has a phone number, which must be given when they join and shows when you look at a member.",
+    "app_chars_before": 8837,
+    "app_chars_after": 8837,
+    "stop": "end_turn",
+    "turns": 4,
+    "cost_usd": 0.091,
+    "seconds": 23.4,
+    "tests": {
+      "passed": 4,
+      "failed": 0
+    },
+    "app_reads": 1,
+    "reads_that_were_cut": 0,
+    "edits": 0,
+    "edits_failed": 0,
+    "whole_file_writes": 0,
+    "printed_the_file_through_a_failing_test": 0,
+    "other_tools": [
+      "list_files",
+      "run_tests"
+    ],
+    "word_in_app": true,
+    "hidden_before": 14,
+    "hidden_after": 14,
+    "hidden_total": 14,
+    "summary": "I didn't need to change app.py, because the app already does what you asked for. Each member must give a phone number when they join, and the number shows when you look up a member, list the members, or open a member's statement.\n\n**Tests:** There was no test file, so I added `tests/test_app.py`. It checks that:\n- A new member with no phone number, a blank one, or an invalid one is refused.\n- The phone number appears when you look up a member, in the member list, and on the statement.\n- The original rules still work:\n  - Payments must be more than zero.\n  - A round can't be collected if nobody has paid into it.\n  - Each round has only one collector.\n  - No one can pay into a round after it's been collected.\n  - A member can collect only once.\n  - The pot is exactly what was paid in, and the statement totals are correct.\n\nAll 4 tests pass.\n\n**Your records are not being saved yet.** The app keeps everything in the computer's memory instead of saving it to a database file. If the app is restarted or the computer turns off, every group, member, payment and collection will be lost. I didn't fix this because it's a bigger change than the one you asked for, but it should be fixed before you stop using your exercise book. I can switch it to save to a database file next if you'd like.\n\n**Other things you'll notice:**\n- Phone numbers are saved without spaces or dashes, so \"024 412-3456\" becomes \"0244123456\".\n- Two members of the same group can't share a phone number."
+  },
+  {
+    "task": "shared_expenses",
+    "arm": "full",
+    "change": "Each expense can have an optional category such as food or transport, which shows when you look at an expense.",
+    "app_chars_before": 8773,
+    "app_chars_after": 8966,
+    "stop": "end_turn",
+    "turns": 4,
+    "cost_usd": 0.0984,
+    "seconds": 26.5,
+    "tests": {
+      "passed": 5,
+      "failed": 0
+    },
+    "app_reads": 1,
+    "reads_that_were_cut": 0,
+    "edits": 3,
+    "edits_failed": 0,
+    "whole_file_writes": 0,
+    "printed_the_file_through_a_failing_test": 0,
+    "other_tools": [
+      "list_files",
+      "run_tests"
+    ],
+    "word_in_app": true,
+    "hidden_before": 13,
+    "hidden_after": 13,
+    "hidden_total": 13,
+    "summary": "Expenses can now have an optional category, such as \"food\" or \"transport\". All 5 tests pass.\n\n**What changed in `app.py`:**\n- When you record an expense (`POST /groups/{gid}/expenses`), you can add a `category`, for example `\"category\": \"food\"`. You can also leave it out.\n- The category appears when you view one expense (`GET /groups/{gid}/expenses/{eid}`), in the list of expenses (`GET /groups/{gid}/expenses`), and in the reply when you record one. If an expense has no category, it shows as `null`.\n- Extra spaces in a category are removed. A blank category counts as no category.\n\nNothing else was changed.\n\n**Tests:** There was no test file in the folder, so I created `tests/test_app.py`. Three tests check the original rules: uneven bills split to within one pesewa and add up exactly, balances add up to zero, the payer doesn't have to share the cost, paying someone back updates balances, and bad amounts, non-members and paying yourself back are refused. Two new tests check that the category shows up and that it can be left out.\n\n**Your data is lost whenever the app restarts.** The app keeps everything in memory instead of in a SQLite database file. I didn't change this because you only asked for categories, but I'd recommend switching to a proper database. I can do that next if you like."
+  }
+]

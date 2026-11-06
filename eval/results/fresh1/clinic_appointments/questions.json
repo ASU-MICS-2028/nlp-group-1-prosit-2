@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Which time slots can be booked? For example, every 30 minutes between 08:00 and 17:00, Monday to Friday, or any time someone types in?",
+    "Besides the patient's name, should we record anything else, such as a phone number, so you can tell apart two patients with the same name?",
+    "When a patient cancels, how should the appointment be identified: by a booking number we give them at booking, or by their name with the doctor, date and time?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No, we only take the patient's name when booking.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00833
+}

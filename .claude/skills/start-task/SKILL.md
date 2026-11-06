@@ -7,7 +7,7 @@ description: Use when a team member starts work on a task from docs/PLAN.md (e.g
 
 Explain each of these steps to your member as you do it.
 
-1. **Is it their turn?** Read the top of `README.md` (the current stage and who is responsible) and ask who your member is if you don't know. If the task is not in the current stage, or is not theirs, stop and say so. The only exceptions: Section A (S7.2), Docker setup (S0.6), and fixes to their own finished part.
+1. **Is it theirs?** Read the top of `README.md` (each person's tasks) and ask who your member is if you don't know. If the task is not listed under them or under Everyone, stop and say so. The only exception: fixes to their own finished part.
 2. **Is the task unblocked?** Find the task's row in `docs/PLAN.md`. Every ID in its `Needs` column must have `Status` `done`. If not, stop and name what it is waiting on.
 3. **Read before building.**
    - If this is the first task of the stage, read the previous owner's learnings file (`learnings/W?-*.md`), especially "How the next person uses it", and run what it describes. If it does not run or is unclear, stop: it goes back to that person.

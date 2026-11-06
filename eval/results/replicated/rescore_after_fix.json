@@ -1,0 +1,403 @@
+{
+  "rescored": 66,
+  "identical": 66,
+  "not_on_this_laptop": 0,
+  "rows": [
+    {
+      "task": "church_signup",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 10,
+      "now": 10
+    },
+    {
+      "task": "church_signup",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 10,
+      "now": 10
+    },
+    {
+      "task": "church_signup",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 10,
+      "now": 10
+    },
+    {
+      "task": "church_signup",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 10,
+      "now": 10
+    },
+    {
+      "task": "clinic_appointments",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "clinic_appointments",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "clinic_appointments",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "clinic_appointments",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "football_fixtures",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "football_fixtures",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "football_fixtures",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "football_fixtures",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "hostel_booking",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 15,
+      "now": 15
+    },
+    {
+      "task": "hostel_booking",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 15,
+      "now": 15
+    },
+    {
+      "task": "hostel_booking",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 15,
+      "now": 15
+    },
+    {
+      "task": "hostel_booking",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 15,
+      "now": 15
+    },
+    {
+      "task": "library_catalogue",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "library_catalogue",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "library_catalogue",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "library_catalogue",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "lost_and_found",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 12,
+      "now": 12
+    },
+    {
+      "task": "lost_and_found",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 12,
+      "now": 12
+    },
+    {
+      "task": "lost_and_found",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 12,
+      "now": 12
+    },
+    {
+      "task": "lost_and_found",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 12,
+      "now": 12
+    },
+    {
+      "task": "market_stock",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "market_stock",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "market_stock",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "market_stock",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "momo_wallet",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 3,
+      "now": 3
+    },
+    {
+      "task": "momo_wallet",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "momo_wallet",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "momo_wallet",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "restaurant_reservations",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 12,
+      "now": 12
+    },
+    {
+      "task": "restaurant_reservations",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 12,
+      "now": 12
+    },
+    {
+      "task": "restaurant_reservations",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 12,
+      "now": 12
+    },
+    {
+      "task": "restaurant_reservations",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 12,
+      "now": 12
+    },
+    {
+      "task": "school_grades_gpa",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 2,
+      "now": 2
+    },
+    {
+      "task": "school_grades_gpa",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 10,
+      "now": 10
+    },
+    {
+      "task": "school_grades_gpa",
+      "label": "baseline_claude-opus-5-5_request_ops_brief",
+      "was": 12,
+      "now": 12
+    },
+    {
+      "task": "school_grades_gpa",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 2,
+      "now": 2
+    },
+    {
+      "task": "school_grades_gpa",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 12,
+      "now": 12
+    },
+    {
+      "task": "school_grades_gpa",
+      "label": "baseline_claude-haiku-5-5_request_ops_brief",
+      "was": 12,
+      "now": 12
+    },
+    {
+      "task": "shared_expenses",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "shared_expenses",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "shared_expenses",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 0,
+      "now": 0
+    },
+    {
+      "task": "shared_expenses",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "shop_price_list",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 11,
+      "now": 11
+    },
+    {
+      "task": "shop_price_list",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "shop_price_list",
+      "label": "baseline_claude-opus-5-5_request_ops_brief",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "shop_price_list",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 9,
+      "now": 9
+    },
+    {
+      "task": "shop_price_list",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "shop_price_list",
+      "label": "baseline_claude-haiku-5-5_request_ops_brief",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "susu_ledger",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 14,
+      "now": 14
+    },
+    {
+      "task": "susu_ledger",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 14,
+      "now": 14
+    },
+    {
+      "task": "susu_ledger",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 0,
+      "now": 0
+    },
+    {
+      "task": "susu_ledger",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 14,
+      "now": 14
+    },
+    {
+      "task": "tailoring_orders",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "tailoring_orders",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "tailoring_orders",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "tailoring_orders",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "trotro_fares",
+      "label": "baseline_claude-opus-5-5_request",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "trotro_fares",
+      "label": "baseline_claude-opus-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "trotro_fares",
+      "label": "baseline_claude-opus-5-5_request_ops_brief",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "trotro_fares",
+      "label": "baseline_claude-haiku-5-5_request",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "trotro_fares",
+      "label": "baseline_claude-haiku-5-5_request_ops",
+      "was": 13,
+      "now": 13
+    },
+    {
+      "task": "trotro_fares",
+      "label": "baseline_claude-haiku-5-5_request_ops_brief",
+      "was": 13,
+      "now": 13
+    }
+  ]
+}

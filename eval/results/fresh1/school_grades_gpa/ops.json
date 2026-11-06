@@ -1,0 +1,34 @@
+{
+  "create_student": {
+    "method": "POST",
+    "path": "/students"
+  },
+  "create_course": {
+    "method": "POST",
+    "path": "/courses",
+    "request_fields": {
+      "credits": "credit_hours"
+    },
+    "response_fields": {
+      "credits": "credit_hours"
+    }
+  },
+  "record_score": {
+    "method": "POST",
+    "path": "/scores",
+    "request_fields": {
+      "id": "student_id"
+    },
+    "response_fields": {
+      "grade_point": "grade_points"
+    }
+  },
+  "get_results": {
+    "method": "GET",
+    "path": "/students/{id}/results",
+    "response_fields": {
+      "courses": "results",
+      "grade_point": "grade_points"
+    }
+  }
+}

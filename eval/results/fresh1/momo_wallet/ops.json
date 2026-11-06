@@ -1,0 +1,29 @@
+{
+  "open_wallet": {
+    "method": "POST",
+    "path": "/wallets",
+    "response_fields": {
+      "id": "phone"
+    }
+  },
+  "get_wallet": {
+    "method": "GET",
+    "path": "/wallets/{id}"
+  },
+  "deposit": {
+    "method": "POST",
+    "path": "/wallets/{id}/deposits"
+  },
+  "transfer": {
+    "method": "POST",
+    "path": "/wallets/{from_wallet_id}/transfers",
+    "request_fields": {
+      "to_wallet_id": "to_phone"
+    }
+  },
+  "list_transactions": {
+    "method": "GET",
+    "path": "/wallets/{id}/history",
+    "response_key": "history"
+  }
+}

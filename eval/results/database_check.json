@@ -1,0 +1,841 @@
+{
+  "builds": 103,
+  "table": {
+    "restart True / check True": 17,
+    "restart True / check False": 0,
+    "restart True / check None": 0,
+    "restart False / check True": 0,
+    "restart False / check False": 82,
+    "restart False / check None": 0,
+    "restart None / check True": 0,
+    "restart None / check False": 4,
+    "restart None / check None": 0
+  },
+  "differ": [],
+  "rows": [
+    {
+      "task": "church_signup",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "church_signup",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "church_signup",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "church_signup",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "clinic_appointments",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "clinic_appointments",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "clinic_appointments",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "clinic_appointments",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "football_fixtures",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "football_fixtures",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "football_fixtures",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "football_fixtures",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "hostel_booking",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "hostel_booking",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "hostel_booking",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "hostel_booking",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "library_catalogue",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "library_catalogue",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "library_catalogue",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "library_catalogue",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "lost_and_found",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "lost_and_found",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "lost_and_found",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "lost_and_found",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "market_stock",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "market_stock",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "market_stock",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "market_stock",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "momo_wallet",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "momo_wallet",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "momo_wallet",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "momo_wallet",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "restaurant_reservations",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "restaurant_reservations",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "restaurant_reservations",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "restaurant_reservations",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": null,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops+brief",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": null,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops+brief",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "shared_expenses",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "shared_expenses",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "shared_expenses",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": null,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "shared_expenses",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "shop_price_list",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in price_list.db."
+    },
+    {
+      "task": "shop_price_list",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "shop_price_list",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops+brief",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "shop_price_list",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "shop_price_list",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "shop_price_list",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops+brief",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "susu_ledger",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "susu_ledger",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "susu_ledger",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": null,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "susu_ledger",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "tailoring_orders",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "tailoring_orders",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "tailoring_orders",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "tailoring_orders",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "trotro_fares",
+      "model": "claude-opus-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "trotro_fares",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "trotro_fares",
+      "model": "claude-opus-5-5",
+      "variant": "request+ops+brief",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "trotro_fares",
+      "model": "claude-haiku-5-5",
+      "variant": "request",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "trotro_fares",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "trotro_fares",
+      "model": "claude-haiku-5-5",
+      "variant": "request+ops+brief",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "church_signup",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "clinic_appointments",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "clinic_appointments",
+      "model": "hand-written",
+      "variant": "reference_b",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "football_fixtures",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "football_fixtures",
+      "model": "hand-written",
+      "variant": "reference_b",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "hostel_booking",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "hostel_booking",
+      "model": "hand-written",
+      "variant": "reference_b",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "library_catalogue",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "library_catalogue",
+      "model": "hand-written",
+      "variant": "reference_b",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "lost_and_found",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "market_stock",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "market_stock",
+      "model": "hand-written",
+      "variant": "reference_b",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "momo_wallet",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "momo_wallet",
+      "model": "hand-written",
+      "variant": "reference_b",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "restaurant_reservations",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "shared_expenses",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "shop_price_list",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "susu_ledger",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "tailoring_orders",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "trotro_fares",
+      "model": "hand-written",
+      "variant": "reference",
+      "restart": false,
+      "check": false,
+      "why": "Starting the app creates no SQLite file with tables, so its data would be lost at every restart."
+    },
+    {
+      "task": "church_signup",
+      "model": "agent",
+      "variant": "request+questions",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in church_events.db."
+    },
+    {
+      "task": "church_signup",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in church_events.db."
+    },
+    {
+      "task": "clinic_appointments",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in clinic.db."
+    },
+    {
+      "task": "football_fixtures",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in league.db."
+    },
+    {
+      "task": "hostel_booking",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in hostel.db."
+    },
+    {
+      "task": "library_catalogue",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in library.db."
+    },
+    {
+      "task": "lost_and_found",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in lost_and_found.db."
+    },
+    {
+      "task": "market_stock",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in stock.db."
+    },
+    {
+      "task": "momo_wallet",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in wallets.db."
+    },
+    {
+      "task": "restaurant_reservations",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in chopbar.db."
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in results.db."
+    },
+    {
+      "task": "shared_expenses",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in splitwise.db."
+    },
+    {
+      "task": "shop_price_list",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in shop.db."
+    },
+    {
+      "task": "susu_ledger",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in susu.db."
+    },
+    {
+      "task": "tailoring_orders",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in tailoring.db."
+    },
+    {
+      "task": "trotro_fares",
+      "model": "agent",
+      "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in trotro.db."
+    }
+  ]
+}

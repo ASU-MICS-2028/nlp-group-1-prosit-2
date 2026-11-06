@@ -1,0 +1,49 @@
+{
+  "args": {
+    "task": "church_signup",
+    "folder": "/home/platform/builds/church-demo",
+    "references": false,
+    "workers": 4,
+    "repeat": 3,
+    "name": "church_rescore"
+  },
+  "seconds": 11.1,
+  "rows": [
+    {
+      "task": "church_signup",
+      "backend": "church-demo",
+      "folder": "/home/platform/builds/church-demo",
+      "passed": 10,
+      "total": 10,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 4.3
+    },
+    {
+      "task": "church_signup",
+      "backend": "church-demo",
+      "folder": "/home/platform/builds/church-demo",
+      "passed": 10,
+      "total": 10,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 6.8
+    },
+    {
+      "task": "church_signup",
+      "backend": "church-demo",
+      "folder": "/home/platform/builds/church-demo",
+      "passed": 10,
+      "total": 10,
+      "started": true,
+      "failing": [],
+      "error": "",
+      "map_cost_usd": 0.0,
+      "seconds": 6.4
+    }
+  ]
+}

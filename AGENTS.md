@@ -8,11 +8,11 @@ A team of five students (ICS554 NLP, Ashesi University) is building a platform w
 
 ## Before you do anything
 
-1. **Read the top of `README.md`.** It shows the current stage and who is responsible. Ask your member who they are. If they are not responsible for the current stage, they can only work on Section A, Docker setup or fixes to their own finished part. Say so and stop if they ask for something else.
+1. **Read the top of `README.md`.** It lists each person's tasks. Ask your member who they are. They work on their own tasks, Section A, Docker setup or fixes to their own finished part. Say so and stop if they ask for something else.
 2. **Read, in this order:**
    - `knowledge/README.md`: the assignment, course, team, setup and lecture summaries
    - `docs/PLAN.md`: the current stage's tasks, what each one needs first, and what "done" means
-   - The learnings file of the person **before** your member in the relay (`learnings/W?-*.md`), especially "How the next person uses it". That is the interface you build on
+   - The learnings file of whoever built the part your member's task uses (`learnings/W?-*.md`), especially "How the next person uses it". That is the interface you build on
    - `docs/decisions/README.md` and any decision record that touches the task
    - Your member's own learnings file, to see what is already done
 3. **Check the safety hook is on:** `git config core.hooksPath` must print `.githooks`. If it prints nothing, run `git config core.hooksPath .githooks` (it blocks commits containing keys, `.env`, model files or a stale README).
@@ -69,7 +69,8 @@ These are written for Claude Code skills, but they are plain Markdown, so any as
 
 | Path | What |
 |---|---|
-| `README.md` | Top: the current stage and who is on it (generated). Below: the two team rules and the folder guide |
+| `eval/results/` | **Every test result, as a file (decision 0051).** Save it and add it to `eval/results/README.md` in the same commit. A number in the report must come from here |
+| `README.md` | Top: each person's tasks (generated). Below: the two team rules and the folder guide |
 | `docs/PLAN.md` | Every stage, task, owner and blocker (the README is generated from it) |
 | `docs/decisions/` | Numbered decision records (ADRs) and their generated index |
 | `docs/meetings/` | Meeting summaries |

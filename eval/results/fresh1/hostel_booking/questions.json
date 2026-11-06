@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a student cancels, how should we know it is really their booking: should each booking get a code they keep, or is their name enough?",
+    "Can the same student have more than one booking at the same time, for example two beds on the same nights?",
+    "Should students be stopped from booking an arrival date that is already in the past?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00896
+}
