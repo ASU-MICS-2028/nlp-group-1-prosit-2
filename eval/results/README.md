@@ -45,7 +45,7 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 |---|---|---|
 | **Does every written number match a file? Row by row, for everyone** | `AUDIT.md` · `audit_numbers.json` | 105 of 105 |
 | Does everything free give the same result again? | `replicated/` | Yes, apart from timings: see `AUDIT.md` |
-| Does the read limit hurt changes to big apps? | `read_limit/cut.json`, with traces and final apps | Nothing broke; Opus printed the file through a failing test |
+| Does the read limit hurt changes to big apps? | `read_limit/cut.json` · `read_limit/full.json`, with traces and final apps | Same results; no cut: 13 turns, $0.35 vs 24 turns, $0.43 |
 | Does a crash make the next test fail? | `replicated/flaky_check.json` | Was 5 of 12; 0 of 20 after the fix |
 
 ## Not here

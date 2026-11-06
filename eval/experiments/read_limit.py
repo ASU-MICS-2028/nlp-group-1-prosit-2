@@ -1,8 +1,8 @@
 """Does cutting a big file in the middle hurt the agent when it changes an app? (W4 row 36)
 
-    uv run --env-file .env --with anthropic python -m eval.experiments.read_limit cut    # read_file as it is today
+    uv run --env-file .env --with anthropic python -m eval.experiments.read_limit cut    # read_file cut at 4,000, as it was
     uv run --env-file .env --with anthropic python -m eval.experiments.read_limit full   # read_file with no cut
-About $0.50 per arm. The 3 biggest apps Opus built in one call; each change touches code in the part that gets cut.
+About $0.40 per arm. The 3 biggest apps Opus built in one call; each change touches code in the part that gets cut.
 Writes eval/results/read_limit/<arm>.json, plus each build's trace and final app.py.
 """
 
@@ -26,6 +26,9 @@ SAVED = {x["task"]: x for x in json.loads((bench.ROOT / "eval/results/baseline_v
 OUT = bench.ROOT / "eval/results/read_limit"
 OUT.mkdir(exist_ok=True)
 
+if ARM == "cut":
+    whole = tools.read_file
+    tools.read_file = lambda root, path: (lambda r: {**r, "output": tools.cut(r["output"], tools.LIMIT)})(whole(root, path))
 if ARM == "full":
     tools.read_file = lambda root, path: {"ok": True, "output": (Path(root) / path).read_text()} if (Path(root) / path).is_file() else {"ok": False, "output": f"No such file: {path}"}
 

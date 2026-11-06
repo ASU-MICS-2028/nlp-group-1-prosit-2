@@ -97,5 +97,5 @@ Behaviour checks of coding assistants and guides (`learnings/00-repo-setup.md`).
 ## Open items
 
 1. **Alice's `run.json` files** back every cost and time figure in her rows. Until they arrive, those numbers rest on her write-up alone.
-2. **Files over the read limit: tested (W4 row 36).** Nothing broke on the 3 biggest apps: Opus printed the hidden part through a throwaway failing test, then edited correctly. It is a fragile trick, and raising the limit is still undecided.
+2. **Files over the read limit: tested and fixed (W4 row 36, decision 0052).** Same results, about half the turns and 18% cheaper with no cut. `read_file` now returns up to 20,000 characters.
 3. **No file:** the interim numbers listed above (rows 9, 10, 12, 13, 22). They are history, and re-running them would need old versions of the tool, so do not quote them in the report as measured results without saying so.

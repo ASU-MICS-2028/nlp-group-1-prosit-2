@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from runtime.tools import LIMIT, cut, edit_file, list_files, read_file, write_file
+from runtime.tools import READ_LIMIT, LIMIT, cut, edit_file, list_files, read_file, write_file
 
 REFERENCE = Path(__file__).resolve().parents[2] / "benchmark" / "church_signup" / "reference"
 
@@ -54,7 +54,13 @@ def test_huge_file_is_cut_when_read(project):
     (project / "big.txt").write_text("START" + "x" * 10_000_000 + "END")
     output = read_file(project, "big.txt")["output"]
     assert output.startswith("START") and output.endswith("END") and "characters cut" in output
-    assert len(output) < LIMIT + 100
+    assert len(output) < READ_LIMIT + 100
+
+
+def test_a_big_app_is_read_whole(project):
+    text = "x = 1\n" * 1700  # about 10,000 characters, the size of the biggest apps the agent has built
+    (project / "app.py").write_text(text)
+    assert read_file(project, "app.py")["output"] == text
 
 
 def test_huge_write_is_refused(project):
