@@ -1,8 +1,8 @@
 # Plan
 
-**We work as a relay: one person at a time.** Each person does their whole part, tries every alternative (rule 2), and writes it all down in their learnings file (rule 1). Then the next person takes over, building on what was handed to them. Nobody works on a part before the part it needs is finished, so every blocker in this plan is real: *this must be done before that can be done*. There is no fixed deadline. Doing each part fully and learning from it comes first.
+**Everyone works at the same time (decision 0050).** Each person does their part, tries every alternative (rule 2), and writes it all down in their learnings file (rule 1). A task waits only if it really needs another task first, so every blocker in this plan is real. We are aiming to finish the week of Nov 9.
 
-**A handoff** is the last task of every stage: the owner's learnings file is complete, including "How the next person uses this". The next stage starts with the new owner reading it and running what was handed over. If something is unclear or doesn't run, it goes back to the previous owner before anything else happens.
+**A handoff** means your learnings file is complete, including "How the next person uses this". If something is unclear or doesn't run, it goes back to its owner.
 
 **How to use this file.** Edit only the stage tables: set `Status` to `doing` when you start a task, `done` when its "Done when" is true. Then run `python3 scripts/update_status.py`. It redraws the board, the flow diagram, "By person", "Who waits on whom" and the README's Status section. Commit everything together. A GitHub check fails if any of it is stale.
 
@@ -13,11 +13,11 @@
 <!-- BOARD:START -->
 | Who | Stage 0<br>Set up (everyone) | Stage 1<br>Bernard — tools and sandbox | Stage 2<br>Joseph — benchmark, harness, knowledge base | Stage 3<br>Alice — agent core | Stage 4<br>Michael — UI and usability | Stage 5<br>Joseph — full evaluation | Stage 6<br>Eric — integration and writing | Stage 7<br>Everyone — review, viva, submit |
 |---|---|---|---|---|---|---|---|---|
-| Alice (W1) | — | — | — | ✅ S3.1 Read Bernard's and Joseph's learnings, run their parts<br>✅ S3.2 Single agent from the command line<br>✅ S3.3 Run record and trace<br>✅ S3.4 Test-and-repair loop<br>✅ S3.5 Spec-first plan and approval<br>✅ S3.6 Planner / Builder / Tester split<br>✅ S3.7 Retrieval in the agent<br>✅ S3.8 Clarifying questions<br>✅ S3.9 Claude vs local Qwen<br>✅ S3.10 "Change it" edit loop<br>✅ S3.11 Handoff: Alice's learnings | — | — | — | — |
-| Bernard (W2) | — | ✅ S1.1 The agent's tools<br>✅ S1.2 Sandbox<br>✅ S1.3 Safety tests<br>🔵 S1.4 MCP server<br>✅ S1.5 Handoff: Bernard's learnings | — | — | — | — | — | — |
+| Alice (W1) | — | — | — | ✅ S3.1 Read Bernard's and Joseph's learnings, run their parts<br>✅ S3.2 Single agent from the command line<br>✅ S3.3 Run record and trace<br>✅ S3.4 Test-and-repair loop<br>✅ S3.5 Spec-first plan and approval<br>✅ S3.6 Planner / Builder / Tester split<br>✅ S3.7 Retrieval in the agent<br>✅ S3.8 Clarifying questions<br>✅ S3.9 Claude vs local Qwen<br>✅ S3.10 "Change it" edit loop<br>✅ S3.11 Handoff: Alice's learnings | 🔵 S4.8 Plain-word summaries; follow mid-build messages properly | — | — | — |
+| Bernard (W2) | — | ✅ S1.1 The agent's tools<br>✅ S1.2 Sandbox<br>✅ S1.3 Safety tests<br>🔵 S1.4 MCP server<br>✅ S1.5 Handoff: Bernard's learnings | — | — | 🔵 S4.7 Safety of the public platform | — | — | — |
 | Michael (W3) | — | — | — | — | 🔵 S4.1 Read Alice's and Joseph's learnings, try the live platform<br>⏳ S4.2 UI on a recorded session<br>⏳ S4.3 Better UI on the live platform<br>⏳ S4.4 UI alternatives compared<br>⏳ S4.5 Usability test<br>⏳ S4.6 Handoff: Michael's learnings | — | — | — |
-| Joseph (W4) | ✅ S0.2 LLM setup | — | ✅ S2.1 Read Bernard's learnings, run his tools<br>✅ S2.2 15 benchmark tasks<br>✅ S2.3 Eval harness<br>✅ S2.4 Recipe knowledge base and search<br>✅ S2.5 Handoff: Joseph's learnings, part 1 | ✅ S3.12 Hosting on a public server<br>✅ S3.13 Agent session<br>✅ S3.14 Small live platform | — | ⏳ S5.1 Read Alice's and Michael's learnings<br>⏳ S5.2 Full system on all 15 tasks<br>⏳ S5.3 Ablations<br>⏳ S5.4 Model comparison<br>⏳ S5.5 Results tables and charts<br>⏳ S5.6 Handoff: Joseph's learnings, part 2 | — | — |
-| Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>✅ S0.4 Ask the instructor about "Section C" | — | — | — | — | — | ⏳ S6.1 Read every learnings file, run everything<br>⏳ S6.2 Fix what doesn't fit together<br>⏳ S6.3 Section B draft<br>⏳ S6.4 Slides and recorded demo<br>⏳ S6.5 Handoff: Eric's learnings | — |
+| Joseph (W4) | ✅ S0.2 LLM setup | — | ✅ S2.1 Read Bernard's learnings, run his tools<br>✅ S2.2 15 benchmark tasks<br>✅ S2.3 Eval harness<br>✅ S2.4 Recipe knowledge base and search<br>✅ S2.5 Handoff: Joseph's learnings, part 1 | ✅ S3.12 Hosting on a public server<br>✅ S3.13 Agent session<br>✅ S3.14 Small live platform | — | 🔵 S5.1 Read Alice's learnings, try the live platform<br>⏳ S5.2 Full system on all 15 tasks<br>⏳ S5.3 Ablations<br>⏳ S5.4 Model comparison<br>⏳ S5.5 Results tables and charts<br>⏳ S5.6 Handoff: Joseph's learnings, part 2 | — | — |
+| Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>✅ S0.4 Ask the instructor about "Section C" | — | — | — | — | — | 🔵 S6.1 Read every learnings file, run everything<br>⏳ S6.2 Fix what doesn't fit together<br>⏳ S6.3 Section B draft<br>⏳ S6.4 Slides and recorded demo<br>⏳ S6.5 Handoff: Eric's learnings | — |
 | Everyone | 🔵 S0.6 Docker on every laptop | — | — | — | — | — | — | ⏳ S7.1 Review Section B for your part<br>🔵 S7.2 Section A (individual, any time)<br>⏳ S7.3 Viva walkthrough<br>⏳ S7.4 Rehearse and submit |
 
 ✅ done · 🟡 in progress · 🔵 ready to start · ⏳ waiting on another task
@@ -74,9 +74,11 @@ flowchart LR
     S4_4["S4.4 UI alternatives compared<br/>W3 · Should"]:::waiting
     S4_5["S4.5 Usability test<br/>W3 · Should"]:::waiting
     S4_6["S4.6 Handoff: Michael's learnings<br/>W3 · Must"]:::waiting
+    S4_7["S4.7 Safety of the public platform<br/>W2 · Must"]:::ready
+    S4_8["S4.8 Plain-word summaries; follow mid-build messages properly<br/>W1 · Should"]:::ready
   end
   subgraph Stage5["Stage 5: Joseph — full evaluation"]
-    S5_1["S5.1 Read Alice's and Michael's learnings<br/>W4 · Must"]:::waiting
+    S5_1["S5.1 Read Alice's learnings, try the live platform<br/>W4 · Must"]:::ready
     S5_2["S5.2 Full system on all 15 tasks<br/>W4 · Must"]:::waiting
     S5_3["S5.3 Ablations<br/>W4 · Must"]:::waiting
     S5_4["S5.4 Model comparison<br/>W4 · Should"]:::waiting
@@ -84,7 +86,7 @@ flowchart LR
     S5_6["S5.6 Handoff: Joseph's learnings, part 2<br/>W4 · Must"]:::waiting
   end
   subgraph Stage6["Stage 6: Eric — integration and writing"]
-    S6_1["S6.1 Read every learnings file, run everything<br/>W5 · Must"]:::waiting
+    S6_1["S6.1 Read every learnings file, run everything<br/>W5 · Must"]:::ready
     S6_2["S6.2 Fix what doesn't fit together<br/>W5 · Must"]:::waiting
     S6_3["S6.3 Section B draft<br/>W5 · Must"]:::waiting
     S6_4["S6.4 Slides and recorded demo<br/>W5 · Must"]:::waiting
@@ -130,19 +132,25 @@ flowchart LR
   S4_3 --> S4_4
   S4_4 --> S4_5
   S4_5 --> S4_6
-  S4_6 --> S5_1
+  S3_14 --> S4_7
+  S3_14 --> S4_8
+  S3_14 --> S5_1
   S5_1 --> S5_2
   S5_2 --> S5_3
   S5_2 --> S5_4
   S5_3 --> S5_5
   S5_4 --> S5_5
   S5_5 --> S5_6
-  S5_6 --> S6_1
+  S3_14 --> S6_1
   S6_1 --> S6_2
   S6_1 --> S6_3
   S6_2 --> S6_4
   S6_3 --> S6_4
+  S4_3 --> S6_4
   S6_4 --> S6_5
+  S4_6 --> S6_5
+  S4_7 --> S6_5
+  S5_6 --> S6_5
   S6_3 --> S7_1
   S6_5 --> S7_3
   S7_1 --> S7_4
@@ -216,12 +224,14 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 | S4.4 | UI alternatives compared | W3 | S4.3 | Should | todo | Ways of showing the plan, asking questions, showing progress and wording errors, compared |
 | S4.5 | Usability test | W3 | S4.4 | Should | todo | 4–5 non-developers: completion, time, SUS score, quotes |
 | S4.6 | Handoff: Michael's learnings | W3 | S4.3, S4.5 | Must | todo | `learnings/W3-*.md` complete |
+| S4.7 | Safety of the public platform | W2 | S3.14 | Must | todo | Attacks on the live platform tried and written up: prompt injection in a request, too many requests, a backend grabbing memory or disk, many builds at once. Every hole fixed or stated as a limit. `start_server` says when a backend was killed for using too much memory |
+| S4.8 | Plain-word summaries; follow mid-build messages properly | W1 | S3.14 | Should | todo | The final summary has no technical words, the client can tell what they got, and a message saying "must" is enforced in the live backend. All 15 tasks re-scored: no lower than 95.8% |
 
 ## Stage 5: Joseph — full evaluation
 
 | ID | Task | Who | Needs | Priority | Status | Done when |
 |---|---|---|---|---|---|---|
-| S5.1 | Read Alice's and Michael's learnings | W4 | S4.6 | Must | todo | The full system runs on your laptop |
+| S5.1 | Read Alice's learnings, try the live platform | W4 | S3.14 | Must | todo | A backend built through the live page, and the agent and harness run on your laptop |
 | S5.2 | Full system on all 15 tasks | W4 | S5.1 | Must | todo | Every task run with repeats; hidden-test pass rate, time and cost per task |
 | S5.3 | Ablations | W4 | S5.2 | Must | todo | No repair, single agent, no retrieval, no spec-first, no questions: each scored the same way |
 | S5.4 | Model comparison | W4 | S5.2 | Should | todo | Opus vs Sonnet vs Haiku vs local Qwen: quality against cost |
@@ -232,11 +242,11 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 
 | ID | Task | Who | Needs | Priority | Status | Done when |
 |---|---|---|---|---|---|---|
-| S6.1 | Read every learnings file, run everything | W5 | S5.6 | Must | todo | A fresh clone runs the whole platform following only the README and the learnings files |
+| S6.1 | Read every learnings file, run everything | W5 | S3.14 | Must | todo | A fresh clone runs the whole platform following only the README and the learnings files |
 | S6.2 | Fix what doesn't fit together | W5 | S6.1 | Must | todo | Each gap fixed with the owner of that part; nothing left that only one person can run |
-| S6.3 | Section B draft | W5 | S6.1 | Must | todo | Approach, architecture, implementation, evaluation, written from the learnings files |
-| S6.4 | Slides and recorded demo | W5 | S6.2, S6.3 | Must | todo | 10-minute deck with the GitHub link on slide 1, each person presenting their part; a demo recording saved |
-| S6.5 | Handoff: Eric's learnings | W5 | S6.4 | Must | todo | `learnings/W5-*.md` complete |
+| S6.3 | Section B draft | W5 | S6.1 | Must | todo | Approach, architecture, implementation, evaluation, written from the learnings files; final numbers taken from S5.5 |
+| S6.4 | Slides and recorded demo | W5 | S6.2, S6.3, S4.3 | Must | todo | 10-minute deck with the GitHub link on slide 1, each person presenting their part; a demo recording saved |
+| S6.5 | Handoff: Eric's learnings | W5 | S6.4, S4.6, S4.7, S5.6 | Must | todo | `learnings/W5-*.md` complete |
 
 ## Stage 7: Everyone — review, viva, submit
 
@@ -273,6 +283,7 @@ What each person owns. The task list under the table is generated.
 9. S3.9 Claude vs local Qwen — Should, done
 10. S3.10 "Change it" edit loop — Could, done
 11. S3.11 Handoff: Alice's learnings — Must, done
+12. S4.8 Plain-word summaries; follow mid-build messages properly — Should, ready
 
 **Bernard (W2)**
 
@@ -281,6 +292,7 @@ What each person owns. The task list under the table is generated.
 3. S1.3 Safety tests — Should, done
 4. S1.4 MCP server — Could, ready
 5. S1.5 Handoff: Bernard's learnings — Must, done
+6. S4.7 Safety of the public platform — Must, ready
 
 **Michael (W3)**
 
@@ -302,7 +314,7 @@ What each person owns. The task list under the table is generated.
 7. S3.12 Hosting on a public server — Must, done
 8. S3.13 Agent session — Must, done
 9. S3.14 Small live platform — Must, done
-10. S5.1 Read Alice's and Michael's learnings — Must, waiting (waiting on S4.6)
+10. S5.1 Read Alice's learnings, try the live platform — Must, ready
 11. S5.2 Full system on all 15 tasks — Must, waiting (waiting on S5.1)
 12. S5.3 Ablations — Must, waiting (waiting on S5.2)
 13. S5.4 Model comparison — Should, waiting (waiting on S5.2)
@@ -314,11 +326,11 @@ What each person owns. The task list under the table is generated.
 1. S0.1 Set up the repo — Must, done
 2. S0.3 Assign owners — Must, done
 3. S0.4 Ask the instructor about "Section C" — Should, done
-4. S6.1 Read every learnings file, run everything — Must, waiting (waiting on S5.6)
+4. S6.1 Read every learnings file, run everything — Must, ready
 5. S6.2 Fix what doesn't fit together — Must, waiting (waiting on S6.1)
 6. S6.3 Section B draft — Must, waiting (waiting on S6.1)
-7. S6.4 Slides and recorded demo — Must, waiting (waiting on S6.2, S6.3)
-8. S6.5 Handoff: Eric's learnings — Must, waiting (waiting on S6.4)
+7. S6.4 Slides and recorded demo — Must, waiting (waiting on S6.2, S6.3, S4.3)
+8. S6.5 Handoff: Eric's learnings — Must, waiting (waiting on S6.4, S4.6, S4.7, S5.6)
 
 **Everyone**
 
@@ -334,8 +346,10 @@ What each person owns. The task list under the table is generated.
 Generated: every place where one person's task cannot finish until another person's task is done. In a relay, these are the handoffs.
 
 <!-- BLOCKERS:START -->
-- S5.1 Read Alice's and Michael's learnings (Joseph (W4)) waits on S4.6 Handoff: Michael's learnings (Michael (W3))
-- S6.1 Read every learnings file, run everything (Eric (W5)) waits on S5.6 Handoff: Joseph's learnings, part 2 (Joseph (W4))
+- S6.4 Slides and recorded demo (Eric (W5)) waits on S4.3 Better UI on the live platform (Michael (W3))
+- S6.5 Handoff: Eric's learnings (Eric (W5)) waits on S4.6 Handoff: Michael's learnings (Michael (W3))
+- S6.5 Handoff: Eric's learnings (Eric (W5)) waits on S4.7 Safety of the public platform (Bernard (W2))
+- S6.5 Handoff: Eric's learnings (Eric (W5)) waits on S5.6 Handoff: Joseph's learnings, part 2 (Joseph (W4))
 - S7.1 Review Section B for your part (Everyone) waits on S6.3 Section B draft (Eric (W5))
 - S7.3 Viva walkthrough (Everyone) waits on S6.5 Handoff: Eric's learnings (Eric (W5))
 - S7.4 Rehearse and submit (Everyone) waits on S6.4 Slides and recorded demo (Eric (W5))

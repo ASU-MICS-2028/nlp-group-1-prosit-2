@@ -1,6 +1,6 @@
 # 0018. The README shows only the current stage
 
-- Status: Accepted
+- Status: Superseded by 0050
 - Date: 2026-10-23
 - Decided by: Joseph
 

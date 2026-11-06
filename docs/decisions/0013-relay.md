@@ -1,6 +1,6 @@
 # 0013. Work as a relay, one person at a time, with no fixed deadline
 
-- Status: Accepted
+- Status: Superseded by 0050
 - Date: 2026-10-21
 - Decided by: Joseph
 
