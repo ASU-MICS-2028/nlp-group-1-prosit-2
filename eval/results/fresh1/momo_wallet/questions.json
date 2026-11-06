@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should customers need a PIN or password to send money or see their balance and history, or can anyone who knows the wallet's phone number do this?",
+    "Are there any fees, or any maximum amounts per deposit, per transfer, or per day?",
+    "Should phone numbers be checked as Ghana numbers, with 024xxxxxxx and +23324xxxxxxx treated as the same number?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No fees for now. No limits for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0108
+}

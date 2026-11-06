@@ -59,6 +59,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0050](0050-everyone-works-at-once.md) | Everyone works at the same time; the README lists each person's tasks | Accepted | 2026-11-06 |
 | [0051](0051-save-every-result.md) | Every test result is saved in the repo | Accepted | 2026-11-06 |
 | [0052](0052-read-whole-files.md) | read_file returns up to 20,000 characters | Accepted | 2026-11-06 |
+| [0053](0053-refuse-backends-that-lose-data.md) | Do not publish a backend that would lose its data | Accepted | 2026-11-06 |
 <!-- DECISIONS:END -->
 
 ## Open questions

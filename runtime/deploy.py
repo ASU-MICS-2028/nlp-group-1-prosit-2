@@ -14,6 +14,7 @@ path on one HTTPS address. Runs on the server only: it needs Docker and Caddy, a
 import os
 import re
 import shutil
+import sqlite3
 import subprocess
 import time
 from pathlib import Path
@@ -21,7 +22,7 @@ from pathlib import Path
 import httpx
 
 from runtime import sandbox
-from runtime.tools import fail, free_port
+from runtime.tools import fail, free_port, ok, start_server, stop_server
 
 HOST = os.environ.get("PUBLIC_HOST", "34-78-38-126.sslip.io")
 DEPLOY_ROOT = Path(os.environ.get("DEPLOY_ROOT", "/srv/deployed"))
@@ -89,6 +90,64 @@ def deploy(folder, name, timeout=20):
     url = f"https://{HOST}/b/{name}"
     endpoints = [f"{m.upper()} {p}" for p, ops in spec.get("paths", {}).items() for m in ops]
     return {"ok": True, "url": url, "docs_url": f"{url}/docs", "endpoints": endpoints, "output": f"Deployed at {url}"}
+
+
+def tables(db):
+    """{table name: rows} in a SQLite file; {} if it is not one. Goes by the file's first bytes, not its name."""
+    if db.read_bytes()[:16] != b"SQLite format 3\0":
+        return {}
+    with sqlite3.connect(db) as c:
+        names = [n for n, in c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")]
+        return {n: c.execute(f'SELECT COUNT(*) FROM "{n}"').fetchone()[0] for n in names}
+
+
+def add_a_row(db, table):
+    """Put one made-up row in a table, filling only the columns that must have a value. A table that refuses it is left as it was."""
+    with sqlite3.connect(db) as c:
+        columns = c.execute(f'PRAGMA table_info("{table}")').fetchall()  # (id, name, type, not null, default, primary key)
+        needed = [(name, kind.upper()) for _, name, kind, required, default, key in columns
+                  if (required or key) and default is None and not (key and "INT" in kind.upper())]
+        values = [1 if "INT" in kind or "BOOL" in kind else 1.0 if kind in ("FLOAT", "REAL", "NUMERIC") else
+                  "2000-01-01 00:00:00" if "DATE" in kind or "TIME" in kind else "x" for _, kind in needed]
+        names = ", ".join(f'"{name}"' for name, _ in needed)
+        insert = f'INSERT INTO "{table}" ({names}) VALUES ({", ".join("?" * len(values))})' if needed else f'INSERT INTO "{table}" DEFAULT VALUES'
+        try:
+            c.execute(insert, values)
+        except sqlite3.Error:
+            pass
+
+
+def keeps_database(folder):
+    """Would this app keep its data on the server? Start a copy of it: a SQLite file with tables must appear. Add a row to every
+    table and start it again: no table may lose a row. Reads no code, so it does not matter how the app does it. Cannot see an
+    app that has a database but also keeps some data in memory: eval/results/database_check.json measures how far this goes."""
+    home = Path(folder) / "db_check"
+    shutil.rmtree(home, ignore_errors=True)
+    home.mkdir(parents=True)
+    shutil.copy(Path(folder) / "app.py", home / "app.py")
+    try:
+        started = start_server(home)
+        if not started["ok"]:
+            return fail(f"It would not start: {started['output'][-300:]}")
+        stop_server(home)
+        found = [f for f in home.rglob("*") if f.is_file() and tables(f)]
+        if not found:
+            return fail("Starting the app creates no SQLite file with tables, so its data would be lost at every restart.")
+        for db in found:
+            for table in tables(db):
+                add_a_row(db, table)
+        before = {db: tables(db) for db in found}
+        started = start_server(home)
+        if not started["ok"]:
+            return fail(f"With data in its database, it would not start again: {started['output'][-300:]}")
+        stop_server(home)
+        lost = [t for db, rows in before.items() for t, n in rows.items() if not db.exists() or tables(db).get(t, 0) < n]
+        if lost:
+            return fail(f"Starting the app wipes its data: rows disappeared from {', '.join(lost)}.")
+        return ok(f"Keeps its data in {', '.join(db.name for db in found)}.")
+    finally:
+        stop_server(home)
+        shutil.rmtree(home, ignore_errors=True)
 
 
 def undeploy(name, delete_data=False):

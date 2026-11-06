@@ -28,6 +28,7 @@ def world(monkeypatch, tmp_path):
         return PASSED
     monkeypatch.setattr(session, "build", fake_build)
     monkeypatch.setattr(session, "deploy", lambda root, name: LIVE)
+    monkeypatch.setattr(session, "keeps_database", lambda root: {"ok": True, "output": ""})
     return built
 
 
@@ -100,6 +101,33 @@ def test_untested_or_failing_builds_are_not_published(world, monkeypatch, result
     session.approve(sid)
     got = wait(sid, "failed")
     assert published == [] and got["url"] is None and "not published" in got["error"]
+
+
+def approved(sid):
+    wait(sid, "waiting_answers")
+    session.send(sid, "ok")
+    wait(sid, "waiting_approval")
+    session.approve(sid)
+
+
+def test_an_app_that_loses_data_goes_back_to_the_agent_once(world, monkeypatch):
+    answers = [{"ok": False, "output": "no database"}, {"ok": True, "output": ""}]
+    monkeypatch.setattr(session, "keeps_database", lambda root: answers.pop(0))
+    sid = session.start("x")
+    approved(sid)
+    wait(sid, "live")
+    assert len(world) == 2 and "no database" in world[1]["change"]
+
+
+def test_an_app_that_still_loses_data_is_not_published(world, monkeypatch):
+    published = []
+    monkeypatch.setattr(session, "keeps_database", lambda root: {"ok": False, "output": "secret detail"})
+    monkeypatch.setattr(session, "deploy", lambda root, name: published.append(name) or LIVE)
+    sid = session.start("x")
+    approved(sid)
+    got = wait(sid, "failed")
+    assert published == [] and len(world) == 2 and "lose its data" in got["error"]
+    assert "secret detail" not in str(session.get(sid))
 
 
 def test_a_crash_is_reported_without_details(world, monkeypatch):

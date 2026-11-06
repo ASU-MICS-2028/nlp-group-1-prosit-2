@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Besides each member's balance, do you also want it to show who should pay whom, and how much, to settle up?",
+    "Can a recorded expense or payment be changed or deleted later, and can a member be removed from a group?",
+    "Does each friend need their own login, or can anyone with access to a group add expenses and payments to it?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "Not for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.01016
+}

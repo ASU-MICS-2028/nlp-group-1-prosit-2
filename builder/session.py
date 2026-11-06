@@ -9,6 +9,7 @@
     send(sid, "no adding events")    # while building: the agent sees it between turns
     get(sid)["url"]                  # state "live": the public link. A later send is a change, and the link stays the same
 
+Before publishing, a real restart check (runtime.deploy.keeps_database, decision 0053).
 States: asking, waiting_answers, planning, waiting_approval, building, live, failed. Choices in decisions 0041 (a person
 approves the plan), 0042 (up to 3 questions) and 0048 (this file). Each event is also saved to session.jsonl in the build
 folder. Sessions live in memory: a restart forgets them, but backends already live keep running.
@@ -23,12 +24,15 @@ from datetime import date
 from pathlib import Path
 
 from builder.agent import build, clarify, make_plan, plan_text, with_answers
-from runtime.deploy import deploy
+from runtime.deploy import deploy, keeps_database
 
 BUILDS = Path(os.environ.get("BUILDS_ROOT", "builds"))
 MODEL = "claude-opus-5-5"
 MAX_REQUEST = 5000  # characters; a real request is a few sentences
 MAX_DAILY_USD = float(os.environ.get("MAX_DAILY_USD", "10"))  # anyone can start a build, and each one spends our Claude credit
+NO_DATABASE = """We host this backend, and a check found it would lose its data when the server restarts: {why}
+Store all the data with SQLModel in a SQLite file in the current folder, create the tables when the app starts, and never
+delete data at the start."""
 SESSIONS = {}
 LOCK = threading.Lock()
 BUILDING = threading.BoundedSemaphore(2)  # 4 GB server: at most 2 builds at once; the others wait their turn
@@ -101,8 +105,9 @@ class Session:
             found, self.inbox = self.inbox, []
         return found
 
-    def work(self, change=None):
-        """Build (or change) the app, and publish it only if its own tests ran and passed."""
+    def work(self, change=None, sent_back=False):
+        """Build (or change) the app, and publish it only if its own tests ran and passed and it keeps its data on a restart.
+        An app that would lose its data goes back to the agent once."""
         if not BUILDING.acquire(blocking=False):
             self.emit("queued")
             BUILDING.acquire()
@@ -119,6 +124,14 @@ class Session:
         if not tests_passed(result):
             self.error = "The backend did not pass its own tests, so it was not published. You can send a message to try again."
             self.emit("not_published", stop=result["stop"], tests=result["tests"])
+            return self.go("failed")
+        kept = keeps_database(self.root)
+        if not kept["ok"]:
+            self.emit("loses_data", detail=kept["output"], sent_back=not sent_back)
+            if not sent_back:
+                return self.work(NO_DATABASE.format(why=kept["output"]), sent_back=True)
+            self.error = "The backend would lose its data when the server restarts, so it was not published. You can send a message to try again."
+            self.emit("not_published", detail=kept["output"])
             return self.go("failed")
         out = deploy(self.root, self.id)
         if not out["ok"]:

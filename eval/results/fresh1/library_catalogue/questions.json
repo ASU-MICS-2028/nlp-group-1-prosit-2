@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can one student borrow more than one copy of the same book at a time, and is there a limit on how many books a student can have out in total?",
+    "Do borrowed books have a due date (for example 2 weeks), or can students keep them until they bring them back?",
+    "Should only the librarian be able to add books (for example with a password), and should they also be able to edit or remove books?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "Not needed for now.",
+    "Not needed for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00733
+}
