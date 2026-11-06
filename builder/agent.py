@@ -128,6 +128,9 @@ Now they want this change:
 
 Read app.py, change only what is needed with edit_file (do not rewrite the whole file), keep everything else working,
 add tests for the change, run all the tests, and reply with a short summary of what changed."""
+NEW_MESSAGE = """The client sent a new message while you work. It changes what they want, so follow it, then carry on:
+
+{message}"""
 LOCAL_URL = os.environ.get("LOCAL_LLM_URL", "http://localhost:8090/v1") + "/chat/completions"  # S3.9, knowledge/environment.md
 
 _client = None
@@ -162,8 +165,8 @@ def call_local(system, messages, tools):
                      for b in c if b.type == "tool_use"]
             chat.append({"role": "assistant", "content": text_of(c), **({"tool_calls": calls} if calls else {})})
         else:  # the results of our tools, one message each
-            chat += [{"role": "tool", "tool_call_id": r["tool_use_id"],
-                      "content": ("ERROR: " if r["is_error"] else "") + r["content"]} for r in c]
+            chat += [{"role": "tool", "tool_call_id": r["tool_use_id"], "content": ("ERROR: " if r["is_error"] else "") + r["content"]}
+                     if r["type"] == "tool_result" else {"role": "user", "content": r["text"]} for r in c]
     body = {"messages": chat, "max_tokens": 16000, "chat_template_kwargs": {"enable_thinking": os.environ.get("LOCAL_THINKING") == "1"},
             "tools": [{"type": "function", "function": {"name": t["name"], "description": t["description"],
                                                          "parameters": t["input_schema"]}} for t in tools]}
@@ -327,7 +330,7 @@ def follows_plan(code, plan):
 
 
 def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", max_turns=40, max_usd=2.0, on_event=None,
-          max_repairs=0, plan=None, search=False, change=None):
+          max_repairs=0, plan=None, search=False, change=None, inbox=None):
     """Run the loop. Stops when Claude finishes ("end_turn"), or at max_turns, max_usd or an error (always reported).
 
     With max_repairs > 0, each time Claude finishes, an independent checker tests app.py against the request; failures
@@ -335,6 +338,7 @@ def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", m
     With plan (an approved plan from make_plan), Claude gets the request plus the plan; the checker still sees only the request.
     With search, Claude also gets the search_docs tool (S3.7). A model ending in -local runs on llama.cpp (S3.9).
     With change (S3.10), Claude edits the app already in root; the last run's files are kept in root/history/.
+    With inbox (a function returning the client's new messages, usually none), Claude sees them between turns (Lecture 8).
 
     Writes two files in root: trace.jsonl, one line per event as it happens (start, reply, tool, check, end), and
     run.json, the totals. on_event, if given, is called with every event too, so a UI can show the build live."""
@@ -367,6 +371,12 @@ def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", m
             if on_event:
                 on_event(line)
 
+        def new_messages():
+            found = inbox() if inbox else []
+            for text in found:
+                log("message", text=text)
+            return [{"type": "text", "text": NEW_MESSAGE.format(message=text)} for text in found]
+
         log("start", request=request, model=model, prompt=prompt, effort=effort, plan=plan, search=search, change=change)
         try:
             for turn in range(max_turns):
@@ -384,6 +394,11 @@ def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", m
                 messages.append({"role": "assistant", "content": reply.content})  # whole reply, thinking included
                 if reply.stop_reason != "tool_use":
                     stop = reply.stop_reason
+                    extra = new_messages() if stop == "end_turn" else []
+                    if extra:  # Claude thought it was done, but the client just asked for more
+                        stop = "max_turns"
+                        messages.append({"role": "user", "content": extra})
+                        continue
                     app = root / "app.py"
                     if stop == "end_turn" and app.exists():
                         (root / "rounds").mkdir(exist_ok=True)
@@ -414,7 +429,7 @@ def build(request, root, model="claude-opus-5-5", effort="medium", prompt="B", m
                             seconds=round(time.time() - began, 2), **extra)
                         results.append({"type": "tool_result", "tool_use_id": block.id, "content": out["output"],
                                         "is_error": not out["ok"]})
-                messages.append({"role": "user", "content": results})  # all results of one turn in one message
+                messages.append({"role": "user", "content": results + new_messages()})  # all results of one turn in one message
         except (anthropic.AnthropicError, httpx.HTTPError, RuntimeError) as e:  # no key, network or local server down: report
             stop = f"error: {type(e).__name__}: {e}"[:300]
         finally:
