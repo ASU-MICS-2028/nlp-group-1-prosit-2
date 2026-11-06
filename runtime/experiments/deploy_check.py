@@ -1,6 +1,9 @@
 """Real check of hosting, run ON THE SERVER: uv run python -m runtime.experiments.deploy_check
-Deploys backends and calls them through the public HTTPS address. Free (no LLM). Removes everything at the end."""
+Deploys backends and calls them through the public HTTPS address. Free (no LLM). Removes everything at the end.
+Saves every result to RESULT_FILE (default eval/results/hosting_check.json)."""
 
+import json
+import os
 import pathlib
 import subprocess
 import tempfile
@@ -63,7 +66,11 @@ def folder(code):
     return d
 
 
+RESULTS = []
+
+
 def check(what, passed, detail=""):
+    RESULTS.append({"check": what, "passed": bool(passed), "detail": str(detail)})
     print(("PASS " if passed else "FAIL ") + what, detail)
 
 
@@ -107,3 +114,6 @@ undeploy("check-b", delete_data=True)
 undeploy("check-c", delete_data=True)
 undeploy("check-d", delete_data=True)
 check("removed backend is gone", httpx.get(base + "/notes", timeout=20).status_code == 404)
+pathlib.Path(os.environ.get("RESULT_FILE", "eval/results/hosting_check.json")).write_text(
+    json.dumps({"date": time.strftime("%Y-%m-%d"), "passed": sum(r["passed"] for r in RESULTS), "total": len(RESULTS),
+                "snooping_backend_saw": seen, "results": RESULTS}, indent=2) + "\n")
