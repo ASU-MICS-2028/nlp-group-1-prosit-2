@@ -7,9 +7,9 @@
 
 | Task | Who | Status |
 |---|---|---|
-| S4.1 Read Alice's learnings, run a build | Michael (W3) | 🔵 ready |
+| S4.1 Read Alice's and Joseph's learnings, try the live platform | Michael (W3) | 🔵 ready |
 | S4.2 UI on a recorded session | Michael (W3) | ⏳ waiting (on S4.1) |
-| S4.3 UI on the live agent | Michael (W3) | ⏳ waiting (on S4.2) |
+| S4.3 Better UI on the live platform | Michael (W3) | ⏳ waiting (on S4.2) |
 | S4.4 UI alternatives compared | Michael (W3) | ⏳ waiting (on S4.3) |
 | S4.5 Usability test | Michael (W3) | ⏳ waiting (on S4.4) |
 | S4.6 Handoff: Michael's learnings | Michael (W3) | ⏳ waiting (on S4.3, S4.5) |
@@ -18,6 +18,8 @@
 
 Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand.
 <!-- STATUS:END -->
+
+**Live platform:** https://34-78-38-126.sslip.io (each build spends real Claude credit)
 
 Every stage, task and blocker: [`docs/PLAN.md`](docs/PLAN.md).
 

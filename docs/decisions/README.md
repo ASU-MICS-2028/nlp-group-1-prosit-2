@@ -55,6 +55,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0046](0046-opus-default-qwen-only-with-search.md) | Opus is the agent's default model; the local Qwen is used only with recipe search | Proposed | 2026-11-04 |
 | [0047](0047-hosting-on-one-gcp-server.md) | Host everything on one GCP server, each backend at its own path | Accepted | 2026-11-05 |
 | [0048](0048-agent-session.md) | One session object carries a client from request to live link | Accepted | 2026-11-06 |
+| [0049](0049-small-live-platform-first.md) | Put a small platform online first; Michael improves it live | Accepted | 2026-11-06 |
 <!-- DECISIONS:END -->
 
 ## Open questions

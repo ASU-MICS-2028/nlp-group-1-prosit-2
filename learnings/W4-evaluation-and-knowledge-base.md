@@ -104,6 +104,7 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 | 30 | Does data survive the server going down? | Normal reboot · pull the plug (`gcloud compute instances reset`) right after a write · pull the plug 60 s after a write | A real agent-built church backend, live on the public address | Normal reboot: **kept**. Plug pulled 5 s after a write: **that write lost** (seen twice). Plug pulled 60 s after: **kept**. The backend came back by itself every time | **Good enough for this project.** Only a crash of the whole server loses data, and only the last moments. Why SQLite's own safeguards did not cover those seconds was not investigated. One real build (church, built by the agent, $0.12 with its map) scored **30/30** over 3 runs on the server |
 | 31 | How should a client's message reach a build in progress? | Pass it between turns · stop and restart the build · a separate agent service with a queue | Reasoned from cost and code (decision 0048); the first was built and tested | Between turns costs nothing extra and needs a few lines in the loop | **Between turns.** Not measured against the others |
 | 32 | Does the whole journey work for real? | One real run on the server (`builder/experiments/session_check.py`), plus 19 free tests with a pretend Claude | A new request, not from the benchmark (animal shelter): 3 questions, plan, approve, a message while building, go live, a change after going live | **All 7 checks passed, $0.195.** The mid-build message reached the agent and the colour field appeared in the live backend. A pet added over public HTTPS was still there after the change, at the same link. But the colour came out **optional**, though the message said it must be given | **Works.** One run only, and not scored by hidden tests. The agent may follow a mid-build message only partly |
+| 33 | Can a person build a backend with only the public page? | One real run in Chrome at phone width, through the public address: a bakery request, questions left empty, refresh mid-way, approve, a message while building (about $0.20) | Screenshots at each step, page errors recorded | **Went live, no page errors, no sideways scrolling, the refresh lost nothing, the message (a pickup date) was built in, and `/docs` listed all 3 endpoints.** Found 3 small flaws, all fixed: no message for an empty box, raw markdown in the summary, an empty progress list during the long first step. With the questions left empty, the agent built no way to view orders, and its summary said so | **Works.** Not a usability test: S4.5 still needs real non-developers. The agent's summary is too technical for them (for example `POST /orders`, `bakery.db`). That is Michael's first job |
 
 ## 4. What we chose, and why
 
@@ -133,6 +134,7 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 - **An LLM judge is not stable on borderline tests** (row 9). Use it to find suspects only.
 - **The harness scores each backend once** unless you ask for `--repeat N`. For the agent's results (Stage 3) use at least `--repeat 3` on generated builds: one Qwen build changed between runs (row 17).
 - **The agent can finish without testing anything.** With Docker off, every `run_tests` failed, yet the build ended normally (`end_turn`, own tests 0 passed), and its summary said it could not run anything. So `build()` finishing does not mean the app works. The session refuses to publish such a build (decision 0048). Anything calling `build()` directly must check for itself.
+- **Blank answers lead to a smaller app.** Questions left empty become "you decide", and the agent then adds nothing extra: a bakery with orders had no way to view them (row 33). The page should make this clear.
 - **A restart of the platform forgets sessions in progress** (live backends keep running). The spending limit (`MAX_DAILY_USD`, $10) counts what has already been spent, so a running build can pass it a little.
 - **A crash of the whole server can lose the last few seconds of writes** (row 30). Normal restarts lose nothing. There are no backups.
 - **One small server:** 4 GB shared by every backend and build. The limit has not been measured. Generated backends have no login unless the client asked for one, so anyone with the link can add data. Rate limits and cleaning the input are still to do.
@@ -200,6 +202,20 @@ approve(sid)                                                  # waiting_approval
 ```
 
 Run with `--env-file` (the key) and `BUILDS_ROOT`. Real check on the server (about $0.30): `BUILDS_ROOT=/home/platform/builds uv run --env-file /home/platform/.env --with anthropic python -m builder.experiments.session_check`. Free tests: `uv run --with anthropic python -m pytest builder -q`.
+
+**The platform (`web/`, decision 0049, for Michael):**
+
+| Call | Means |
+|---|---|
+| `GET /` | The page, `web/index.html` |
+| `POST /api/builds` with `{"request": "..."}` | Start. Returns `{"id": "..."}` |
+| `GET /api/builds/{id}?after=N` | What `get` returns above. The page asks every 1.5–5 seconds |
+| `POST /api/builds/{id}/messages` with `{"message": "..."}` or a list of answers | What `send` does above |
+| `POST /api/builds/{id}/approve` | Build the plan |
+
+Errors have a message for the client in `detail`: 400 refused, 422 bad body, 429 over the limit. On a laptop: `uv run --env-file .env --with anthropic uvicorn web.app:app --port 8080`. Questions, plan and build work; publishing fails, because it needs the server's Caddy and folders, so the state ends as `failed`. Free tests: `uv run --with anthropic python -m pytest web -q`.
+
+**Updating the server:** `git push`, then `bash setup_server.sh main` on the server (from `web/`). Joseph has server access.
 
 **What surprised me:**
 - Scoring a build with no `ops.json` calls Opus once to write the name map (about $0.02). That needs `--env-file .env --with anthropic`. The map is saved next to `app.py`, so it is paid for once.

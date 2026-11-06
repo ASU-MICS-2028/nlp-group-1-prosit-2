@@ -58,12 +58,12 @@ async function act(work) {
 }
 function box(label, placeholder, button, send, quiet) {
   const input = el("textarea", { placeholder, id: "box" });
-  const go = el("button", { textContent: button, onclick: () => act(async () => { if (input.value.trim()) await send(input.value); input.value = ""; }) });
+  const go = el("button", { textContent: button, onclick: () => act(async () => { if (!input.value.trim()) throw new Error("Please type something first."); await send(input.value); input.value = ""; }) });
   if (quiet) go.className = "quiet";
   return [el("label", { textContent: label, htmlFor: "box" }), input, go];
 }
 function steps() {
-  return el("ul", {}, ...progress.slice(-8).map(t => el("li", { textContent: t })));
+  return el("ul", {}, ...["Getting started", ...progress].slice(-8).map(t => el("li", { textContent: t })));
 }
 
 function draw() {
@@ -95,7 +95,7 @@ function screen(s) {
     el("p", {}, "Try it here: ", el("a", { href: last.docs_url, target: "_blank", rel: "noopener", textContent: last.docs_url })),
     el("p", {}, "Its address, for a website or app: ", el("code", { textContent: last.url })),
     el("h2", { textContent: "What it can do" }), el("ul", {}, ...last.endpoints.map(e => el("li", {}, el("code", { textContent: e })))),
-    el("pre", { textContent: last.summary || "" }),
+    el("pre", { textContent: (last.summary || "").replace(/\*\*|`/g, "") }),  // the agent writes markdown; plain text is enough here
     ...box("Want to change something?", "For example: also let me delete a customer", "Change it", t => api(`/${id}/messages`, { message: t }), true),
     el("button", { className: "quiet", textContent: "Build something else", onclick: () => { location.href = "/"; } }));
   return card(el("h2", { textContent: "That did not work" }), el("p", { textContent: last.error || "Something went wrong." }),
