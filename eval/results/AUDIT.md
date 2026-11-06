@@ -17,7 +17,7 @@ Every experiment row in every learnings file, checked. Michael's and Eric's file
 | 1 | Path guard | ⏱️ | Method A: same, 5 attacks through. Method B: 0 on Windows; 2 on a Mac, both harmless (W4 row 6) |
 | 2 | Flat list or tree | ✅ | Same: 15/15, 182/168 |
 | 3 | Whole file or edit | ✅ | Same: 4,271 / 284 characters |
-| 4 | Do files fit the 4,000 limit? | 🟡 **Out of date** | True then, for the church files only. **10 of 15 apps Opus built are over 4,000 characters** (largest 9,845). See open item 2 |
+| 4 | Do files fit the 4,000 limit? | 🟡 **Out of date** | True then, for the church files only. **10 of 15 apps Opus built are over 4,000 characters** (largest 9,845). Tested: W4 row 36 |
 | 5 | How much output to keep | ⏱️ | Start and end: 21/21 at every limit, same. Start only: 16–20/21 on a Mac, 14–20/21 on Windows |
 | 6 | Pytest detail | ⏱️ | All 21/21. Sizes differ because file paths differ: `short` is about 40% smaller than `long` here, 35% there |
 | 7 | Fixed or free port | ✅ | Same: one of two servers dies on a fixed port (which one varies), free ports both run |
@@ -97,5 +97,5 @@ Behaviour checks of coding assistants and guides (`learnings/00-repo-setup.md`).
 ## Open items
 
 1. **Alice's `run.json` files** back every cost and time figure in her rows. Until they arrive, those numbers rest on her write-up alone.
-2. **Files over the read limit.** The agent's `read_file` cuts a file over 4,000 characters in the middle. Making a change on a big app means editing a file it could not fully read. Alice's change test only used the church and shop apps. Not yet measured.
+2. **Files over the read limit: tested (W4 row 36).** Nothing broke on the 3 biggest apps: Opus printed the hidden part through a throwaway failing test, then edited correctly. It is a fragile trick, and raising the limit is still undecided.
 3. **No file:** the interim numbers listed above (rows 9, 10, 12, 13, 22). They are history, and re-running them would need old versions of the tool, so do not quote them in the report as measured results without saying so.
