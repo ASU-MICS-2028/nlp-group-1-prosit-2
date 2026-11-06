@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backend Builder</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --text:#1c2230; --soft:#5b6475; --line:#dde1e8; --accent:#1f6feb; --on-accent:#fff; --good:#157f4a; --bad:#b3261e; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#12151b; --card:#1b2029; --text:#e8ebf1; --soft:#a0a9b8; --line:#2e3542; --accent:#5a9bff; --on-accent:#0b1220; --good:#5fd39a; --bad:#ff8a80; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+  main { max-width:680px; margin:0 auto; padding:32px 16px 64px; }
+  h1 { font-size:1.6rem; margin:0 0 4px; }
+  h2 { font-size:1.1rem; margin:0 0 8px; }
+  p { margin:0 0 12px; }
+  .soft { color:var(--soft); }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px; margin-top:20px; }
+  label { display:block; font-weight:600; margin:14px 0 6px; }
+  textarea, input { width:100%; padding:10px 12px; font:inherit; color:inherit; background:var(--bg); border:1px solid var(--line); border-radius:8px; }
+  textarea { min-height:110px; resize:vertical; }
+  button { font:inherit; font-weight:600; padding:10px 18px; margin:14px 8px 0 0; border-radius:8px; border:1px solid var(--accent); background:var(--accent); color:var(--on-accent); cursor:pointer; }
+  button.quiet { background:transparent; color:var(--accent); }
+  button:disabled { opacity:.5; cursor:default; }
+  pre { white-space:pre-wrap; overflow-wrap:anywhere; font:inherit; margin:0; }
+  ul { padding-left:20px; margin:8px 0; }
+  code { overflow-wrap:anywhere; }
+  .error { color:var(--bad); font-weight:600; margin-top:12px; }
+  .good { color:var(--good); font-weight:600; }
+  a { color:var(--accent); overflow-wrap:anywhere; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Backend Builder</h1>
+  <p class="soft">Describe what you need in plain words. We build it, test it and put it online.</p>
+  <div id="view"></div>
+  <p id="problem" class="error" role="alert"></p>
+</main>
+<script>
+const view = document.getElementById("view"), problem = document.getElementById("problem");
+const WORDS = { write_file: "Writing the code", edit_file: "Changing the code", read_file: "Reading the code", list_files: "Looking at the project",
+                run_tests: "Testing it", start_server: "Trying it out", http_request: "Trying it out", stop_server: "Finishing the trial" };
+let id = new URLSearchParams(location.search).get("b"), next = 0, last = {}, progress = [], shown = null;
+
+function el(tag, props = {}, ...kids) { const e = Object.assign(document.createElement(tag), props); e.append(...kids); return e; }  // text only, never HTML
+function card(...kids) { return el("div", { className: "card" }, ...kids); }
+
+async function api(path, body) {
+  const options = body === undefined ? {} : { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) };
+  const r = await fetch("/api/builds" + path, options);
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(typeof data.detail === "string" ? data.detail : "Please check what you typed and try again.");
+  return data;
+}
+async function act(work) {
+  problem.textContent = "";
+  try { await work(); shown = null; await poll(true); } catch (e) { problem.textContent = e.message; }
+}
+function box(label, placeholder, button, send, quiet) {
+  const input = el("textarea", { placeholder, id: "box" });
+  const go = el("button", { textContent: button, onclick: () => act(async () => { if (input.value.trim()) await send(input.value); input.value = ""; }) });
+  if (quiet) go.className = "quiet";
+  return [el("label", { textContent: label, htmlFor: "box" }), input, go];
+}
+function steps() {
+  return el("ul", {}, ...progress.slice(-8).map(t => el("li", { textContent: t })));
+}
+
+function draw() {
+  const s = last.state;
+  // Redraw only when the screen changes, so typing is not wiped; the progress list is updated by itself.
+  if (s !== shown) {
+    shown = s;
+    view.replaceChildren(screen(s));
+  }
+  const list = document.getElementById("steps");
+  if (list) list.replaceChildren(...steps().children);
+}
+function screen(s) {
+  if (!id) return card(...box("What do you need?", "For example: I run a tailoring shop. I need to keep my customers, their measurements and their orders.", "Start",
+    async text => { const made = await api("", { request: text }); id = made.id; next = 0; progress = []; history.replaceState(null, "", "?b=" + id); }));
+  if (s === "asking") return card(el("p", { textContent: "Reading your request…" }));
+  if (s === "planning") return card(el("p", { textContent: "Writing a plan for you to check…" }));
+  if (s === "waiting_answers") {
+    const inputs = last.questions.map((q, i) => [el("label", { textContent: q, htmlFor: "q" + i }), el("input", { id: "q" + i, placeholder: "Leave empty if you have no preference" })]);
+    return card(el("h2", { textContent: "A few quick questions" }), ...inputs.flat(),
+      el("button", { textContent: "Continue", onclick: () => act(() => api(`/${id}/messages`, { message: inputs.map(p => p[1].value.trim() || "No preference: you decide.") })) }));
+  }
+  if (s === "waiting_approval") return card(el("h2", { textContent: "Here is the plan" }), el("pre", { textContent: last.plan_text }),
+    el("button", { textContent: "Looks good, build it", onclick: () => act(() => api(`/${id}/approve`, {})) }),
+    ...box("Or tell us what to change", "For example: also keep a phone number", "Change the plan", t => api(`/${id}/messages`, { message: t }), true));
+  if (s === "building") return card(el("h2", { textContent: "Building… usually about a minute" }), el("ul", { id: "steps" }),
+    ...box("Changed your mind about something?", "You can tell us while we build", "Send", t => api(`/${id}/messages`, { message: t }), true));
+  if (s === "live") return card(el("h2", { className: "good", textContent: "Your backend is live" }),
+    el("p", {}, "Try it here: ", el("a", { href: last.docs_url, target: "_blank", rel: "noopener", textContent: last.docs_url })),
+    el("p", {}, "Its address, for a website or app: ", el("code", { textContent: last.url })),
+    el("h2", { textContent: "What it can do" }), el("ul", {}, ...last.endpoints.map(e => el("li", {}, el("code", { textContent: e })))),
+    el("pre", { textContent: last.summary || "" }),
+    ...box("Want to change something?", "For example: also let me delete a customer", "Change it", t => api(`/${id}/messages`, { message: t }), true),
+    el("button", { className: "quiet", textContent: "Build something else", onclick: () => { location.href = "/"; } }));
+  return card(el("h2", { textContent: "That did not work" }), el("p", { textContent: last.error || "Something went wrong." }),
+    ...box("Tell us what to try", "For example: please try again", "Try again", t => api(`/${id}/messages`, { message: t })),
+    el("button", { className: "quiet", textContent: "Start again", onclick: () => { location.href = "/"; } }));
+}
+
+async function poll(once) {
+  if (id) {
+    try {
+      last = await api(`/${id}?after=${next}`);
+      next = last.next;
+      for (const e of last.events) {
+        if (e.event === "state" && e.state === "building") progress = [];
+        if (e.event === "queued") progress.push("Waiting for a free spot…");
+        if (e.event === "agent" && e.kind === "message") progress.push("Your message reached the builder");
+        if (e.event === "agent" && e.kind === "tool" && WORDS[e.tool]) {
+          const t = e.tests ? ` (${e.tests.passed} passed, ${e.tests.failed} failed)` : "";
+          progress.push(WORDS[e.tool] + t);
+        }
+      }
+    } catch (e) {
+      problem.textContent = e.message;
+      id = null; shown = "gone"; history.replaceState(null, "", "/");
+    }
+  }
+  draw();
+  if (!once) setTimeout(poll, ["waiting_answers", "waiting_approval", "live", "failed"].includes(last.state) ? 5000 : 1500);
+}
+poll();
+</script>
+</body>
+</html>
