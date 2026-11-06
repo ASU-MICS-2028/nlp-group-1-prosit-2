@@ -60,6 +60,12 @@ uv run --extra kb python -m kb.search "could not assemble any primary key column
 3. **It returns** `url`, `docs_url` and `endpoints`, which is what the client needs (Lecture 8).
 4. **The data** is the SQLite file in that folder. Deploying the same name again changes the code and keeps the file. Docker restarts everything after a reboot.
 
+**The session: a client's whole journey (decision 0048).** `builder/session.py` runs in the background and goes through these states: `asking` → `waiting_answers` → `planning` → `waiting_approval` → `building` → `live` (or `failed`).
+
+- **What `send` means depends on the state:** answers, changes to the plan, a message during the build, or a change to a live backend.
+- **During a build,** the loop checks for new messages between turns, and again when Claude thinks it is finished.
+- **Before publishing,** it checks that the agent's own tests ran and passed.
+
 ## 3. Everything we tried (experiment log)
 
 One row per decision. Every decision compares at least 2 options. Add rows as you go, not at the end.
@@ -96,6 +102,8 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 | 28 | Where should built backends live? | One server with Docker and Caddy · a managed service per backend · a subdomain per backend | Reasoned from what each needs; the first was then built and tested (decision 0047) | One server: one HTTPS address, SQLite file simply kept on disk, about $30 a month | **One server, each backend at `/b/NAME`.** Fewest moving parts for a demo. Not measured against the others |
 | 29 | Does a hosted backend work, and is it still locked in? | 24 checks in `runtime/experiments/deploy_check.py`, run on the server, free. Also Bernard's tests and the harness on Linux | Real calls through the public HTTPS address; a deliberately nosy backend; a crashing app; 7 bad names | **24 of 24 pass.** Add and read back over HTTPS, `/docs` loads, data kept after a container restart and after a redeploy. The nosy backend had no internet and could not see `.env`, another backend, another backend's data or Caddy's admin port. A crashing app is refused with its error and leaves nothing behind. Bernard's 51 tests pass and the harness scores 272/272 on Linux, after two fixes: the sandbox must run as the folder's owner, and one test demanded user 1000 when it meant "not root" | **Works.** The Linux problem would have stopped every build on the server, not just deploys |
 | 30 | Does data survive the server going down? | Normal reboot · pull the plug (`gcloud compute instances reset`) right after a write · pull the plug 60 s after a write | A real agent-built church backend, live on the public address | Normal reboot: **kept**. Plug pulled 5 s after a write: **that write lost** (seen twice). Plug pulled 60 s after: **kept**. The backend came back by itself every time | **Good enough for this project.** Only a crash of the whole server loses data, and only the last moments. Why SQLite's own safeguards did not cover those seconds was not investigated. One real build (church, built by the agent, $0.12 with its map) scored **30/30** over 3 runs on the server |
+| 31 | How should a client's message reach a build in progress? | Pass it between turns · stop and restart the build · a separate agent service with a queue | Reasoned from cost and code (decision 0048); the first was built and tested | Between turns costs nothing extra and needs a few lines in the loop | **Between turns.** Not measured against the others |
+| 32 | Does the whole journey work for real? | One real run on the server (`builder/experiments/session_check.py`), plus 19 free tests with a pretend Claude | A new request, not from the benchmark (animal shelter): 3 questions, plan, approve, a message while building, go live, a change after going live | **All 8 checks passed, $0.195.** The mid-build message reached the agent and the colour field appeared in the live backend. A pet added over public HTTPS was still there after the change, at the same link. But the colour came out **optional**, though the message said it must be given | **Works.** One run only, and not scored by hidden tests. The agent may follow a mid-build message only partly |
 
 ## 4. What we chose, and why
 
@@ -124,7 +132,8 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 - **The translation can still miss a valid design** we have not seen yet. If a build fails, read the failing test before blaming the build: in the first round, most failures we read were the tool's fault, not the build's (row 12).
 - **An LLM judge is not stable on borderline tests** (row 9). Use it to find suspects only.
 - **The harness scores each backend once** unless you ask for `--repeat N`. For the agent's results (Stage 3) use at least `--repeat 3` on generated builds: one Qwen build changed between runs (row 17).
-- **The agent can finish without testing anything.** With Docker off, every `run_tests` failed, yet the build ended normally (`end_turn`, own tests 0 passed), and its summary said it could not run anything. So `build()` finishing does not mean the app works. Before deploying, check `result["tests"]` shows passes and no failures. This check is not written yet.
+- **The agent can finish without testing anything.** With Docker off, every `run_tests` failed, yet the build ended normally (`end_turn`, own tests 0 passed), and its summary said it could not run anything. So `build()` finishing does not mean the app works. The session refuses to publish such a build (decision 0048). Anything calling `build()` directly must check for itself.
+- **A restart of the platform forgets sessions in progress** (live backends keep running). The spending limit (`MAX_DAILY_USD`, $10) counts what has already been spent, so a running build can pass it a little.
 - **A crash of the whole server can lose the last few seconds of writes** (row 30). Normal restarts lose nothing. There are no backups.
 - **One small server:** 4 GB shared by every backend and build. The limit has not been measured. Generated backends have no login unless the client asked for one, so anyone with the link can add data. Rate limits and cleaning the input are still to do.
 - **Generated apps must store data in a file.** An app that keeps data in memory passes its tests but loses everything on restart, and `deploy()` cannot tell. The agent's prompt asks for SQLite (decision 0038), and the church build used it.
@@ -178,6 +187,20 @@ undeploy("church-demo")                     # add delete_data=True to delete its
 
 Check it: `uv run python -m runtime.experiments.deploy_check` on the server prints 24 PASS lines (free).
 
+**The session (for the platform's backend; decision 0048):**
+
+```python
+from builder.session import start, send, approve, get, Refused
+sid = start("I need a sign-up sheet for church events ...")   # returns at once; Refused has a message for the client
+got = get(sid)                                                # poll this; get(sid, after=got["next"]) returns only new events
+# got: id, state, questions, plan, plan_text, url, docs_url, endpoints, summary, error, next, events
+send(sid, ["Weekly", "No"])                                   # state waiting_answers: the answers, in order
+send(sid, "add a phone number")                               # waiting_approval: change the plan. building: tell the agent. live or failed: change the app
+approve(sid)                                                  # waiting_approval: build it
+```
+
+Run with `--env-file` (the key) and `BUILDS_ROOT`. Real check on the server (about $0.30): `BUILDS_ROOT=/home/platform/builds uv run --env-file /home/platform/.env --with anthropic python -m builder.experiments.session_check`. Free tests: `uv run --with anthropic python -m pytest builder -q`.
+
 **What surprised me:**
 - Scoring a build with no `ops.json` calls Opus once to write the name map (about $0.02). That needs `--env-file .env --with anthropic`. The map is saved next to `app.py`, so it is paid for once.
 - If a build fails, read the failing test before blaming the build. In the first round, most failures were our tool's fault.
@@ -204,6 +227,8 @@ Check it: `uv run python -m runtime.experiments.deploy_check` on the server prin
 | What was the hardest part? | Making the measurement fair. 7 flaws in our own translation tool failed correct builds, and fixing them reversed a conclusion (row 12) |
 | Where does a built backend run? | On our Google Cloud server, in a locked-down container, at its own public address with `/docs`. Its data is a SQLite file kept on disk. It survives restarts and redeploys (rows 28–30) |
 | Isn't it dangerous to host generated code publicly? | It keeps the sandbox's locks: in our test it could not reach the internet, `.env`, other backends or their data (row 29). Anyone with the link can still add data unless the client asked for a login |
+| Can a client change their mind during a build? | Yes. The loop checks for new messages between turns and adds them to the conversation, so nothing is thrown away. In our real run a colour field appeared in the live backend, though as optional when the client said it was required (row 32) |
+| What stops someone spending all your credit? | A daily limit of $10, at most 2 builds at once, and a limit on request length. Each build also stops at $2 (decision 0048) |
 | Why not run the evaluation in subprocess mode, which is faster? | It does not isolate anything: generated code could read and write files outside the project or use the internet (Bernard's row 11). Every scored run uses Docker |
 
 ## 8. Glossary
