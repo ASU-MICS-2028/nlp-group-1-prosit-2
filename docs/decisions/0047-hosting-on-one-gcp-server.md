@@ -1,8 +1,8 @@
 # 0047. Host everything on one GCP server, each backend at its own path
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-11-05
-- Decided by: Joseph (GCP, default project settings); the rest to be signed off with the group
+- Decided by: Joseph (2026-11-06)
 
 ## Context
 
