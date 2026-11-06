@@ -57,6 +57,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0048](0048-agent-session.md) | One session object carries a client from request to live link | Accepted | 2026-11-06 |
 | [0049](0049-small-live-platform-first.md) | Put a small platform online first; Michael improves it live | Accepted | 2026-11-06 |
 | [0050](0050-everyone-works-at-once.md) | Everyone works at the same time; the README lists each person's tasks | Accepted | 2026-11-06 |
+| [0051](0051-save-every-result.md) | Every test result is saved in the repo | Accepted | 2026-11-06 |
 <!-- DECISIONS:END -->
 
 ## Open questions

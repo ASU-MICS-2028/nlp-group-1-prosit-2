@@ -69,6 +69,7 @@ These are written for Claude Code skills, but they are plain Markdown, so any as
 
 | Path | What |
 |---|---|
+| `eval/results/` | **Every test result, as a file (decision 0051).** Save it and add it to `eval/results/README.md` in the same commit. A number in the report must come from here |
 | `README.md` | Top: each person's tasks (generated). Below: the two team rules and the folder guide |
 | `docs/PLAN.md` | Every stage, task, owner and blocker (the README is generated from it) |
 | `docs/decisions/` | Numbered decision records (ADRs) and their generated index |

@@ -114,6 +114,7 @@ Docker must be installed and running for the sandbox. Full setup: [`knowledge/en
 ## Working together
 
 - Work on a branch for your stage (`w2-tools`, `w4-benchmark`, ...) and merge to `main` through a pull request at your handoff.
+- Every test result is saved in [`eval/results/`](eval/results/README.md) (decision 0051). If it is not there, it does not go in the report.
 - We work at the same time, each on our own tasks ([`docs/PLAN.md`](docs/PLAN.md), decision 0050). A teammate reviews every merge. Your part is done when your learnings file lets someone else carry on without asking you.
 - Coding assistants: see [`AGENTS.md`](AGENTS.md).
 - The GitHub link goes on page 1 of every report and on the first slide.

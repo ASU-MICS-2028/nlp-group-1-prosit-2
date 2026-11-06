@@ -1,0 +1,134 @@
+{
+  "date": "2026-11-06",
+  "passed": 24,
+  "total": 24,
+  "snooping_backend_saw": {
+    "env_visible": false,
+    "other_data": [],
+    "internet": false,
+    "other_backend": false,
+    "host_caddy_admin": false
+  },
+  "results": [
+    {
+      "check": "add through public HTTPS",
+      "passed": true,
+      "detail": "{\"id\":1,\"text\":\"kept\"}"
+    },
+    {
+      "check": "read it back",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "docs page loads and names its spec under the path",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "spec reachable",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bare link goes to docs",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "data survives a restart",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "redeploy changes the code",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "redeploy keeps the data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "no internet",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "cannot see .env",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "cannot reach another backend",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "cannot reach Caddy's admin port",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "cannot see other backends' data",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "check": "a crashing app is refused, with the reason",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "a refused app leaves nothing behind",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bad name refused: '../evil'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bad name refused: 'A'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bad name refused: 'x y'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bad name refused: 'a;rm -rf /'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bad name refused: '-a'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bad name refused: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bad name refused: ''",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "no app.py refused",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "removed backend is gone",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

@@ -14,7 +14,7 @@ MAX_MB = 5
 
 
 def git(*args):
-    return subprocess.run(["git", *args], capture_output=True, text=True, check=True).stdout
+    return subprocess.run(["git", *args], capture_output=True, text=True, errors="replace", check=True).stdout  # images are not text
 
 
 def main():
