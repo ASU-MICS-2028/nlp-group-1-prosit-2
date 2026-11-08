@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should customers need a PIN or password to send money from their wallet, or can anyone with access to the service act on any wallet?",
+    "Are there any fees on transfers, or any maximum amount per deposit, transfer or wallet balance?",
+    "What phone number format should we accept (for example 024XXXXXXX or +23324XXXXXXX), and should both count as the same number?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No fees for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00852
+}

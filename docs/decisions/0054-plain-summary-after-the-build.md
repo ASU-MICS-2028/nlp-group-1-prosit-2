@@ -26,7 +26,7 @@ The session rewrites the builder's notes in plain words with Haiku, once the bac
 
 ## Consequences
 
-- No build prompt changed, and a rewrite runs after the build, so the 93 to 96% cannot move. That is why the "re-score all 15, no lower than 95.8%" part of S4.8's done-when was dropped.
+- No build prompt changed, and a rewrite runs after the build, so the score cannot move because of this change (it does change from build to build: W4 row 42). That is why the "re-score all 15, no lower than 95.8%" part of S4.8's done-when was dropped.
 - Row 32's "the colour came out optional" was our own misreading. It is corrected there.
 - The list of methods on the page is still technical: that is S4.3.
 - Tested on 4 kinds of message only.

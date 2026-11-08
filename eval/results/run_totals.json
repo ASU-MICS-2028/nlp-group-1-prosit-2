@@ -5,6 +5,12 @@
     "question_usd": 0.13,
     "avg_seconds": 38.5
   },
+  "fresh2": {
+    "builds": 15,
+    "build_usd": 1.79,
+    "question_usd": 0.12,
+    "avg_seconds": 36.6
+  },
   "p1": {
     "builds": 1,
     "build_usd": 0.13,

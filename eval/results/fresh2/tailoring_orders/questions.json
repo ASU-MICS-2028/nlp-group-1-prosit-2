@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should the measurements belong to the customer, with one set you update over time, or be saved with each order so you keep the measurements used for that garment?",
+    "When a customer pays more after the first deposit, should you be able to update the amount paid on an order?",
+    "Can an order be marked collected while the customer still owes money, or must it be fully paid first?"
+  ],
+  "answers": [
+    "No, measurements are kept on the customer.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00849
+}

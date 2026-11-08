@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a bill doesn't split evenly, who should get the extra pesewa(s): for example, the members in the order they were listed, or picked at random?",
+    "Can someone record a repayment larger than what they currently owe the other person, or should that be blocked?",
+    "Do you need to edit or delete expenses and repayments, or remove members from a group, after they've been added?"
+  ],
+  "answers": [
+    "Any of them, as long as the shares differ by at most one pesewa and add up to the bill.",
+    "We do not mind for now; just record it.",
+    "Not for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00846
+}
