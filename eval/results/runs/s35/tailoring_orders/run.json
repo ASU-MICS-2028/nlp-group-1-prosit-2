@@ -1,0 +1,125 @@
+{
+  "request": "I run a small tailoring shop in Kumasi and I want to keep my orders in order. I need to save each customer with their name, phone number and their measurements: chest, waist, hip and length, all in inches. For a customer I take orders, and each order has the garment, the date it is due, the price and the deposit the customer has paid, in cedis. The deposit can never be more than the price. I want to see all the orders for one customer and look at a single order. I also want to see every order that is due on or before a date I choose, so I know what to finish first. When a customer picks up their clothes I mark the order as collected, and collected orders should no longer show in that due list.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 5591,
+    "cache_write": 7862,
+    "cache_read": 2763
+  },
+  "cost_usd": 0.1523,
+  "seconds": 44.3,
+  "tests": {
+    "passed": 24,
+    "failed": 0
+  },
+  "summary": "Your tailoring shop backend is built in `app.py`. I wrote 24 automated tests covering every endpoint and rule in the plan, and they all pass. Your records are saved in a file called `tailoring.db` in the same folder.\n\n**Endpoints**\n- **POST `/customers`**: adds a customer with name, phone, and chest, waist, hip and length in inches.\n- **GET `/customers/{customerId}`**: shows one customer's details and measurements.\n- **POST `/customers/{customerId}/orders`**: adds an order with garment, due date (written like `2030-05-10`), price and deposit in cedis. If you leave the deposit out, it's recorded as 0.\n- **GET `/customers/{customerId}/orders`**: lists all of that customer's orders, including collected ones, with the soonest due date first.\n- **GET `/orders/{orderId}`**: shows one order in full, including whether it's been collected and on what date.\n- **GET `/orders/due?by=2030-05-20`**: lists orders not yet collected that are due on or before that date, soonest first.\n- **POST `/orders/{orderId}/collect`**: marks an order as collected and records today's date. It then drops off the due list.\n\n**What the system refuses**\n- A deposit bigger than the price. A deposit equal to the price (fully paid) is allowed.\n- A price or deposit below zero.\n- A customer with no name or no phone number. A name or phone made only of spaces counts as empty.\n- Measurements of zero or less.\n- An order with no garment, no due date or no price.\n- An order for a customer who doesn't exist. This returns \"Customer not found\".\n- Marking an order as collected a second time.\n- A due-list request with the date missing or not a real date (for example `2030-02-30`).\n\nIf you ask for a customer or order that doesn't exist, you get a clear \"Customer not found\" or \"Order not found\" message.\n\nAs agreed in the plan, there's no way to edit or delete customers or orders, and no logins.",
+  "plan": {
+    "summary": "This plan sets up a simple record book for your tailoring shop. It keeps a list of your customers, each with their name, phone number and four body measurements (chest, waist, hip and length, in inches). For each customer you can record orders: what garment it is, the date it is due, the price and the deposit paid, in cedis. You will be able to add customers, view a customer, add orders for a customer, see all of one customer's orders, look at a single order, see every order that is due on or before a date you choose (soonest first, so you know what to finish first), and mark an order as collected once the customer picks it up. Collected orders drop off the due list. The system will refuse a deposit larger than the price. Everything in your request is about the backend and is safe, so nothing has been left out. Only what you asked for is included. For example, there is no way to edit or delete customers or orders, and no logins or passwords, unless you ask for them.",
+    "data": [
+      {
+        "name": "Customer",
+        "fields": [
+          "Customer number (given automatically by the system)",
+          "Name",
+          "Phone number",
+          "Chest measurement, in inches",
+          "Waist measurement, in inches",
+          "Hip measurement, in inches",
+          "Length measurement, in inches"
+        ]
+      },
+      {
+        "name": "Order",
+        "fields": [
+          "Order number (given automatically by the system)",
+          "Which customer the order belongs to",
+          "Garment (for example: kaba and slit, shirt, trousers)",
+          "Date the order is due",
+          "Price, in cedis",
+          "Deposit paid, in cedis",
+          "Collected or not (starts as not collected)",
+          "Date it was collected (filled in when you mark it collected)"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/customers",
+        "does": "Adds a new customer with their name, phone number and four measurements."
+      },
+      {
+        "method": "GET",
+        "path": "/customers/{customerId}",
+        "does": "Shows one customer's details and measurements."
+      },
+      {
+        "method": "POST",
+        "path": "/customers/{customerId}/orders",
+        "does": "Adds a new order for that customer, with the garment, due date, price and deposit."
+      },
+      {
+        "method": "GET",
+        "path": "/customers/{customerId}/orders",
+        "does": "Lists every order for one customer, including ones already collected."
+      },
+      {
+        "method": "GET",
+        "path": "/orders/{orderId}",
+        "does": "Shows the full details of a single order."
+      },
+      {
+        "method": "GET",
+        "path": "/orders/due?by={date}",
+        "does": "Lists every order that is not yet collected and is due on or before the date you choose, with the earliest due date first."
+      },
+      {
+        "method": "POST",
+        "path": "/orders/{orderId}/collect",
+        "does": "Marks an order as collected and records today's date, so it no longer appears in the due list."
+      }
+    ],
+    "rules": [
+      "Refuse an order if the deposit is more than the price. A deposit equal to the price (fully paid) is allowed.",
+      "Refuse a price or deposit that is below zero.",
+      "Refuse a customer with no name or no phone number.",
+      "Refuse measurements that are zero or below zero.",
+      "Refuse an order with no garment, no due date or no price.",
+      "Refuse to add an order for a customer who does not exist.",
+      "Refuse to mark an order as collected if it has already been collected.",
+      "Show a clear 'not found' message if you ask for a customer or order that does not exist.",
+      "Refuse a due-list request if the date chosen is missing or is not a real date."
+    ]
+  },
+  "follows_plan": {
+    "missing": [
+      "GET /orders/due?by={}"
+    ],
+    "extra": [
+      "GET /orders/due"
+    ]
+  }
+}

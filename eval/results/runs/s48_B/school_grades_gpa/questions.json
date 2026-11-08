@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "What grading scale do you use? Please list the score ranges for each letter grade and the grade points each one is worth (for example, 80\u2013100 = A = 4.0).",
+    "Should the GPA be weighted by each course's credit hours, or should every course count equally? If weighted, how many credit hours does each course have?",
+    "Do you need results kept separately by semester or academic year (with a GPA for each semester as well as overall), or is one overall GPA for all courses enough?"
+  ],
+  "answers": [
+    "80 to 100 is A (4.0), 75 to 79 is B+ (3.5), 70 to 74 is B (3.0), 65 to 69 is C+ (2.5), 60 to 64 is C (2.0), 55 to 59 is D+ (1.5), 50 to 54 is D (1.0), and below 50 is F (0.0).",
+    "Yes. Every course has credit hours, a whole number from 1 to 6, and the GPA is weighted by them: add up grade point times credit hours over all the student's courses and divide by the total credit hours.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00635
+}

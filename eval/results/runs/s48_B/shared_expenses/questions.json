@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a bill doesn't split evenly, who should pay the extra pesewa: the first people in the list, people picked at random, or some other rule?",
+    "Besides each person's overall balance, do you want a list of who should pay whom, and how much, to settle up?",
+    "Should you be able to edit or delete a recorded expense or payment, or remove a friend from a group?"
+  ],
+  "answers": [
+    "Any of them, as long as the shares differ by at most one pesewa and add up to the bill.",
+    "No preference: you decide.",
+    "Not for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00877
+}

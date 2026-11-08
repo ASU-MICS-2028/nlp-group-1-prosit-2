@@ -1,0 +1,134 @@
+{
+  "request": "I run a susu group at the market in Kumasi and I want to stop keeping the records in an exercise book. I need to start a group and add the members, each with their name and phone number. Every round, members pay in their contribution, and I record who paid, for which round, and how much in cedis. At the end of a round one member collects the pot, and the pot is everything that was paid in for that round, nothing more and nothing less. Each round has only one collector, and a member can collect only once, so if someone has already collected, they cannot collect again. Once a round has been collected, nobody can pay more into that round, and a round where nobody has paid anything cannot be collected. Contributions must be more than zero. For any member I want a statement showing how much they have paid in altogether and how much they have received. I also want to see the list of members and the collections made so far.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 6030,
+    "cache_write": 8730,
+    "cache_read": 2800
+  },
+  "cost_usd": 0.1654,
+  "seconds": 48.7,
+  "tests": {
+    "passed": 4,
+    "failed": 0
+  },
+  "summary": "Your susu records app is built, and all 4 of my automated tests pass. The tests check every rule in the plan. I haven't tried it on a running server. Records are saved in a file called `susu.db` in the project folder. Every answer comes back as JSON, and anything the rules forbid is refused with an error message explaining why.\n\n**What you can do:**\n- **Start a group:** `POST /groups` with a group name. The group number and start date are filled in for you.\n- **Add a member:** `POST /groups/{groupId}/members` with their name and phone number. Neither can be left blank.\n- **See the members:** `GET /groups/{groupId}/members`\n- **Record a contribution:** `POST /groups/{groupId}/contributions` with the member's number, the round number and the amount in cedis. Amounts can have pesewas, up to 2 decimal places.\n- **Record a collection:** `POST /groups/{groupId}/collections` with the member's number and the round number. The app works out the pot itself. If someone tries to type in a pot amount, it is ignored.\n- **See the collections so far:** `GET /groups/{groupId}/collections`. Each one shows the round, who collected (number and name) and how much the pot was.\n- **See a member's statement:** `GET /groups/{groupId}/members/{memberId}/statement`. This shows their total paid in and their total received.\n\n**What the app refuses:**\n- A contribution of zero or less.\n- A contribution or collection for someone who isn't in that group.\n- Paying into a round that has already been collected.\n- A second collector for the same round.\n- A member collecting a second time.\n- Collecting a round that nobody has paid into.\n\nIf two entries arrive at the same moment, the app still won't allow two collectors for one round or let a member collect twice. I also made it check the rules and save each entry in one step, so a payment can't slip into a round while it is being collected.\n\nYour question about phone numbers is still open. For now, anyone who can view the members list or a statement can see members' phone numbers.",
+  "plan": {
+    "summary": "This plan replaces your exercise book for running a susu group. You can start a group, add members with their name and phone number, record each contribution (who paid, for which round, and how much in cedis), and record who collects the pot at the end of each round. The pot is always worked out by the system as exactly the total paid into that round, so it can never be more or less. You can see the list of members, the collections made so far, and a statement for any member showing how much they have paid in altogether and how much they have received. Everything you asked for is included; nothing was left out. A question for you to consider (not included in this plan): members' phone numbers are personal information. Would you like anyone who can view the records to see them, or should they be kept more private?",
+    "data": [
+      {
+        "name": "Group",
+        "fields": [
+          "group number (given automatically)",
+          "group name",
+          "date the group was started"
+        ]
+      },
+      {
+        "name": "Member",
+        "fields": [
+          "member number (given automatically)",
+          "which group they belong to",
+          "name",
+          "phone number"
+        ]
+      },
+      {
+        "name": "Contribution",
+        "fields": [
+          "contribution number (given automatically)",
+          "which group",
+          "which member paid",
+          "which round it is for (round number)",
+          "amount paid in cedis",
+          "date recorded"
+        ]
+      },
+      {
+        "name": "Collection",
+        "fields": [
+          "collection number (given automatically)",
+          "which group",
+          "which round was collected (round number)",
+          "which member collected the pot",
+          "pot amount in cedis (worked out automatically as the total paid into that round)",
+          "date recorded"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/groups",
+        "does": "Starts a new susu group with a name."
+      },
+      {
+        "method": "POST",
+        "path": "/groups/{groupId}/members",
+        "does": "Adds a member to the group with their name and phone number."
+      },
+      {
+        "method": "GET",
+        "path": "/groups/{groupId}/members",
+        "does": "Shows the list of all members in the group."
+      },
+      {
+        "method": "POST",
+        "path": "/groups/{groupId}/contributions",
+        "does": "Records that a member paid money into a round: who paid, which round, and how much in cedis."
+      },
+      {
+        "method": "POST",
+        "path": "/groups/{groupId}/collections",
+        "does": "Records that a member collected the pot for a round. The pot amount is worked out automatically as everything paid into that round."
+      },
+      {
+        "method": "GET",
+        "path": "/groups/{groupId}/collections",
+        "does": "Shows the list of collections made so far: which round, who collected, and how much the pot was."
+      },
+      {
+        "method": "GET",
+        "path": "/groups/{groupId}/members/{memberId}/statement",
+        "does": "Shows one member's statement: the total they have paid in altogether and the total they have received."
+      }
+    ],
+    "rules": [
+      "A contribution must be more than zero cedis; zero or negative amounts are refused.",
+      "A contribution can only be recorded for a member who belongs to that group.",
+      "Once a round has been collected, no more contributions can be paid into that round.",
+      "Each round can have only one collector; a second collection for the same round is refused.",
+      "A member who has already collected cannot collect again.",
+      "A round where nobody has paid anything cannot be collected.",
+      "The pot is always exactly the total paid into that round, nothing more and nothing less; the amount cannot be typed in by hand.",
+      "Only a member of the group can be recorded as collecting that group's pot."
+    ]
+  },
+  "follows_plan": {
+    "missing": [],
+    "extra": []
+  }
+}

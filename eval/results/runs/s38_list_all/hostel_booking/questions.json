@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should only your staff be able to add rooms, for example by logging in with a password, or can anyone do it?",
+    "How do we stop one student from cancelling someone else's booking? For example, we could give each student a booking code when they book and ask for it when they cancel.",
+    "Besides the student's name, do you need any other details with each booking, such as a phone number or student ID?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.01123
+}

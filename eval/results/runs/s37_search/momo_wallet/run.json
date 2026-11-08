@@ -1,0 +1,42 @@
+{
+  "request": "We want a simple mobile money wallet service for the customers of our shop in Accra. A customer opens a wallet with their name and phone number, and one phone number can only have one wallet. Customers can put money into their own wallet and send money from their wallet to someone else's wallet. Amounts are in Ghana cedis and pesewas, so never more than two decimal places, and every amount must be more than zero. Nobody can send more than they have, so a wallet's balance must never go below zero, and sending money to your own wallet is not allowed. The money must add up to the exact pesewa every time, with no rounding mistakes. We want to check any wallet's balance and see its history of every deposit and transfer, showing the amount and what the balance was right after each one.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "search": true,
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 6427,
+    "cache_write": 7680,
+    "cache_read": 1699
+  },
+  "cost_usd": 0.1676,
+  "seconds": 53.4,
+  "tests": {
+    "passed": 18,
+    "failed": 0
+  },
+  "summary": "I've built the wallet service in `app.py`, with tests in `tests/test_app.py`. All 18 tests pass. Data is saved in a file called `wallets.db` in the project folder.\n\n**Endpoints**\n- **`POST /wallets`** with `{\"name\", \"phone\"}` opens a wallet (status 201). If that phone number already has a wallet, it's refused with 409. A blank name or phone is refused with 422.\n- **`GET /wallets/{id}`** shows the wallet's name, phone and current balance.\n- **`POST /wallets/{id}/deposits`** with `{\"amount\"}` puts money into the wallet.\n- **`POST /wallets/{id}/transfers`** with `{\"to_wallet_id\", \"amount\"}` sends money to another wallet. It's refused with 400 if the sender doesn't have enough money or is sending to their own wallet. It's refused with 404 if either wallet doesn't exist.\n- **`GET /wallets/{id}/history`** lists every deposit, money sent and money received, oldest first. Each entry shows the type, the amount, the balance right after, the other wallet involved (for transfers) and the time.\n\n**Money rules**\n- **Amounts:** an amount is refused with 422 if it is zero or less, has more than two decimal places, or isn't a number.\n- **No rounding errors:** balances are stored as whole pesewas, so they're always exact to the pesewa. For example, three deposits of 0.10 give exactly 0.30.\n- **Amounts in replies:** they come back as text like `\"10.50\"` so they stay exact.\n- **Transfers:** both sides of a transfer are saved together, so a failed transfer never changes either balance. Only one deposit or transfer is processed at a time, so two payments made at the same moment can't push a balance below zero.\n\n**Things to know before going live**\n- **No login:** anyone who knows a wallet's number can put money into it, send money from it, or see its balance and history. You didn't ask for logins, so I didn't add them, but real money needs this before customers use it.\n- **Phone numbers aren't standardised:** they're stored as typed (with spaces at the ends removed). So \"024\u2026\" and \"+233 24\u2026\" count as different numbers, and one person could open two wallets.\n- **One amount can be at most 10 trillion cedis.** I added this cap so the numbers always fit in the database.",
+  "plan": null,
+  "follows_plan": null
+}

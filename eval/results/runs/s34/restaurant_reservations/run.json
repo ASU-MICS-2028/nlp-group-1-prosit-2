@@ -1,0 +1,41 @@
+{
+  "request": "I run a chop bar in Cape Coast and I want to take table reservations. I need to add my tables, each with its table number and how many seats it has, and see the list of tables. A customer reserves a particular table by giving their name, phone number, how many people are coming, the date and the time. If the group is bigger than the number of seats at that table, the reservation must be refused. If that table is already reserved for the same date and time, the reservation must also be refused, but other tables can still be reserved then. I want to see all the reservations for a particular date.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 3196,
+    "cache_write": 4532,
+    "cache_read": 1469
+  },
+  "cost_usd": 0.1477,
+  "seconds": 53.2,
+  "tests": {
+    "passed": 7,
+    "failed": 0
+  },
+  "summary": "I've built the reservation system for your chop bar, and all 7 automatic checks I wrote for it pass. Everything is saved in a file called `chopbar.db` in the project folder.\n\n**Endpoints:**\n- **POST /tables**: add a table, e.g. `{\"number\": 1, \"seats\": 4}`. The number of seats must be at least 1.\n- **GET /tables**: see all your tables, listed in order of table number.\n- **POST /reservations**: reserve a table, e.g. `{\"table_number\": 1, \"name\": \"Ama\", \"phone\": \"0244000000\", \"party_size\": 4, \"date\": \"2024-12-24\", \"time\": \"19:00\"}`.\n  - **Refused** if the group is bigger than the number of seats at that table.\n  - **Refused** if that table is already reserved for the same date and time. Other tables can still be booked for that slot, and the same table can be booked at a different time or on a different day.\n- **GET /reservations?date=2024-12-24**: see all reservations for that date, sorted by time and then by table number.\n\n**Things to know:**\n- A booking only counts as a clash when the date and the time are exactly the same. A table reserved for 19:00 can also be reserved for 19:30 the same evening, so the system doesn't stop bookings that overlap.\n- I added two refusals you didn't ask for: you can't add a table with a number you've already used, and you can't reserve a table number that hasn't been added.",
+  "plan": null,
+  "follows_plan": null
+}

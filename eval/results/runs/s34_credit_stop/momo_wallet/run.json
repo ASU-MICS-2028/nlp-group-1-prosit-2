@@ -1,0 +1,39 @@
+{
+  "request": "We want a simple mobile money wallet service for the customers of our shop in Accra. A customer opens a wallet with their name and phone number, and one phone number can only have one wallet. Customers can put money into their own wallet and send money from their wallet to someone else's wallet. Amounts are in Ghana cedis and pesewas, so never more than two decimal places, and every amount must be more than zero. Nobody can send more than they have, so a wallet's balance must never go below zero, and sending money to your own wallet is not allowed. The money must add up to the exact pesewa every time, with no rounding mistakes. We want to check any wallet's balance and see its history of every deposit and transfer, showing the amount and what the balance was right after each one.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "error: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CggEsbaXJ6KnA1aB2YFfi'}",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 6087,
+    "cache_write": 7464,
+    "cache_read": 1539
+  },
+  "cost_usd": 0.1597,
+  "seconds": 49.8,
+  "tests": {
+    "passed": 16,
+    "failed": 0
+  },
+  "summary": "The wallet service is built in `app.py`, and all 16 automated tests pass. I tested it in code but didn't start the server and try it by hand. Data is saved in a file called `wallets.db` in the same folder.\n\n**What it can do**\n- **Open a wallet:** `POST /wallets` with a name and phone number. It's refused if the name or phone is blank or the phone number isn't valid. It's also refused if that phone number already has a wallet.\n- **Check a balance:** `GET /wallets/{id}` shows the wallet's name, phone and balance.\n- **Put money in:** `POST /wallets/{id}/deposits` with an amount.\n- **Send money:** `POST /wallets/{id}/transfers` with an amount and the receiving wallet's number. It's refused if the sender doesn't have enough money, if they're sending to their own wallet, or if the receiving wallet doesn't exist.\n- **See the history:** `GET /wallets/{id}/history` lists every deposit, money sent and money received, in order. Each entry shows the amount, the balance right after it, and the other wallet's number for transfers.\n\n**How the money rules work**\n- Amounts must be more than zero with at most two decimal places. Anything else, like 1.234 or 0, is refused and the balance doesn't change.\n- Money is stored as whole pesewas, so totals are always exact. For example, ten deposits of 0.10 always add up to exactly 1.00.\n- Amounts come back as text with two decimals, like `\"29.95\"`, so they're never shown with rounding errors.\n- When money is sent, both wallets are updated together, so it can't leave one wallet without arriving in the other. Only one payment is handled at a time, so two at once can't push a balance below zero.\n\n**Things to know**\n- **Anyone can use any wallet:** there's no login or PIN, so anyone who can reach the service and knows a wallet's number can send money out of it. You didn't ask for security, so I didn't add it. It should be added before real customers use this.\n- **Phone numbers are cleaned up:** spaces and dashes are removed, so \"024 123 4567\" and \"0241234567\" count as the same number.\n- **Very large amounts are refused:** any amount or balance over 1,000,000,000,000,000 cedis is turned down so the database can't overflow."
+}

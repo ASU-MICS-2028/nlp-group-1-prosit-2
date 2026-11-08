@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can one student borrow more than one copy of the same book at the same time, and is there a limit on how many books a student can have out in total?",
+    "Two students might share the same name. Is a name enough to tell students apart, or should students use something unique like a student ID?",
+    "Should there be a due date for borrowed books, or does a student simply keep a book until they return it?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "Not needed for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00775
+}

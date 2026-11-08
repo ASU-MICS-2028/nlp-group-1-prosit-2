@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a bill does not split evenly, who should get the extra pesewa: the first members in the list, members chosen at random, or some other rule?",
+    "Should each friend have their own login, so only group members can see and add to a group, or is one shared access fine?",
+    "Do you need to edit or delete expenses and paybacks after they are recorded, or remove members from a group?"
+  ],
+  "answers": [
+    "Any of them, as long as the shares differ by at most one pesewa and add up to the bill.",
+    "No preference: you decide.",
+    "Not for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0086
+}

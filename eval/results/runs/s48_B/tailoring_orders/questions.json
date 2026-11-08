@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "After an order is created, can the customer pay more toward it later, so the amount paid needs to be updated, or is the deposit fixed once it is entered?",
+    "Does each customer have one set of measurements that you update when they change, or should each order keep the measurements used for that garment?",
+    "Should the garment be typed freely (like \"kaba and slit\"), or picked from a fixed list of garment types? If a list, which ones?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No, measurements are kept on the customer.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0088
+}

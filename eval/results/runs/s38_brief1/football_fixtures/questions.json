@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should we stop a team from being scheduled for two fixtures on the same date?",
+    "Once a score is recorded, should you be able to correct it later, or should it be locked?",
+    "Must every team name be unique, so two teams cannot share the same name?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "Yes, you can correct it later. Recording again replaces the old score.",
+    "No preference: you decide."
+  ],
+  "client": "brief",
+  "cost_usd": 0.00605
+}

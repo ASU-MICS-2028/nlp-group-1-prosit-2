@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "What grade and grade points does each score range get? For example, 80\u2013100 is an A worth 4.0, 70\u201379 is a B worth 3.0, and so on.",
+    "Should the GPA count each course by its credit hours, so that a 3-credit course counts more than a 1-credit course? If so, how many credits does each course carry?",
+    "Do you need results and GPA split by semester or academic year, or just one overall GPA across everything a student has taken?"
+  ],
+  "answers": [
+    "80 to 100 is A (4.0), 75 to 79 is B+ (3.5), 70 to 74 is B (3.0), 65 to 69 is C+ (2.5), 60 to 64 is C (2.0), 55 to 59 is D+ (1.5), 50 to 54 is D (1.0), and below 50 is F (0.0).",
+    "Yes. Every course has credit hours, a whole number from 1 to 6, and the GPA is weighted by them: add up grade point times credit hours over all the student's courses and divide by the total credit hours.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00605
+}

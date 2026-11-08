@@ -1,0 +1,119 @@
+{
+  "request": "We want a simple mobile money wallet service for the customers of our shop in Accra. A customer opens a wallet with their name and phone number, and one phone number can only have one wallet. Customers can put money into their own wallet and send money from their wallet to someone else's wallet. Amounts are in Ghana cedis and pesewas, so never more than two decimal places, and every amount must be more than zero. Nobody can send more than they have, so a wallet's balance must never go below zero, and sending money to your own wallet is not allowed. The money must add up to the exact pesewa every time, with no rounding mistakes. We want to check any wallet's balance and see its history of every deposit and transfer, showing the amount and what the balance was right after each one.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 3,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "edit_file",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 8,
+    "out": 9518,
+    "cache_write": 12801,
+    "cache_read": 15001
+  },
+  "cost_usd": 0.2604,
+  "seconds": 82.8,
+  "tests": {
+    "passed": 23,
+    "failed": 0
+  },
+  "summary": "I've built the wallet service in `app.py`, and all 23 automated tests pass. It saves its data to a file called `wallets.db` in the project folder.\n\n**Endpoints**\n- **POST `/wallets`**: opens a wallet with a name and phone number (`{\"name\": \"Ama\", \"phone\": \"0244...\"}`). The balance starts at 0.00.\n  - If the name or phone number is missing or blank, it refuses with error 422.\n  - If the phone number already has a wallet, it refuses with error 409.\n- **GET `/wallets/{walletId}`**: shows the owner's name, phone number, when the wallet was opened, and the balance. The balance is given in cedis (e.g. `\"12.50\"`) and in pesewas (`1250`). An unknown wallet gives error 404.\n- **POST `/wallets/{walletId}/deposits`**: puts money in (`{\"amount\": 12.50}`) and returns the new history line with the balance after it.\n- **POST `/transfers`**: sends money (`{\"from_wallet_id\": 1, \"to_wallet_id\": 2, \"amount\": 5.25}`). Both wallets get a history line (\"sent\" or \"received\") showing the amount, the other wallet and the new balance.\n  - Sending to your own wallet is refused with error 400.\n  - Sending more than you have is refused with error 400, and nothing changes.\n  - An unknown wallet gives error 404.\n- **GET `/wallets/{walletId}/history`**: lists every deposit, money sent and money received, oldest first. Each line shows the amount and the balance right after it. An unknown wallet gives error 404.\n\n**Rules in every request that includes an amount**\n- **Valid amounts:** amounts of zero or less, amounts with more than two decimal places (like 5.123), and anything that isn't a number are refused with error 422.\n- **Exact money:** all money is stored and added up as whole pesewas, so there are no rounding mistakes. In one test, three deposits of 0.10 plus one of 0.20 came to exactly 0.50.\n- **Transfers:** a transfer happens on both wallets together or not at all. When I sent 20 transfers of 1 cedi at the same moment from a wallet holding 10 cedis, exactly 10 went through, 10 were refused, and neither balance ever went below zero.\n- **History:** history lines can't be edited or deleted, because there is no way to do so.\n\n**What you should know**\n- **One limit I added:** a single amount over 10 billion cedis is refused. You didn't ask for this; it prevents a number too big for the database from causing an error.\n- **No login:** as the plan warned, anyone using the service can deposit into, send from or view any wallet. Let me know if you want a PIN or a phone code added.",
+  "plan": {
+    "summary": "This plan covers a simple mobile money wallet service for your shop's customers in Accra. A customer opens a wallet with their name and phone number, and each phone number can have only one wallet. Customers can put money into their wallet and send money to another customer's wallet. Anyone can check a wallet's balance and see its full history of deposits and transfers, including what the balance was right after each one. All money is in Ghana cedis. Behind the scenes, every amount is stored as a whole number of pesewas (for example, GHS 12.50 is stored as 1250 pesewas), so totals always add up to the exact pesewa with no rounding mistakes. A transfer is always recorded in one step: money leaves one wallet and arrives in the other together, or nothing happens at all. Nothing in your request was unsafe or unrelated to the backend, so nothing was left out. Please note one thing you did not ask for: there is no login or identity check. As written, this means anyone using the service could deposit into any wallet, send money out of any wallet, or view any wallet's balance and history. Real money services almost always need a way to prove who the customer is, such as a PIN or a code sent to their phone. Please tell us if you want that added before anything is built.",
+    "data": [
+      {
+        "name": "Wallet",
+        "fields": [
+          "Wallet number: a unique ID the system gives each wallet",
+          "Customer name",
+          "Phone number: no two wallets can share the same number",
+          "Balance: the money currently in the wallet, kept as a whole number of pesewas and never below zero",
+          "Date and time the wallet was opened"
+        ]
+      },
+      {
+        "name": "History entry (one line in a wallet's history)",
+        "fields": [
+          "Entry number: a unique ID",
+          "Which wallet this entry belongs to",
+          "Type: deposit, money sent, or money received",
+          "Amount, kept as a whole number of pesewas and always more than zero",
+          "The other wallet involved (for money sent or received)",
+          "Balance right after this entry, in pesewas",
+          "Date and time it happened"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/wallets",
+        "does": "Opens a new wallet using a customer's name and phone number. The wallet starts with a balance of zero."
+      },
+      {
+        "method": "GET",
+        "path": "/wallets/{walletId}",
+        "does": "Shows a wallet's owner name, phone number, and current balance in cedis and pesewas."
+      },
+      {
+        "method": "POST",
+        "path": "/wallets/{walletId}/deposits",
+        "does": "Puts money into the wallet. The balance goes up, and a deposit line is added to the history showing the amount and the new balance."
+      },
+      {
+        "method": "POST",
+        "path": "/transfers",
+        "does": "Sends money from one wallet to another. The sender's balance goes down and the receiver's goes up in a single step. Each wallet gets a history line showing the amount and its new balance."
+      },
+      {
+        "method": "GET",
+        "path": "/wallets/{walletId}/history",
+        "does": "Lists every deposit, money sent, and money received for the wallet, oldest to newest. Each line shows the amount and the balance right after it."
+      }
+    ],
+    "rules": [
+      "Refuse to open a wallet if the name or phone number is missing.",
+      "Refuse to open a wallet if that phone number already has a wallet.",
+      "Refuse any amount that is zero or less.",
+      "Refuse any amount with more than two decimal places, such as 5.123 cedis.",
+      "Refuse a transfer if the sender does not have enough money. A balance must never go below zero.",
+      "Refuse a transfer where the sender and the receiver are the same wallet.",
+      "Refuse a deposit, transfer, balance check, or history request for a wallet that does not exist.",
+      "Store and add up all money as whole pesewas so there are never rounding mistakes.",
+      "A transfer must fully complete on both wallets or not happen at all. Money can never disappear or be counted twice, even if two transfers happen at the same moment.",
+      "History lines can never be edited or deleted."
+    ]
+  },
+  "follows_plan": {
+    "missing": [],
+    "extra": []
+  }
+}

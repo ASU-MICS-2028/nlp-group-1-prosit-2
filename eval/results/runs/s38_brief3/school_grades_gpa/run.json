@@ -1,0 +1,51 @@
+{
+  "request": "I am the exams officer at a small college in Cape Coast and I want to keep our students' results in one place instead of in spreadsheets. We need to register our students and the courses we teach. Lecturers enter each student's score for a course, out of 100. For each student we want to see their results, with the grade for every course they have a score in, and their overall GPA. Sometimes a lecturer makes a mistake and enters a score again, and then the new score is the one that counts. Scores below 0 or above 100 should not be accepted.\n\nThe client's answers to your questions:\nQ: What grading scale do you use? Please list each grade with its score range and grade points (for example, 80\u2013100 = A = 4.0).\nA: 80\u2013100 = A = 4.0; 75\u201379 = B+ = 3.5; 70\u201374 = B = 3.0; 65\u201369 = C+ = 2.5; 60\u201364 = C = 2.0; 55\u201359 = D+ = 1.5; 50\u201354 = D = 1.0; 0\u201349 = F = 0.0\nQ: Should the GPA give each course the same weight, or does each course have credit hours that count more or less?\nA: Weighted by credit hours. GPA is the sum of (grade point x credit hours) divided by the total credit hours, counting every course with a score, F included, rounded to 2 decimal places.\nQ: Do you need results kept separately by semester or academic year, or is one overall list per student enough?\nA: No preference: you decide.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 3,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "edit_file",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 8,
+    "out": 5497,
+    "cache_write": 7218,
+    "cache_read": 8187
+  },
+  "cost_usd": 0.1493,
+  "seconds": 49.5,
+  "tests": {
+    "passed": 23,
+    "failed": 0
+  },
+  "summary": "The results system is built, and all 23 automated tests pass. The tests use their own temporary database, so running them never touches your real records. Everything is saved in a file called `results.db` in the project folder.\n\n**What you can do with it**\n- **Register a student:** `POST /students` with the student's name.\n  - `GET /students` lists all students; `GET /students/{id}` shows one.\n- **Register a course:** `POST /courses` with a course code (e.g. MTH101), a title and the number of credit hours. Credit hours must be more than 0.\n  - `GET /courses` lists all courses; `GET /courses/{id}` shows one.\n- **Enter a score:** `POST /scores` with the student, the course and the score.\n  - Scores below 0 or above 100 are refused.\n  - Scores for a student or course that hasn't been registered are refused.\n  - If a lecturer enters a score again for the same student and course, the new score replaces the old one.\n- **See a student's results:** `GET /students/{id}/results` shows:\n  - every course the student has a score in, with the score, grade and grade points, using your scale (80\u2013100 A 4.0 \u2026 0\u201349 F 0.0)\n  - the student's total credit hours\n  - the GPA: grade points \u00d7 credit hours, added up and divided by total credit hours. F grades count, and the result is rounded to 2 decimal places. A student with no scores yet shows no GPA rather than 0.\n\n**Decisions I made**\n- **One overall list per student.** You had no preference, so results aren't split by semester or academic year. That can be added later if you need it.\n- **Scores with decimals.** A score like 79.5 is accepted and graded B+, because only 80 and above counts as an A. If decimal scores should be rounded instead, tell me how.\n- **Names and codes can repeat.** The system won't stop you registering the same student name or course code twice, so check before adding.\n- **No editing or deleting.** There is no way to change or delete a student or course once registered, because you didn't ask for one.",
+  "plan": null,
+  "follows_plan": null
+}

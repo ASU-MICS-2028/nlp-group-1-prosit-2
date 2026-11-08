@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a price goes up or down, do you want to be able to change the price of something already on the list, or would you remove it and add it again?",
+    "Do you sell the same thing in different sizes or amounts at different prices (for example, rice by the cup and by the bag)? If yes, should each size have its own price on the list?",
+    "When you look up a price, should typing part of the name (like \"milk\") show all matching things, or will you always type the full exact name?"
+  ],
+  "answers": [
+    "Change the price of the item already on the list; do not remove and re-add it.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "brief",
+  "cost_usd": 0.00801
+}

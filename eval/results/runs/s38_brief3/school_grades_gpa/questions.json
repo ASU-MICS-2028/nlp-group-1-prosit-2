@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "What grading scale do you use? Please list each grade with its score range and grade points (for example, 80\u2013100 = A = 4.0).",
+    "Should the GPA give each course the same weight, or does each course have credit hours that count more or less?",
+    "Do you need results kept separately by semester or academic year, or is one overall list per student enough?"
+  ],
+  "answers": [
+    "80\u2013100 = A = 4.0; 75\u201379 = B+ = 3.5; 70\u201374 = B = 3.0; 65\u201369 = C+ = 2.5; 60\u201364 = C = 2.0; 55\u201359 = D+ = 1.5; 50\u201354 = D = 1.0; 0\u201349 = F = 0.0",
+    "Weighted by credit hours. GPA is the sum of (grade point x credit hours) divided by the total credit hours, counting every course with a score, F included, rounded to 2 decimal places.",
+    "No preference: you decide."
+  ],
+  "client": "brief",
+  "cost_usd": 0.00543
+}

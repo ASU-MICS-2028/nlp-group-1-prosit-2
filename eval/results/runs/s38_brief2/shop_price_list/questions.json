@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When the price of something goes up or down, do you want to be able to change its price on the list, or will you remove it and add it again?",
+    "Do some things have more than one price, for example one tin versus a full carton, or a small size versus a big size?",
+    "When you look up a price, will you type the full name exactly, or do you want to type part of the name (like \"milo\") and see all the matching things?"
+  ],
+  "answers": [
+    "I want to change the price directly on the list, because prices change often.",
+    "No, each item has just one price.",
+    "Type part of the name, like \"milo\", and see all the matching things; the details only mention looking up one item, but partial matching is fine for me. Actually, I only need to look up one item, so type the full name."
+  ],
+  "client": "brief",
+  "cost_usd": 0.00867
+}

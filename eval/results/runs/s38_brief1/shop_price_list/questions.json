@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When the price of something goes up or down, do you want to be able to change its price on the list, or would you remove it and add it again?",
+    "Do some things have more than one price depending on size or quantity (for example, one tin of milk versus a whole carton)?",
+    "When you look up a price, will you type the full name exactly, or do you want to type part of a name (like 'milo') and see everything that matches?"
+  ],
+  "answers": [
+    "I want to change the price directly on the list, because prices change often and I should not have to remove and re-add the item.",
+    "No. Each item has only one price, so there is no need for different prices by size or quantity.",
+    "No preference: you decide."
+  ],
+  "client": "brief",
+  "cost_usd": 0.00826
+}

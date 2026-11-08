@@ -1,0 +1,20 @@
+{
+  "request": "Our student hostel near the university in Legon has rooms with different numbers of beds, and we want students to book beds without calling us. We need to add a room with its name and how many beds it has. A student books a bed in a room with their name, the date they arrive and the date they leave, and the leaving date must be after the arrival date. A booking takes a bed for every night from the arrival date up to the night before the leaving date, so a student leaving on the 12th and another arriving on the 12th can use the same bed. If all the beds in the room are already taken on any night of the stay, the booking must be refused. A student can cancel their booking, and then the bed is free again for those nights. We also want to pick an arrival and leaving date and see, for each room, how many beds are free for the whole of that stay.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "error: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CggEsx8nudYZSREnhfeny'}",
+  "turns": 0,
+  "repairs": 0,
+  "tool_calls": [],
+  "tokens": {
+    "in": 0,
+    "out": 0,
+    "cache_write": 0,
+    "cache_read": 0
+  },
+  "cost_usd": 0.0,
+  "seconds": 0.6,
+  "tests": null,
+  "summary": ""
+}

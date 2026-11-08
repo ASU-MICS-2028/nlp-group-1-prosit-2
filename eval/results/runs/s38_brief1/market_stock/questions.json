@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Are quantities always whole numbers (like 5 tins), or do you sometimes sell part amounts (like 1.5 kg of rice)?",
+    "Do you want a saved history of each sale and restock with the date, or only the current quantity?",
+    "Should you be able to change an item's name or low level later, or remove an item you no longer sell?"
+  ],
+  "answers": [
+    "Whole numbers only. Each item's quantity and low level are whole numbers.",
+    "No history needed now. Only the current quantity matters.",
+    "No preference: you decide."
+  ],
+  "client": "brief",
+  "cost_usd": 0.00708
+}

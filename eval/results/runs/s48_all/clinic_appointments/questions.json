@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Which time slots can be booked? For example, every 30 minutes from 08:00 to 17:00, or any time the patient types in?",
+    "When a patient cancels, how should they identify the appointment: by a booking number we give them, or by their name, the doctor, the date and the slot?",
+    "Should bookings for dates in the past, or on days the clinic is closed (such as Sundays), be refused?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00841
+}

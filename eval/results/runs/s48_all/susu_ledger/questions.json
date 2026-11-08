@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Does everyone pay the same fixed amount each round, or can each member pay any amount? Can one member make more than one payment in the same round?",
+    "Can a round be collected before every member has paid, or must everyone pay first?",
+    "Who picks the collector for each round? Do you choose them yourself at the time, or is there a fixed order set at the start?"
+  ],
+  "answers": [
+    "No, record whatever each member actually paid; the pot is the total paid in for that round. Yes, sometimes people pay in two parts; all of it counts toward that round.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.01062
+}

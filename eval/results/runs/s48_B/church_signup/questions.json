@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should only certain people (e.g. church staff with a password) be able to add events and see who signed up with their phone numbers, or can anyone do this?",
+    "Does each sign-up count as one person, or can someone sign up for themselves plus family or guests that use up more spots?",
+    "Should the same phone number be blocked from signing up twice for the same event, and can people cancel to free up their spot?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00952
+}

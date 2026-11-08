@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can a student borrow more than one copy of the same book at a time, and is there a limit on how many books one student can have out in total?",
+    "Should adding books be limited to the librarian, for example with a password, or is it fine for anyone to do it?",
+    "Is there a due date for returning a book, and if so, how many days do students get?"
+  ],
+  "answers": [
+    "Yes, a student can borrow more than one copy of the same book, and there is no limit on how many books one student can have out, as long as copies are on the shelf.",
+    "No preference: you decide.",
+    "No due date for now; students are not given a return deadline."
+  ],
+  "client": "brief",
+  "cost_usd": 0.00928
+}

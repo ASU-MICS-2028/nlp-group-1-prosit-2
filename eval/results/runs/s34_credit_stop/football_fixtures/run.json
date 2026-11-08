@@ -1,0 +1,44 @@
+{
+  "request": "I run a community football league in Kumasi and I need to keep track of our fixtures. First we add the teams, each with its name. Then we schedule a fixture on a date between a home team and an away team, and of course a team cannot play against itself. After the match we record the score, meaning how many goals each side scored, and a score can never be negative. We also want to see all the fixtures of one team, whether that team plays at home or away.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "error: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CggEsATuuxpBF7Tz7HRGt'}",
+  "turns": 3,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "list_files",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 8,
+    "out": 3765,
+    "cache_write": 3579,
+    "cache_read": 4661
+  },
+  "cost_usd": 0.0951,
+  "seconds": 42.5,
+  "tests": {
+    "passed": 8,
+    "failed": 0
+  },
+  "summary": "I've built your league app in one file, `app.py`. It saves everything to a file called `league.db` in the same folder. I also wrote 8 automatic checks covering everything you asked for, and they all pass.\n\n**What it can do:**\n- **`POST /teams`**: add a team by sending its name, e.g. `{\"name\": \"Asante Stars\"}`. A blank name is refused.\n- **`GET /teams`**: list all teams, with the number the app gives each one. You need those numbers to schedule fixtures. You didn't ask for this list, but without it there's no way to look the numbers up.\n- **`POST /fixtures`**: schedule a match by sending the date and the two teams' numbers, e.g. `{\"date\": \"2025-03-01\", \"home_team_id\": 1, \"away_team_id\": 2}`.\n  - A team can't be scheduled against itself.\n  - A team number that doesn't exist is refused.\n  - A date that isn't written as year-month-day is refused.\n- **`PUT /fixtures/{id}/score`**: record the score after a match by sending how many goals each side scored, e.g. `{\"home_goals\": 2, \"away_goals\": 0}`. Negative goals are refused. Sending a score again replaces the old one, so you can fix mistakes.\n- **`GET /teams/{id}/fixtures`**: show all of one team's fixtures, home and away, earliest date first.\n\n**Things to know:**\n- Two teams can have the same name. The app tells them apart by their numbers.\n- A match with no recorded score shows its goals as empty.\n- There's no way yet to rename or delete a team or a fixture."
+}

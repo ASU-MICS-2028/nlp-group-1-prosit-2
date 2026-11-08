@@ -1,0 +1,20 @@
+{
+  "request": "I am the exams officer at a small college in Cape Coast and I want to keep our students' results in one place instead of in spreadsheets. We need to register our students and the courses we teach. Lecturers enter each student's score for a course, out of 100. For each student we want to see their results, with the grade for every course they have a score in, and their overall GPA. Sometimes a lecturer makes a mistake and enters a score again, and then the new score is the one that counts. Scores below 0 or above 100 should not be accepted.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "error: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CggEsf5cPUnsT5GuBjX6C'}",
+  "turns": 0,
+  "repairs": 0,
+  "tool_calls": [],
+  "tokens": {
+    "in": 0,
+    "out": 0,
+    "cache_write": 0,
+    "cache_read": 0
+  },
+  "cost_usd": 0.0,
+  "seconds": 0.3,
+  "tests": null,
+  "summary": ""
+}
