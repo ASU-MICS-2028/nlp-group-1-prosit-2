@@ -22,6 +22,7 @@ BLOCKED = {".env", ".git"}
 # Folders full of generated clutter that list_files leaves out.
 CLUTTER = {".venv", "__pycache__", ".pytest_cache"}
 LIMIT = 4000  # most characters of output the LLM gets back from one tool call
+READ_LIMIT = 20000  # read_file only: the agent must see a whole app to change it (decision 0052; largest app so far 10,501)
 MAX_WRITE = 200_000  # most characters one write_file may write (a big source file is about 20,000)
 
 
@@ -80,7 +81,7 @@ def write_file(root, path, content):
 
 
 def read_file(root, path):
-    """Return the text of a file in the project (cut if long)."""
+    """Return the text of a file in the project (cut only if very long)."""
     try:
         full = safe_path(root, path)
     except ValueError as e:
@@ -88,7 +89,7 @@ def read_file(root, path):
     if not full.is_file():
         return fail(f"No such file: {path}")
     try:
-        return ok(full.read_text(encoding="utf-8"))
+        return {"ok": True, "output": cut(full.read_text(encoding="utf-8"), READ_LIMIT)}
     except UnicodeDecodeError:
         return fail(f"Refused: {path} is not a text file")
 

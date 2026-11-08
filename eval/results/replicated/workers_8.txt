@@ -1,0 +1,24 @@
+cleanup: removed 0 leftover containers, 0 networks
+church_signup            reference    10/10   3.8s
+clinic_appointments      reference    13/13   5.0s
+clinic_appointments      reference_b  13/13   3.9s
+football_fixtures        reference    13/13   4.2s
+football_fixtures        reference_b  13/13   4.4s
+hostel_booking           reference    15/15   4.8s
+hostel_booking           reference_b  15/15   5.2s
+library_catalogue        reference    13/13   5.1s
+library_catalogue        reference_b  13/13   4.4s
+lost_and_found           reference    12/12   3.8s
+market_stock             reference    13/13   3.9s
+market_stock             reference_b  13/13   4.2s
+momo_wallet              reference    13/13   5.2s
+momo_wallet              reference_b  13/13   5.2s
+restaurant_reservations  reference    12/12   4.5s
+school_grades_gpa        reference    12/12   5.2s
+shared_expenses          reference    13/13   4.0s
+shop_price_list          reference    13/13   3.1s
+susu_ledger              reference    14/14   3.9s
+tailoring_orders         reference    13/13   3.2s
+trotro_fares             reference    13/13   2.2s
+272/272 tests = 100.0% · 21/21 backends fully pass · 12 s · maps $0.000
+exit 0 

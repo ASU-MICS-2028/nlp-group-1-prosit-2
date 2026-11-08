@@ -45,7 +45,7 @@ def test_files_outside_the_project_do_not_exist(project):
 
 
 def test_system_files_are_read_only_and_user_is_not_root(project):
-    code = "import os, pytest\n\ndef test_x():\n    assert os.getuid() == 1000\n" \
+    code = "import os, pytest\n\ndef test_x():\n    assert os.getuid() != 0\n" \
            "    with pytest.raises(OSError):\n        open('/usr/evil.txt', 'w')\n"
     assert passes(project, code)["ok"]
 

@@ -43,7 +43,7 @@ def jobs(task, folder, references):
     return [(t, folder.name, folder / t if task == "all" else folder) for t in tasks]
 
 
-def run_one(task, source, folder, label):
+def run_one(task, source, folder, label, restart=False):
     start, total = time.time(), TESTS[task]["tests"]
     row = {"task": task, "backend": source, "folder": str(folder.relative_to(bench.ROOT)) if folder.is_relative_to(bench.ROOT) else str(folder),
            "passed": 0, "total": total, "started": False, "failing": [], "error": "", "map_cost_usd": 0.0}
@@ -62,8 +62,9 @@ def run_one(task, source, folder, label):
     got = bench.score(task, label, app, ops)
     if missing:  # an incomplete map fails tests the backend may pass: flag it, so it is not read as a bad build
         got["error"] = f"ops.json has no entry for: {', '.join(missing)}. " + got.get("error", "")
+    extra = bench.keeps_data(task, label, app, ops) if restart else {}
     return {**row, "started": got["started"], "passed": got["passed"], "failing": got.get("failing", []),
-            "error": got.get("error", ""), "seconds": round(time.time() - start, 1)}
+            "error": got.get("error", ""), "seconds": round(time.time() - start, 1), **extra}
 
 
 def main():
@@ -71,6 +72,7 @@ def main():
     a.add_argument("task")
     a.add_argument("folder", nargs="?")
     a.add_argument("--references", action="store_true")
+    a.add_argument("--restart", action="store_true", help="also check that the data survives a restart")
     a.add_argument("--workers", type=int, default=4)
     a.add_argument("--repeat", type=int, default=1)
     a.add_argument("--name", default=time.strftime("run_%Y%m%d_%H%M%S"))
@@ -83,10 +85,10 @@ def main():
             for i in range(args.repeat)]
     start = time.time()
     with ThreadPoolExecutor(args.workers) as ex:  # first repeat alone: it writes any missing map, so later repeats reuse it
-        rows = list(ex.map(lambda j: run_one(*j), todo[0]))
-        rows += list(ex.map(lambda j: run_one(*j), [j for rep in todo[1:] for j in rep]))
+        rows = list(ex.map(lambda j: run_one(*j, args.restart), todo[0]))
+        rows += list(ex.map(lambda j: run_one(*j, args.restart), [j for rep in todo[1:] for j in rep]))
     for r in rows:
-        print(f"{r['task']:24} {r['backend']:12} {r['passed']:>2}/{r['total']:<2} {r['seconds']:>5}s {r['error'][-80:]}".rstrip())
+        print(f"{r['task']:24} {r['backend']:12} {r['passed']:>2}/{r['total']:<2} {r['seconds']:>5}s {'' if 'checked' not in r else f"keeps data: {r['keeps_data']} ({r['kept']}/{r['checked']}) "}{r['error'][-80:]}".rstrip())
     passed, total = sum(r["passed"] for r in rows), sum(r["total"] for r in rows)
     print(f"{passed}/{total} tests = {100 * passed / total:.1f}% · {sum(r['passed'] == r['total'] for r in rows)}/{len(rows)} "
           f"backends fully pass · {time.time() - start:.0f} s · maps ${sum(r['map_cost_usd'] for r in rows):.3f}")

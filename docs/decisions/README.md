@@ -19,12 +19,12 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0010](0010-llms.md) | Claude Opus 5.5 as the main model, local Qwen 3.5 9B compared against it | Accepted | 2026-10-20 |
 | [0011](0011-owners.md) | Each person owns a workstream outside their strengths | Accepted | 2026-10-20 |
 | [0012](0012-assume-no-section-c.md) | Assume there is no Section C until the instructor replies | Superseded by 0014 | 2026-10-21 |
-| [0013](0013-relay.md) | Work as a relay, one person at a time, with no fixed deadline | Accepted | 2026-10-21 |
+| [0013](0013-relay.md) | Work as a relay, one person at a time, with no fixed deadline | Superseded by 0050 | 2026-10-21 |
 | [0014](0014-no-section-c.md) | There is no Section C | Accepted | 2026-10-22 |
 | [0015](0015-share-api-key.md) | Share the Claude API key with every member | Accepted | 2026-10-22 |
 | [0016](0016-adrs.md) | Decisions are recorded as numbered ADRs, one file each | Accepted | 2026-10-22 |
 | [0017](0017-drop-contracts-file.md) | Remove the interface suggestions file | Accepted | 2026-10-22 |
-| [0018](0018-readme-current-stage.md) | The README shows only the current stage | Accepted | 2026-10-23 |
+| [0018](0018-readme-current-stage.md) | The README shows only the current stage | Superseded by 0050 | 2026-10-23 |
 | [0019](0019-agent-instruction-files.md) | One set of agent instructions, with a pointer file for each assistant | Accepted | 2026-10-23 |
 | [0020](0020-workflow-guides.md) | Step-by-step guides for the common workflows, usable by any assistant | Accepted | 2026-10-23 |
 | [0021](0021-secret-guards.md) | Guards against leaking the API key | Accepted | 2026-10-23 |
@@ -53,6 +53,13 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0044](0044-one-agent-not-a-split.md) | One agent that asks questions, not a Planner / Builder / Tester split | Proposed | 2026-11-04 |
 | [0045](0045-changes-edit-the-existing-app.md) | A requested change edits the existing app instead of rebuilding it | Proposed | 2026-11-04 |
 | [0046](0046-opus-default-qwen-only-with-search.md) | Opus is the agent's default model; the local Qwen is used only with recipe search | Proposed | 2026-11-04 |
+| [0047](0047-hosting-on-one-gcp-server.md) | Host everything on one GCP server, each backend at its own path | Accepted | 2026-11-05 |
+| [0048](0048-agent-session.md) | One session object carries a client from request to live link | Accepted | 2026-11-06 |
+| [0049](0049-small-live-platform-first.md) | Put a small platform online first; Michael improves it live | Accepted | 2026-11-06 |
+| [0050](0050-everyone-works-at-once.md) | Everyone works at the same time; the README lists each person's tasks | Accepted | 2026-11-06 |
+| [0051](0051-save-every-result.md) | Every test result is saved in the repo | Accepted | 2026-11-06 |
+| [0052](0052-read-whole-files.md) | read_file returns up to 20,000 characters | Accepted | 2026-11-06 |
+| [0053](0053-refuse-backends-that-lose-data.md) | Do not publish a backend that would lose its data | Accepted | 2026-11-06 |
 <!-- DECISIONS:END -->
 
 ## Open questions

@@ -1,0 +1,197 @@
+{
+  "empty": {
+    "dense": {
+      "found": [],
+      "ms": 0.0
+    },
+    "bm25": {
+      "found": [],
+      "ms": 0.0
+    }
+  },
+  "spaces": {
+    "dense": {
+      "found": [],
+      "ms": 0.0
+    },
+    "bm25": {
+      "found": [],
+      "ms": 0.0
+    }
+  },
+  "symbols": {
+    "dense": {
+      "found": [],
+      "ms": 0.0
+    },
+    "bm25": {
+      "found": [],
+      "ms": 0.0
+    }
+  },
+  "emoji": {
+    "dense": {
+      "found": [],
+      "ms": 0.0
+    },
+    "bm25": {
+      "found": [],
+      "ms": 0.0
+    }
+  },
+  "one letter": {
+    "dense": {
+      "found": [
+        "Records that belong to another record (one-to-many)",
+        "An action that changes a record's state (mark as done, collected, paid, cancelled)",
+        "Get one record by id, or 404 if it does not exist"
+      ],
+      "ms": 4833.4
+    },
+    "bm25": {
+      "found": [
+        "No duplicates: a value must be unique",
+        "A field with fixed choices (status, category, size, type)",
+        "Records that belong to another record (one-to-many)"
+      ],
+      "ms": 1.4
+    }
+  },
+  "twi": {
+    "dense": {
+      "found": [
+        "Required fields and simple input checks (422 for bad input)",
+        "Refuse a request that breaks a rule (full, too much, not allowed)",
+        "A balance that changes with each transaction (wallet, savings, stock)"
+      ],
+      "ms": 6.7
+    },
+    "bm25": {
+      "found": [
+        "Change part of a record (PATCH) and delete a record",
+        "Checklist for a complete one-file FastAPI app (app.py)",
+        "Get one record by id, or 404 if it does not exist"
+      ],
+      "ms": 0.0
+    }
+  },
+  "twi and english": {
+    "dense": {
+      "found": [
+        "Get one record by id, or 404 if it does not exist",
+        "Refuse a request that breaks a rule (full, too much, not allowed)",
+        "Records that belong to another record (one-to-many)"
+      ],
+      "ms": 6.4
+    },
+    "bm25": {
+      "found": [
+        "Get one record by id, or 404 if it does not exist",
+        "Setting up the SQLite database engine",
+        "No double booking: one slot, one booking"
+      ],
+      "ms": 0.0
+    }
+  },
+  "pidgin": {
+    "dense": {
+      "found": [
+        "No double booking: one slot, one booking",
+        "Refuse a request that breaks a rule (full, too much, not allowed)",
+        "Records that belong to another record (one-to-many)"
+      ],
+      "ms": 5.5
+    },
+    "bm25": {
+      "found": [
+        "Get one record by id, or 404 if it does not exist",
+        "Refuse a request that breaks a rule (full, too much, not allowed)",
+        "Setting up the SQLite database engine"
+      ],
+      "ms": 0.0
+    }
+  },
+  "french": {
+    "dense": {
+      "found": [
+        "No double booking: one slot, one booking",
+        "Money: store whole pesewas (or cents), never floats",
+        "Refuse a request that breaks a rule (full, too much, not allowed)"
+      ],
+      "ms": 5.6
+    },
+    "bm25": {
+      "found": [],
+      "ms": 0.0
+    }
+  },
+  "sql injection": {
+    "dense": {
+      "found": [
+        "Keeping a group of values (an object, a list) in a table",
+        "Change part of a record (PATCH) and delete a record",
+        "A database table with an id (primary key)"
+      ],
+      "ms": 5.0
+    },
+    "bm25": {
+      "found": [
+        "A database table with an id (primary key)",
+        "Setting up the SQLite database engine",
+        "Records that belong to another record (one-to-many)"
+      ],
+      "ms": 0.1
+    }
+  },
+  "prompt injection": {
+    "dense": {
+      "found": [
+        "Testing the backend with pytest and TestClient",
+        "A database table with an id (primary key)",
+        "Checklist for a complete one-file FastAPI app (app.py)"
+      ],
+      "ms": 5.6
+    },
+    "bm25": {
+      "found": [
+        "Checklist for a complete one-file FastAPI app (app.py)",
+        "A field with fixed choices (status, category, size, type)",
+        "Testing the backend with pytest and TestClient"
+      ],
+      "ms": 0.0
+    }
+  },
+  "numbers": {
+    "dense": {
+      "found": [
+        "No duplicates: a value must be unique",
+        "Required fields and simple input checks (422 for bad input)",
+        "A database table with an id (primary key)"
+      ],
+      "ms": 14.9
+    },
+    "bm25": {
+      "found": [],
+      "ms": 0.1
+    }
+  },
+  "ten thousand words": {
+    "dense": {
+      "found": [
+        "No double booking: one slot, one booking",
+        "Records that belong to another record (one-to-many)",
+        "Refuse a request that breaks a rule (full, too much, not allowed)"
+      ],
+      "ms": 26.1
+    },
+    "bm25": {
+      "found": [
+        "No double booking: one slot, one booking",
+        "Setting up the SQLite database engine",
+        "An action that changes a record's state (mark as done, collected, paid, cancelled)"
+      ],
+      "ms": 8.8
+    }
+  },
+  "unknown method": "refused: unknown method 'nope'"
+}

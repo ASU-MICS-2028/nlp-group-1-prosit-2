@@ -1,0 +1,32 @@
+{
+  "create_item": {
+    "method": "POST",
+    "path": "/items"
+  },
+  "list_items": {
+    "method": "GET",
+    "path": "/items"
+  },
+  "get_item": {
+    "method": "GET",
+    "path": "/items/{id}"
+  },
+  "record_sale": {
+    "method": "POST",
+    "path": "/items/{id}/sell",
+    "request_fields": {
+      "quantity": "amount"
+    }
+  },
+  "record_restock": {
+    "method": "POST",
+    "path": "/items/{id}/restock",
+    "request_fields": {
+      "quantity": "amount"
+    }
+  },
+  "list_low_stock": {
+    "method": "GET",
+    "path": "/items/low-stock"
+  }
+}

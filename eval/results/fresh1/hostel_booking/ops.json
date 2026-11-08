@@ -1,0 +1,31 @@
+{
+  "create_room": {
+    "method": "POST",
+    "path": "/rooms"
+  },
+  "book_bed": {
+    "method": "POST",
+    "path": "/bookings",
+    "request_fields": {
+      "id": "room_id",
+      "check_in": "arrival",
+      "check_out": "departure"
+    },
+    "response_fields": {
+      "check_in": "arrival",
+      "check_out": "departure"
+    }
+  },
+  "cancel_booking": {
+    "method": "DELETE",
+    "path": "/bookings/{id}"
+  },
+  "free_beds": {
+    "method": "GET",
+    "path": "/availability",
+    "request_fields": {
+      "check_in": "arrival",
+      "check_out": "departure"
+    }
+  }
+}

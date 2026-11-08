@@ -1,23 +1,68 @@
 # Prosit 2: A Non-Developer Friendly API Builder
 
 <!-- STATUS:START -->
-## Now: Stage 4: Michael — UI and usability
+## What each person does now
 
-**Who:** Michael (W3)
+### Alice (W1)
 
-| Task | Who | Status |
+| Task | Status | Done when |
 |---|---|---|
-| S4.1 Read Alice's learnings, run a build | Michael (W3) | 🔵 ready |
-| S4.2 UI on a recorded session | Michael (W3) | ⏳ waiting (on S4.1) |
-| S4.3 UI on the live agent | Michael (W3) | ⏳ waiting (on S4.2) |
-| S4.4 UI alternatives compared | Michael (W3) | ⏳ waiting (on S4.3) |
-| S4.5 Usability test | Michael (W3) | ⏳ waiting (on S4.4) |
-| S4.6 Handoff: Michael's learnings | Michael (W3) | ⏳ waiting (on S4.3, S4.5) |
+| S4.8 Plain-word summaries; follow mid-build messages properly | 🔵 ready | The final summary has no technical words, the client can tell what they got, and a message saying "must" is enforced in the live backend. All 15 tasks re-scored: no lower than 95.8% |
 
-**Next:** Stage 5: Joseph — full evaluation
+### Bernard (W2)
+
+| Task | Status | Done when |
+|---|---|---|
+| S4.7 Safety of the public platform | 🔵 ready | Attacks on the live platform tried and written up: prompt injection in a request, too many requests, a backend grabbing memory or disk, many builds at once. Every hole fixed or stated as a limit. `start_server` says when a backend was killed for using too much memory |
+
+### Michael (W3)
+
+| Task | Status | Done when |
+|---|---|---|
+| S4.1 Read Alice's and Joseph's learnings, try the live platform | 🔵 ready | You built a backend through the live page, and `web/` runs on your laptop (section 6 of `learnings/W4-*.md`) |
+| S4.2 UI on a recorded session | ⏳ waiting (on S4.1) | `web/index.html` can play back a saved session (describe → questions → plan → progress → try it), so you can change the page without paying for builds |
+| S4.3 Better UI on the live platform | ⏳ waiting (on S4.2) | On the public address, a non-developer can describe, answer, approve, try and change a backend with nothing but the page, and understands every word on it |
+| S4.4 UI alternatives compared | ⏳ waiting (on S4.3) | Ways of showing the plan, asking questions, showing progress and wording errors, compared |
+| S4.5 Usability test | ⏳ waiting (on S4.4) | 4–5 non-developers: completion, time, SUS score, quotes |
+| S4.6 Handoff: Michael's learnings | ⏳ waiting (on S4.3, S4.5) | `learnings/W3-*.md` complete |
+
+### Joseph (W4)
+
+| Task | Status | Done when |
+|---|---|---|
+| S5.1 Read Alice's learnings, try the live platform | 🔵 ready | A backend built through the live page, and the agent and harness run on your laptop |
+| S5.2 Full system on all 15 tasks | ⏳ waiting (on S5.1) | Every task run with repeats; hidden-test pass rate, whether the data survives a restart (`--restart`), time and cost per task |
+| S5.3 Ablations | ⏳ waiting (on S5.2) | No repair, single agent, no retrieval, no spec-first, no questions: each scored the same way |
+| S5.4 Model comparison | ⏳ waiting (on S5.2) | Opus vs Sonnet vs Haiku vs local Qwen: quality against cost |
+| S5.5 Results tables and charts | ⏳ waiting (on S5.3, S5.4) | In `eval/results/`, ready for Section B |
+| S5.6 Handoff: Joseph's learnings, part 2 | ⏳ waiting (on S5.5) | `learnings/W4-*.md` complete with all results explained |
+
+### Eric (W5)
+
+| Task | Status | Done when |
+|---|---|---|
+| S6.1 Read every learnings file, run everything | 🔵 ready | A fresh clone runs the whole platform following only the README and the learnings files |
+| S6.2 Fix what doesn't fit together | ⏳ waiting (on S6.1) | Each gap fixed with the owner of that part; nothing left that only one person can run |
+| S6.3 Section B draft | ⏳ waiting (on S6.1) | Approach, architecture, implementation, evaluation, written from the learnings files; final numbers taken from S5.5 |
+| S6.4 Slides and recorded demo | ⏳ waiting (on S6.2, S6.3, S4.3) | 10-minute deck with the GitHub link on slide 1, each person presenting their part; a demo recording saved |
+| S6.5 Handoff: Eric's learnings | ⏳ waiting (on S6.4, S4.6, S4.7, S5.6) | `learnings/W5-*.md` complete |
+
+### Everyone
+
+| Task | Status | Done when |
+|---|---|---|
+| S0.6 Docker on every laptop | 🔵 ready | `docker run --rm hello-world` works for all 5 |
+| S7.1 Review Section B for your part | ⏳ waiting (on S6.3) | Each owner confirms their part is correct |
+| S7.2 Section A (individual, any time) | 🔵 ready | 3–5 pages each, own words, topics a–r told as one story |
+| S7.3 Viva walkthrough | ⏳ waiting (on S6.5) | Each owner has taught their part; everyone can answer every part's viva questions |
+| S7.4 Rehearse and submit | ⏳ waiting (on S7.1, S7.2, S7.3, S6.4) | Two timed run-throughs; report and slides on Canvas with the GitHub link on page 1 |
 
 Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand.
 <!-- STATUS:END -->
+
+**Live platform:** https://34-78-38-126.sslip.io (each build spends real Claude credit)
+
+**Aim:** finish the week of Nov 9.
 
 Every stage, task and blocker: [`docs/PLAN.md`](docs/PLAN.md).
 
@@ -69,6 +114,7 @@ Docker must be installed and running for the sandbox. Full setup: [`knowledge/en
 ## Working together
 
 - Work on a branch for your stage (`w2-tools`, `w4-benchmark`, ...) and merge to `main` through a pull request at your handoff.
-- We work as a relay: one person at a time, each building on the last person's handoff ([`docs/PLAN.md`](docs/PLAN.md)). Your stage is done when your learnings file lets the next person carry on without asking you.
+- Every test result is saved in [`eval/results/`](eval/results/README.md) (decision 0051). If it is not there, it does not go in the report.
+- We work at the same time, each on our own tasks ([`docs/PLAN.md`](docs/PLAN.md), decision 0050). A teammate reviews every merge. Your part is done when your learnings file lets someone else carry on without asking you.
 - Coding assistants: see [`AGENTS.md`](AGENTS.md).
 - The GitHub link goes on page 1 of every report and on the first slide.

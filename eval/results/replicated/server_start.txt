@@ -1,0 +1,12 @@
+1. Waiting for the server (10 starts each, seconds from launch to first good request)
+   sleep 1 s                  worked 10/10, median 1.02, max 1.13
+   sleep 2 s                  worked 10/10, median 2.02, max 2.06
+   poll, 1 s connect limit    worked 10/10, median 0.24, max 0.25
+   poll, 0.1 s connect limit  worked 10/10, median 0.23, max 0.24
+   watch the log              worked 10/10, median 0.22, max 0.23
+
+2. Two projects at the same time
+   fixed port 8001, first: died: INFO:     Application shutdown complete.
+   fixed port 8001, second: running
+   free port: Server running at http://127.0.0.1:55320 | Server running at http://127.0.0.1:55327
+exit 0 

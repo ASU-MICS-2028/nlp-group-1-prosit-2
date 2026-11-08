@@ -15,7 +15,7 @@ import pytest
 
 class Api:
     def __init__(self, base_url, ops):
-        self.client = httpx.Client(base_url=base_url, timeout=10)
+        self.client = httpx.Client(base_url=base_url, timeout=10, limits=httpx.Limits(max_keepalive_connections=0))  # a backend that crashes drops its connection: reusing it would fail the next test too
         self.ops = ops
 
     def call(self, op, path_params=None, json=None, params=None):
@@ -55,6 +55,9 @@ class Api:
             data = r.json()
         except ValueError:
             data = None
+        if spec["method"] == "GET" and r.is_success and os.environ.get("GET_LOG"):  # the restart check replays these reads
+            with open(os.environ["GET_LOG"], "a") as f:
+                f.write(r.url.raw_path.decode() + "\n")
         key = spec.get("response_key")
         if key and isinstance(data, dict) and key in data:
             data = data[key]

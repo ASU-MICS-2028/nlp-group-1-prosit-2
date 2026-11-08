@@ -1,0 +1,20 @@
+✅ 01-table-with-primary-key
+✅ 02-sqlite-engine-setup
+✅ 03-get-one-or-404
+✅ 04-required-fields-and-validation
+✅ 05-refuse-a-business-rule
+✅ 06-no-duplicates
+✅ 07-records-belonging-to-a-parent
+✅ 08-filter-a-list-by-date
+✅ 09-money-in-pesewas
+✅ 10-mark-done-and-hide-from-list
+✅ 11-update-and-delete
+✅ 12-balance-and-transactions
+✅ 13-averages-and-sorting
+✅ 14-nested-object-in-a-table
+✅ 15-no-double-booking
+✅ 16-fixed-choices
+✅ 17-testing-the-app-with-pytest
+✅ 18-one-file-app-checklist
+18/18 recipes pass
+exit 0 

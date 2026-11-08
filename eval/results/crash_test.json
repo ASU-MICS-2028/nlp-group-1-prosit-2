@@ -1,0 +1,11 @@
+{
+  "what": "Does data survive the server going down? Run by hand on the live church backend, Nov 5-6 2026. Typed in from the terminal output at the time.",
+  "how": "POST an event, wait, then restart the server, then GET the events. 'sudo reboot' is a normal reboot; 'gcloud compute instances reset' pulls the plug.",
+  "results": [
+    {"test": "plug pulled soon after a write", "wait_seconds": "not timed, a few seconds", "event": "Choir practice", "kept": false},
+    {"test": "normal reboot", "wait_seconds": 5, "event": "GracefulTest", "kept": true},
+    {"test": "plug pulled 5 s after a write", "wait_seconds": 5, "event": "HardTest", "kept": false},
+    {"test": "plug pulled 60 s after a write", "wait_seconds": 60, "event": "Waited60s", "kept": true}
+  ],
+  "backend_came_back_by_itself": true
+}

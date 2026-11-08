@@ -5,6 +5,8 @@ import pathlib
 import shutil
 import sys
 
+import httpx
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "benchmark"))
 sys.path.insert(0, str(ROOT))
@@ -43,6 +45,49 @@ def score(name, label, app_text, ops):
     finally:
         stop_server(root)
     return {"started": True, **r}
+
+
+def replay(url, paths):
+    """What each read answers: its status and body."""
+    out = {}
+    for path in paths:
+        try:
+            r = httpx.get(url + path, timeout=10)
+            out[path] = [r.status_code, r.text]
+        except httpx.HTTPError as e:
+            out[path] = [0, type(e).__name__]
+    return out
+
+
+def keeps_data(name, label, app_text, ops):
+    """Does the data survive a restart? The hidden tests fill the backend, and every read that worked is remembered. A brand-new
+    server shows what each read says with no data; reads that say the same are not about data and are dropped. Then restart: a
+    read that now answers like the empty server has lost its data. checked is 0 if no read depended on data (cannot tell)."""
+    root, empty = WORK / name / f"{label}_restart", WORK / name / f"{label}_restart_empty"
+    for folder in (root, empty):
+        shutil.rmtree(folder, ignore_errors=True)
+        folder.mkdir(parents=True)
+        (folder / "app.py").write_text(app_text)
+    (root / "ops.json").write_text(json.dumps(ops))
+    started = start_server(root)
+    if not started["ok"]:
+        return {"keeps_data": None, "checked": 0, "kept": 0, "error": started["output"][-200:]}
+    log = root / "reads.log"
+    hidden_tests(name, started["output"].split()[-1], root / "ops.json", get_log=log)
+    paths = sorted(set(log.read_text().splitlines())) if log.exists() else []
+    before = replay(started["output"].split()[-1], paths)
+    stop_server(root)
+    started = start_server(empty)
+    nothing = replay(started["output"].split()[-1], paths) if started["ok"] else {}
+    stop_server(empty)
+    paths = [p for p in paths if before[p] != nothing.get(p)]
+    started = start_server(root)  # the same folder, so a database file is still there
+    if not started["ok"]:  # it worked a moment ago: a restart that crashes has lost everything
+        return {"keeps_data": False, "checked": len(paths), "kept": 0, "error": "would not start again: " + started["output"][-200:]}
+    after = replay(started["output"].split()[-1], paths)
+    stop_server(root)
+    kept = sum(after[p] != nothing.get(p) for p in paths)
+    return {"keeps_data": kept == len(paths) if paths else None, "checked": len(paths), "kept": kept}
 
 
 def mapping_schema():
