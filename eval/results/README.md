@@ -47,6 +47,13 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 | Can we check before publishing, with no hidden tests? | `database_check.json` · `runtime/tests/test_keeps_database.py` | 9 of 9 known answers; agrees with the real restart check on 99 of 99 builds (decision 0053) |
 | Does the data survive a restart? | `restart_check.json` · `harness/restart_church_agent_build.json` · `harness/restart_references.json` | One call: Opus keeps 1 of 15, loses 13; Haiku keeps 0, loses 12. Agent church build keeps. Check proved on 3 known backends |
 
+## Plain summaries and messages during a build (S4.8)
+
+| Question | Files | Result | Decision |
+|---|---|---|---|
+| Summary with no technical words? | `plain_summary.json` | As live 15 of 15 have them; Haiku or Opus rewrite 0 of 15. Haiku $0.011, Opus $0.294 for 15 | 0054 |
+| Is a "must" message enforced? | `message_check.json` · `message_check/` (apps, traces) | Today's wording 8 of 8, stronger wording 8 of 8, by real requests | 0054 |
+
 ## Checking the numbers
 
 | Question | Files | Result |

@@ -23,11 +23,13 @@ import uuid
 from datetime import date
 from pathlib import Path
 
-from builder.agent import build, clarify, make_plan, plan_text, with_answers
+from builder.agent import build, clarify, make_plan, plain_summary, plan_text, with_answers
 from runtime.deploy import deploy, keeps_database
 
 BUILDS = Path(os.environ.get("BUILDS_ROOT", "builds"))
 MODEL = "claude-opus-5-5"
+SUMMARY_MODEL = "claude-haiku-5-5"  # as plain as Opus at 1/27 of the price (decision 0054)
+READY = "Your backend is ready. You can try it at the link below."  # if the rewrite fails: never show the builder's notes
 MAX_REQUEST = 5000  # characters; a real request is a few sentences
 MAX_DAILY_USD = float(os.environ.get("MAX_DAILY_USD", "10"))  # anyone can start a build, and each one spends our Claude credit
 NO_DATABASE = """We host this backend, and a check found it would lose its data when the server restarts: {why}
@@ -100,6 +102,16 @@ class Session:
         self.emit("plan", plan=self.plan, text=plan_text(self.plan))
         self.go("waiting_approval")
 
+    def plain(self, notes):
+        """The summary the client reads. A failure here must not stop a backend that already works from going live."""
+        try:
+            text, usd = plain_summary(self.request, notes, SUMMARY_MODEL)
+            self.pay(usd)
+            return text or READY
+        except Exception as e:
+            self.emit("error", detail=f"summary: {type(e).__name__}: {e}"[:500])
+            return READY
+
     def take_inbox(self):
         with LOCK:
             found, self.inbox = self.inbox, []
@@ -117,7 +129,6 @@ class Session:
         finally:
             BUILDING.release()
         self.pay(result["cost_usd"])
-        self.summary = result["summary"]
         late = self.take_inbox()  # arrived after the agent's last look
         if late:
             return self.work(change=" ".join(late))
@@ -139,6 +150,7 @@ class Session:
             self.emit("not_published", detail=out["output"])
             return self.go("failed")
         self.url, self.docs_url, self.endpoints = out["url"], out["docs_url"], out["endpoints"]
+        self.summary = self.plain(result["summary"])
         self.emit("live", url=self.url, docs_url=self.docs_url, endpoints=self.endpoints, summary=self.summary)
         self.go("live")
 
@@ -226,7 +238,7 @@ def public(e):
     if e["event"] == "agent":
         d = e["detail"]
         return {"event": "agent", "t": e["t"], "kind": d["event"], "tool": d.get("tool"), "ok": d.get("ok"),
-                "tests": d.get("tests"), "text": d.get("text") if d["event"] in ("reply", "message") else None}
+                "tests": d.get("tests"), "text": d.get("text") if d["event"] == "message" else None}  # the agent's replies are notes for a programmer
     if e["event"] in ("error", "not_published"):
         return {"event": e["event"], "t": e["t"]}
     return e

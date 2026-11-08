@@ -131,6 +131,14 @@ add tests for the change, run all the tests, and reply with a short summary of w
 NEW_MESSAGE = """The client sent a new message while you work. It changes what they want, so follow it, then carry on:
 
 {message}"""
+# S4.8: the builder writes notes for a programmer; the client reads this instead. Runs after the build, so it cannot change the app.
+PLAIN = """You tell people who do not code what has just been built for them. You get what they asked for and the builder's
+technical notes. Rewrite the notes for them, in short plain sentences: first that it is ready; then, as a short list, what they
+can do with it; what it turns away; choices that were made for them; and anything they asked for that was left out. Use only
+facts from the notes and never promise more than they say. It is already published on the internet when they read this, so
+drop any remark that it has not been run or is not live, but keep every warning about who can reach it. Never mention web addresses or paths, GET or POST, file or
+database names, code, JSON or status numbers, and never use words like endpoint, API, server, database, SQLite, schema,
+field, query, pytest or test (say "checks"). Plain text only: no markdown, except "- " for list items."""
 LOCAL_URL = os.environ.get("LOCAL_LLM_URL", "http://localhost:8090/v1") + "/chat/completions"  # S3.9, knowledge/environment.md
 
 _client = None
@@ -283,6 +291,12 @@ def clarify(request, n=3, model="claude-opus-5-5"):
         return [], 0.0
     text, info = ask(model, ASKER.format(n=n), f"The client's request:\n{request}", schema=QUESTIONS)
     return [q for q in json.loads(text)["questions"] if q.strip()][:n], info["cost_usd"]
+
+
+def plain_summary(request, notes, model="claude-opus-5-5"):
+    """The builder's notes, rewritten for someone who does not code (S4.8). Returns (text, cost in US dollars)."""
+    text, info = ask(model, PLAIN, f"What the client asked for:\n{request}\n\nThe builder's notes:\n{notes}")
+    return text.strip(), info["cost_usd"]
 
 
 def with_answers(request, questions, answers):

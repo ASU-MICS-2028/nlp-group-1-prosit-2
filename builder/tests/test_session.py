@@ -29,6 +29,7 @@ def world(monkeypatch, tmp_path):
     monkeypatch.setattr(session, "build", fake_build)
     monkeypatch.setattr(session, "deploy", lambda root, name: LIVE)
     monkeypatch.setattr(session, "keeps_database", lambda root: {"ok": True, "output": ""})
+    monkeypatch.setattr(session, "plain_summary", lambda request, notes, model: ("Your sheet is ready.", 0.001))
     return built
 
 
@@ -128,6 +129,22 @@ def test_an_app_that_still_loses_data_is_not_published(world, monkeypatch):
     got = wait(sid, "failed")
     assert published == [] and len(world) == 2 and "lose its data" in got["error"]
     assert "secret detail" not in str(session.get(sid))
+
+
+def test_the_client_reads_the_plain_summary_not_the_builders_notes(world):
+    sid = session.start("x")
+    approved(sid)
+    assert wait(sid, "live")["summary"] == "Your sheet is ready."
+
+
+def test_a_failed_summary_still_goes_live_without_the_notes(world, monkeypatch):
+    def broken(*a):
+        raise RuntimeError("no credit")
+    monkeypatch.setattr(session, "plain_summary", broken)
+    sid = session.start("x")
+    approved(sid)
+    got = wait(sid, "live")
+    assert got["summary"] == session.READY and "no credit" not in str(got)
 
 
 def test_a_crash_is_reported_without_details(world, monkeypatch):
