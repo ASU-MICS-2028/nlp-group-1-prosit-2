@@ -1,0 +1,107 @@
+{
+  "request": "I run a small animal shelter. I need to keep a list of pets with their name and kind, see all of them, and mark a pet as adopted.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "search": false,
+  "stop": "end_turn",
+  "turns": 3,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "edit_file",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "edit_file",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "edit_file",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 10,
+    "out": 4552,
+    "cache_write": 4941,
+    "cache_read": 8524
+  },
+  "cost_usd": 0.1192,
+  "seconds": 40.2,
+  "tests": {
+    "passed": 17,
+    "failed": 0
+  },
+  "summary": "I've built the pet list app and added the colour you asked for. All 17 automatic tests pass. Each pet has a name, a kind, a colour and whether it has been adopted, and the list is saved in a file called `pets.db`.\n\n**What it does:**\n- **POST /pets** adds a pet. You must give a name, a kind and a colour. If any of them is missing or blank, the pet is refused and an error is returned. Every new pet starts as not adopted, even if the request says otherwise. When it works, you get back the new pet with its id number.\n- **GET /pets** shows every pet with its id, name, kind, colour and whether it's adopted, in the order they were added.\n- **PATCH /pets/{id}/adopted** marks a pet as adopted and returns the updated pet. It's refused if no pet has that id number, or if the pet is already marked as adopted.\n\n**Pets saved before the colour change:** any pets already in the list from before will show a blank colour. There's no way to fill it in yet, because editing a pet isn't in the plan.\n\nThe questions in the plan are still open: should only staff be able to see or change the list, do you want to be able to fix or remove a pet, and should the adoption date be recorded? Adding a way to edit pets would also let you fill in those blank colours.",
+  "plan": {
+    "summary": "This plan keeps a simple list of the pets at your shelter. For each pet we store its name, its kind (for example dog or cat), and whether it has been adopted yet. You will be able to add a new pet, see the whole list, and mark a pet as adopted. Nothing else is included, so there is no sign-in and no way to edit or remove a pet. A few questions for you: Should anyone be able to see or change this list, or only shelter staff? (We left out any sign-in because you did not ask for one.) Do you also want to be able to fix a typo in a pet's details or remove a pet from the list? Would it help to record the date a pet was adopted? Just tell us and we can add any of these.",
+    "data": [
+      {
+        "name": "Pet",
+        "fields": [
+          "id: a number the system gives each pet automatically so it can be told apart from the others",
+          "name: the pet's name, for example Bella",
+          "kind: what sort of animal it is, for example dog or cat",
+          "adopted: yes or no; starts as no when the pet is added"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/pets",
+        "does": "Adds a new pet to the list using the name and kind you give. The pet starts as not adopted."
+      },
+      {
+        "method": "GET",
+        "path": "/pets",
+        "does": "Shows every pet on the list, with its name, kind, and whether it has been adopted."
+      },
+      {
+        "method": "PATCH",
+        "path": "/pets/{id}/adopted",
+        "does": "Marks one pet, picked by its id number, as adopted."
+      }
+    ],
+    "rules": [
+      "A new pet must have a name. If the name is missing or blank, it is refused.",
+      "A new pet must have a kind. If the kind is missing or blank, it is refused.",
+      "Marking a pet as adopted is refused if no pet has that id number.",
+      "Marking a pet as adopted is refused if that pet is already marked as adopted."
+    ]
+  },
+  "change": null,
+  "follows_plan": {
+    "missing": [],
+    "extra": []
+  }
+}

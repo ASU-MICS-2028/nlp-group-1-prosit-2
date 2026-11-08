@@ -1,0 +1,498 @@
+{
+  "table": {
+    "as live today": {
+      "builds": 8,
+      "enforced": 8,
+      "cost_usd": 1.24,
+      "avg_turns": 3.4
+    },
+    "stronger wording": {
+      "builds": 8,
+      "enforced": 8,
+      "cost_usd": 1.2,
+      "avg_turns": 3.4
+    }
+  },
+  "plans": {
+    "animal_shelter": {
+      "summary": "This plan keeps a simple list of the pets at your shelter. For each pet we store its name, its kind (for example dog or cat), and whether it has been adopted yet. You will be able to add a new pet, see the whole list, and mark a pet as adopted. Nothing else is included, so there is no sign-in and no way to edit or remove a pet. A few questions for you: Should anyone be able to see or change this list, or only shelter staff? (We left out any sign-in because you did not ask for one.) Do you also want to be able to fix a typo in a pet's details or remove a pet from the list? Would it help to record the date a pet was adopted? Just tell us and we can add any of these.",
+      "data": [
+        {
+          "name": "Pet",
+          "fields": [
+            "id: a number the system gives each pet automatically so it can be told apart from the others",
+            "name: the pet's name, for example Bella",
+            "kind: what sort of animal it is, for example dog or cat",
+            "adopted: yes or no; starts as no when the pet is added"
+          ]
+        }
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/pets",
+          "does": "Adds a new pet to the list using the name and kind you give. The pet starts as not adopted."
+        },
+        {
+          "method": "GET",
+          "path": "/pets",
+          "does": "Shows every pet on the list, with its name, kind, and whether it has been adopted."
+        },
+        {
+          "method": "PATCH",
+          "path": "/pets/{id}/adopted",
+          "does": "Marks one pet, picked by its id number, as adopted."
+        }
+      ],
+      "rules": [
+        "A new pet must have a name. If the name is missing or blank, it is refused.",
+        "A new pet must have a kind. If the kind is missing or blank, it is refused.",
+        "Marking a pet as adopted is refused if no pet has that id number.",
+        "Marking a pet as adopted is refused if that pet is already marked as adopted."
+      ]
+    },
+    "church_signup": {
+      "summary": "This plan lets your church keep a list of events (like choir practice, youth camp and harvest day) and lets people sign up for them. You can add an event with its name, date and how many people can come. People sign up with their name and phone number. You can see all events, look at one event, and see who has signed up. Once an event is full, the system will turn away any further sign-ups. Everything in your request is about the backend, so nothing was left out. A few questions for you to consider (not included in this plan unless you ask): Phone numbers are personal information. Should only church organisers be able to see the sign-up list, or is it fine for anyone to see it? Do you want a way to change or delete an event, or to cancel a sign-up? Should the same person be stopped from signing up twice for the same event? Should sign-ups be refused for events whose date has already passed?",
+      "data": [
+        {
+          "name": "Event",
+          "fields": [
+            "Event number (given automatically so each event can be found)",
+            "Name of the event (for example, Youth Camp)",
+            "Date of the event",
+            "How many people can come (the limit)"
+          ]
+        },
+        {
+          "name": "Sign-up",
+          "fields": [
+            "Sign-up number (given automatically)",
+            "Which event it is for",
+            "Person's name",
+            "Person's phone number"
+          ]
+        }
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/events",
+          "does": "Adds a new event, using its name, date and how many people can come."
+        },
+        {
+          "method": "GET",
+          "path": "/events",
+          "does": "Shows the list of all events."
+        },
+        {
+          "method": "GET",
+          "path": "/events/{eventId}",
+          "does": "Shows the details of one event: its name, date, how many people can come, and how many places are left."
+        },
+        {
+          "method": "POST",
+          "path": "/events/{eventId}/signups",
+          "does": "Signs a person up for one event, using their name and phone number."
+        },
+        {
+          "method": "GET",
+          "path": "/events/{eventId}/signups",
+          "does": "Shows everyone who has signed up for one event, with their names and phone numbers."
+        }
+      ],
+      "rules": [
+        "When an event is full (the number of sign-ups has reached how many people can come), refuse any more sign-ups for it and explain that the event is full.",
+        "Refuse to add an event if its name, date or number of people who can come is missing.",
+        "Refuse to add an event if the number of people who can come is not a whole number greater than zero.",
+        "Refuse to add an event if the date is not a real date.",
+        "Refuse a sign-up if the person's name or phone number is missing.",
+        "Refuse a sign-up for an event that does not exist.",
+        "When someone asks to see an event or its sign-ups and that event does not exist, say it was not found."
+      ]
+    },
+    "library_catalogue": {
+      "summary": "This plan sets up a simple online catalogue for the school library. The librarian can add books (title, author and number of copies owned). Students can see the list of all books, open one book to see how many copies are still on the shelf, borrow a copy by giving their name, and return it when they are done. The system keeps track of who has borrowed which book, so it can stop someone from returning a book they never borrowed, and it stops anyone from borrowing a book when every copy is already out. Nothing in your request was unsafe or outside the scope of the backend, so nothing was left out. A few questions for you to consider (these are NOT included in the plan unless you ask for them): (1) Right now anyone could act as the librarian and add books, and anyone could borrow or return using any name. Would you like some way to check who is the librarian or who a student is? (2) Students' names will be stored with their loans. Should other students be able to see who borrowed what, or should that stay private? (3) Should the librarian be able to change or remove a book, or see a list of everything currently borrowed? (4) Should two students with the same name be told apart somehow, for example by class?",
+      "data": [
+        {
+          "name": "Book",
+          "fields": [
+            "Book number (given automatically, used to find the book)",
+            "Title",
+            "Author",
+            "Number of copies the library owns",
+            "Number of copies still on the shelf (worked out from the copies owned minus the copies currently borrowed)"
+          ]
+        },
+        {
+          "name": "Loan",
+          "fields": [
+            "Loan number (given automatically)",
+            "Which book was borrowed",
+            "Name of the student who borrowed it",
+            "Date and time it was borrowed",
+            "Date and time it was returned (empty while the book is still out)"
+          ]
+        }
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/books",
+          "does": "The librarian adds a new book by giving its title, its author and how many copies the library owns."
+        },
+        {
+          "method": "GET",
+          "path": "/books",
+          "does": "Shows the list of all books in the library."
+        },
+        {
+          "method": "GET",
+          "path": "/books/{bookId}",
+          "does": "Shows one book: its title, author, how many copies the library owns and how many are still on the shelf."
+        },
+        {
+          "method": "POST",
+          "path": "/books/{bookId}/borrow",
+          "does": "A student borrows one copy of this book by giving their name. One fewer copy is then on the shelf."
+        },
+        {
+          "method": "POST",
+          "path": "/books/{bookId}/return",
+          "does": "A student returns a copy of this book they borrowed by giving their name. One more copy is then back on the shelf."
+        }
+      ],
+      "rules": [
+        "A book cannot be added without a title.",
+        "A book cannot be added without an author.",
+        "The number of copies owned must be a whole number of at least 1.",
+        "A student cannot borrow a book without giving their name.",
+        "A book cannot be borrowed when every copy is already out; the student is told no copies are on the shelf.",
+        "A student cannot return a book unless they currently have a copy of that book borrowed under that name.",
+        "Borrowing, returning or looking at a book that does not exist in the catalogue is refused with a message saying the book was not found."
+      ]
+    },
+    "tailoring_orders": {
+      "summary": "This plan keeps a record of your customers, with their name, phone number and measurements in inches, and the orders you take for each of them, with the garment, due date, price and deposit in cedis. You can add customers, add orders for a customer, see all orders for one customer, look at a single order, see every order due on or before a date you choose, and mark an order as collected. Collected orders drop off the due list. Nothing in your request was unsafe or outside the backend, so nothing was left out. Some questions for you, which are not in the plan unless you ask for them: (1) Customer phone numbers and measurements are personal. Should anyone other than you be allowed to see them? (2) Do you need to change a customer's measurements or details later, for example if they gain or lose weight? (3) Do you want a way to look up or list all your customers, for example by name or phone number? (4) Should prices and deposits be stopped from being below zero, and should measurements be stopped from being zero or below zero?",
+      "data": [
+        {
+          "name": "Customer",
+          "fields": [
+            "Customer number (given automatically so each customer can be found)",
+            "Name",
+            "Phone number",
+            "Chest (inches)",
+            "Waist (inches)",
+            "Hip (inches)",
+            "Length (inches)"
+          ]
+        },
+        {
+          "name": "Order",
+          "fields": [
+            "Order number (given automatically so each order can be found)",
+            "Which customer the order is for",
+            "Garment (for example, kaba and slit, or a shirt)",
+            "Date it is due",
+            "Price (cedis)",
+            "Deposit paid (cedis)",
+            "Collected (yes or no; starts as no)"
+          ]
+        }
+      ],
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/customers",
+          "does": "Saves a new customer with their name, phone number and their chest, waist, hip and length measurements in inches."
+        },
+        {
+          "method": "POST",
+          "path": "/customers/{customerId}/orders",
+          "does": "Takes a new order for a customer, with the garment, the due date, the price and the deposit paid in cedis. The order starts as not collected."
+        },
+        {
+          "method": "GET",
+          "path": "/customers/{customerId}/orders",
+          "does": "Shows all the orders for one customer."
+        },
+        {
+          "method": "GET",
+          "path": "/orders/{orderId}",
+          "does": "Shows one order with all its details."
+        },
+        {
+          "method": "GET",
+          "path": "/orders/due?date={date}",
+          "does": "Shows every order that is due on or before the date you choose and has not been collected yet, so you know what to finish first."
+        },
+        {
+          "method": "PATCH",
+          "path": "/orders/{orderId}/collected",
+          "does": "Marks an order as collected when the customer picks up their clothes."
+        }
+      ],
+      "rules": [
+        "An order is refused if the deposit is more than the price.",
+        "Collected orders never appear in the list of orders due on or before a chosen date."
+      ]
+    }
+  },
+  "rows": [
+    {
+      "arm": "as live today",
+      "task": "animal_shelter",
+      "repeat": 1,
+      "stop": "end_turn",
+      "turns": 3,
+      "cost_usd": 0.1078,
+      "seconds": 38.0,
+      "tests": {
+        "passed": 6,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "{'with it': 201, 'without it': 422, 'left blank': 422}",
+      "schema_only_said": false
+    },
+    {
+      "arm": "as live today",
+      "task": "church_signup",
+      "repeat": 1,
+      "stop": "end_turn",
+      "turns": 3,
+      "cost_usd": 0.1741,
+      "seconds": 55.1,
+      "tests": {
+        "passed": 30,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "{'with it': 201, 'without it': 422, 'left blank': 422}",
+      "schema_only_said": true
+    },
+    {
+      "arm": "as live today",
+      "task": "tailoring_orders",
+      "repeat": 1,
+      "stop": "end_turn",
+      "turns": 5,
+      "cost_usd": 0.1826,
+      "seconds": 56.1,
+      "tests": {
+        "passed": 12,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "{'with it': 201, 'without it': 422, 'left blank': 422}",
+      "schema_only_said": true
+    },
+    {
+      "arm": "as live today",
+      "task": "library_catalogue",
+      "repeat": 1,
+      "stop": "end_turn",
+      "turns": 3,
+      "cost_usd": 0.1915,
+      "seconds": 56.5,
+      "tests": {
+        "passed": 7,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "no way to add left",
+      "schema_only_said": true
+    },
+    {
+      "arm": "as live today",
+      "task": "animal_shelter",
+      "repeat": 2,
+      "stop": "end_turn",
+      "turns": 3,
+      "cost_usd": 0.1192,
+      "seconds": 40.2,
+      "tests": {
+        "passed": 17,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "{'with it': 201, 'without it': 422, 'left blank': 422}",
+      "schema_only_said": true
+    },
+    {
+      "arm": "as live today",
+      "task": "church_signup",
+      "repeat": 2,
+      "stop": "end_turn",
+      "turns": 4,
+      "cost_usd": 0.1666,
+      "seconds": 62.5,
+      "tests": {
+        "passed": 27,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "{'with it': 201, 'without it': 422, 'left blank': 422}",
+      "schema_only_said": true
+    },
+    {
+      "arm": "as live today",
+      "task": "tailoring_orders",
+      "repeat": 2,
+      "stop": "end_turn",
+      "turns": 3,
+      "cost_usd": 0.1242,
+      "seconds": 48.7,
+      "tests": {
+        "passed": 8,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "{'with it': 201, 'without it': 422, 'left blank': 400}",
+      "schema_only_said": true
+    },
+    {
+      "arm": "as live today",
+      "task": "library_catalogue",
+      "repeat": 2,
+      "stop": "end_turn",
+      "turns": 3,
+      "cost_usd": 0.1742,
+      "seconds": 59.9,
+      "tests": {
+        "passed": 8,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "no way to add left",
+      "schema_only_said": true
+    },
+    {
+      "arm": "stronger wording",
+      "task": "animal_shelter",
+      "repeat": 1,
+      "stop": "end_turn",
+      "turns": 3,
+      "cost_usd": 0.1032,
+      "seconds": 34.7,
+      "tests": {
+        "passed": 14,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "{'with it': 201, 'without it': 422, 'left blank': 422}",
+      "schema_only_said": false
+    },
+    {
+      "arm": "stronger wording",
+      "task": "church_signup",
+      "repeat": 1,
+      "stop": "end_turn",
+      "turns": 4,
+      "cost_usd": 0.1674,
+      "seconds": 53.3,
+      "tests": {
+        "passed": 31,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "{'with it': 201, 'without it': 422, 'left blank': 422}",
+      "schema_only_said": true
+    },
+    {
+      "arm": "stronger wording",
+      "task": "tailoring_orders",
+      "repeat": 1,
+      "stop": "end_turn",
+      "turns": 3,
+      "cost_usd": 0.1301,
+      "seconds": 41.4,
+      "tests": {
+        "passed": 9,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "{'with it': 201, 'without it': 422, 'left blank': 422}",
+      "schema_only_said": true
+    },
+    {
+      "arm": "stronger wording",
+      "task": "library_catalogue",
+      "repeat": 1,
+      "stop": "end_turn",
+      "turns": 4,
+      "cost_usd": 0.1981,
+      "seconds": 60.8,
+      "tests": {
+        "passed": 8,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "no way to add left",
+      "schema_only_said": true
+    },
+    {
+      "arm": "stronger wording",
+      "task": "animal_shelter",
+      "repeat": 2,
+      "stop": "end_turn",
+      "turns": 3,
+      "cost_usd": 0.0985,
+      "seconds": 33.8,
+      "tests": {
+        "passed": 15,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "{'with it': 201, 'without it': 422, 'left blank': 422}",
+      "schema_only_said": true
+    },
+    {
+      "arm": "stronger wording",
+      "task": "church_signup",
+      "repeat": 2,
+      "stop": "end_turn",
+      "turns": 4,
+      "cost_usd": 0.1579,
+      "seconds": 51.1,
+      "tests": {
+        "passed": 30,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "{'with it': 201, 'without it': 422, 'left blank': 422}",
+      "schema_only_said": true
+    },
+    {
+      "arm": "stronger wording",
+      "task": "tailoring_orders",
+      "repeat": 2,
+      "stop": "end_turn",
+      "turns": 3,
+      "cost_usd": 0.1378,
+      "seconds": 41.6,
+      "tests": {
+        "passed": 10,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "{'with it': 201, 'without it': 422, 'left blank': 422}",
+      "schema_only_said": true
+    },
+    {
+      "arm": "stronger wording",
+      "task": "library_catalogue",
+      "repeat": 2,
+      "stop": "end_turn",
+      "turns": 3,
+      "cost_usd": 0.2031,
+      "seconds": 60.4,
+      "tests": {
+        "passed": 9,
+        "failed": 0
+      },
+      "enforced": true,
+      "why": "no way to add left",
+      "schema_only_said": true
+    }
+  ]
+}

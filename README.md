@@ -5,9 +5,7 @@
 
 ### Alice (W1)
 
-| Task | Status | Done when |
-|---|---|---|
-| S4.8 Plain-word summaries; follow mid-build messages properly | 🔵 ready | The final summary has no technical words, the client can tell what they got, and a message saying "must" is enforced in the live backend. All 15 tasks re-scored: no lower than 95.8% |
+Nothing left of your own: see Everyone.
 
 ### Bernard (W2)
 
