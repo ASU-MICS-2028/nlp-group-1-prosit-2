@@ -51,6 +51,7 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 
 | Question | Files | Result |
 |---|---|---|
+| What did each agent build cost, and how long did it take? | `runs/<run>/<task>/run.json` and `questions.json` (Alice's builds, S3.3 to S4.8) · `run_totals.json` (added up per run) | The totals of her six full 15-task runs match her learnings file |
 | **Does every written number match a file? Row by row, for everyone** | `AUDIT.md` · `audit_numbers.json` | 105 of 105 |
 | Does everything free give the same result again? | `replicated/` | Yes, apart from timings: see `AUDIT.md` |
 | Does the read limit hurt changes to big apps? | `read_limit/cut.json` · `read_limit/full.json`, with traces and final apps | Same results; no cut: 13 turns, $0.35 vs 24 turns, $0.43 |
@@ -58,4 +59,4 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 
 ## Not here
 
-The apps themselves are in `projects/`, which git ignores. So is each build's `run.json` (its time and cost), and those live on the laptop that ran them.
+The apps themselves are in `projects/`, which git ignores, on the laptop that built them. The exception is the fresh run, whose apps are in `fresh1/`. Each build's time and cost is saved: see `runs/` and `run_totals.json`.

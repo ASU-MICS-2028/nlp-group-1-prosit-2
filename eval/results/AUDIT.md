@@ -33,7 +33,7 @@ Files: `runtime/experiments/results/` (originals), `replicated/` (re-runs). Bern
 
 ## Alice (W1): 12 rows
 
-Every score matches its file (`harness/s3*.json`). **Her cost and time figures are not in any file yet**: they are in each build's `run.json` on her laptop (requested, Nov 6).
+Every score matches its file (`harness/s3*.json`). **Update, Nov 8:** her `run.json` files are now in `runs/`. The build cost and average time of her six full 15-task runs (`s34`, `s35`, `s35v2`, `s36_split`, `s37_search`, `s38_list_all`) match her rows: see `run_totals.json`. The last column below is what was missing before that.
 
 | Row | Question | Mark | Scores checked | Still needs her `run.json` |
 |---|---|---|---|---|
@@ -96,6 +96,6 @@ Behaviour checks of coding assistants and guides (`learnings/00-repo-setup.md`).
 
 ## Open items
 
-1. **Alice's `run.json` files** back every cost and time figure in her rows. Until they arrive, those numbers rest on her write-up alone.
+1. **Alice's `run.json` files** arrived on Nov 8 (`runs/`), and the totals of her six full runs match. Her smaller runs were not compared one by one.
 2. **Files over the read limit: tested and fixed (W4 row 36, decision 0052).** Same results, about half the turns and 18% cheaper with no cut. `read_file` now returns up to 20,000 characters.
 3. **No file:** the interim numbers listed above (rows 9, 10, 12, 13, 22). They are history, and re-running them would need old versions of the tool, so do not quote them in the report as measured results without saying so.
