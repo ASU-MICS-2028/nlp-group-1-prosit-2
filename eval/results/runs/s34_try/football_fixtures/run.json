@@ -1,0 +1,39 @@
+{
+  "request": "I run a community football league in Kumasi and I need to keep track of our fixtures. First we add the teams, each with its name. Then we schedule a fixture on a date between a home team and an away team, and of course a team cannot play against itself. After the match we record the score, meaning how many goals each side scored, and a score can never be negative. We also want to see all the fixtures of one team, whether that team plays at home or away.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 3777,
+    "cache_write": 5038,
+    "cache_read": 1433
+  },
+  "cost_usd": 0.1819,
+  "seconds": 60.2,
+  "tests": {
+    "passed": 11,
+    "failed": 0
+  },
+  "summary": "I've built the fixtures system for your league. All 11 of my automated checks pass. Everything is saved in a file called `league.db` in the project folder, so your data stays there when the app restarts.\n\n**What it can do:**\n- **Add a team:** `POST /teams` with `{\"name\": \"Asante Stars\"}`. A blank name is refused.\n- **See all teams:** `GET /teams`.\n- **Schedule a fixture:** `POST /fixtures` with `{\"date\": \"2025-03-01\", \"home_team_id\": 1, \"away_team_id\": 2}`. The date must be written as year-month-day.\n  - A team can't be scheduled to play itself.\n  - A fixture with a team that hasn't been added yet is refused.\n- **Record the score:** `PUT /fixtures/{id}/score` with `{\"home_goals\": 2, \"away_goals\": 0}`. A negative score is refused, and the fixture keeps its previous score. Sending a score again for the same fixture replaces the old one, so you can fix a typo.\n- **See one team's fixtures:** `GET /teams/{id}/fixtures` lists every match that team plays, home or away, in date order. Matches that haven't been played yet show no score.\n\n**Things to know:**\n- Teams and fixtures are identified by a number that the app gives each one when you add it. You use that number when scheduling a match or recording a score.\n- There's no way to edit or delete a team or a fixture, since you didn't ask for that.\n- Anyone who can reach the app can add or change data, because there is no login."
+}

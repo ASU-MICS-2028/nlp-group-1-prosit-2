@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Do you take measurements once per customer, or do you need to record new measurements with each order (for example, if they change or differ by garment)?",
+    "When a customer pays more money after the first deposit, should I let you update the amount paid on the order, or does the deposit stay fixed once entered?",
+    "Can two customers share the same phone number, or should each phone number belong to only one customer?"
+  ],
+  "answers": [
+    "No, measurements are kept on the customer.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0076
+}

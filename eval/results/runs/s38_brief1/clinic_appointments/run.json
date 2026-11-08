@@ -1,0 +1,41 @@
+{
+  "request": "We run a small clinic in Tamale with a few doctors, and we want patients to book appointments. We need to add each doctor with their name and what they specialise in, and see the list of doctors. A patient books with a doctor by giving their name, the date and the time slot, for example 09:00 or 14:30. A doctor cannot have two appointments on the same date in the same time slot, so a second booking for that slot must be refused, but a different doctor can still be booked for it. We want to see all of one doctor's appointments for a particular day. If a patient cancels, the appointment is removed and the slot becomes free for someone else to book.\n\nThe client's answers to your questions:\nQ: Which time slots can be booked: any time a patient types, or only fixed slots (for example every 30 minutes between 08:00 and 17:00)? If fixed, what are the opening hours and the slot length, and are any days closed?\nA: No preference: you decide.\nQ: Is the patient's name enough, or should we also record a phone number or other contact detail with each booking?\nA: The patient's name is enough; no other contact details are needed.\nQ: Should bookings for dates that have already passed be refused, and how far ahead can patients book?\nA: No preference: you decide.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 3375,
+    "cache_write": 5064,
+    "cache_read": 1696
+  },
+  "cost_usd": 0.0935,
+  "seconds": 29.4,
+  "tests": {
+    "passed": 4,
+    "failed": 0
+  },
+  "summary": "I've built the booking system for your clinic in a single file, `app.py`. It saves everything in a file called `clinic.db` in the same folder. All 4 groups of automated tests pass. I didn't start the server and try it by hand.\n\n**What it does**\n- **`POST /doctors`** adds a doctor. Send their name and specialty, for example `{\"name\": \"Dr Abu\", \"specialty\": \"General\"}`. If either one is missing, the doctor isn't added.\n- **`GET /doctors`** shows the list of all doctors.\n- **`POST /appointments`** books an appointment. Send the doctor's number, the patient's name, the date and the time slot, for example `{\"doctor_id\": 1, \"patient_name\": \"Ama\", \"date\": \"2030-05-01\", \"time_slot\": \"09:00\"}`.\n  - If that doctor already has a booking at the same date and time, the second booking is refused. Another doctor can still be booked for that slot.\n  - A booking for a doctor who doesn't exist is refused.\n  - A badly written date or time (like \"9am\" or \"25:00\") is refused.\n- **`GET /doctors/{doctor_id}/appointments?date=2030-05-01`** shows one doctor's appointments for that day, earliest first.\n- **`DELETE /appointments/{appointment_id}`** cancels an appointment. It's removed completely, so the slot is free for someone else to book straight away.\n\n**Decisions I made for you**\n- **Time slots:** a patient can book any time on the 24-hour clock, written as hours:minutes (like 09:00 or 14:30). There are no fixed opening hours, set slot lengths or closed days, so a booking at 23:00 or on a Sunday would be accepted.\n- **Dates:** you can book any date, including dates that have already passed, and there's no limit on how far ahead.\n\nIf you'd like limits, like refusing past dates, only allowing your opening hours or closing certain days, those can be added.",
+  "plan": null,
+  "follows_plan": null
+}

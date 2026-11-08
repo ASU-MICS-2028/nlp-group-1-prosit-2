@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Does every member pay the same fixed amount each round, or can each person pay any amount they like? If it is fixed, what is the amount?",
+    "Can a member pay more than once in the same round? And can a round be collected before every member has paid, or must everyone pay first?",
+    "Do rounds have to go in order, so round 2 cannot start until round 1 is collected, or can several rounds be open at once?"
+  ],
+  "answers": [
+    "No fixed amount. Each member can pay any amount they like, as long as it is more than zero with at most 2 decimal places, and members do not have to pay the same amount.",
+    "Yes, a member can pay more than once in the same round, and all of it counts. A round can be collected once it has some money in it, so it does not have to wait until everyone has paid.",
+    "No preference: you decide."
+  ],
+  "client": "brief",
+  "cost_usd": 0.00956
+}

@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Does a route work in both directions at the same fare? For example, is Madina to Circle the same price as Circle to Madina?",
+    "Should only station staff be able to add routes and change fares, while passengers can only look up prices? If so, how should staff sign in, for example with a password?",
+    "If no single route connects two stops, should passengers just be told there is no route, or should the system combine routes, for example Madina to Circle and then Circle to Kaneshie, and add up the fares?"
+  ],
+  "answers": [
+    "Yes. Circle to Madina costs the same as Madina to Circle, so we keep one route for both directions and passengers can ask either way.",
+    "No preference: you decide.",
+    "Say it was not found. Do not try to join two routes together; only direct routes count."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00778
+}

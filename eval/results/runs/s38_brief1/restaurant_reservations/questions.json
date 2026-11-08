@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "How long does one reservation hold a table? For example, if table 3 is booked at 12:00, can someone else book it at 12:30, or only at a completely different time?",
+    "Do you need to cancel or change a reservation after it is made, for example when a customer calls to cancel?",
+    "Should reservations only be allowed during your opening hours or at set times (like every hour or half hour)? If so, what are they?"
+  ],
+  "answers": [
+    "Only the exact same date and start time is blocked for a table. No hold length was given, so no preference: you decide.",
+    "No, cancelling and editing reservations are not needed now.",
+    "No preference: you decide."
+  ],
+  "client": "brief",
+  "cost_usd": 0.00714
+}

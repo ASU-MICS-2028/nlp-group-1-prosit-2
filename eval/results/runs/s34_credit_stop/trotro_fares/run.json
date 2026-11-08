@@ -1,0 +1,20 @@
+{
+  "request": "I help run a trotro station in Accra and I want to keep our routes and fares in one place. Each route goes between two stops, for example Circle to Madina, and has a fare in cedis. I want to add routes and see all of them. Passengers should be able to find out how much it costs to go from one stop to another. Fares go up from time to time, so I need to be able to change the fare of a route.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "error: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CggEszuyQPnDt5Qf7ffQg'}",
+  "turns": 0,
+  "repairs": 0,
+  "tool_calls": [],
+  "tokens": {
+    "in": 0,
+    "out": 0,
+    "cache_write": 0,
+    "cache_read": 0
+  },
+  "cost_usd": 0.0,
+  "seconds": 0.4,
+  "tests": null,
+  "summary": ""
+}

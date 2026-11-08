@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should measurements belong to the customer (one set, updated when they change), or should each order keep its own measurements?",
+    "When a customer pays more before pickup, should you be able to update the deposit, or is it fixed once the order is taken?",
+    "Can two customers share the same phone number, or should each phone number belong to only one customer?"
+  ],
+  "answers": [
+    "No, measurements are kept on the customer.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00987
+}

@@ -1,0 +1,41 @@
+{
+  "request": "I run a small tailoring shop in Kumasi and I want to keep my orders in order. I need to save each customer with their name, phone number and their measurements: chest, waist, hip and length, all in inches. For a customer I take orders, and each order has the garment, the date it is due, the price and the deposit the customer has paid, in cedis. The deposit can never be more than the price. I want to see all the orders for one customer and look at a single order. I also want to see every order that is due on or before a date I choose, so I know what to finish first. When a customer picks up their clothes I mark the order as collected, and collected orders should no longer show in that due list.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 4489,
+    "cache_write": 5746,
+    "cache_read": 1505
+  },
+  "cost_usd": 0.2027,
+  "seconds": 67.0,
+  "tests": {
+    "passed": 8,
+    "failed": 0
+  },
+  "summary": "I've built the backend for your shop in `app.py`. I wrote 8 automated tests covering everything you asked for, and they all pass. Your records are saved in a file called `tailoring.db` in the same folder as the app.\n\n**What it can do:**\n- **`POST /customers`**: save a customer with their name, phone number and measurements (chest, waist, hip and length, in inches). Measurements must be greater than zero.\n- **`GET /customers/{id}`**: look at one customer. Each customer is given an ID number when you save them, and you use that number here.\n- **`POST /customers/{id}/orders`**: add an order for a customer: the garment, the due date (written as year-month-day, e.g. `2030-01-10`), the price and the deposit, in cedis. **If the deposit is more than the price, the order is refused** with an error. Prices and deposits can't be negative, and you can't add an order for a customer who doesn't exist.\n- **`GET /customers/{id}/orders`**: see all orders for one customer.\n- **`GET /orders/{id}`**: look at one order, including whether it has been collected.\n- **`GET /orders/due?on_or_before=2030-01-15`**: see every order due on or before the date you choose, earliest first, so you know what to finish first. Collected orders are left out.\n- **`POST /orders/{id}/collect`**: mark an order as collected when the customer picks it up. It then stops showing in the due list.\n\n**Things to know:**\n- The app can't list all your customers at once, because you didn't ask for that. To look someone up you need their ID number, which the app gives you when you first save them, so keep a note of it. I can add a full customer list if you'd find it useful.\n- Marking an order as collected a second time doesn't cause an error; it just stays collected.",
+  "plan": null,
+  "follows_plan": null
+}

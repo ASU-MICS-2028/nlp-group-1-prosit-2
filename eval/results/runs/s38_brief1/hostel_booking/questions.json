@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a student cancels, how do we make sure it is their own booking? For example, we could give them a booking code when they book, or ask for a phone number or email.",
+    "Should we refuse bookings whose arrival date is already in the past?",
+    "Can the same student hold more than one booking for overlapping nights, in the same room or in different rooms?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "brief",
+  "cost_usd": 0.01138
+}

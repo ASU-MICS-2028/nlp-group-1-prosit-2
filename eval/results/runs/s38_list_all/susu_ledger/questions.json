@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Does every member pay the same fixed amount each round, or can each person pay any amount they like?",
+    "Must every member pay into a round before it can be collected, or can it be collected even if some have not paid? And can one member pay more than once in the same round?",
+    "Is the order of who collects set in advance, or do you choose the collector at the end of each round? And will you run more than one group, with the same person possibly in several?"
+  ],
+  "answers": [
+    "No, record whatever each member actually paid; the pot is the total paid in for that round.",
+    "Yes, sometimes people pay in two parts; all of it counts toward that round.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00992
+}

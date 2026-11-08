@@ -1,0 +1,49 @@
+{
+  "request": "We run a small clinic in Tamale with a few doctors, and we want patients to book appointments. We need to add each doctor with their name and what they specialise in, and see the list of doctors. A patient books with a doctor by giving their name, the date and the time slot, for example 09:00 or 14:30. A doctor cannot have two appointments on the same date in the same time slot, so a second booking for that slot must be refused, but a different doctor can still be booked for it. We want to see all of one doctor's appointments for a particular day. If a patient cancels, the appointment is removed and the slot becomes free for someone else to book.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 3,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": false
+    },
+    {
+      "turn": 1,
+      "tool": "edit_file",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 8,
+    "out": 4155,
+    "cache_write": 6055,
+    "cache_read": 6889
+  },
+  "cost_usd": 0.1947,
+  "seconds": 63.2,
+  "tests": {
+    "passed": 6,
+    "failed": 0
+  },
+  "summary": "I've built the clinic booking system. All 6 tests pass, covering everything you described. Its data is saved in a file called `clinic.db` in the same folder.\n\n**What it can do:**\n\n- **Add a doctor:** `POST /doctors` with a name and `specialty` (what they specialise in). Every doctor gets an ID number.\n- **See the list of doctors:** `GET /doctors`.\n- **Book an appointment:** `POST /appointments` with the doctor's ID, the patient's name, the date (like `2025-03-10`) and the time slot (like `09:00` or `14:30`).\n  - If that doctor already has a booking in that slot on that date, the booking is refused with a clear \"slot taken\" error.\n  - A different doctor can still be booked for the same slot.\n  - It also refuses a booking for a doctor that doesn't exist, or with a badly written date, time or name (for example `9am` or `25:00`).\n- **See one doctor's appointments for a day:** `GET /doctors/{doctor_id}/appointments?date=2025-03-10`. They come back in time order.\n- **Cancel an appointment:** `DELETE /appointments/{appointment_id}`. This removes the appointment so someone else can book that slot.\n\n**One fix I made during testing:** at first, a cancelled appointment's ID number could be given to the next new booking. Then an old ID could point to a different patient's appointment. Now an ID is never used twice."
+}

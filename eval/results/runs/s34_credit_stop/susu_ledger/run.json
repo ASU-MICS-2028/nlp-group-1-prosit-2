@@ -1,0 +1,20 @@
+{
+  "request": "I run a susu group at the market in Kumasi and I want to stop keeping the records in an exercise book. I need to start a group and add the members, each with their name and phone number. Every round, members pay in their contribution, and I record who paid, for which round, and how much in cedis. At the end of a round one member collects the pot, and the pot is everything that was paid in for that round, nothing more and nothing less. Each round has only one collector, and a member can collect only once, so if someone has already collected, they cannot collect again. Once a round has been collected, nobody can pay more into that round, and a round where nobody has paid anything cannot be collected. Contributions must be more than zero. For any member I want a statement showing how much they have paid in altogether and how much they have received. I also want to see the list of members and the collections made so far.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "error: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CggEr6G8ezpTBTnBrd2xy'}",
+  "turns": 0,
+  "repairs": 0,
+  "tool_calls": [],
+  "tokens": {
+    "in": 0,
+    "out": 0,
+    "cache_write": 0,
+    "cache_read": 0
+  },
+  "cost_usd": 0.0,
+  "seconds": 25.8,
+  "tests": null,
+  "summary": ""
+}

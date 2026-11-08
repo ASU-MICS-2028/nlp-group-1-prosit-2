@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should anyone be able to add events, or only certain people (for example, church staff with a password)?",
+    "Can someone sign up more than once for the same event with the same phone number? Or can one sign-up bring extra people, like family members, who count toward the limit?",
+    "Can people cancel their sign-up to free up the spot? And when an event is full, should people be turned away or added to a waiting list?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "Refuse the sign-up and say the event is full."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00838
+}

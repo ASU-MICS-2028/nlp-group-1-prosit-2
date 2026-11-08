@@ -1,0 +1,109 @@
+{
+  "request": "I run a small tailoring shop in Kumasi and I want to keep my orders in order. I need to save each customer with their name, phone number and their measurements: chest, waist, hip and length, all in inches. For a customer I take orders, and each order has the garment, the date it is due, the price and the deposit the customer has paid, in cedis. The deposit can never be more than the price. I want to see all the orders for one customer and look at a single order. I also want to see every order that is due on or before a date I choose, so I know what to finish first. When a customer picks up their clothes I mark the order as collected, and collected orders should no longer show in that due list.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 4130,
+    "cache_write": 6691,
+    "cache_read": 2567
+  },
+  "cost_usd": 0.1171,
+  "seconds": 32.8,
+  "tests": {
+    "passed": 11,
+    "failed": 0
+  },
+  "summary": "I've built the system for your shop, with the six endpoints in your approved plan. I wrote 11 automated tests covering everything you asked for, and they all pass. Your records are saved in a file called `tailoring.db` in the project folder.\n\n**What you can do:**\n- **`POST /customers`** adds a customer with their name, phone number, and chest, waist, hip and length measurements in inches. Each customer gets a number automatically.\n- **`POST /customers/{customerId}/orders`** adds an order for that customer: the garment, the due date (written like `2024-06-10`), the price and the deposit in cedis. Every new order starts as not collected.\n- **`GET /customers/{customerId}/orders`** shows all of one customer's orders, earliest due date first.\n- **`GET /orders/{orderId}`** shows one order.\n- **`GET /orders/due?by=2024-06-10`** shows every order that is due on or before the date you choose and hasn't been collected yet, earliest first. This is your \"what to finish first\" list.\n- **`PATCH /orders/{orderId}/collected`** marks an order as collected, and it drops off the due list.\n\n**What the system refuses:**\n- An order whose deposit is more than the price. A deposit equal to the price is accepted.\n- An order for a customer who doesn't exist, or a request for a customer or order number that doesn't exist.\n- I added some basic checks you didn't ask for:\n  - A customer must have a name and phone number.\n  - Measurements must be above zero.\n  - An order must name the garment.\n  - The price and deposit can't be negative.\n  - The due date must be a real date.\n\n**Still open:** the plan raised three questions that aren't built:\n- Should customers' phone numbers and measurements be kept private? Right now anyone who can reach the system can see them.\n- Do you need to change measurements or order details after saving them?\n- Do you want a way to list or look up your customers?\n\nLet me know if you want any of these added.",
+  "plan": {
+    "summary": "This plan sets up a simple system for your tailoring shop in Kumasi. It keeps a record of each customer (name, phone number and measurements in inches) and each order a customer places (garment, due date, price and deposit in cedis). You will be able to add customers, add orders for a customer, see all orders for one customer, look at a single order, see every order due on or before a date you choose (so you know what to finish first), and mark an order as collected when the customer picks up their clothes. Collected orders will no longer appear in the due list. Everything you asked for is included, and nothing was left out. A few questions for you to consider (these are not in the plan unless you ask for them): Should anyone other than you be able to see customers' phone numbers and measurements, or should this information be kept private? Do you need to update a customer's measurements or an order's details after they are saved? Do you want a way to look up or list your customers, for example by name or phone number?",
+    "data": [
+      {
+        "name": "Customer",
+        "fields": [
+          "Customer number (given automatically so each customer can be found)",
+          "Name",
+          "Phone number",
+          "Chest measurement (inches)",
+          "Waist measurement (inches)",
+          "Hip measurement (inches)",
+          "Length measurement (inches)"
+        ]
+      },
+      {
+        "name": "Order",
+        "fields": [
+          "Order number (given automatically so each order can be found)",
+          "Which customer the order belongs to",
+          "Garment (what is being made)",
+          "Due date",
+          "Price (cedis)",
+          "Deposit paid (cedis)",
+          "Collected (yes or no; starts as no)"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/customers",
+        "does": "Saves a new customer with their name, phone number and their chest, waist, hip and length measurements in inches."
+      },
+      {
+        "method": "POST",
+        "path": "/customers/{customerId}/orders",
+        "does": "Saves a new order for a customer, with the garment, due date, price and deposit paid in cedis. The order starts as not collected."
+      },
+      {
+        "method": "GET",
+        "path": "/customers/{customerId}/orders",
+        "does": "Shows all the orders for one customer."
+      },
+      {
+        "method": "GET",
+        "path": "/orders/{orderId}",
+        "does": "Shows the details of one single order."
+      },
+      {
+        "method": "GET",
+        "path": "/orders/due?by={date}",
+        "does": "Shows every order that is due on or before the date you choose and has not yet been collected, so you know what to finish first."
+      },
+      {
+        "method": "PATCH",
+        "path": "/orders/{orderId}/collected",
+        "does": "Marks an order as collected when the customer picks up their clothes. After this it no longer appears in the due list."
+      }
+    ],
+    "rules": [
+      "Refuse to save an order if the deposit is more than the price.",
+      "Refuse to save an order for a customer who does not exist.",
+      "Collected orders must not appear in the list of orders due on or before a chosen date."
+    ]
+  },
+  "follows_plan": {
+    "missing": [],
+    "extra": []
+  }
+}

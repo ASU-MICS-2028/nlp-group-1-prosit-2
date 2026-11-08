@@ -1,0 +1,41 @@
+{
+  "request": "I am the exams officer at a small college in Cape Coast and I want to keep our students' results in one place instead of in spreadsheets. We need to register our students and the courses we teach. Lecturers enter each student's score for a course, out of 100. For each student we want to see their results, with the grade for every course they have a score in, and their overall GPA. Sometimes a lecturer makes a mistake and enters a score again, and then the new score is the one that counts. Scores below 0 or above 100 should not be accepted.\n\nThe client's answers to your questions:\nQ: What grading scale do you use? Please list each grade, the score range for it, and its grade points (for example, 80\u2013100 = A = 4.0).\nA: 80-100 = A = 4.0; 75-79 = B+ = 3.5; 70-74 = B = 3.0; 65-69 = C+ = 2.5; 60-64 = C = 2.0; 55-59 = D+ = 1.5; 50-54 = D = 1.0; 0-49 = F = 0.0.\nQ: Should the GPA give more weight to courses with more credit hours? If so, how many credit hours does each course have, or should we record that when registering a course?\nA: Yes. GPA is weighted by credit hours. Each course's credit hours are recorded when the course is registered, as a whole number from 1 to 6.\nQ: Should results be split by semester or academic year, with a GPA for each semester as well as an overall GPA, or is a single overall GPA enough?\nA: A single overall GPA is enough. It covers every course the student has a score in, with no split by semester or year.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 5631,
+    "cache_write": 6993,
+    "cache_read": 1822
+  },
+  "cost_usd": 0.1483,
+  "seconds": 45.7,
+  "tests": {
+    "passed": 21,
+    "failed": 0
+  },
+  "summary": "I've built the results system in `app.py`. All 21 automated tests pass. Results are saved in a file called `results.db` in the same folder.\n\n**What it does**\n\n- **Register students:** each student needs a student number and a name. Duplicate student numbers and blank names are refused. You can list all students or look one up.\n- **Register courses:** each course needs a course code, a title and its credit hours. Credit hours must be a whole number from 1 to 6, and duplicate course codes are refused. You can list all courses or look one up.\n- **Enter scores:** a lecturer enters a score out of 100 for one student in one course, and gets back the grade straight away.\n  - Scores below 0 or above 100 are refused.\n  - If a score is entered again for the same student and course, the new score replaces the old one.\n  - Scores can have decimals. Something like 79.5 gets the grade for the band it falls in (B+), with no rounding up.\n- **See a student's results:** for every course they have a score in, it shows the score, grade and grade points, plus their total credit hours and overall GPA.\n  - GPA is weighted by credit hours and rounded to 2 decimal places.\n  - Courses with no score for that student are left out.\n  - If the student has no scores yet, the GPA shows as empty.\n\n**Grading scale used:** 80\u2013100 A (4.0), 75\u201379 B+ (3.5), 70\u201374 B (3.0), 65\u201369 C+ (2.5), 60\u201364 C (2.0), 55\u201359 D+ (1.5), 50\u201354 D (1.0), 0\u201349 F (0.0).\n\n**Endpoints (the web addresses the system answers on)**\n\n| Action | Address |\n|---|---|\n| Register a student | `POST /students` |\n| List students | `GET /students` |\n| Look up a student | `GET /students/{id}` |\n| Register a course | `POST /courses` |\n| List courses | `GET /courses` |\n| Look up a course | `GET /courses/{id}` |\n| Enter or correct a score | `POST /scores` |\n| A student's results and GPA | `GET /students/{id}/results` |\n\n**Warning:** the tests clear `results.db` before each run. Don't run them in the folder where your real results are kept, or you'll lose that data.",
+  "plan": null,
+  "follows_plan": null
+}

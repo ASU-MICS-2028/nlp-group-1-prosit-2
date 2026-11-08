@@ -1,0 +1,103 @@
+{
+  "request": "I run a chop bar in Cape Coast and I want to take table reservations. I need to add my tables, each with its table number and how many seats it has, and see the list of tables. A customer reserves a particular table by giving their name, phone number, how many people are coming, the date and the time. If the group is bigger than the number of seats at that table, the reservation must be refused. If that table is already reserved for the same date and time, the reservation must also be refused, but other tables can still be reserved then. I want to see all the reservations for a particular date.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 4791,
+    "cache_write": 6971,
+    "cache_read": 2433
+  },
+  "cost_usd": 0.1317,
+  "seconds": 38.8,
+  "tests": {
+    "passed": 8,
+    "failed": 0
+  },
+  "summary": "Your reservation system is built and all 8 of my tests pass. The tests cover every rule in the plan you approved. Everything is saved in a file called `chopbar.db`, kept in the same folder as the app.\n\n**Endpoints**\n- **POST /tables**: adds a table. You give `table_number` and `seats`, for example `{\"table_number\": 1, \"seats\": 4}`. It's refused if:\n  - that table number is already used, or\n  - the table number or number of seats is missing, or\n  - the number of seats is zero or less.\n- **GET /tables**: lists all your tables in order of table number, with how many seats each has.\n- **POST /reservations**: reserves one table. The customer gives `customer_name`, `phone`, `people`, `table_number`, `date` (written like 2025-06-01) and `time` (written like 19:00). The system adds a reservation number and the time it was made by itself. It's refused if:\n  - any of those details is missing or blank, or the date or time is written wrongly\n  - the number of people is zero or less\n  - the table number doesn't exist\n  - the group is bigger than the table's number of seats\n  - that table is already reserved for the same date and time. Other tables can still be reserved for that date and time.\n- **GET /reservations?date=2025-06-01**: shows all reservations for that date, in order of time. Each one shows the table, customer name, phone number, number of people and time.\n\nEach refused request gets a short message explaining why.\n\n**Things to know**\n- **Exact times only:** a table counts as taken only when the date and the exact time are the same. If one booking is at 19:00, someone else can still book the same table at 19:30. Nothing checks how long a meal takes.\n- **No change or cancel:** you can't edit or remove a table or a reservation, because that wasn't in the plan.",
+  "plan": {
+    "summary": "This plan sets up a simple reservation system for your chop bar in Cape Coast. You can add your tables (each with a table number and a number of seats) and see the list of all your tables. Customers can reserve one particular table by giving their name, phone number, how many people are coming, the date and the time. The system will refuse a reservation if the group is bigger than the number of seats at that table, or if that same table is already reserved for the same date and time. Other tables can still be reserved at that same date and time. You can also see all the reservations for any date you choose. Everything in your request is included, and nothing was left out.",
+    "data": [
+      {
+        "name": "Table",
+        "fields": [
+          "Table number (for example, 1, 2, 3; each table has its own number that no other table shares)",
+          "Number of seats (how many people can sit at the table)"
+        ]
+      },
+      {
+        "name": "Reservation",
+        "fields": [
+          "Reservation number (given automatically by the system so each reservation can be told apart)",
+          "Table number (which table is being reserved)",
+          "Customer name",
+          "Customer phone number",
+          "Number of people coming",
+          "Date of the reservation",
+          "Time of the reservation",
+          "When the reservation was made (recorded automatically)"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/tables",
+        "does": "Adds a new table. You give the table number and how many seats it has."
+      },
+      {
+        "method": "GET",
+        "path": "/tables",
+        "does": "Shows the list of all your tables, with each table's number and how many seats it has."
+      },
+      {
+        "method": "POST",
+        "path": "/reservations",
+        "does": "Makes a reservation for one particular table. The customer gives their name, phone number, how many people are coming, the table number, the date and the time. The system checks the rules below before saving it."
+      },
+      {
+        "method": "GET",
+        "path": "/reservations?date=...",
+        "does": "Shows all the reservations for the date you choose, including which table, the customer's name and phone number, how many people, and the time."
+      }
+    ],
+    "rules": [
+      "A reservation is refused if the number of people coming is more than the number of seats at the chosen table.",
+      "A reservation is refused if the chosen table is already reserved for the same date and the same time. Other tables can still be reserved for that date and time.",
+      "A reservation is refused if the chosen table number does not exist among your tables.",
+      "A reservation is refused if the customer's name, phone number, number of people, table number, date or time is missing.",
+      "A reservation is refused if the number of people coming is zero or less.",
+      "A new table is refused if its table number is already used by another table.",
+      "A new table is refused if the table number or number of seats is missing, or if the number of seats is zero or less."
+    ]
+  },
+  "follows_plan": {
+    "missing": [
+      "GET /reservations?date=..."
+    ],
+    "extra": [
+      "GET /reservations"
+    ]
+  }
+}

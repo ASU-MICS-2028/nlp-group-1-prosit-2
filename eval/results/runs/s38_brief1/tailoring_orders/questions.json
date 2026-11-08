@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should each customer have one set of measurements that you update when they change, or should each order keep its own measurements?",
+    "When a customer collects an order, must the full price be paid first, or should you be able to record the rest of the payment at pickup?",
+    "Can two customers share the same phone number, or should each phone number belong to only one customer?"
+  ],
+  "answers": [
+    "One set of measurements on each customer, since customers have measurements and editing customers is not needed now.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "brief",
+  "cost_usd": 0.009
+}

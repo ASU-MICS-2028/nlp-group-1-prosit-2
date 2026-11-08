@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "How should a customer prove a wallet is theirs before depositing or sending money: a PIN, a password, or does your shop staff do it for them?",
+    "Are there any fees, or a maximum amount per deposit, per transfer, or per day? If so, what are they?",
+    "Should 024 123 4567 and +233 24 123 4567 count as the same phone number, and should only Ghana numbers be accepted?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No fees for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.01128
+}

@@ -1,0 +1,12 @@
+{
+  "questions": [
+    "Is there any fee on sending money, or any daily or per-transfer limit on how much can be sent or held in a wallet?",
+    "Should phone numbers written differently but meaning the same line, like 0241234567 and +233241234567, count as the same number, so they can only have one wallet?"
+  ],
+  "answers": [
+    "No fees for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.01018
+}

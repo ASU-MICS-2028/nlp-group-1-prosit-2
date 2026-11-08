@@ -1,0 +1,121 @@
+{
+  "request": "I am the exams officer at a small college in Cape Coast and I want to keep our students' results in one place instead of in spreadsheets. We need to register our students and the courses we teach. Lecturers enter each student's score for a course, out of 100. For each student we want to see their results, with the grade for every course they have a score in, and their overall GPA. Sometimes a lecturer makes a mistake and enters a score again, and then the new score is the one that counts. Scores below 0 or above 100 should not be accepted.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 6540,
+    "cache_write": 8772,
+    "cache_read": 2779
+  },
+  "cost_usd": 0.1758,
+  "seconds": 52.0,
+  "tests": {
+    "passed": 35,
+    "failed": 0
+  },
+  "summary": "I've built the results system in `app.py`. I wrote 35 automated tests covering everything in the approved plan, and they all pass. Data is saved in a file called `results.db` in the project folder.\n\n**What the system does**\n\n| Method | Path | What it does |\n|---|---|---|\n| POST | `/students` | Registers a student. ID and full name are required; programme is optional. The registration date is added automatically. Gives an error if the ID is already in use. |\n| GET | `/students` | Lists all registered students. |\n| POST | `/courses` | Adds a course with its code, title and credit hours. Credit hours must be a whole number above 0. Gives an error if the code is already in use. |\n| GET | `/courses` | Lists all courses. |\n| PUT | `/students/{studentId}/scores/{courseCode}` | Enters a score, for example `{\"score\": 72}`. If a score already exists for that student and course, the new one replaces it. The grade, grade points and the date and time of the change are added automatically. |\n| GET | `/students/{studentId}/results` | Shows each course the student has a score in, with the score, grade, grade points and credit hours. Also shows their total credit hours and their GPA. |\n\n**How grades and GPA work**\n- Grades use the starting scale from the plan: A 80\u2013100, B+ 75\u201379, B 70\u201374, C+ 65\u201369, C 60\u201364, D+ 55\u201359, D 50\u201354, F 0\u201349.\n- The GPA is weighted by credit hours and rounded to 2 decimal places. Only courses the student has a score in count.\n- A student with no scores yet shows no GPA (it's left blank) rather than 0.\n- If someone sends a grade along with a score, it is ignored and the grade is worked out from the score.\n\n**What gets refused**\n- Scores below 0 or above 100, or scores that are missing or not a number. Text like \"80\" doesn't count as a number.\n- Scores for a student or course that hasn't been registered.\n- Students without an ID or name, and courses without a code, title or credit hours. A field that is blank or only spaces counts as missing.\n\n**Things you should know**\n- **Matching is exact.** IDs and course codes must be typed exactly as registered: \"edu 101\" and \"EDU 101\" count as two different courses. Spaces at the start or end are removed.\n- **Credit hours must be whole numbers.** Something like 1.5 credit hours would be refused.\n- **The grading scale and the credit-hour weighting are the starting versions from the plan.** Please confirm them or send your college's official scale, and I'll update them.",
+  "plan": {
+    "summary": "This plan keeps your students, your courses, and the scores lecturers enter in one place instead of spreadsheets. You can register students and courses. Lecturers can enter a score out of 100 for a student in a course. If a score is entered again for the same student and course, the new score replaces the old one. For any student you can see each course they have a score in, the grade for that course, and their overall GPA. Scores below 0 or above 100 are refused. Two points need your confirmation before we build. First, the grading scale. As a starting point I have used a common scale: A = 80-100 (4.0), B+ = 75-79 (3.5), B = 70-74 (3.0), C+ = 65-69 (2.5), C = 60-64 (2.0), D+ = 55-59 (1.5), D = 50-54 (1.0), F = 0-49 (0.0). Please replace it with your college's official scale if it is different. Second, the GPA calculation. GPA is usually worked out using each course's credit hours, so I have added credit hours to each course. If your college gives every course equal weight, we can remove this. Not included because you did not ask for it: sign-ins or passwords to control who can enter scores, and a history of old scores. We can add either later if you want them.",
+    "data": [
+      {
+        "name": "Student",
+        "fields": [
+          "Student ID (your college's index number, must be unique)",
+          "Full name",
+          "Programme (for example, Diploma in Education)",
+          "Date registered"
+        ]
+      },
+      {
+        "name": "Course",
+        "fields": [
+          "Course code (for example, EDU 101, must be unique)",
+          "Course title",
+          "Credit hours (used to weight the GPA)"
+        ]
+      },
+      {
+        "name": "Score",
+        "fields": [
+          "Which student",
+          "Which course",
+          "Score out of 100",
+          "Grade (worked out automatically from the score)",
+          "Grade points (worked out automatically from the grade)",
+          "Date and time last entered or changed"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/students",
+        "does": "Registers a new student with their ID, name and programme."
+      },
+      {
+        "method": "GET",
+        "path": "/students",
+        "does": "Lists all registered students."
+      },
+      {
+        "method": "POST",
+        "path": "/courses",
+        "does": "Adds a new course with its code, title and credit hours."
+      },
+      {
+        "method": "GET",
+        "path": "/courses",
+        "does": "Lists all the courses the college teaches."
+      },
+      {
+        "method": "PUT",
+        "path": "/students/{studentId}/scores/{courseCode}",
+        "does": "A lecturer enters a student's score for a course. If a score was already entered for that student and course, the new score replaces it and only the new one counts."
+      },
+      {
+        "method": "GET",
+        "path": "/students/{studentId}/results",
+        "does": "Shows one student's results: every course they have a score in, with the score and grade, plus their overall GPA."
+      }
+    ],
+    "rules": [
+      "Refuse any score below 0 or above 100.",
+      "Refuse a score that is missing or is not a number.",
+      "Refuse a score for a student who has not been registered.",
+      "Refuse a score for a course that has not been added.",
+      "Refuse to register a student whose ID is already in use.",
+      "Refuse to add a course whose code is already in use.",
+      "Refuse a student without an ID and a name, or a course without a code, a title and credit hours.",
+      "Refuse credit hours that are zero or less.",
+      "Keep only one score per student per course. Entering it again replaces the old score.",
+      "Work out grades and GPA automatically from the scores, so they cannot be typed in by hand.",
+      "Use only the courses a student has a score in when working out their GPA."
+    ]
+  },
+  "follows_plan": {
+    "missing": [],
+    "extra": []
+  }
+}

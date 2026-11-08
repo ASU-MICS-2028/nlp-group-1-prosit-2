@@ -1,0 +1,118 @@
+{
+  "request": "Our student hostel near the university in Legon has rooms with different numbers of beds, and we want students to book beds without calling us. We need to add a room with its name and how many beds it has. A student books a bed in a room with their name, the date they arrive and the date they leave, and the leaving date must be after the arrival date. A booking takes a bed for every night from the arrival date up to the night before the leaving date, so a student leaving on the 12th and another arriving on the 12th can use the same bed. If all the beds in the room are already taken on any night of the stay, the booking must be refused. A student can cancel their booking, and then the bed is free again for those nights. We also want to pick an arrival and leaving date and see, for each room, how many beds are free for the whole of that stay.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 6007,
+    "cache_write": 8534,
+    "cache_read": 2927
+  },
+  "cost_usd": 0.164,
+  "seconds": 48.5,
+  "tests": {
+    "passed": 15,
+    "failed": 0
+  },
+  "summary": "I've built the booking system in `app.py`. All 15 automated tests pass. They cover every point in your plan, including two students trying to book the last free bed at the same moment: only one booking goes through. Your data is saved in a file called `hostel.db` in the project folder.\n\n**Endpoints**\n- **`POST /rooms`** adds a room. You send `{\"name\", \"beds\"}`. A room with a blank name, or with a bed count that isn't a whole number of at least 1, is refused.\n- **`GET /rooms`** lists all rooms with their names and number of beds.\n- **`POST /rooms/{roomId}/bookings`** books a bed. The student sends `{\"student_name\", \"arrival\", \"leaving\"}`, with dates written like `2030-01-10`.\n  - It's refused if the room doesn't exist, if the leaving date isn't after the arrival date, or if every bed is taken on any night of the stay.\n  - The leaving day isn't counted, so a student leaving on the 12th and another arriving on the 12th can use the same bed.\n- **`GET /bookings/{bookingId}`** shows one booking: the room, student name, dates, whether it's active or cancelled, and when it was made.\n- **`POST /bookings/{bookingId}/cancel`** cancels a booking and frees the bed for those nights. Cancelling a booking that doesn't exist, or one that's already cancelled, is refused.\n- **`GET /availability?arrival=\u2026&leaving=\u2026`** shows, for each room, how many beds are free for the whole stay. That's the room's beds minus the most beds booked on any one night. Both dates are required, and the leaving date must be after the arrival date.\n\n**Error codes:** a refused request returns one of these, with a short message explaining why:\n- **422:** something was missing or invalid.\n- **404:** the room or booking wasn't found.\n- **409:** the room is full or the booking was already cancelled.\n\nThe protection against two students taking the same last bed only works while the app runs as a single copy on one server. That's the normal setup, but if you ever run several copies at once, that protection would need changing.\n\nThe tests save their practice rooms and bookings in `hostel.db`, the same file the app uses. Delete that file before you start taking real bookings.",
+  "plan": {
+    "summary": "This plan sets up a simple online booking system for your hostel near the university in Legon. Staff can add rooms, each with a name and a number of beds. Students can book a bed in a room by giving their name, the date they arrive and the date they leave. A booking holds a bed for each night from the arrival date up to the night before the leaving date. This means a student leaving on the 12th and another arriving on the 12th can share the same bed. A booking is refused if every bed in the room is already taken on any night of the stay. Students can cancel a booking, which frees the bed again for those nights. You can also pick an arrival date and a leaving date and see, for each room, how many beds are free for the whole stay. Everything you asked for is included, and nothing was left out.",
+    "data": [
+      {
+        "name": "Room",
+        "fields": [
+          "Room ID: a unique number the system gives each room",
+          "Name: the room's name, for example 'Room A' or 'Volta Block 3'",
+          "Number of beds: how many beds the room has (a whole number of at least 1)"
+        ]
+      },
+      {
+        "name": "Booking",
+        "fields": [
+          "Booking ID: a unique number the system gives each booking, used later to cancel it",
+          "Room: which room the bed is booked in",
+          "Student name: the name of the student who booked",
+          "Arrival date: the day the student arrives (their first night)",
+          "Leaving date: the day the student leaves (they do not stay that night)",
+          "Status: whether the booking is active or cancelled",
+          "Created at: when the booking was made"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/rooms",
+        "does": "Adds a new room. You give its name and how many beds it has."
+      },
+      {
+        "method": "GET",
+        "path": "/rooms",
+        "does": "Shows a list of all rooms with their names and number of beds."
+      },
+      {
+        "method": "POST",
+        "path": "/rooms/{roomId}/bookings",
+        "does": "Books a bed in the chosen room. The student gives their name, arrival date and leaving date. The booking is saved only if at least one bed is free on every night of the stay."
+      },
+      {
+        "method": "GET",
+        "path": "/bookings/{bookingId}",
+        "does": "Shows the details of a single booking: the room, the student's name, the dates, and whether it is still active or has been cancelled."
+      },
+      {
+        "method": "POST",
+        "path": "/bookings/{bookingId}/cancel",
+        "does": "Cancels a booking. The bed becomes free again for those nights, so others can book it."
+      },
+      {
+        "method": "GET",
+        "path": "/availability?arrival={date}&leaving={date}",
+        "does": "You pick an arrival date and a leaving date. For each room, it shows how many beds are free on every night of that stay. This is the room's number of beds minus the most beds already booked on any single night of the stay."
+      }
+    ],
+    "rules": [
+      "A room must have a name.",
+      "A room must have at least 1 bed, and the number of beds must be a whole number.",
+      "A booking must include the student's name, an arrival date and a leaving date.",
+      "The leaving date must be after the arrival date. If it is the same day or earlier, the booking is refused.",
+      "A booking is refused if the room does not exist.",
+      "A booking takes a bed for each night from the arrival date up to the night before the leaving date. The leaving day itself is not counted.",
+      "A booking is refused if all the beds in the room are already taken on any one night of the stay.",
+      "Only active bookings count towards taken beds. Cancelled bookings do not.",
+      "A booking that is already cancelled cannot be cancelled again.",
+      "Cancelling a booking that does not exist is refused.",
+      "Checking free beds requires an arrival date and a leaving date, and the leaving date must be after the arrival date.",
+      "If two students try to book the last free bed at the same moment, only one booking succeeds and the other is refused, so a room is never overbooked."
+    ]
+  },
+  "follows_plan": {
+    "missing": [
+      "GET /availability?arrival={}&leaving={}"
+    ],
+    "extra": [
+      "GET /availability"
+    ]
+  }
+}

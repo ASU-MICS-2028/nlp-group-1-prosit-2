@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Are there any fees on transfers or deposits? If so, how much, and which wallet pays them?",
+    "Is there a maximum amount for a single deposit or transfer, or a maximum wallet balance? If so, what are the limits?",
+    "Should phone numbers like 024 123 4567 and +233 24 123 4567 count as the same number, so one customer cannot open two wallets?"
+  ],
+  "answers": [
+    "No fees for now.",
+    "No limits for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00855
+}

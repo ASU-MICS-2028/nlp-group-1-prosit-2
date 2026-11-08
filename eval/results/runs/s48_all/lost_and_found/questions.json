@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should only desk staff be able to mark an item as claimed, for example with a password, or can anyone do it?",
+    "When someone looks at a claimed item, should the owner's name be shown to everyone, or kept visible only to the desk?",
+    "Should items stay on the board forever, or be removed after a set time? If removed, after how long?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00756
+}

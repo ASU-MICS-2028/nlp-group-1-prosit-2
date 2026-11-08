@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can one student borrow more than one copy of the same book at a time, and is there a limit on how many books a student can have out in total?",
+    "Is a student's name enough to identify them, or should they also give something unique like a student ID, in case two students share a name?",
+    "Should adding books be protected (for example with a password) so only the librarian can do it?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No, they just give their name.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00953
+}

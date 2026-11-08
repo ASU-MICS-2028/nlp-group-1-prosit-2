@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a price goes up or down, do you want to change the price of an item already on the list, or will you remove it and add it again?",
+    "Do you sell the same thing in different sizes or amounts (for example a single tin and a full carton), each with its own price?",
+    "Should prices be in Ghana cedis with pesewas (like GH\u20b5 12.50)?"
+  ],
+  "answers": [
+    "Yes, prices change all the time, especially sugar, rice and oil. I need to change the price of an item.",
+    "No preference: you decide.",
+    "Ghana cedis, sometimes with pesewas, like 12.50."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00716
+}

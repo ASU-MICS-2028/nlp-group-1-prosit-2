@@ -1,0 +1,111 @@
+{
+  "request": "I am the exams officer at a small college in Cape Coast and I want to keep our students' results in one place instead of in spreadsheets. We need to register our students and the courses we teach. Lecturers enter each student's score for a course, out of 100. For each student we want to see their results, with the grade for every course they have a score in, and their overall GPA. Sometimes a lecturer makes a mistake and enters a score again, and then the new score is the one that counts. Scores below 0 or above 100 should not be accepted.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 6034,
+    "cache_write": 8612,
+    "cache_read": 2600
+  },
+  "cost_usd": 0.1648,
+  "seconds": 54.7,
+  "tests": {
+    "passed": 19,
+    "failed": 0
+  },
+  "summary": "Your results system is built, and all 19 automated tests pass. You never told us your grading scale, so I used a common Ghanaian university scale for now. Please confirm it or send me yours. Every course counts equally in the GPA, as the plan said.\n\n**What it does:**\n\n| Action | Address | What it does |\n|---|---|---|\n| POST | `/students` | Registers a student by their student number and full name. If the number is already registered, it's refused. |\n| GET | `/students` | Lists all registered students. |\n| POST | `/courses` | Registers a course by its code and title. If the code is already registered, it's refused. |\n| GET | `/courses` | Lists all registered courses. |\n| PUT | `/students/{studentNumber}/scores/{courseCode}` | A lecturer enters a score out of 100, for example `{\"score\": 72}`. If a score is entered again for the same student and course, the new one replaces the old one and the entry time is updated. |\n| GET | `/students/{studentNumber}/results` | Shows each course the student has a score in, with the score, grade, grade points and when it was entered, plus the overall GPA rounded to 2 decimal places. A student with no scores yet has no GPA. |\n\n**What it refuses:**\n- Scores below 0 or above 100.\n- Scores that aren't a number, such as words, true/false, or a number written in quotes like `\"85\"`.\n- Scores for a student or course that isn't registered.\n- Results requests for a student who isn't registered.\n\n**The grading scale I used:**\n\n| Score | Grade | Points |\n|---|---|---|\n| 80\u2013100 | A | 4.0 |\n| 75\u201379 | B+ | 3.5 |\n| 70\u201374 | B | 3.0 |\n| 65\u201369 | C+ | 2.5 |\n| 60\u201364 | C | 2.0 |\n| 55\u201359 | D+ | 1.5 |\n| 50\u201354 | D | 1.0 |\n| Below 50 | E | 0.0 |\n\nGrades and the GPA are worked out fresh from the latest scores each time you look, so they always match.\n\nAs the plan said, anyone can currently view results or enter scores. Let me know if you'd like to limit who can do either.",
+  "plan": {
+    "summary": "This plan keeps your students, your courses and the scores lecturers enter, all in one place instead of spreadsheets. You can register students and courses. Lecturers enter a score out of 100 for a student in a course. If a score is entered again for the same student and course, the new one replaces the old one. For any student you can see their results: each course they have a score in, with the score, the grade, and their overall GPA. Scores below 0 or above 100 are refused. Nothing in your request was unsafe or outside the backend, so nothing was left out. Before we build, we have some questions. (1) What grading scale does the college use? For example, which score range gives an A, B+ and so on, and how many grade points is each grade worth? We will build in exactly the scale you give us. (2) Should the GPA give some courses more weight, for example by credit hours, or should every course count equally? We have planned for every course to count equally unless you tell us otherwise. (3) Results are private information, but as you asked, this plan does not control who can see or enter scores. Would you like anyone to be prevented from viewing results or entering scores?",
+    "data": [
+      {
+        "name": "Student",
+        "fields": [
+          "Student number (the college's own ID for the student, used to find them)",
+          "Full name"
+        ]
+      },
+      {
+        "name": "Course",
+        "fields": [
+          "Course code (for example, the short code you already use, used to find the course)",
+          "Course title"
+        ]
+      },
+      {
+        "name": "Score",
+        "fields": [
+          "Which student it belongs to",
+          "Which course it is for",
+          "The score, a number from 0 to 100",
+          "When it was last entered"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/students",
+        "does": "Registers a new student with their student number and name."
+      },
+      {
+        "method": "GET",
+        "path": "/students",
+        "does": "Shows the list of all registered students."
+      },
+      {
+        "method": "POST",
+        "path": "/courses",
+        "does": "Registers a new course with its code and title."
+      },
+      {
+        "method": "GET",
+        "path": "/courses",
+        "does": "Shows the list of all registered courses."
+      },
+      {
+        "method": "PUT",
+        "path": "/students/{studentNumber}/scores/{courseCode}",
+        "does": "Lets a lecturer enter a student's score for a course. If a score was already entered for that student and course, the new score replaces it."
+      },
+      {
+        "method": "GET",
+        "path": "/students/{studentNumber}/results",
+        "does": "Shows one student's results: every course they have a score in, with the score and the grade, plus their overall GPA worked out from those grades."
+      }
+    ],
+    "rules": [
+      "A score below 0 or above 100 is refused.",
+      "A score must be a number; anything else is refused.",
+      "A score can only be entered for a student who is registered and a course that is registered; otherwise it is refused.",
+      "A student can have only one score per course. Entering a score again for the same student and course replaces the old score, and only the new score counts toward the grade and GPA.",
+      "Two students cannot be registered with the same student number, and two courses cannot be registered with the same course code.",
+      "Grades and the GPA are worked out from the scores using the college's grading scale, so they always match the latest scores."
+    ]
+  },
+  "follows_plan": {
+    "missing": [],
+    "extra": []
+  }
+}

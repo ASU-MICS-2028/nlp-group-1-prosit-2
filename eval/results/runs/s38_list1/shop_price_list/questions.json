@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a price goes up or down, do you want to change the price of something already on the list? If yes, should the old price be kept so you can see it later?",
+    "Do some things have more than one price depending on how you sell them, like one sachet versus a full pack or box?",
+    "When you look up a price, will you type the full name exactly, or do you want to type part of the name (like \"milo\") and see everything that matches?"
+  ],
+  "answers": [
+    "Yes, prices change all the time, especially sugar, rice and oil. I need to change the price of an item.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00948
+}

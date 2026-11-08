@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "How long does one reservation keep a table busy? For example, if a table is booked for 7:00 pm, should someone else be able to book it for 7:30 pm, or should it be blocked for a set time, such as 2 hours?",
+    "Do you need a way to cancel or change a reservation, so the table becomes free again?",
+    "Should reservations only be allowed during your opening hours and for future dates? If so, what are your opening hours?"
+  ],
+  "answers": [
+    "We just use the start time. Two reservations clash only if they are for the same table, the same date and the same time.",
+    "Not for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00795
+}

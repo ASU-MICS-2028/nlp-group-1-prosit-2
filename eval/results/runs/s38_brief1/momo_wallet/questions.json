@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should customers need a PIN or login to deposit, send money or see their wallet, or can anyone with the phone number do it?",
+    "Are there any fees on transfers, or any maximum amount per deposit, per transfer or per wallet balance?",
+    "How should phone numbers be written, for example 024XXXXXXX or +23324XXXXXXX? Should both forms count as the same number?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No fees and no limits for now: no transfer fees, and no maximum per deposit, per transfer or per wallet balance.",
+    "No preference: you decide."
+  ],
+  "client": "brief",
+  "cost_usd": 0.00916
+}

@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can an order be marked as collected if the customer still owes part of the price, or must it be fully paid first?",
+    "When a customer pays more money later, should you be able to update the deposit on an existing order, or does it stay fixed once the order is saved?",
+    "Should each phone number belong to only one customer, or can two customers share the same number?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0124
+}

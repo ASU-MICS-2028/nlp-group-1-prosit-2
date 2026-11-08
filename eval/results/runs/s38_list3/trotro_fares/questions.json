@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Is a route the same in both directions? For example, if you add Circle to Madina, should a passenger asking about Madina to Circle get the same fare?",
+    "If there is no direct route between two stops, should the system just say no route was found, or should it combine routes (for example Circle to Madina, then Madina to Adenta) and add up the fares?",
+    "Should only station staff be able to add routes and change fares, while passengers can only look up fares? If so, how many staff need access?"
+  ],
+  "answers": [
+    "Yes. Circle to Madina costs the same as Madina to Circle, so we keep one route for both directions and passengers can ask either way.",
+    "Say it was not found. Do not try to join two routes together; only direct routes count.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00886
+}

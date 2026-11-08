@@ -1,0 +1,122 @@
+{
+  "request": "We run a small clinic in Tamale with a few doctors, and we want patients to book appointments. We need to add each doctor with their name and what they specialise in, and see the list of doctors. A patient books with a doctor by giving their name, the date and the time slot, for example 09:00 or 14:30. A doctor cannot have two appointments on the same date in the same time slot, so a second booking for that slot must be refused, but a different doctor can still be booked for it. We want to see all of one doctor's appointments for a particular day. If a patient cancels, the appointment is removed and the slot becomes free for someone else to book.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 3,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": false
+    },
+    {
+      "turn": 1,
+      "tool": "edit_file",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "edit_file",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "edit_file",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 8,
+    "out": 6380,
+    "cache_write": 9203,
+    "cache_read": 10615
+  },
+  "cost_usd": 0.1779,
+  "seconds": 54.6,
+  "tests": {
+    "passed": 27,
+    "failed": 0
+  },
+  "summary": "I've built the booking system in `app.py`, and all 27 of my automated tests pass. The tests used the app directly; I didn't run the server and send it real requests. The data is saved in a file called `clinic_appointments.db` in the project folder.\n\n**Endpoints**\n- **POST /doctors**: adds a doctor. Send `{\"name\": \"...\", \"specialty\": \"...\"}`. It's refused if either one is missing or blank.\n- **GET /doctors**: shows the list of all doctors.\n- **POST /appointments**: books an appointment. Send `{\"doctor_id\": 1, \"patient_name\": \"...\", \"date\": \"2030-05-10\", \"time_slot\": \"14:30\"}`. A booking is refused if:\n  - something is missing or the patient name is blank;\n  - the date isn't a real date written like 2030-05-10 (so 2030-02-30 is refused);\n  - the time isn't a real time written like 09:00 or 14:30 (so 9:00 or 24:00 is refused);\n  - the doctor doesn't exist;\n  - that doctor already has someone booked on that date at that time. Another doctor can still be booked for that slot.\n- **GET /doctors/{doctorId}/appointments?date=2030-05-10**: shows one doctor's appointments for that day, earliest first. It's refused if the doctor doesn't exist or the date is missing or not a real date.\n- **DELETE /appointments/{appointmentId}**: cancels an appointment and frees the slot. It's refused if the appointment doesn't exist, including one that's already been cancelled.\n\n**A problem the tests found, now fixed:** when the newest appointment was cancelled, the next booking was given the same number. So if someone tried to cancel the old appointment again, they would have removed the new patient's booking instead. Appointment and doctor numbers are now never used twice. To get a clean start with that fix, I switched to a new data file, so an old file called `clinic.db` is still in the folder. It only holds test data and can be deleted.\n\n**Still not included**, because you haven't answered these questions from the plan:\n- There's no protection on who can see patient names or cancel bookings.\n- Any time of day can be booked.\n- Dates that have already passed are not refused.",
+  "plan": {
+    "summary": "This plan lets your clinic in Tamale keep a list of doctors and let patients book appointments with them. You can add a doctor with their name and what they specialise in, and see the list of all doctors. A patient books by choosing a doctor and giving their name, the date and a time slot such as 09:00 or 14:30. The system will refuse a booking if that doctor already has an appointment on that date in that time slot, but another doctor can still be booked for the same slot. You can see all of one doctor's appointments for a chosen day. When a patient cancels, the appointment is removed and the slot is free again for someone else. Questions for you before we build: (1) Right now anyone who can reach the system could add doctors, see appointments or cancel them. Patient names are private health information, so would you like some protection to control who can see or change things? (2) Should there be a fixed list of allowed time slots, for example every 30 minutes during opening hours, or can any time be entered? (3) Should bookings for dates that have already passed be refused? These are not included in the plan unless you ask for them.",
+    "data": [
+      {
+        "name": "Doctor",
+        "fields": [
+          "id: a number the system gives each doctor automatically",
+          "name: the doctor's name",
+          "specialty: what the doctor specialises in"
+        ]
+      },
+      {
+        "name": "Appointment",
+        "fields": [
+          "id: a number the system gives each appointment automatically",
+          "doctor id: which doctor the appointment is with",
+          "patient name: the name of the patient who booked",
+          "date: the day of the appointment",
+          "time slot: the time of the appointment, for example 09:00 or 14:30"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/doctors",
+        "does": "Adds a new doctor with their name and what they specialise in."
+      },
+      {
+        "method": "GET",
+        "path": "/doctors",
+        "does": "Shows the list of all doctors with their names and specialties."
+      },
+      {
+        "method": "POST",
+        "path": "/appointments",
+        "does": "Books an appointment for a patient with a chosen doctor, on a given date and time slot."
+      },
+      {
+        "method": "GET",
+        "path": "/doctors/{doctorId}/appointments?date={date}",
+        "does": "Shows all of one doctor's appointments for a particular day."
+      },
+      {
+        "method": "DELETE",
+        "path": "/appointments/{appointmentId}",
+        "does": "Cancels an appointment by removing it, so the slot becomes free for someone else to book."
+      }
+    ],
+    "rules": [
+      "Refuse to add a doctor if the name or the specialty is missing.",
+      "Refuse a booking if the patient name, the doctor, the date or the time slot is missing.",
+      "Refuse a booking for a doctor who does not exist.",
+      "Refuse a booking if the date is not a real date or the time slot is not a real time written like 09:00 or 14:30.",
+      "Refuse a booking if that doctor already has an appointment on the same date in the same time slot. A different doctor can still be booked for that same date and time slot.",
+      "Refuse to show appointments for a doctor who does not exist.",
+      "Refuse to cancel an appointment that does not exist."
+    ]
+  },
+  "follows_plan": {
+    "missing": [],
+    "extra": []
+  }
+}

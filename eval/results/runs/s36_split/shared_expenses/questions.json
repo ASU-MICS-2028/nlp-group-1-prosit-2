@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Does everyone need their own login, and who is allowed to see or change a group: only its members, or anyone with access?",
+    "Should it be possible to edit or delete an expense or repayment after it is recorded, or to remove a member from a group?",
+    "When a bill does not split evenly, who should get the extra pesewa: for example, the members in the order they were listed, or some other rule?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "Not for now.",
+    "Any of them, as long as the shares differ by at most one pesewa and add up to the bill."
+  ],
+  "client": "answers",
+  "cost_usd": 0.01187
+}

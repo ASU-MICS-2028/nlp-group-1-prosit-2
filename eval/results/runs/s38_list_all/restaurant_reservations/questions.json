@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "How long does one reservation hold a table? For example, if a table is booked at 7:00 pm, should a booking at 7:30 pm on the same table be refused, or only one at exactly 7:00 pm?",
+    "Can customers pick any time, or only set times (for example every hour) within your opening hours? If there are opening hours, what are they?",
+    "Should reservations for dates or times that have already passed be refused?"
+  ],
+  "answers": [
+    "We just use the start time. Two reservations clash only if they are for the same table, the same date and the same time.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0078
+}

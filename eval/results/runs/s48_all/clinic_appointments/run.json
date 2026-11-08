@@ -1,0 +1,44 @@
+{
+  "request": "We run a small clinic in Tamale with a few doctors, and we want patients to book appointments. We need to add each doctor with their name and what they specialise in, and see the list of doctors. A patient books with a doctor by giving their name, the date and the time slot, for example 09:00 or 14:30. A doctor cannot have two appointments on the same date in the same time slot, so a second booking for that slot must be refused, but a different doctor can still be booked for it. We want to see all of one doctor's appointments for a particular day. If a patient cancels, the appointment is removed and the slot becomes free for someone else to book.\n\nThe client's answers to your questions:\nQ: Which time slots can be booked? For example, every 30 minutes from 08:00 to 17:00, or any time the patient types in?\nA: No preference: you decide.\nQ: When a patient cancels, how should they identify the appointment: by a booking number we give them, or by their name, the doctor, the date and the slot?\nA: No preference: you decide.\nQ: Should bookings for dates in the past, or on days the clinic is closed (such as Sundays), be refused?\nA: No preference: you decide.\n\nWhere the client has no preference or did not answer, choose the simplest option and add nothing they did not ask for (no logins, PINs or extra required fields).",
+  "model": "claude-opus-5-5",
+  "prompt": "E",
+  "effort": "medium",
+  "search": false,
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 4006,
+    "cache_write": 5829,
+    "cache_read": 1820
+  },
+  "cost_usd": 0.11,
+  "seconds": 33.0,
+  "tests": {
+    "passed": 6,
+    "failed": 0
+  },
+  "summary": "I've built your clinic's booking system, and all my checks pass.\n\n**What you can do now:**\n- Add a doctor with their name and what they specialise in, and see the list of all doctors.\n- Book a patient with a doctor by giving the patient's name, the date and the time.\n- See all of one doctor's appointments for a chosen day, earliest first.\n- Cancel an appointment. It's removed, and that time is free to book again.\n\n**Choices I made for you:**\n- Patients can book any time of day, typed like 09:00 or 14:30. There's no fixed timetable.\n- Each booking gets a booking number. The patient gives that number to cancel.\n- Dates in the past and Sundays are allowed.\n\n**What's refused:**\n- A second booking for the same doctor at the same date and time. A different doctor can still be booked then.\n- Times or dates that don't exist, such as 25:00.\n- Blank names.\n- Doctors or bookings that don't exist.\n\nI haven't tested it with several people booking at the same moment.",
+  "plan": null,
+  "change": null,
+  "messages": [],
+  "follows_plan": null
+}

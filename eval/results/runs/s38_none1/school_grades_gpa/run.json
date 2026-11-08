@@ -1,0 +1,41 @@
+{
+  "request": "I am the exams officer at a small college in Cape Coast and I want to keep our students' results in one place instead of in spreadsheets. We need to register our students and the courses we teach. Lecturers enter each student's score for a course, out of 100. For each student we want to see their results, with the grade for every course they have a score in, and their overall GPA. Sometimes a lecturer makes a mistake and enters a score again, and then the new score is the one that counts. Scores below 0 or above 100 should not be accepted.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 4947,
+    "cache_write": 6050,
+    "cache_read": 1466
+  },
+  "cost_usd": 0.1298,
+  "seconds": 72.4,
+  "tests": {
+    "passed": 7,
+    "failed": 0
+  },
+  "summary": "The results system is in `app.py` and all 7 automated tests pass. Results are saved in a file called `results.db` in the same folder.\n\n**What it does**\n- **`POST /students`**: registers a student with a student number and a name. A student number that is already in use is refused.\n- **`GET /students`** and **`GET /students/{id}`**: list all students, or show one.\n- **`POST /courses`**: registers a course with a code (e.g. MTH101) and a title. A course code that is already in use is refused.\n- **`GET /courses`** and **`GET /courses/{id}`**: list all courses, or show one.\n- **`POST /scores`**: a lecturer enters a score out of 100 for one student in one course. If a score is entered again for the same student and course, the new one replaces the old one. Scores below 0 or above 100 are refused, and so are unknown students or courses.\n- **`GET /students/{id}/results`**: shows a student's results, with the score, grade and grade point for every course they have a score in, plus their overall GPA. If they have no scores yet, the GPA shows as empty.\n\n**Choices I made that you should check**\n- **Grading scale:** you didn't give one, so I used a scale common in Ghana: A 80\u2013100 (4.0), B+ 75\u201379 (3.5), B 70\u201374 (3.0), C+ 65\u201369 (2.5), C 60\u201364 (2.0), D+ 55\u201359 (1.5), D 50\u201354 (1.0), F below 50 (0). If your college's scale is different, tell me and I'll change it.\n- **GPA:** it's a plain average of a student's grade points, so every course counts equally. Most colleges give courses with more credit hours more weight. If yours does, I'll need each course's credit hours, which the system doesn't record yet.\n\n**Warning:** the automated tests empty `results.db` every time they run. Don't run them after you've started entering real data unless you've copied the file somewhere else first.",
+  "plan": null,
+  "follows_plan": null
+}

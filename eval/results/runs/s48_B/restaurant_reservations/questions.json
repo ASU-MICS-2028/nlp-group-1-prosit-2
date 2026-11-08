@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should a table be blocked only for the exact same start time, or for a set length of time? For example, if a table is booked at 12:00 and a booking lasts 2 hours, should a 13:00 booking for that table be refused?",
+    "Do you need to cancel or change a reservation once it is made?",
+    "Should reservations be refused outside your opening hours or for past dates? If so, what are your opening hours?"
+  ],
+  "answers": [
+    "We just use the start time. Two reservations clash only if they are for the same table, the same date and the same time.",
+    "Not for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00821
+}

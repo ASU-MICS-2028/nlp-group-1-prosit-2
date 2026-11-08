@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can one student borrow more than one copy of the same book at a time, and is there a limit on how many books a student can have out at once?",
+    "Should a loan have a due date, and if so, how many days do students get before a book is late?",
+    "Should adding books be limited to the librarian, for example with a password, or can anyone using the system add books?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "Not needed for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00717
+}

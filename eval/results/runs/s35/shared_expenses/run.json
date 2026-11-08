@@ -1,0 +1,156 @@
+{
+  "request": "My friends and I share costs for trips, food and rent, and we want something that keeps track of who owes whom. One of us creates a group and adds the friends to it by name. When someone pays for something, we record who paid, how much in cedis, and which members of the group it is shared between; it is split equally between those members, and the person who paid does not have to be one of them. If a bill does not split evenly, the shares may differ by at most one pesewa, and together they must add up exactly to the bill. For every member we want to see their balance, which is how much they are owed overall, or how much they owe if it is negative, and the balances in a group must always add up to zero. When one friend pays another back, we record that payment and the balances change to match. Amounts must be more than zero, everyone involved must be in the group, and nobody can pay themselves back.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 9242,
+    "cache_write": 12170,
+    "cache_read": 3567
+  },
+  "cost_usd": 0.2471,
+  "seconds": 70.5,
+  "tests": {
+    "passed": 9,
+    "failed": 0
+  },
+  "summary": "Your shared-expenses tracker is built and all 9 of my automated tests pass. It's in one file, `app.py`, and saves everything in a database file called `shared_expenses.db` in the same folder. The tests cover every rule in the plan, including uneven bills, a payer who isn't sharing the cost, repayments, and refusing bad input. One test also records 30 random expenses and confirms every bill's shares add up exactly, no two shares differ by more than one pesewa, and the balances add up to zero.\n\n**Endpoints**\n| Method | Path | What it does |\n|---|---|---|\n| POST | `/groups` | Creates a group: `{\"name\": \"Accra flat\"}` |\n| GET | `/groups/{groupId}` | Shows a group's name and when it was created |\n| POST | `/groups/{groupId}/members` | Adds a friend: `{\"name\": \"Ama\"}` |\n| GET | `/groups/{groupId}/members` | Lists members, earliest to join first |\n| POST | `/groups/{groupId}/expenses` | Records an expense: `{\"payer_id\": 1, \"amount\": 100, \"shared_with\": [1, 2, 3]}` and shows each person's share |\n| GET | `/groups/{groupId}/expenses` | Lists expenses with who paid, how much, and each share |\n| POST | `/groups/{groupId}/repayments` | Records a repayment: `{\"from_member_id\": 2, \"to_member_id\": 1, \"amount\": 30}` |\n| GET | `/groups/{groupId}/repayments` | Lists repayments |\n| GET | `/groups/{groupId}/balances` | Shows each member's balance in cedis, plus the total, which is always 0 |\n\n**How it works**\n- Members, payers and the people sharing a bill are identified by the ID number the system gives each member when they're added, not by name.\n- Money is stored in whole pesewas, so nothing is lost to rounding. For example, GH\u20b5100 shared by three people becomes 33.34, 33.33 and 33.33. The extra pesewa goes to whoever joined the group first.\n- Two members of the same group can't have the same name, and this ignores capital letters: \"Ama\" and \"ama\" count as the same name.\n\n**What gets refused, and the error code you'll see**\n- **Code 404:** anything aimed at a group that doesn't exist.\n- **Code 422:** a blank name; an amount that is zero, negative, or has more than two digits after the decimal point (like 12.505).\n- **Code 409:** a name that's already taken in the group.\n- **Code 400:** someone who isn't in the group; an expense shared by nobody or listing someone twice; someone paying themselves back.\n\n**One addition you didn't ask for:** to stop the system from crashing on absurdly large numbers, it refuses any single amount above 10 trillion cedis. Normal use will never get near this.",
+  "plan": {
+    "summary": "This plan describes a shared-expenses tracker for you and your friends. Someone creates a group and adds friends to it by name. Each time someone pays for something, you record who paid, how much in cedis, and which members share the cost. The cost is split equally among those members, and the payer does not have to be one of them. When a bill cannot be split evenly, some shares are one pesewa larger than others, and the shares always add up exactly to the bill. Each member has a balance: a positive balance is what they are owed overall, and a negative balance is what they owe. The balances in a group always add up to zero. You can also record when one friend pays another back, and the balances update to match. Behind the scenes, all money is stored as whole pesewas (1 cedi = 100 pesewas), so nothing is lost to rounding. Nothing in your request was unsafe or unrelated to the backend, so nothing was left out. Things you did not ask for are not included: logins or passwords, removing members, and editing or deleting expenses and repayments. These can be added later if you want them.",
+    "data": [
+      {
+        "name": "Group",
+        "fields": [
+          "Group ID (a unique number the system assigns)",
+          "Group name (for example, 'Accra flat' or 'Cape Coast trip')",
+          "Date and time the group was created"
+        ]
+      },
+      {
+        "name": "Member",
+        "fields": [
+          "Member ID (a unique number the system assigns)",
+          "Which group the member belongs to",
+          "Name",
+          "Date and time the member was added (used to decide who gets any leftover pesewa when a bill does not split evenly)"
+        ]
+      },
+      {
+        "name": "Expense (something someone paid for)",
+        "fields": [
+          "Expense ID (a unique number the system assigns)",
+          "Which group it belongs to",
+          "Who paid (a member of the group)",
+          "Amount paid, stored in pesewas",
+          "Date and time it was recorded"
+        ]
+      },
+      {
+        "name": "Expense share (one person's part of an expense)",
+        "fields": [
+          "Which expense it belongs to",
+          "Which member owes this part",
+          "That member's share, in pesewas"
+        ]
+      },
+      {
+        "name": "Repayment (one friend paying another back)",
+        "fields": [
+          "Repayment ID (a unique number the system assigns)",
+          "Which group it belongs to",
+          "Who paid the money back (a member of the group)",
+          "Who received it (a different member of the group)",
+          "Amount, stored in pesewas",
+          "Date and time it was recorded"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/groups",
+        "does": "Creates a new group with the name you give it."
+      },
+      {
+        "method": "GET",
+        "path": "/groups/{groupId}",
+        "does": "Shows a group's name and when it was created."
+      },
+      {
+        "method": "POST",
+        "path": "/groups/{groupId}/members",
+        "does": "Adds a friend to the group by name."
+      },
+      {
+        "method": "GET",
+        "path": "/groups/{groupId}/members",
+        "does": "Lists everyone in the group."
+      },
+      {
+        "method": "POST",
+        "path": "/groups/{groupId}/expenses",
+        "does": "Records that someone paid for something. You give who paid, the amount in cedis, and which members share it. The system splits the amount equally among them, down to the pesewa, and saves each person's share."
+      },
+      {
+        "method": "GET",
+        "path": "/groups/{groupId}/expenses",
+        "does": "Lists every expense in the group: who paid, how much, and each person's share."
+      },
+      {
+        "method": "POST",
+        "path": "/groups/{groupId}/repayments",
+        "does": "Records that one member paid another member back a certain amount in cedis."
+      },
+      {
+        "method": "GET",
+        "path": "/groups/{groupId}/repayments",
+        "does": "Lists every repayment in the group: who paid whom, and how much."
+      },
+      {
+        "method": "GET",
+        "path": "/groups/{groupId}/balances",
+        "does": "Shows each member's balance in cedis. Positive means they are owed money overall, and negative means they owe money. The balances always add up to zero."
+      }
+    ],
+    "rules": [
+      "A group must have a name. It cannot be blank.",
+      "A member must have a name. It cannot be blank. Two members of the same group cannot have the same name, so it is always clear who is who.",
+      "Every amount, for both expenses and repayments, must be more than zero. Zero or negative amounts are refused.",
+      "Amounts are in cedis and can have at most two digits after the decimal point (whole pesewas). For example, 12.505 is refused.",
+      "The person who paid for an expense must be a member of that group.",
+      "An expense must be shared by at least one member. Every member it is shared between must belong to that group, and no member can be listed twice.",
+      "The person who paid for an expense does not have to be one of the people sharing it.",
+      "How an expense is split: the amount is divided equally among the sharing members, in whole pesewas. If pesewas are left over, they are given out one each to the sharing members who joined the group earliest. As a result, no two shares differ by more than one pesewa, and the shares always add up exactly to the amount paid.",
+      "How a balance is worked out: (everything the member paid for expenses) minus (all of their shares of expenses) plus (everything they paid back to others) minus (everything others paid back to them).",
+      "The balances of all members in a group must always add up to exactly zero. If anything would break this, it is refused.",
+      "A repayment must be between two members of the same group.",
+      "Nobody can pay themselves back. A repayment where the payer and the receiver are the same person is refused.",
+      "Members, expenses and repayments can only be added to a group that exists. Anything aimed at a group that does not exist is refused."
+    ]
+  },
+  "follows_plan": {
+    "missing": [],
+    "extra": []
+  }
+}

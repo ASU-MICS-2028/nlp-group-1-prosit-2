@@ -1,0 +1,99 @@
+{
+  "request": "I sell provisions at Makola market and I want to keep track of my stock. For each item I want to save its name, how many I have, and the level at which I consider it to be running low. When I sell some of an item the quantity should go down, but I must not be able to sell more than I have. When new goods arrive I record a restock and the quantity goes up. The amount sold or restocked must always be more than zero. I want to see all my items, look at one item, and see a list of the items that are at or below their low level so I know what to buy.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 3727,
+    "cache_write": 6010,
+    "cache_read": 2451
+  },
+  "cost_usd": 0.1056,
+  "seconds": 30.6,
+  "tests": {
+    "passed": 29,
+    "failed": 0
+  },
+  "summary": "I've built your stock book in `app.py`, and all 29 of my automated checks pass. Your items are saved in a file called `stock.db` in the same folder, so nothing is lost when the app is restarted.\n\n**What you can do:**\n- **POST /items** adds an item with its name, how many you have and its low level, for example `{\"name\": \"Rice 5kg\", \"quantity\": 10, \"low_level\": 3}`.\n- **GET /items** shows all your items.\n- **GET /items/{id}** shows one item.\n- **POST /items/{id}/sell** records a sale, for example `{\"amount\": 4}`. The quantity goes down by that amount.\n- **POST /items/{id}/restock** records new goods arriving, for example `{\"amount\": 5}`. The quantity goes up by that amount.\n- **GET /items/low** shows only the items that are at or below their low level, so you know what to buy.\n\n**What gets refused:**\n- **Selling more than you have:** the sale is refused and your quantity stays the same.\n- **Bad sale or restock amounts:** an amount of zero or less, a fraction, text or a missing amount is refused, and your quantity stays the same.\n- **Bad new items:** an empty name, or a quantity or low level that is negative or not a whole number, is refused.\n- **Items that don't exist:** asking for, selling or restocking one is refused with the message \"Item not found\".\n\nAn item counts as running low when its quantity is equal to or less than its low level. Selling all of an item, bringing it to exactly zero, is allowed.",
+  "plan": {
+    "summary": "This plan sets up a simple stock book for your provisions stall at Makola market. For each item it keeps the name, how many you have, and the level at which you consider it running low. You can add items, see all of them, look at one, record a sale (the quantity goes down) or a restock (the quantity goes up), and see a list of items that are at or below their low level so you know what to buy. A sale that is more than you have will be refused, and every sale or restock amount must be more than zero. Everything you asked for is included, and nothing was left out.",
+    "data": [
+      {
+        "name": "Item",
+        "fields": [
+          "id: a number the system gives each item automatically so it can be found",
+          "name: the item's name, for example 'Rice 5kg' or 'Tin tomatoes'",
+          "quantity: how many of this item you have right now (a whole number, never below zero)",
+          "low_level: the quantity at which you consider this item to be running low (a whole number, zero or more)"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/items",
+        "does": "Adds a new item to your stock with its name, how many you have now, and its low level."
+      },
+      {
+        "method": "GET",
+        "path": "/items",
+        "does": "Shows all your items with their names, quantities and low levels."
+      },
+      {
+        "method": "GET",
+        "path": "/items/{id}",
+        "does": "Shows one item, so you can see how many you have and its low level."
+      },
+      {
+        "method": "POST",
+        "path": "/items/{id}/sell",
+        "does": "Records a sale of an item. You give the amount sold and the quantity goes down by that amount."
+      },
+      {
+        "method": "POST",
+        "path": "/items/{id}/restock",
+        "does": "Records new goods arriving for an item. You give the amount received and the quantity goes up by that amount."
+      },
+      {
+        "method": "GET",
+        "path": "/items/low",
+        "does": "Shows only the items whose quantity is at or below their low level, so you know what to buy."
+      }
+    ],
+    "rules": [
+      "A sale must be refused if the amount sold is more than the quantity you currently have, so the quantity can never go below zero.",
+      "The amount sold must be more than zero; a sale of zero or a negative amount is refused.",
+      "The amount restocked must be more than zero; a restock of zero or a negative amount is refused.",
+      "Amounts sold or restocked must be whole numbers; fractions or text are refused.",
+      "When adding an item, the name must not be empty.",
+      "When adding an item, the starting quantity and the low level must be whole numbers of zero or more; negative numbers are refused.",
+      "If you ask for, sell, or restock an item that does not exist, the request is refused with a message saying the item was not found.",
+      "An item counts as running low when its quantity is equal to or less than its low level."
+    ]
+  },
+  "follows_plan": {
+    "missing": [],
+    "extra": []
+  }
+}
