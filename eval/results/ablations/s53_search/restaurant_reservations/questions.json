@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should a table count as taken only when another booking has exactly the same time (e.g. 7:00 and 7:30 are both fine), or does each booking hold the table for a set length, such as 2 hours, so nearby times also clash?",
+    "Can customers pick any time, or only fixed slots or times within your opening hours? If limited, what are they?",
+    "Do you need a way to cancel a reservation so the table becomes free again?"
+  ],
+  "answers": [
+    "We just use the start time. Two reservations clash only if they are for the same table, the same date and the same time.",
+    "No preference: you decide.",
+    "Not for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0072
+}

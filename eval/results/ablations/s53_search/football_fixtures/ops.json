@@ -1,0 +1,26 @@
+{
+  "add_team": {
+    "method": "POST",
+    "path": "/teams"
+  },
+  "list_teams": {
+    "method": "GET",
+    "path": "/teams"
+  },
+  "create_fixture": {
+    "method": "POST",
+    "path": "/fixtures"
+  },
+  "get_fixture": {
+    "method": "GET",
+    "path": "/fixtures/{id}"
+  },
+  "record_score": {
+    "method": "PUT",
+    "path": "/fixtures/{id}/score"
+  },
+  "team_fixtures": {
+    "method": "GET",
+    "path": "/teams/{id}/fixtures"
+  }
+}

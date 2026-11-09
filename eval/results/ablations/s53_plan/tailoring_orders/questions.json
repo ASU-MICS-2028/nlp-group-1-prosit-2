@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should measurements be saved once per customer and updated when they change, or recorded fresh with each order so you keep the old ones?",
+    "Can a customer pay more after the first deposit, so you need to update the amount paid? And must an order be fully paid before you can mark it collected?",
+    "Do you need to edit or delete customers and orders after saving them, for example to fix a mistake or change a due date?"
+  ],
+  "answers": [
+    "No, measurements are kept on the customer.",
+    "No preference: you decide.",
+    "Not for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00994
+}

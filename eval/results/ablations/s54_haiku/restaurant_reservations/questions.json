@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "How long does one reservation hold a table? Should a table be blocked only at the exact start time (for example 7:00 pm), or for a set period such as 2 hours, so that a 7:30 pm booking on the same table is also refused?",
+    "Do you need to cancel or change a reservation after it is made? If so, who can do it, and should the freed table become available again straight away?",
+    "Who will use this system: only you, or also your staff and customers? If customers should book themselves online, do you want them to see which tables are free before they choose?"
+  ],
+  "answers": [
+    "We just use the start time. Two reservations clash only if they are for the same table, the same date and the same time.",
+    "Not for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0005
+}

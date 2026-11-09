@@ -1,0 +1,35 @@
+empty click: 'Please type something first.' True
+questions: ['Can one order include more than one cake, or a quantity of the same cake, or is it always a single cake per order?', "Besides the customer's name, should an order store anything else, like a pickup date, phone number, or a note?", 'Do you need to see a list of orders and mark them as done or paid, or just record them?']
+url keeps the build: https://34-78-38-126.sslip.io/?b=beae21105e9
+survives a page refresh
+progress: ['Getting started']
+result: Your backend is live
+Your backend is live
+
+Try it here: https://34-78-38-126.sslip.io/b/beae21105e9/docs
+
+Its address, for a website or app: https://34-78-38-126.sslip.io/b/beae21105e9
+
+What it can do
+GET /cakes
+POST /cakes
+POST /orders
+It is ready.
+
+You can:
+- Add a cake with a name and a price.
+- See all your cakes with their name and price.
+- Record an order for one cake, with the customer's name and a pickup date.
+
+It turns away:
+- A cake with a blank name, no price, or a price that is not a number or is below zero.
+- An order with no cake, a cake that is not on your list, a blank customer name, or a pickup date that is missing or not a real date.
+
+Choices made for you:
+- Each order is for one cake only. You cannot order several cakes or a quantity in one order.
+- Every new order must have a pickup date. I added this because you said orders should have one.
+- Dates are written as year, month, day, for ex
+no sideways scroll on a phone: True
+docs link: https://34-78-38-126.sslip.io/b/beae21105e9/docs
+docs operations: 3
+page errors: []

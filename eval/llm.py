@@ -16,7 +16,7 @@ import os
 import anthropic
 import httpx
 
-PRICES = {"claude-opus-5-5": (4.00, 20.00), "claude-haiku-5-5": (0.10, 0.50), "qwen3.5-9b-local": (0, 0)}  # US$ per million tokens in/out (Oct 2026)
+PRICES = {"claude-opus-5-5": (4.00, 20.00), "claude-sonnet-5-5": (2.00, 10.00), "claude-haiku-5-5": (0.10, 0.50), "qwen3.5-9b-local": (0, 0)}  # US$ per million tokens in/out (Oct 2026)
 BUDGET_USD = float(os.environ.get("BUDGET_USD", "8"))
 SPENT = {"usd": 0.0, "calls": 0}
 _client = None

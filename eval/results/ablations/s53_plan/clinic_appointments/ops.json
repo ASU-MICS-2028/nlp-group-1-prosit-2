@@ -1,0 +1,31 @@
+{
+  "create_doctor": {
+    "method": "POST",
+    "path": "/doctors"
+  },
+  "list_doctors": {
+    "method": "GET",
+    "path": "/doctors"
+  },
+  "book_appointment": {
+    "method": "POST",
+    "path": "/doctors/{doctor_id}/appointments",
+    "request_fields": {
+      "time": "time_slot"
+    },
+    "response_fields": {
+      "time": "time_slot"
+    }
+  },
+  "list_doctor_appointments": {
+    "method": "GET",
+    "path": "/doctors/{id}/appointments",
+    "response_fields": {
+      "time": "time_slot"
+    }
+  },
+  "cancel_appointment": {
+    "method": "DELETE",
+    "path": "/appointments/{id}"
+  }
+}

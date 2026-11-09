@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can one customer have measurements that change over time (for example if they gain or lose weight), and should each order remember the measurements used, or just keep one current set per customer?",
+    "When the customer collects the clothes, do they have to pay the remaining balance first, or can you mark it collected even if some money is still owed?",
+    "Can the same phone number be saved for two customers (for example family members sharing a phone), or must each phone number be unique?"
+  ],
+  "answers": [
+    "No, measurements are kept on the customer.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0027
+}

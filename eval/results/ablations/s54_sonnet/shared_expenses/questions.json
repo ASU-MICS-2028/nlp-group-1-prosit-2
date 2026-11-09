@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a bill does not split evenly, who should get the extra pesewa: should it rotate fairly, go to the same person each time, or be picked by the person recording it?",
+    "Besides each person's balance, do you also want a simple list of who should pay whom to settle everything, with the fewest payments?",
+    "If someone recorded an expense or payment by mistake, do you need to edit or delete it, or are records final and corrected by adding a new one?"
+  ],
+  "answers": [
+    "Any of them, as long as the shares differ by at most one pesewa and add up to the bill.",
+    "No preference: you decide.",
+    "Not for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00291
+}

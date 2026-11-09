@@ -1,0 +1,59 @@
+{
+  "summary": "This plan sets up a simple catalogue for your school library. The librarian can add books with a title, an author and the number of copies the library owns. Students can see every book, look at one book to see how many copies are still on the shelf, borrow a copy by giving their name, and return it when they are done. Where you had no preference we picked the simplest option: there is no limit on how many books a student may borrow (including more than one copy of the same book), loans have no due date, and adding books is not protected, so anyone using the system could add a book. Questions for you to consider (not included in this plan): Would you like adding books to be limited to the librarian only? Are you comfortable with students' names being stored with their loans, and should anyone be able to see who has borrowed what?",
+  "data": [
+    {
+      "name": "Book",
+      "fields": [
+        "Book number (given automatically)",
+        "Title",
+        "Author",
+        "Total copies the library owns",
+        "Copies still on the shelf (worked out from total copies minus copies currently borrowed)"
+      ]
+    },
+    {
+      "name": "Loan",
+      "fields": [
+        "Loan number (given automatically)",
+        "Which book was borrowed",
+        "Name of the student who borrowed it",
+        "Whether it has been returned yet"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/books",
+      "does": "Adds a new book to the catalogue with its title, author and how many copies the library owns."
+    },
+    {
+      "method": "GET",
+      "path": "/books",
+      "does": "Shows the list of all books in the catalogue."
+    },
+    {
+      "method": "GET",
+      "path": "/books/{bookId}",
+      "does": "Shows one book, including how many copies are still on the shelf."
+    },
+    {
+      "method": "POST",
+      "path": "/books/{bookId}/borrow",
+      "does": "Lets a student borrow one copy of the book by giving their name. One fewer copy is then on the shelf."
+    },
+    {
+      "method": "POST",
+      "path": "/books/{bookId}/return",
+      "does": "Lets a student return a copy of the book they borrowed by giving their name. One more copy is then back on the shelf."
+    }
+  ],
+  "rules": [
+    "A book cannot be added without a title, an author and the number of copies.",
+    "The number of copies must be a whole number of at least 1.",
+    "Borrowing is refused if the student does not give their name.",
+    "Borrowing is refused when every copy of the book is already out, until a copy comes back.",
+    "Returning is refused if that student does not currently have a copy of that book borrowed.",
+    "Looking at, borrowing or returning a book that is not in the catalogue is refused."
+  ]
+}

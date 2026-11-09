@@ -1,0 +1,12 @@
+{
+  "questions": [
+    "Should only desk staff be able to mark an item as claimed (which needs a staff login), or can anyone using the board do it?",
+    "When an item is claimed, should the owner's name be visible to everyone viewing the board, or only to desk staff?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00718
+}

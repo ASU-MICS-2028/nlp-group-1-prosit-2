@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can the same person (same phone number) sign up more than once for the same event, or should a second sign-up be refused?",
+    "Should people be able to cancel their sign-up, so their place opens up for someone else?",
+    "When an event is full, should extra people simply be turned away, or put on a waiting list?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "Refuse the sign-up and say the event is full."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00557
+}

@@ -1,0 +1,24 @@
+W1109 08:49:38.335000 5863 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 7776.60it/s]
+church_signup            end_turn   3 turns  4 tools $0.1145 37.7s  own tests 8 passed 0 failed  repairs 0  follows plan None
+clinic_appointments      end_turn   2 turns  3 tools $0.11 32.0s  own tests 6 passed 0 failed  repairs 0  follows plan None
+football_fixtures        end_turn   2 turns  3 tools $0.0826 24.7s  own tests 2 passed 0 failed  repairs 0  follows plan None
+hostel_booking           end_turn   2 turns  3 tools $0.1132 50.4s  own tests 8 passed 0 failed  repairs 0  follows plan None
+library_catalogue        end_turn   2 turns  3 tools $0.1167 39.3s  own tests 4 passed 0 failed  repairs 0  follows plan None
+lost_and_found           end_turn   2 turns  3 tools $0.0866 28.4s  own tests 8 passed 0 failed  repairs 0  follows plan None
+market_stock             end_turn   2 turns  3 tools $0.0943 41.6s  own tests 11 passed 0 failed  repairs 0  follows plan None
+momo_wallet              end_turn   2 turns  3 tools $0.1826 61.7s  own tests 18 passed 0 failed  repairs 0  follows plan None
+restaurant_reservations  end_turn   3 turns  3 tools $0.1084 49.7s  own tests 9 passed 0 failed  repairs 0  follows plan None
+school_grades_gpa        end_turn   2 turns  3 tools $0.1415 76.1s  own tests 34 passed 0 failed  repairs 0  follows plan None
+python(45801) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+python(46968) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+python(48987) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+shared_expenses          end_turn   4 turns 10 tools $0.2044 110.8s  own tests 5 passed 0 failed  repairs 0  follows plan None
+python(50939) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+shop_price_list          end_turn   2 turns  3 tools $0.0844 31.1s  own tests 6 passed 0 failed  repairs 0  follows plan None
+python(54061) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+susu_ledger              end_turn   4 turns  5 tools $0.1893 58.7s  own tests 10 passed 0 failed  repairs 0  follows plan None
+python(56049) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+tailoring_orders         end_turn   2 turns  3 tools $0.1128 35.1s  own tests 8 passed 0 failed  repairs 0  follows plan None
+python(57700) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+trotro_fares             end_turn   2 turns  3 tools $0.0833 25.0s  own tests 5 passed 0 failed  repairs 0  follows plan None

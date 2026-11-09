@@ -1,0 +1,76 @@
+{
+  "summary": "This plan keeps a simple record book for your tailoring shop in Kumasi. You can save customers with their name, phone number and measurements (chest, waist, hip and length, in inches). You can add orders for a customer, each with the garment, due date, price and deposit paid (in cedis). You can see all orders for one customer, look at one order, and list every order due on or before a date you choose, so you know what to finish first. When a customer picks up their clothes, you mark the order as collected, and it leaves the due list. Measurements are kept on the customer, as you said. You had no preference about payments, so we chose the simplest option: the deposit is recorded once when the order is made and is not updated later, and an order can be marked collected whether or not it is fully paid. As you asked, nothing can be edited or deleted for now. We also added a way to look at a single customer's saved details, so you can read their measurements back. A question for you: customer phone numbers and measurements are personal details. Do you want anything to limit who can see them? We have not added anything for this.",
+  "data": [
+    {
+      "name": "Customer",
+      "fields": [
+        "customer number (given automatically)",
+        "name",
+        "phone number",
+        "chest (inches)",
+        "waist (inches)",
+        "hip (inches)",
+        "length (inches)"
+      ]
+    },
+    {
+      "name": "Order",
+      "fields": [
+        "order number (given automatically)",
+        "customer it belongs to",
+        "garment",
+        "date due",
+        "price (cedis)",
+        "deposit paid (cedis)",
+        "collected (yes or no, starts as no)"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/customers",
+      "does": "Saves a new customer with their name, phone number and measurements."
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerNumber}",
+      "does": "Shows one customer's name, phone number and measurements."
+    },
+    {
+      "method": "POST",
+      "path": "/customers/{customerNumber}/orders",
+      "does": "Adds a new order for this customer with the garment, due date, price and deposit. The order starts as not collected."
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerNumber}/orders",
+      "does": "Lists all the orders for this customer, including collected ones."
+    },
+    {
+      "method": "GET",
+      "path": "/orders/{orderNumber}",
+      "does": "Shows one order with all its details."
+    },
+    {
+      "method": "GET",
+      "path": "/orders/due?date={date}",
+      "does": "Lists every order that is not yet collected and is due on or before the date you choose, earliest due date first."
+    },
+    {
+      "method": "POST",
+      "path": "/orders/{orderNumber}/collected",
+      "does": "Marks the order as collected, so it no longer shows in the due list."
+    }
+  ],
+  "rules": [
+    "Refuse an order whose deposit is more than its price.",
+    "Refuse a customer whose name, phone number, chest, waist, hip or length is missing.",
+    "Refuse an order whose garment, due date, price or deposit is missing.",
+    "Refuse measurements that are zero or below zero.",
+    "Refuse a price or deposit that is below zero.",
+    "Refuse an order for a customer who does not exist.",
+    "Report clearly when a requested customer or order does not exist.",
+    "Never show collected orders in the due list."
+  ]
+}

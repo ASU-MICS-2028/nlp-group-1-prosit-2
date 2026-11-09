@@ -1,0 +1,45 @@
+{
+  "report_item": {
+    "method": "POST",
+    "path": "/items",
+    "request_fields": {
+      "place": "where_found"
+    },
+    "response_fields": {
+      "place": "where_found",
+      "claimed": "status"
+    }
+  },
+  "list_items": {
+    "method": "GET",
+    "path": "/items",
+    "response_fields": {
+      "place": "where_found",
+      "claimed": "status"
+    }
+  },
+  "list_unclaimed": {
+    "method": "GET",
+    "path": "/items/waiting",
+    "response_fields": {
+      "place": "where_found",
+      "claimed": "status"
+    }
+  },
+  "get_item": {
+    "method": "GET",
+    "path": "/items/{id}",
+    "response_fields": {
+      "place": "where_found",
+      "claimed": "status"
+    }
+  },
+  "claim_item": {
+    "method": "POST",
+    "path": "/items/{id}/claim",
+    "response_fields": {
+      "place": "where_found",
+      "claimed": "status"
+    }
+  }
+}

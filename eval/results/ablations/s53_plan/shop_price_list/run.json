@@ -1,0 +1,87 @@
+{
+  "request": "I run a small provisions shop in Madina and I want to keep my price list on the computer instead of in my notebook. I want to add the things I sell with their prices. I want to see everything I sell, and look up the price of one thing. Sometimes I stop selling something, so I want to take it off the list.\n\nThe client's answers to your questions:\nQ: When a price goes up or down, do you want to change it directly on the list, and should the old price be kept so you can see what it used to be?\nA: No preference: you decide.\nQ: Do some things have more than one price depending on size or amount (for example a full bag of rice versus one cup, or a single tin versus a carton)?\nA: No preference: you decide.\nQ: When you look up a price, will you type the full name of the item, or would you like to type part of the name (like 'milo') and see every item that matches?\nA: No preference: you decide.\n\nWhere the client has no preference or did not answer, choose the simplest option and add nothing they did not ask for (no logins, PINs or extra required fields).",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "search": false,
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 3326,
+    "cache_write": 5481,
+    "cache_read": 2444
+  },
+  "cost_usd": 0.0949,
+  "seconds": 47.5,
+  "tests": {
+    "passed": 19,
+    "failed": 0
+  },
+  "summary": "Your price list program is built, and all 19 of my checks pass. Your list is saved in a file called `shop.db` in the same folder as the program, so it is still there after you turn the computer off. Prices are in Ghana cedis.\n\n**What you can do:**\n- **POST /items**: add an item and its price, for example `{\"name\": \"Milo 400g tin\", \"price\": 35.50}`.\n- **GET /items**: see every item on your list with its price, in A\u2013Z order.\n- **GET /items/{name}**: look up the price of one item by typing its full name. Capital and small letters don't matter, so `milo` finds \"Milo\". Part of a name won't work: `milo` does not find \"Milo 400g tin\".\n- **DELETE /items/{name}**: take an item off your list when you stop selling it. Capital and small letters don't matter here either.\n\n**What it refuses, with a message saying why:**\n- An item with no name, or a name that is only spaces.\n- An item with no price, or a price that isn't a number. A price typed with quote marks, like `\"10\"`, is also refused.\n- A price below zero. A price of 0 is allowed.\n- An item whose name is already on the list, even with different capital or small letters (\"Milo\" and \"milo\" count as the same). Spaces at the start or end of a name are ignored.\n- Looking up or taking off an item that isn't on the list gives a \"not found\" message.\n\n**Things to know:**\n- Each item has one price. If you sell different sizes, add each one as its own item, like \"Rice (full bag)\" and \"Rice (cup)\".\n- Old prices are not kept. To change a price, take the item off the list and add it again with the new price.\n- Don't use the \"/\" symbol in item names. Looking up or taking off such an item by name won't work.\n\nTwo questions are still open from the plan: would you like a direct way to change a price, and would you like to search by part of a name (so typing \"milo\" shows every Milo item)?",
+  "plan": {
+    "summary": "This plan keeps your shop's price list on the computer instead of in your notebook. You will be able to add an item with its price, see everything you sell, look up the price of one item by its name, and take an item off the list when you stop selling it. You told us you had no preference on three questions, so we chose the simplest option each time. First, each item has one price. If you sell something in different sizes, such as a full bag of rice and one cup of rice, add each size as its own item with its own name, for example 'Rice (full bag)' and 'Rice (cup)'. Second, old prices are not kept. Third, to look up a price you type the item's full name. Capital and small letters do not matter, so 'milo' finds 'Milo'. You did not ask for a way to change a price, so there is no separate step for it. To change a price, take the item off the list and add it again with the new price. Would you like a direct way to change a price instead? Would you also like to search by part of a name, so that typing 'milo' shows every Milo item? Prices are written in Ghana cedis.",
+    "data": [
+      {
+        "name": "Item",
+        "fields": [
+          "Name of the item (for example 'Milo 400g tin')",
+          "Price in Ghana cedis (for example 35.50)"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/items",
+        "does": "Adds a new item and its price to your list."
+      },
+      {
+        "method": "GET",
+        "path": "/items",
+        "does": "Shows every item on your list with its price."
+      },
+      {
+        "method": "GET",
+        "path": "/items/{name}",
+        "does": "Shows the price of one item when you type its full name."
+      },
+      {
+        "method": "DELETE",
+        "path": "/items/{name}",
+        "does": "Takes one item off your list when you stop selling it."
+      }
+    ],
+    "rules": [
+      "An item cannot be added without a name.",
+      "An item cannot be added without a price.",
+      "The price must be a number, and it cannot be less than zero.",
+      "An item cannot be added if an item with the same name is already on the list. Capital and small letters count as the same, so 'Milo' and 'milo' are the same name.",
+      "If you look up an item that is not on the list, you will get a message saying it was not found.",
+      "If you try to take off an item that is not on the list, you will get a message saying it was not found."
+    ]
+  },
+  "change": null,
+  "follows_plan": {
+    "missing": [],
+    "extra": []
+  }
+}

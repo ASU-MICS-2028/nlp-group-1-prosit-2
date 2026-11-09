@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Are quantities always whole numbers (like 5 tins), or can they be fractions (like 2.5 kg of rice)?",
+    "Do you want a saved history of each sale and restock with dates, or only the current quantity?",
+    "Should you be able to edit an item's name or low level, or delete an item, after adding it?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "Not needed for now; I only need the current quantity.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00791
+}

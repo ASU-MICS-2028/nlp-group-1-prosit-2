@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Are time slots fixed lengths (for example every 30 minutes from 08:00 to 17:00), or can a patient give any time like 09:10? If fixed, what are the clinic's opening hours and slot length?",
+    "Besides their name, do you need to record a patient's phone number so you can reach them, and how does a patient cancel (by giving their name, date and time, or some booking number)?",
+    "Should bookings in the past or on days the clinic or doctor is closed (like Sundays or holidays) be refused?"
+  ],
+  "answers": [
+    "We just use the start time, like 09:00 or 14:30. Two bookings clash only if they have the same doctor, date and time.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00293
+}

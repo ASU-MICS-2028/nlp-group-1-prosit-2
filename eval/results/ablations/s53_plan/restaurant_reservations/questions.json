@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should a clash only count when two bookings for the same table have exactly the same date and time, or does each booking hold the table for a set length (for example 2 hours), so a 7:00 booking would block 8:00 too?",
+    "Do you need to be able to cancel or change a reservation, or is it enough to create and list them?",
+    "Should bookings only be allowed at certain times, such as within your opening hours or on fixed slots like every half hour, or can customers pick any time?"
+  ],
+  "answers": [
+    "We just use the start time. Two reservations clash only if they are for the same table, the same date and the same time.",
+    "Not for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00811
+}

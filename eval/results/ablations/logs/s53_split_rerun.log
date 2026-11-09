@@ -1,0 +1,4 @@
+shared_expenses          end_turn   2 turns  3 tools $0.3139 94.7s  own tests 8 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+shop_price_list          end_turn   4 turns  7 tools $0.1997 64.5s  own tests 20 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+susu_ledger              end_turn   2 turns  3 tools $0.2781 87.6s  own tests 6 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+tailoring_orders         end_turn   2 turns  3 tools $0.2232 70.6s  own tests 9 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}

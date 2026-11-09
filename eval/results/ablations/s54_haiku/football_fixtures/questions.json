@@ -1,0 +1,12 @@
+{
+  "questions": [
+    "Can two teams be scheduled to play each other more than once, for example a home match and a return match? Or should each pair of teams meet only once?",
+    "Should team names be unique, so two teams cannot have the same name?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "We never do that, so it does not matter."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00031
+}

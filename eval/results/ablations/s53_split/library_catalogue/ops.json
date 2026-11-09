@@ -1,0 +1,51 @@
+{
+  "add_book": {
+    "method": "POST",
+    "path": "/books",
+    "request_fields": {
+      "copies": "total_copies"
+    },
+    "response_fields": {
+      "copies": "total_copies",
+      "available": "copies_on_shelf"
+    }
+  },
+  "list_books": {
+    "method": "GET",
+    "path": "/books",
+    "response_fields": {
+      "copies": "total_copies",
+      "available": "copies_on_shelf"
+    }
+  },
+  "get_book": {
+    "method": "GET",
+    "path": "/books/{id}",
+    "response_fields": {
+      "copies": "total_copies",
+      "available": "copies_on_shelf"
+    }
+  },
+  "borrow_book": {
+    "method": "POST",
+    "path": "/books/{id}/borrow",
+    "request_fields": {
+      "student": "student_name"
+    },
+    "response_fields": {
+      "student": "student_name",
+      "available": "copies_on_shelf"
+    }
+  },
+  "return_book": {
+    "method": "POST",
+    "path": "/books/{id}/return",
+    "request_fields": {
+      "student": "student_name"
+    },
+    "response_fields": {
+      "student": "student_name",
+      "available": "copies_on_shelf"
+    }
+  }
+}

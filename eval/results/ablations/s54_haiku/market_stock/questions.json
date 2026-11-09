@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can quantities be fractions, such as 2.5 kg of rice, or must they always be whole numbers like 3 bags?",
+    "Do you want a record of each sale and restock with its date, or is it enough to see only the current quantity?",
+    "Will anyone else besides you use this system, and do you need a login to keep it private?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "Not needed for now; I only need the current quantity.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00038
+}

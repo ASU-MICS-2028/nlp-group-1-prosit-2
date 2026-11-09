@@ -1,0 +1,114 @@
+{
+  "request": "I run a small tailoring shop in Kumasi and I want to keep my orders in order. I need to save each customer with their name, phone number and their measurements: chest, waist, hip and length, all in inches. For a customer I take orders, and each order has the garment, the date it is due, the price and the deposit the customer has paid, in cedis. The deposit can never be more than the price. I want to see all the orders for one customer and look at a single order. I also want to see every order that is due on or before a date I choose, so I know what to finish first. When a customer picks up their clothes I mark the order as collected, and collected orders should no longer show in that due list.\n\nThe client's answers to your questions:\nQ: Should each customer keep one set of measurements that you update when they change, or should each order save the measurements taken for that garment?\nA: No, measurements are kept on the customer.\nQ: When a customer pays more after the first deposit, should you be able to update the amount paid on the order?\nA: No preference: you decide.\nQ: Can an order be marked as collected while the customer still owes money, or must it be fully paid first?\nA: No preference: you decide.\n\nWhere the client has no preference or did not answer, choose the simplest option and add nothing they did not ask for (no logins, PINs or extra required fields).",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "search": false,
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 4787,
+    "cache_write": 7176,
+    "cache_read": 2697
+  },
+  "cost_usd": 0.2232,
+  "seconds": 70.6,
+  "tests": {
+    "passed": 9,
+    "failed": 0
+  },
+  "summary": "I've built your shop's record book in `app.py`, and all 9 of my tests pass. Your records are saved in a file called `tailor.db` in the same folder as the app.\n\n**What you can do with it**\n- **POST `/customers`**: save a new customer with their name, phone number and measurements (chest, waist, hip, length, in inches).\n- **PATCH `/customers/{customerId}`**: change a customer's measurements. You only need to send the ones that changed; the others stay as they were.\n- **POST `/customers/{customerId}/orders`**: save a new order with the garment, due date (written like `2030-05-10`), price and deposit, in cedis. A new order always starts as not collected.\n- **GET `/customers/{customerId}/orders`**: see all of one customer's orders, soonest due first.\n- **GET `/orders/{orderId}`**: look at a single order.\n- **GET `/orders/due?date=2030-05-10`**: see every order due on or before that date that hasn't been collected yet, soonest first, so you know what to finish first.\n- **PATCH `/orders/{orderId}/collected`**: mark an order as collected when the customer picks up their clothes. It then drops off the due list.\n\n**What it refuses**\n- An order whose deposit is more than its price.\n- An order for a customer who doesn't exist.\n- Missing or blank names, phone numbers or garments.\n- Measurements of zero or less, and negative prices or deposits.\n- A due date or chosen date that isn't a real date.\n\n**Choices I made because you had no preference**\n- The deposit is entered once, when you create the order, and can't be changed later.\n- An order can be marked as collected even if the customer still owes money.\n\nIf you want either of these to work differently, I can change it.\n\n**Two questions for you**\n- Would you like to be able to update the deposit when a customer pays more?\n- Right now anyone who can reach the app can see customers' phone numbers and measurements. Should only you be able to see them?",
+  "plan": {
+    "summary": "This plan keeps a simple record book for your tailoring shop in Kumasi. You can save each customer with their name, phone number and one set of measurements (chest, waist, hip and length, in inches), and change those measurements when they change. For each customer you can record orders: the garment, the date it is due, the price and the deposit paid, in cedis. You can see all of one customer's orders, look at a single order, and list every order due on or before a date you choose so you know what to finish first. When a customer picks up their clothes you mark the order as collected, and it then drops off that due list. You had no preference on two points, so I chose the simplest options. First, the deposit is entered once when the order is made and cannot be changed later. Second, an order can be marked as collected even if the customer still owes money. Questions for you: Would you like to be able to update the deposit when a customer pays more? Should only you be able to see customers' phone numbers and measurements (privacy)?",
+    "data": [
+      {
+        "name": "Customer",
+        "fields": [
+          "name",
+          "phone number",
+          "chest (inches)",
+          "waist (inches)",
+          "hip (inches)",
+          "length (inches)"
+        ]
+      },
+      {
+        "name": "Order",
+        "fields": [
+          "which customer it belongs to",
+          "garment",
+          "due date",
+          "price (cedis)",
+          "deposit paid (cedis)",
+          "collected (yes or no, starts as no)"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/customers",
+        "does": "Saves a new customer with their name, phone number and measurements."
+      },
+      {
+        "method": "PATCH",
+        "path": "/customers/{customerId}",
+        "does": "Changes a customer's measurements when they change."
+      },
+      {
+        "method": "POST",
+        "path": "/customers/{customerId}/orders",
+        "does": "Saves a new order for this customer with the garment, due date, price and deposit."
+      },
+      {
+        "method": "GET",
+        "path": "/customers/{customerId}/orders",
+        "does": "Shows all the orders for one customer."
+      },
+      {
+        "method": "GET",
+        "path": "/orders/{orderId}",
+        "does": "Shows one single order."
+      },
+      {
+        "method": "GET",
+        "path": "/orders/due?date={date}",
+        "does": "Shows every order due on or before the date you choose that has not yet been collected, so you know what to finish first."
+      },
+      {
+        "method": "PATCH",
+        "path": "/orders/{orderId}/collected",
+        "does": "Marks an order as collected when the customer picks up their clothes."
+      }
+    ],
+    "rules": [
+      "Refuse any order whose deposit is more than its price.",
+      "Refuse an order for a customer who does not exist.",
+      "Collected orders never appear in the due list."
+    ]
+  },
+  "change": null,
+  "follows_plan": {
+    "missing": [],
+    "extra": []
+  }
+}

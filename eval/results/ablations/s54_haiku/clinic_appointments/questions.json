@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a patient cancels, how will they identify their booking: should the system give them a booking number when they book, or should they cancel by typing their name, doctor, date and time again?",
+    "Should bookings only be allowed in fixed time slots (for example every 30 minutes from 09:00 to 17:00), and should the system refuse times outside the clinic's opening hours or a doctor's days off?",
+    "Besides the patient's name, do you need to store any other patient details, such as a phone number, so the clinic can contact them?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No, we only take the patient's name when booking."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00051
+}

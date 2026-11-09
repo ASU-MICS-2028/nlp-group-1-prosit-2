@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a bill doesn't split evenly, which people get the extra pesewa: the first names on the list, the person who paid, or chosen at random?",
+    "Can someone fix or delete a recorded expense or payment later, and if so, who is allowed to do that?",
+    "Who can record things in the app: any group member, only the person who created the group, or only the people involved in each expense or payment?"
+  ],
+  "answers": [
+    "Any of them, as long as the shares differ by at most one pesewa and add up to the bill.",
+    "Not for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00046
+}

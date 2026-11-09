@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Who uses this service: do customers log in themselves (for example with a PIN), or does shop staff do deposits and transfers for them?",
+    "Are there any fees on transfers, or any limits on how much can be deposited or sent at once or per day?",
+    "Do customers also need to take money out of their wallet as cash, or only deposit and send?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No fees for now.",
+    "Not for now, only deposits and transfers."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00997
+}

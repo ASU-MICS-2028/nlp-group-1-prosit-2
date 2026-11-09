@@ -1,0 +1,48 @@
+{
+  "create_customer": {
+    "method": "POST",
+    "path": "/customers",
+    "request_fields": {
+      "measurements.chest": "chest",
+      "measurements.waist": "waist",
+      "measurements.hip": "hip",
+      "measurements.length": "length"
+    },
+    "response_fields": {
+      "measurements.chest": "chest",
+      "measurements.waist": "waist",
+      "measurements.hip": "hip",
+      "measurements.length": "length"
+    }
+  },
+  "get_customer": {
+    "method": "GET",
+    "path": "/customers/{id}",
+    "response_fields": {
+      "measurements.chest": "chest",
+      "measurements.waist": "waist",
+      "measurements.hip": "hip",
+      "measurements.length": "length"
+    }
+  },
+  "create_order": {
+    "method": "POST",
+    "path": "/customers/{id}/orders"
+  },
+  "get_order": {
+    "method": "GET",
+    "path": "/orders/{id}"
+  },
+  "list_customer_orders": {
+    "method": "GET",
+    "path": "/customers/{id}/orders"
+  },
+  "list_due_orders": {
+    "method": "GET",
+    "path": "/orders/due"
+  },
+  "collect_order": {
+    "method": "POST",
+    "path": "/orders/{id}/collected"
+  }
+}

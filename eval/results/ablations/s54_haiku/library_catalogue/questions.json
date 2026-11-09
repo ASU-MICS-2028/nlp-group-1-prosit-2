@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should the librarian have to sign in with a password, and should students also sign in, or can anyone just type a name to borrow a book?",
+    "Can one student borrow more than one copy of the same book at the same time, and is there a limit on how many books one student can hold?",
+    "Do borrowed books have a due date (for example, two weeks), and should the system show which books are overdue?"
+  ],
+  "answers": [
+    "No, they just give their name.",
+    "No preference: you decide.",
+    "Not needed for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00058
+}

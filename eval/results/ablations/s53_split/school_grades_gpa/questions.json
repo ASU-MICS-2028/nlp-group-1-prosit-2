@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "How do scores turn into grades? For example, is 80\u2013100 an A worth 4.0 points, 75\u201379 a B+ worth 3.5, and so on? Please list each grade with its score range and grade points.",
+    "Should the GPA count every course equally, or should courses with more credit hours count more? If credit hours matter, how many does each course carry?",
+    "Can a student take the same course again, for example as a resit or in a later semester? If so, should both results be kept, and which one counts toward the GPA?"
+  ],
+  "answers": [
+    "80 to 100 is A (4.0), 75 to 79 is B+ (3.5), 70 to 74 is B (3.0), 65 to 69 is C+ (2.5), 60 to 64 is C (2.0), 55 to 59 is D+ (1.5), 50 to 54 is D (1.0), and below 50 is F (0.0).",
+    "Yes. Every course has credit hours, a whole number from 1 to 6, and the GPA is weighted by them: add up grade point times credit hours over all the student's courses and divide by the total credit hours.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00681
+}

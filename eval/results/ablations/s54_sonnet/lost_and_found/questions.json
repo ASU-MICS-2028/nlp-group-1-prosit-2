@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should anyone be able to see the whole board, or only the desk staff? And should the claimed person's name be visible to everyone, or only to the desk?",
+    "Do finders need to leave their name or contact details when they report an item, and should the desk check or approve a report before it shows on the board?",
+    "Should there be a time limit, so items nobody claims after a certain number of days are removed or marked differently, and can the desk edit or delete an item if there was a mistake?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "Not needed for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00275
+}

@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Which time slots can be booked? For example, every 30 minutes between 08:00 and 17:00, or any time the patient types in?",
+    "Besides the patient's name, should we record anything else, such as a phone number, so two patients with the same name can be told apart?",
+    "Should bookings be refused for dates in the past, or for days the clinic is closed (for example, Sundays or holidays)?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No, we only take the patient's name when booking.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00909
+}

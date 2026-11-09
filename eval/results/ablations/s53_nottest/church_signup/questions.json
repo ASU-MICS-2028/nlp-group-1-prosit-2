@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can the same phone number sign up more than once for the same event, or should a second sign-up be refused?",
+    "Should people be able to cancel a sign-up so their spot opens up for someone else?",
+    "Should sign-ups close automatically once an event's date has passed?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00753
+}

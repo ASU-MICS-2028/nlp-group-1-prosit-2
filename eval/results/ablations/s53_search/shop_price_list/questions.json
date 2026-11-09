@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a price goes up or down, do you want to be able to change the price of an item that is already on the list?",
+    "Do you sell the same thing in different sizes or amounts at different prices, like one sachet versus a whole pack? If so, should each size have its own price?",
+    "When you look up a price, will you type the full name of the item, or should it also find items when you type only part of the name, like 'milk' finding 'Peak Milk'?"
+  ],
+  "answers": [
+    "Yes, prices change all the time, especially sugar, rice and oil. I need to change the price of an item.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.01067
+}

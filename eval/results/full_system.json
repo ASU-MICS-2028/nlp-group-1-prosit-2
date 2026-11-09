@@ -1,0 +1,389 @@
+{
+ "how": "3 builds of each task (questions on, no plan, as decision 0041), each scored 3 times. keeps_data null: not checked for that run. Time is the build only; the questions step is not timed.",
+ "per_run": {
+  "run 1 (Alice, old scoring rules)": {
+   "percent": 95.8,
+   "tasks_all_passed": 13,
+   "kept_data": null,
+   "usd": 1.9,
+   "average_build_seconds": 36.9
+  },
+  "run 2": {
+   "percent": 96.9,
+   "tasks_all_passed": 13,
+   "kept_data": 15,
+   "usd": 1.92,
+   "average_build_seconds": 38.5
+  },
+  "run 3": {
+   "percent": 95.3,
+   "tasks_all_passed": 13,
+   "kept_data": 15,
+   "usd": 1.91,
+   "average_build_seconds": 36.6
+  }
+ },
+ "average_percent": 96.0,
+ "tasks": [
+  {
+   "task": "church_signup",
+   "tests": 10,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 10,
+     "keeps_data": null,
+     "build_seconds": 32.0,
+     "usd": 0.1128
+    },
+    "run 2": {
+     "passed": 10,
+     "keeps_data": true,
+     "build_seconds": 33.7,
+     "usd": 0.1145
+    },
+    "run 3": {
+     "passed": 10,
+     "keeps_data": true,
+     "build_seconds": 32.5,
+     "usd": 0.1004
+    }
+   }
+  },
+  {
+   "task": "clinic_appointments",
+   "tests": 13,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 13,
+     "keeps_data": null,
+     "build_seconds": 34.6,
+     "usd": 0.1208
+    },
+    "run 2": {
+     "passed": 13,
+     "keeps_data": true,
+     "build_seconds": 36.4,
+     "usd": 0.1205
+    },
+    "run 3": {
+     "passed": 13,
+     "keeps_data": true,
+     "build_seconds": 42.3,
+     "usd": 0.1438
+    }
+   }
+  },
+  {
+   "task": "football_fixtures",
+   "tests": 13,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 9,
+     "keeps_data": null,
+     "build_seconds": 29.4,
+     "usd": 0.1044
+    },
+    "run 2": {
+     "passed": 9,
+     "keeps_data": true,
+     "build_seconds": 29.4,
+     "usd": 0.1045
+    },
+    "run 3": {
+     "passed": 8,
+     "keeps_data": true,
+     "build_seconds": 25.2,
+     "usd": 0.09
+    }
+   }
+  },
+  {
+   "task": "hostel_booking",
+   "tests": 15,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 15,
+     "keeps_data": null,
+     "build_seconds": 34.7,
+     "usd": 0.123
+    },
+    "run 2": {
+     "passed": 15,
+     "keeps_data": true,
+     "build_seconds": 41.8,
+     "usd": 0.1384
+    },
+    "run 3": {
+     "passed": 15,
+     "keeps_data": true,
+     "build_seconds": 35.8,
+     "usd": 0.127
+    }
+   }
+  },
+  {
+   "task": "library_catalogue",
+   "tests": 13,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 13,
+     "keeps_data": null,
+     "build_seconds": 28.9,
+     "usd": 0.0988
+    },
+    "run 2": {
+     "passed": 13,
+     "keeps_data": true,
+     "build_seconds": 29.3,
+     "usd": 0.1004
+    },
+    "run 3": {
+     "passed": 13,
+     "keeps_data": true,
+     "build_seconds": 29.2,
+     "usd": 0.1037
+    }
+   }
+  },
+  {
+   "task": "lost_and_found",
+   "tests": 12,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 12,
+     "keeps_data": null,
+     "build_seconds": 26.5,
+     "usd": 0.0939
+    },
+    "run 2": {
+     "passed": 12,
+     "keeps_data": true,
+     "build_seconds": 24.2,
+     "usd": 0.0909
+    },
+    "run 3": {
+     "passed": 12,
+     "keeps_data": true,
+     "build_seconds": 24.6,
+     "usd": 0.0911
+    }
+   }
+  },
+  {
+   "task": "market_stock",
+   "tests": 13,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 13,
+     "keeps_data": null,
+     "build_seconds": 27.8,
+     "usd": 0.1028
+    },
+    "run 2": {
+     "passed": 13,
+     "keeps_data": true,
+     "build_seconds": 28.6,
+     "usd": 0.1006
+    },
+    "run 3": {
+     "passed": 13,
+     "keeps_data": true,
+     "build_seconds": 26.5,
+     "usd": 0.0985
+    }
+   }
+  },
+  {
+   "task": "momo_wallet",
+   "tests": 13,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 13,
+     "keeps_data": null,
+     "build_seconds": 61.0,
+     "usd": 0.2117
+    },
+    "run 2": {
+     "passed": 13,
+     "keeps_data": true,
+     "build_seconds": 60.1,
+     "usd": 0.2013
+    },
+    "run 3": {
+     "passed": 13,
+     "keeps_data": true,
+     "build_seconds": 62.5,
+     "usd": 0.2052
+    }
+   }
+  },
+  {
+   "task": "restaurant_reservations",
+   "tests": 12,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 12,
+     "keeps_data": null,
+     "build_seconds": 28.8,
+     "usd": 0.0995
+    },
+    "run 2": {
+     "passed": 12,
+     "keeps_data": true,
+     "build_seconds": 41.4,
+     "usd": 0.1235
+    },
+    "run 3": {
+     "passed": 12,
+     "keeps_data": true,
+     "build_seconds": 31.5,
+     "usd": 0.111
+    }
+   }
+  },
+  {
+   "task": "school_grades_gpa",
+   "tests": 12,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 12,
+     "keeps_data": null,
+     "build_seconds": 46.0,
+     "usd": 0.1495
+    },
+    "run 2": {
+     "passed": 12,
+     "keeps_data": true,
+     "build_seconds": 54.8,
+     "usd": 0.139
+    },
+    "run 3": {
+     "passed": 12,
+     "keeps_data": true,
+     "build_seconds": 45.5,
+     "usd": 0.1545
+    }
+   }
+  },
+  {
+   "task": "shared_expenses",
+   "tests": 13,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 13,
+     "keeps_data": null,
+     "build_seconds": 51.7,
+     "usd": 0.1878
+    },
+    "run 2": {
+     "passed": 13,
+     "keeps_data": true,
+     "build_seconds": 58.3,
+     "usd": 0.1992
+    },
+    "run 3": {
+     "passed": 13,
+     "keeps_data": true,
+     "build_seconds": 54.5,
+     "usd": 0.1889
+    }
+   }
+  },
+  {
+   "task": "shop_price_list",
+   "tests": 13,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 9,
+     "keeps_data": null,
+     "build_seconds": 23.7,
+     "usd": 0.0845
+    },
+    "run 2": {
+     "passed": 11,
+     "keeps_data": true,
+     "build_seconds": 26.6,
+     "usd": 0.0937
+    },
+    "run 3": {
+     "passed": 9,
+     "keeps_data": true,
+     "build_seconds": 25.0,
+     "usd": 0.089
+    }
+   }
+  },
+  {
+   "task": "susu_ledger",
+   "tests": 14,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 14,
+     "keeps_data": null,
+     "build_seconds": 65.2,
+     "usd": 0.193
+    },
+    "run 2": {
+     "passed": 14,
+     "keeps_data": true,
+     "build_seconds": 46.4,
+     "usd": 0.1648
+    },
+    "run 3": {
+     "passed": 14,
+     "keeps_data": true,
+     "build_seconds": 49.2,
+     "usd": 0.1782
+    }
+   }
+  },
+  {
+   "task": "tailoring_orders",
+   "tests": 13,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 13,
+     "keeps_data": null,
+     "build_seconds": 35.7,
+     "usd": 0.1229
+    },
+    "run 2": {
+     "passed": 13,
+     "keeps_data": true,
+     "build_seconds": 36.6,
+     "usd": 0.1287
+    },
+    "run 3": {
+     "passed": 13,
+     "keeps_data": true,
+     "build_seconds": 36.4,
+     "usd": 0.1256
+    }
+   }
+  },
+  {
+   "task": "trotro_fares",
+   "tests": 13,
+   "runs": {
+    "run 1 (Alice, old scoring rules)": {
+     "passed": 13,
+     "keeps_data": null,
+     "build_seconds": 27.6,
+     "usd": 0.0989
+    },
+    "run 2": {
+     "passed": 13,
+     "keeps_data": true,
+     "build_seconds": 29.3,
+     "usd": 0.1047
+    },
+    "run 3": {
+     "passed": 13,
+     "keeps_data": true,
+     "build_seconds": 28.7,
+     "usd": 0.1013
+    }
+   }
+  }
+ ]
+}

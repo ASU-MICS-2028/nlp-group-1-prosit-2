@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Is there a limit on borrowing, for example one copy of the same book per student, or a maximum number of books a student can have at once?",
+    "Should loans have a due date, with a way to see which books are overdue, or can students keep a book as long as they like?",
+    "Should adding books be protected so only the librarian can do it (for example with a password), or is it fine for anyone to use it?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "Not needed for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00817
+}

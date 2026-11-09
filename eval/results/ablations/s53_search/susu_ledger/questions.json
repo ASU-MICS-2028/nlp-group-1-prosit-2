@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can each member pay any amount above zero in a round, or does everyone pay the same fixed amount each round? And can one member pay more than once in the same round?",
+    "Can any member who has not yet collected be chosen as collector, or must they also have paid into that round?",
+    "Do rounds have to go in order (for example, no payments to round 3 until round 2 is collected), or can payments be recorded for any round number at any time?"
+  ],
+  "answers": [
+    "No, record whatever each member actually paid; the pot is the total paid in for that round. Yes, sometimes people pay in two parts; all of it counts toward that round.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.01125
+}

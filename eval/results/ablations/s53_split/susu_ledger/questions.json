@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Does every member pay the same fixed amount each round, or can each person pay any amount (including paying more than once in the same round)?",
+    "Must rounds go in order (round 2 opens only after round 1 is collected), or can payments be recorded for any round number at any time?",
+    "Does the person collecting a round have to be a member who paid into that round, or can any member of the group collect?"
+  ],
+  "answers": [
+    "No, record whatever each member actually paid; the pot is the total paid in for that round.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.01048
+}

@@ -1,0 +1,56 @@
+{
+  "create_group": {
+    "method": "POST",
+    "path": "/groups"
+  },
+  "add_member": {
+    "method": "POST",
+    "path": "/groups/{id}/members",
+    "saves_key": {
+      "as": "member",
+      "field": "name"
+    }
+  },
+  "add_expense": {
+    "method": "POST",
+    "path": "/groups/{id}/expenses",
+    "request_fields": {
+      "paid_by": "payer",
+      "split_between": "shared_between"
+    },
+    "response_fields": {
+      "paid_by": "payer"
+    },
+    "uses_key": {
+      "paid_by": "member",
+      "split_between": "member"
+    }
+  },
+  "get_balances": {
+    "method": "GET",
+    "path": "/groups/{id}/balances",
+    "response_fields": {
+      "member_id": "member"
+    },
+    "response_key": "balances",
+    "uses_key": {
+      "member_id": "member"
+    }
+  },
+  "settle_up": {
+    "method": "POST",
+    "path": "/groups/{id}/payments",
+    "request_fields": {
+      "from_member_id": "paid_by",
+      "to_member_id": "paid_to"
+    },
+    "response_fields": {
+      "from_member_id": "paid_by",
+      "to_member_id": "paid_to"
+    },
+    "uses_key": {
+      "from_member_id": "member",
+      "to_member_id": "member"
+    }
+  }
+}

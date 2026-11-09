@@ -26,14 +26,7 @@ Nothing left of your own: see Everyone.
 
 ### Joseph (W4)
 
-| Task | Status | Done when |
-|---|---|---|
-| S5.1 Read Alice's learnings, try the live platform | 🔵 ready | A backend built through the live page, and the agent and harness run on your laptop |
-| S5.2 Full system on all 15 tasks | ⏳ waiting (on S5.1) | Every task run with repeats; hidden-test pass rate, whether the data survives a restart (`--restart`), time and cost per task |
-| S5.3 Ablations | ⏳ waiting (on S5.2) | No repair, single agent, no retrieval, no spec-first, no questions: each scored the same way |
-| S5.4 Model comparison | ⏳ waiting (on S5.2) | Opus vs Sonnet vs Haiku vs local Qwen: quality against cost |
-| S5.5 Results tables and charts | ⏳ waiting (on S5.3, S5.4) | In `eval/results/`, ready for Section B |
-| S5.6 Handoff: Joseph's learnings, part 2 | ⏳ waiting (on S5.5) | `learnings/W4-*.md` complete with all results explained |
+Nothing left of your own: see Everyone.
 
 ### Eric (W5)
 
@@ -43,7 +36,7 @@ Nothing left of your own: see Everyone.
 | S6.2 Fix what doesn't fit together | ⏳ waiting (on S6.1) | Each gap fixed with the owner of that part; nothing left that only one person can run |
 | S6.3 Section B draft | ⏳ waiting (on S6.1) | Approach, architecture, implementation, evaluation, written from the learnings files; final numbers taken from S5.5 |
 | S6.4 Slides and recorded demo | ⏳ waiting (on S6.2, S6.3, S4.3) | 10-minute deck with the GitHub link on slide 1, each person presenting their part; a demo recording saved |
-| S6.5 Handoff: Eric's learnings | ⏳ waiting (on S6.4, S4.6, S4.7, S5.6) | `learnings/W5-*.md` complete |
+| S6.5 Handoff: Eric's learnings | ⏳ waiting (on S6.4, S4.6, S4.7) | `learnings/W5-*.md` complete |
 
 ### Everyone
 

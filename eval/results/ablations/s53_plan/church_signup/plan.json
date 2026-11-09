@@ -1,0 +1,55 @@
+{
+  "summary": "This plan lets your church add events (such as choir practice, youth camp or harvest day), show the list of events, show one event, let people sign up with their name and phone number, and show who has signed up for each event. Once an event reaches its limit, any further sign-up is refused with a message saying the event is full. You had no preference on two points, so I chose the simplest option for each. First, the system will not check whether the same phone number has already signed up for an event, so a second sign-up from the same person is accepted and takes a place. Second, there is no way to cancel a sign-up. Nothing was left out of your request. Some questions for you: (1) Right now, anyone who can view an event's sign-up list could see everyone's phone numbers. Should that list be visible only to church organisers? (2) Right now, anyone can add an event. Should only organisers be allowed to do that? (3) Would you later like a way to cancel a sign-up, or to refuse a second sign-up from the same phone number for the same event? None of these are in the plan unless you ask for them.",
+  "data": [
+    {
+      "name": "Event",
+      "fields": [
+        "Name of the event (for example, Youth Camp)",
+        "Date of the event",
+        "How many people can come (the limit)"
+      ]
+    },
+    {
+      "name": "Sign-up",
+      "fields": [
+        "Which event the person signed up for",
+        "Person's name",
+        "Person's phone number"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/events",
+      "does": "Adds a new event with its name, date and how many people can come."
+    },
+    {
+      "method": "GET",
+      "path": "/events",
+      "does": "Shows the list of all events."
+    },
+    {
+      "method": "GET",
+      "path": "/events/{eventId}",
+      "does": "Shows one event: its name, date, how many people can come, and how many places are left."
+    },
+    {
+      "method": "POST",
+      "path": "/events/{eventId}/signups",
+      "does": "Signs a person up for the event using their name and phone number, as long as the event is not full."
+    },
+    {
+      "method": "GET",
+      "path": "/events/{eventId}/signups",
+      "does": "Shows everyone who has signed up for the event, with their names and phone numbers."
+    }
+  ],
+  "rules": [
+    "An event cannot be added without a name, a date, and the number of people who can come.",
+    "The number of people who can come must be a whole number of 1 or more.",
+    "A sign-up cannot be made without a name and a phone number.",
+    "A sign-up for an event that does not exist is refused.",
+    "When an event already has as many sign-ups as its limit, any further sign-up is refused with the message that the event is full. No waiting list is kept."
+  ]
+}

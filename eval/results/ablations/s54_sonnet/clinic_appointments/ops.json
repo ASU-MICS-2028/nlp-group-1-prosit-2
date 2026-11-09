@@ -1,0 +1,31 @@
+{
+  "create_doctor": {
+    "method": "POST",
+    "path": "/doctors",
+    "request_fields": {
+      "specialty": "specialisation"
+    },
+    "response_fields": {
+      "specialty": "specialisation"
+    }
+  },
+  "list_doctors": {
+    "method": "GET",
+    "path": "/doctors",
+    "response_fields": {
+      "specialty": "specialisation"
+    }
+  },
+  "book_appointment": {
+    "method": "POST",
+    "path": "/doctors/{doctor_id}/appointments"
+  },
+  "list_doctor_appointments": {
+    "method": "GET",
+    "path": "/doctors/{id}/appointments"
+  },
+  "cancel_appointment": {
+    "method": "DELETE",
+    "path": "/appointments/{id}"
+  }
+}

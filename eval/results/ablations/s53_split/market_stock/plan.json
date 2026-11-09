@@ -1,0 +1,52 @@
+{
+  "summary": "This plan keeps a simple stock list for your provisions at Makola market. For each item it saves the name, how many you have, and the level at which you consider it running low. You can add an item, see all items, look at one item, record a sale (quantity goes down) and record a restock (quantity goes up), and see a list of items at or below their low level so you know what to buy. As you requested, only the current quantity is kept, with no history of sales or restocks. Where you had no preference, I chose the simplest options. Quantities are whole numbers, like 5 tins. There is no way to edit or delete an item for now; this can be added later if you need it. Nothing in your request was unsafe or outside the backend. Questions for you: Should a new item be refused if its starting quantity or low level is below zero? Should two items be allowed to have the same name? Should your stock list be private so only you can see it?",
+  "data": [
+    {
+      "name": "Item",
+      "fields": [
+        "name: what the item is called, for example 'Tin tomatoes'",
+        "quantity: how many you currently have (a whole number)",
+        "low level: when the quantity is at or below this number, the item counts as running low (a whole number)"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/items",
+      "does": "Adds a new item with its name, starting quantity and low level."
+    },
+    {
+      "method": "GET",
+      "path": "/items",
+      "does": "Shows all your items with their current quantities and low levels."
+    },
+    {
+      "method": "GET",
+      "path": "/items/{id}",
+      "does": "Shows one item: its name, current quantity and low level."
+    },
+    {
+      "method": "POST",
+      "path": "/items/{id}/sell",
+      "does": "Records a sale of an amount of this item and lowers its quantity by that amount."
+    },
+    {
+      "method": "POST",
+      "path": "/items/{id}/restock",
+      "does": "Records new goods arriving for this item and raises its quantity by that amount."
+    },
+    {
+      "method": "GET",
+      "path": "/items/low",
+      "does": "Shows only the items whose quantity is at or below their low level, so you know what to buy."
+    }
+  ],
+  "rules": [
+    "Refuse a sale if the amount is zero or less.",
+    "Refuse a restock if the amount is zero or less.",
+    "Refuse a sale if the amount is more than the quantity you currently have.",
+    "Refuse any quantity, low level, sale amount or restock amount that is not a whole number.",
+    "Refuse to sell, restock or show an item that does not exist."
+  ]
+}

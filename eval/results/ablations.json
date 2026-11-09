@@ -1,0 +1,242 @@
+{
+ "how": "One build of all 15 tasks per setup, each scored 3 times. A gap under 2 points is noise: identical runs of the full system differ by 1.6. School is shown both ways because one choice moves it by 10 tests.",
+ "full system (3 runs)": {
+  "percent": 96.0,
+  "percent_without_school": 95.7,
+  "kept_data": "30 of 30",
+  "usd": 1.91
+ },
+ "setups": {
+  "s53_plan": {
+   "label": "Questions + plan (what real clients get)",
+   "percent": 85.9,
+   "percent_without_school": 90.6,
+   "tasks_all_passed": 11,
+   "kept_data": "14 of 14 checked",
+   "build_usd": 2.15,
+   "questions_and_plan_usd": 0.57,
+   "average_seconds": 49.6,
+   "builds": 15,
+   "times_ran_its_own_tests": 17,
+   "repairs": 0,
+   "stops": {
+    "end_turn": 15
+   },
+   "per_task": {
+    "church_signup": 10.0,
+    "clinic_appointments": 13.0,
+    "football_fixtures": 9.0,
+    "hostel_booking": 15.0,
+    "library_catalogue": 13.0,
+    "lost_and_found": 8.0,
+    "market_stock": 13.0,
+    "momo_wallet": 13.0,
+    "restaurant_reservations": 12.0,
+    "school_grades_gpa": 2.0,
+    "shared_expenses": 13.0,
+    "shop_price_list": 4.0,
+    "susu_ledger": 14.0,
+    "tailoring_orders": 13.0,
+    "trotro_fares": 13.0
+   }
+  },
+  "s53_noask": {
+   "label": "No questions",
+   "percent": 90.1,
+   "percent_without_school": 95.0,
+   "tasks_all_passed": 12,
+   "kept_data": "14 of 14 checked",
+   "build_usd": 1.8,
+   "questions_and_plan_usd": 0,
+   "average_seconds": 36.7,
+   "builds": 15,
+   "times_ran_its_own_tests": 19,
+   "repairs": 0,
+   "stops": {
+    "end_turn": 15
+   },
+   "per_task": {
+    "church_signup": 10.0,
+    "clinic_appointments": 13.0,
+    "football_fixtures": 9.0,
+    "hostel_booking": 15.0,
+    "library_catalogue": 13.0,
+    "lost_and_found": 12.0,
+    "market_stock": 13.0,
+    "momo_wallet": 13.0,
+    "restaurant_reservations": 12.0,
+    "school_grades_gpa": 2.0,
+    "shared_expenses": 13.0,
+    "shop_price_list": 8.0,
+    "susu_ledger": 14.0,
+    "tailoring_orders": 13.0,
+    "trotro_fares": 13.0
+   }
+  },
+  "s53_nottest": {
+   "label": "No self-testing step (prompt D)",
+   "percent": 91.1,
+   "percent_without_school": 95.6,
+   "tasks_all_passed": 12,
+   "kept_data": "14 of 14 checked",
+   "build_usd": 1.58,
+   "questions_and_plan_usd": 0.13,
+   "average_seconds": 33.5,
+   "builds": 15,
+   "times_ran_its_own_tests": 0,
+   "repairs": 0,
+   "stops": {
+    "end_turn": 15
+   },
+   "per_task": {
+    "church_signup": 10.0,
+    "clinic_appointments": 13.0,
+    "football_fixtures": 9.0,
+    "hostel_booking": 15.0,
+    "library_catalogue": 13.0,
+    "lost_and_found": 12.0,
+    "market_stock": 13.0,
+    "momo_wallet": 13.0,
+    "restaurant_reservations": 12.0,
+    "school_grades_gpa": 3.0,
+    "shared_expenses": 13.0,
+    "shop_price_list": 9.0,
+    "susu_ledger": 14.0,
+    "tailoring_orders": 13.0,
+    "trotro_fares": 13.0
+   }
+  },
+  "s53_search": {
+   "label": "Questions + recipe search",
+   "percent": 96.4,
+   "percent_without_school": 96.1,
+   "tasks_all_passed": 13,
+   "kept_data": "15 of 15 checked",
+   "build_usd": 1.82,
+   "questions_and_plan_usd": 0.13,
+   "average_seconds": 46.8,
+   "builds": 15,
+   "times_ran_its_own_tests": 17,
+   "repairs": 0,
+   "stops": {
+    "end_turn": 15
+   },
+   "per_task": {
+    "church_signup": 10.0,
+    "clinic_appointments": 13.0,
+    "football_fixtures": 8.0,
+    "hostel_booking": 15.0,
+    "library_catalogue": 13.0,
+    "lost_and_found": 12.0,
+    "market_stock": 13.0,
+    "momo_wallet": 13.0,
+    "restaurant_reservations": 12.0,
+    "school_grades_gpa": 12.0,
+    "shared_expenses": 13.0,
+    "shop_price_list": 11.0,
+    "susu_ledger": 14.0,
+    "tailoring_orders": 13.0,
+    "trotro_fares": 13.0
+   }
+  },
+  "s53_split": {
+   "label": "Planner, Builder, Tester split",
+   "percent": 87.0,
+   "percent_without_school": 91.7,
+   "tasks_all_passed": 10,
+   "kept_data": "14 of 14 checked",
+   "build_usd": 3.51,
+   "questions_and_plan_usd": 0.55,
+   "average_seconds": 85.4,
+   "builds": 15,
+   "times_ran_its_own_tests": 17,
+   "repairs": 0,
+   "stops": {
+    "end_turn": 15
+   },
+   "per_task": {
+    "church_signup": 10.0,
+    "clinic_appointments": 13.0,
+    "football_fixtures": 9.0,
+    "hostel_booking": 15.0,
+    "library_catalogue": 13.0,
+    "lost_and_found": 8.0,
+    "market_stock": 13.0,
+    "momo_wallet": 13.0,
+    "restaurant_reservations": 12.0,
+    "school_grades_gpa": 2.0,
+    "shared_expenses": 13.0,
+    "shop_price_list": 8.0,
+    "susu_ledger": 14.0,
+    "tailoring_orders": 11.0,
+    "trotro_fares": 13.0
+   }
+  },
+  "s54_sonnet": {
+   "label": "Sonnet instead of Opus",
+   "percent": 94.3,
+   "percent_without_school": 93.9,
+   "tasks_all_passed": 12,
+   "kept_data": "15 of 15 checked",
+   "build_usd": 0.67,
+   "questions_and_plan_usd": 0.04,
+   "average_seconds": 26.1,
+   "builds": 15,
+   "times_ran_its_own_tests": 15,
+   "repairs": 0,
+   "stops": {
+    "end_turn": 15
+   },
+   "per_task": {
+    "church_signup": 10.0,
+    "clinic_appointments": 13.0,
+    "football_fixtures": 9.0,
+    "hostel_booking": 15.0,
+    "library_catalogue": 13.0,
+    "lost_and_found": 12.0,
+    "market_stock": 13.0,
+    "momo_wallet": 13.0,
+    "restaurant_reservations": 12.0,
+    "school_grades_gpa": 12.0,
+    "shared_expenses": 13.0,
+    "shop_price_list": 8.0,
+    "susu_ledger": 14.0,
+    "tailoring_orders": 13.0,
+    "trotro_fares": 11.0
+   }
+  },
+  "s54_haiku": {
+   "label": "Haiku instead of Opus",
+   "percent": 83.9,
+   "percent_without_school": 87.8,
+   "tasks_all_passed": 10,
+   "kept_data": "13 of 13 checked",
+   "build_usd": 0.07,
+   "questions_and_plan_usd": 0.01,
+   "average_seconds": 32.1,
+   "builds": 15,
+   "times_ran_its_own_tests": 20,
+   "repairs": 0,
+   "stops": {
+    "end_turn": 15
+   },
+   "per_task": {
+    "church_signup": 10.0,
+    "clinic_appointments": 13.0,
+    "football_fixtures": 8.0,
+    "hostel_booking": 15.0,
+    "library_catalogue": 13.0,
+    "lost_and_found": 12.0,
+    "market_stock": 13.0,
+    "momo_wallet": 13.0,
+    "restaurant_reservations": 12.0,
+    "school_grades_gpa": 3.0,
+    "shared_expenses": 0.0,
+    "shop_price_list": 10.0,
+    "susu_ledger": 14.0,
+    "tailoring_orders": 12.0,
+    "trotro_fares": 13.0
+   }
+  }
+ }
+}

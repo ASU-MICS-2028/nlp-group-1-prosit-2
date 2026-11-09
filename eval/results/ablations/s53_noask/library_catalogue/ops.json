@@ -1,0 +1,30 @@
+{
+  "add_book": {
+    "method": "POST",
+    "path": "/books"
+  },
+  "list_books": {
+    "method": "GET",
+    "path": "/books"
+  },
+  "get_book": {
+    "method": "GET",
+    "path": "/books/{id}"
+  },
+  "borrow_book": {
+    "method": "POST",
+    "path": "/books/{id}/borrow",
+    "request_fields": {
+      "student": "student_name"
+    },
+    "response_key": "book"
+  },
+  "return_book": {
+    "method": "POST",
+    "path": "/books/{id}/return",
+    "request_fields": {
+      "student": "student_name"
+    },
+    "response_key": "book"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Do you sell items in whole units only (like 5 tins), or sometimes in parts (like 2.5 kg of rice)?",
+    "Do you want a history saved of every sale and restock (with date), or only the current quantity for each item?",
+    "Can two items share the same name (for example, same product in different sizes), and should you be able to edit or delete an item once it is added?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "Not needed for now; I only need the current quantity.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00231
+}

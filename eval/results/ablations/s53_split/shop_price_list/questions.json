@@ -1,0 +1,12 @@
+{
+  "questions": [
+    "When a price goes up or down, do you want to change it on the list? If so, should the old price be kept so you can see what it used to be?",
+    "Do some things come in different sizes or packs with different prices, like one tin versus a whole carton? Should each size be its own line with its own price?"
+  ],
+  "answers": [
+    "Yes, prices change all the time, especially sugar, rice and oil. I need to change the price of an item.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0103
+}

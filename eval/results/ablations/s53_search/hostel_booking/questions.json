@@ -1,0 +1,10 @@
+{
+  "questions": [
+    "When a student cancels, how should we know the booking is theirs? For example, should they get a booking code when they book and give it to cancel, or is their name enough?"
+  ],
+  "answers": [
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00742
+}

@@ -1,0 +1,82 @@
+{
+  "summary": "This plan replaces your exercise book for a susu group. You can start a group, add members with their name and phone number, and record each payment: who paid, for which round, and how many cedis. Members may pay any amount and may pay more than once in the same round. When a round ends, you record which member collects. The system works out the pot itself as exactly the total paid into that round, so it can never be more or less. You can see the list of members, the list of collections so far, and a statement for any member showing their total paid in and total received. You left two choices to me, and I picked the simplest option each time. First, rounds do not have to go in order: you can record a payment for any round number at any time. Second, any member of the group can collect a round, even if they did not pay into it. Nothing in your request was unsafe or outside the backend, so nothing was left out. One question for you: members' phone numbers will be stored and shown in the member list. Should anyone else besides you be able to see them? I have not added any privacy controls, logins or passwords, because you did not ask for them. Please tell me if you want them.",
+  "data": [
+    {
+      "name": "Group",
+      "fields": [
+        "group name"
+      ]
+    },
+    {
+      "name": "Member",
+      "fields": [
+        "which group they belong to",
+        "name",
+        "phone number"
+      ]
+    },
+    {
+      "name": "Payment",
+      "fields": [
+        "which member paid",
+        "round number",
+        "amount paid in cedis"
+      ]
+    },
+    {
+      "name": "Collection",
+      "fields": [
+        "round number",
+        "which member collected",
+        "pot amount in cedis (worked out automatically as the total paid into that round)"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/groups",
+      "does": "Starts a new susu group."
+    },
+    {
+      "method": "POST",
+      "path": "/groups/{groupId}/members",
+      "does": "Adds a member to the group with their name and phone number."
+    },
+    {
+      "method": "GET",
+      "path": "/groups/{groupId}/members",
+      "does": "Shows the list of all members in the group."
+    },
+    {
+      "method": "POST",
+      "path": "/groups/{groupId}/payments",
+      "does": "Records that a member paid an amount in cedis for a particular round."
+    },
+    {
+      "method": "POST",
+      "path": "/groups/{groupId}/rounds/{roundNumber}/collection",
+      "does": "Records which member collects the pot for this round. The pot is set automatically to everything paid into that round."
+    },
+    {
+      "method": "GET",
+      "path": "/groups/{groupId}/collections",
+      "does": "Shows all collections made so far: the round, who collected, and how much the pot was."
+    },
+    {
+      "method": "GET",
+      "path": "/groups/{groupId}/members/{memberId}/statement",
+      "does": "Shows one member's statement: how much they have paid in altogether and how much they have received."
+    }
+  ],
+  "rules": [
+    "Refuse a payment of zero or less. Every payment must be more than zero cedis.",
+    "Refuse a payment or collection for someone who is not a member of that group.",
+    "Refuse a payment into a round that has already been collected.",
+    "Refuse a collection for a round where nobody has paid anything.",
+    "Refuse a second collection for a round that already has a collector. Each round has only one collector.",
+    "Refuse a collection by a member who has already collected before. Each member can collect only once.",
+    "The pot cannot be typed in by hand. It is always exactly the total paid into that round, nothing more and nothing less.",
+    "Refuse to add a member without both a name and a phone number."
+  ]
+}

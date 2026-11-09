@@ -1,0 +1,45 @@
+{
+  "report_item": {
+    "method": "POST",
+    "path": "/items",
+    "request_fields": {
+      "place": "location"
+    },
+    "response_fields": {
+      "place": "location",
+      "owner_name": "claimed_by"
+    }
+  },
+  "list_items": {
+    "method": "GET",
+    "path": "/items",
+    "response_fields": {
+      "place": "location",
+      "owner_name": "claimed_by"
+    }
+  },
+  "list_unclaimed": {
+    "method": "GET",
+    "path": "/items/unclaimed",
+    "response_fields": {
+      "place": "location",
+      "owner_name": "claimed_by"
+    }
+  },
+  "get_item": {
+    "method": "GET",
+    "path": "/items/{id}",
+    "response_fields": {
+      "place": "location",
+      "owner_name": "claimed_by"
+    }
+  },
+  "claim_item": {
+    "method": "POST",
+    "path": "/items/{id}/claim",
+    "response_fields": {
+      "place": "location",
+      "owner_name": "claimed_by"
+    }
+  }
+}

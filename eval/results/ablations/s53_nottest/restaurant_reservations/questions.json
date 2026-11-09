@@ -1,0 +1,12 @@
+{
+  "questions": [
+    "When a table is booked for a certain time, how long does that booking hold the table? For example, if someone books table 3 at 7:00 pm, should another booking for 7:30 pm on table 3 be refused, or only a booking at exactly 7:00 pm?",
+    "Can customers book any time of day, or only at set times (for example on the hour, or within your opening hours)? If there are set times or opening hours, what are they?"
+  ],
+  "answers": [
+    "We just use the start time. Two reservations clash only if they are for the same table, the same date and the same time.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00946
+}

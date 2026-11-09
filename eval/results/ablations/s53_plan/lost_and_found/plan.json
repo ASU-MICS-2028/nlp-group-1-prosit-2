@@ -1,0 +1,50 @@
+{
+  "summary": "This plan sets up a simple online board for your campus lost-and-found desk. Anyone who finds something can report it with a short description, where it was found and the date it was found. Everyone can see all items, look at a single item, or see only the items still waiting for their owners. When an owner collects an item, it is marked as claimed and the owner's name is written down, and an item that is already claimed cannot be claimed again. Where you had no preference, we chose the simplest option: anyone can mark an item as claimed (no password), only the owner's name is recorded at pickup, and items are never removed from the board automatically. Some questions for you to consider: (1) Once an item is claimed, the owner's name will be visible to anyone looking at the board. Would you prefer to hide owners' names from the public for privacy? (2) Since anyone can mark an item as claimed, someone could mark an item they do not own. Would you like only desk staff to be able to do this? We have not added either of these. Tell us if you want them.",
+  "data": [
+    {
+      "name": "Item",
+      "fields": [
+        "Item number (given automatically by the system so each item can be found)",
+        "Description: a short description of the item",
+        "Where found: the place the item was found",
+        "Date found: the date the item was found",
+        "Status: either 'waiting for owner' or 'claimed' (starts as 'waiting for owner')",
+        "Owner's name: written down when the item is claimed (empty until then)"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/items",
+      "does": "Reports a found item. The person gives a short description, where it was found and the date it was found. The item goes on the board as waiting for its owner."
+    },
+    {
+      "method": "GET",
+      "path": "/items",
+      "does": "Shows all items on the board, both claimed and still waiting."
+    },
+    {
+      "method": "GET",
+      "path": "/items/waiting",
+      "does": "Shows only the items that are still waiting for their owners."
+    },
+    {
+      "method": "GET",
+      "path": "/items/{item number}",
+      "does": "Shows one item, chosen by its item number."
+    },
+    {
+      "method": "POST",
+      "path": "/items/{item number}/claim",
+      "does": "Marks an item as claimed when the owner collects it and writes down the owner's name."
+    }
+  ],
+  "rules": [
+    "A report is refused if the description, the place found or the date found is missing.",
+    "A report is refused if the date found is not a real date.",
+    "Looking at or claiming an item that does not exist is refused with a message that the item was not found.",
+    "Claiming an item is refused if the owner's name is missing.",
+    "Claiming an item that has already been claimed is refused. The item and the first owner's name stay unchanged."
+  ]
+}

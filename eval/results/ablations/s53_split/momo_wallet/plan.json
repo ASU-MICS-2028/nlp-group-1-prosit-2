@@ -1,0 +1,65 @@
+{
+  "summary": "This plan is for a simple mobile money wallet service for your shop's customers in Accra. A customer opens a wallet with their name and phone number. Customers can put money in, send money to another wallet, check any wallet's balance, and see a full history showing each amount and the balance right after it. All money is kept as whole pesewas (1 cedi = 100 pesewas), so totals are always exact to the pesewa with no rounding mistakes. Following your answers, there are no fees and no limits. Because you had no preference on proving who owns a wallet, we chose the simplest option and added no PIN, password or login. Phone numbers are compared exactly as typed, so '024 123 4567' and '+233 24 123 4567' count as different numbers. Nothing in your request was unsafe or outside the backend, so nothing was left out. Questions for you, which are not in the plan: (1) With no PIN or login, anyone who knows a wallet's number can put money in, send money out, and see its balance and history. Do you want some way to stop that, for example a PIN or staff-only access? (2) Should balances and histories be private to each customer? (3) Because phone numbers are compared exactly as typed, one person could open two wallets by typing their number in different ways. Should we store all numbers in one standard format to prevent this?",
+  "data": [
+    {
+      "name": "Wallet",
+      "fields": [
+        "Wallet number (given automatically when the wallet is opened)",
+        "Customer's name",
+        "Customer's phone number (only one wallet per number)",
+        "Current balance, kept in whole pesewas",
+        "Date and time the wallet was opened"
+      ]
+    },
+    {
+      "name": "History entry",
+      "fields": [
+        "Entry number (given automatically)",
+        "Which wallet this entry belongs to",
+        "Type: deposit, money sent, or money received",
+        "Amount, kept in whole pesewas",
+        "The wallet's balance right after this entry, in whole pesewas",
+        "The other wallet involved (for money sent or received)",
+        "Date and time it happened"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/wallets",
+      "does": "Opens a new wallet using the customer's name and phone number. The wallet starts with a balance of zero."
+    },
+    {
+      "method": "GET",
+      "path": "/wallets/{walletNumber}",
+      "does": "Shows a wallet's name, phone number and current balance."
+    },
+    {
+      "method": "POST",
+      "path": "/wallets/{walletNumber}/deposits",
+      "does": "Puts money into the wallet, adds it to the balance, and records it in the wallet's history with the new balance."
+    },
+    {
+      "method": "POST",
+      "path": "/wallets/{walletNumber}/transfers",
+      "does": "Sends money from this wallet to another wallet. The money is taken from the sender and added to the receiver. Each wallet's history records it along with that wallet's new balance."
+    },
+    {
+      "method": "GET",
+      "path": "/wallets/{walletNumber}/history",
+      "does": "Shows every deposit, money sent and money received for the wallet, oldest first. Each entry shows the amount and the balance right after it."
+    }
+  ],
+  "rules": [
+    "Refuse to open a wallet without both a name and a phone number.",
+    "Refuse to open a wallet if that phone number, exactly as typed, already has a wallet.",
+    "Refuse any deposit or transfer whose amount is zero or less.",
+    "Refuse any amount with more than two decimal places, for example 5.123 cedis.",
+    "Refuse a transfer if the sender does not have enough money, so that a balance never goes below zero. This also applies when two sends happen at the same moment.",
+    "Refuse a transfer where the sending wallet and the receiving wallet are the same.",
+    "Refuse a deposit, transfer, balance check or history request for a wallet that does not exist, including a transfer to a receiving wallet that does not exist.",
+    "All money is counted in whole pesewas, so every balance and amount is exact to the pesewa with no rounding.",
+    "A transfer either fully happens or does not happen at all. Money is never taken from the sender without being added to the receiver."
+  ]
+}

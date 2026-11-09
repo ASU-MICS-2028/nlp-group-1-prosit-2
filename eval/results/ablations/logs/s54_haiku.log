@@ -1,0 +1,16 @@
+church_signup            end_turn   4 turns  5 tools $0.0052 36.6s  own tests 11 passed 0 failed  repairs 0  follows plan None
+clinic_appointments      end_turn   3 turns  3 tools $0.0046 29.2s  own tests 13 passed 0 failed  repairs 0  follows plan None
+football_fixtures        end_turn   3 turns  3 tools $0.0041 30.4s  own tests 11 passed 0 failed  repairs 0  follows plan None
+hostel_booking           end_turn   4 turns  5 tools $0.0055 37.7s  own tests 15 passed 0 failed  repairs 0  follows plan None
+library_catalogue        end_turn   2 turns  3 tools $0.0042 26.4s  own tests 13 passed 0 failed  repairs 0  follows plan None
+lost_and_found           end_turn   4 turns  6 tools $0.0034 26.6s  own tests 12 passed 0 failed  repairs 0  follows plan None
+market_stock             end_turn   2 turns  3 tools $0.0038 26.0s  own tests 16 passed 0 failed  repairs 0  follows plan None
+momo_wallet              end_turn   3 turns  3 tools $0.0062 39.1s  own tests 10 passed 0 failed  repairs 0  follows plan None
+restaurant_reservations  end_turn   2 turns  3 tools $0.0039 29.2s  own tests 11 passed 0 failed  repairs 0  follows plan None
+school_grades_gpa        end_turn   3 turns  5 tools $0.0047 36.8s  own tests 9 passed 0 failed  repairs 0  follows plan None
+python(79282) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+shared_expenses          error: APIConnectionError: Connection error.  2 turns  3 tools $0.0088 81.8s  own tests 12 passed 0 failed  repairs 0  follows plan None
+shop_price_list          not built: APIConnectionError: Connection error.
+susu_ledger              not built: APIConnectionError: Connection error.
+tailoring_orders         not built: APIConnectionError: Connection error.
+trotro_fares             not built: APIConnectionError: Connection error.

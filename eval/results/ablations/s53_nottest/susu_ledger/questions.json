@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Does every member pay the same fixed amount each round, or can each person pay a different amount?",
+    "Can a member pay more than once into the same round, for example in small parts, or only once per round?",
+    "Do rounds have to go in order (round 1, then 2, then 3), or can you record payments for any round at any time, even while an earlier round is still open?"
+  ],
+  "answers": [
+    "No, record whatever each member actually paid; the pot is the total paid in for that round.",
+    "Yes, sometimes people pay in two parts; all of it counts toward that round.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.01215
+}

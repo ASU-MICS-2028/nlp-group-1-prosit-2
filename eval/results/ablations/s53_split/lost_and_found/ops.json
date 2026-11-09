@@ -1,0 +1,51 @@
+{
+  "report_item": {
+    "method": "POST",
+    "path": "/items",
+    "request_fields": {
+      "place": "found_where",
+      "date_found": "found_on"
+    },
+    "response_fields": {
+      "place": "found_where",
+      "date_found": "found_on",
+      "claimed": "status"
+    }
+  },
+  "list_items": {
+    "method": "GET",
+    "path": "/items",
+    "response_fields": {
+      "place": "found_where",
+      "date_found": "found_on",
+      "claimed": "status"
+    }
+  },
+  "list_unclaimed": {
+    "method": "GET",
+    "path": "/items/waiting",
+    "response_fields": {
+      "place": "found_where",
+      "date_found": "found_on",
+      "claimed": "status"
+    }
+  },
+  "get_item": {
+    "method": "GET",
+    "path": "/items/{id}",
+    "response_fields": {
+      "place": "found_where",
+      "date_found": "found_on",
+      "claimed": "status"
+    }
+  },
+  "claim_item": {
+    "method": "POST",
+    "path": "/items/{id}/claim",
+    "response_fields": {
+      "place": "found_where",
+      "date_found": "found_on",
+      "claimed": "status"
+    }
+  }
+}

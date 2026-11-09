@@ -1,0 +1,57 @@
+{
+  "summary": "This plan sets up a simple sign-up system for church events such as choir practice, youth camp and harvest day. You will be able to add an event with its name, date and the number of places, see the list of all events, look at one event, and see who has signed up for it. People sign up with their name and phone number. Once an event is full, any further sign-ups are turned away. You told us you had no preference on three points, so we chose the simplest option each time: each sign-up counts as exactly one place (a family would sign up each person separately), the same phone number is not blocked from signing up twice for the same event, and there is no way to cancel a sign-up. Something to consider: the list of who has signed up shows people's phone numbers, and as planned, anyone who can reach the system could see it. Would you like that list to be restricted, or to leave phone numbers out of it? We have not added this; tell us if you want it.",
+  "data": [
+    {
+      "name": "Event",
+      "fields": [
+        "Event number (given automatically)",
+        "Name of the event",
+        "Date of the event",
+        "How many people can come (number of places)"
+      ]
+    },
+    {
+      "name": "Sign-up",
+      "fields": [
+        "Sign-up number (given automatically)",
+        "Which event it is for",
+        "Person's name",
+        "Person's phone number"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/events",
+      "does": "Adds a new event with its name, date and how many people can come."
+    },
+    {
+      "method": "GET",
+      "path": "/events",
+      "does": "Shows the list of all events."
+    },
+    {
+      "method": "GET",
+      "path": "/events/{eventId}",
+      "does": "Shows the details of one event, including how many places it has and how many are still free."
+    },
+    {
+      "method": "POST",
+      "path": "/events/{eventId}/signups",
+      "does": "Signs a person up for an event using their name and phone number. Each sign-up takes one place."
+    },
+    {
+      "method": "GET",
+      "path": "/events/{eventId}/signups",
+      "does": "Shows everyone who has signed up for one event, with their names and phone numbers."
+    }
+  ],
+  "rules": [
+    "Refuse a sign-up when the event is already full (the number of sign-ups has reached the number of places).",
+    "Refuse adding an event if the name, the date or the number of places is missing.",
+    "Refuse adding an event if the number of places is not a whole number of at least 1.",
+    "Refuse a sign-up if the name or the phone number is missing.",
+    "Refuse a sign-up for an event that does not exist."
+  ]
+}

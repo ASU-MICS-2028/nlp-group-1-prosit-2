@@ -1,0 +1,53 @@
+{
+  "summary": "This plan keeps track of the provisions you sell at Makola market. For each item it saves the name, how many you have, and the level at which you consider it to be running low. You can add items, see all items, look at one item, record a sale (the quantity goes down, but never below what you have) and record a restock (the quantity goes up). There is also a list of items at or below their low level, so you know what to buy. Choices made where you had no preference: quantities are whole numbers (like 5 tins), because this is the simplest option. Editing or deleting an item is not included, because you did not ask for it. As you asked, only the current quantity is kept, with no history of sales or restocks. Nothing in your request was left out. Questions for you: Would you later like to change an item's name or low level, or remove an item you no longer sell? Would you like to sell goods by weight (like 2.5 kg of rice)?",
+  "data": [
+    {
+      "name": "Item",
+      "fields": [
+        "name: what the item is called, for example 'Milo tin'",
+        "quantity: how many you have right now (a whole number)",
+        "low level: when the quantity is at or below this number, the item counts as running low (a whole number)"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/items",
+      "does": "Adds a new item with its name, starting quantity and low level."
+    },
+    {
+      "method": "GET",
+      "path": "/items",
+      "does": "Shows all your items with their current quantities and low levels."
+    },
+    {
+      "method": "GET",
+      "path": "/items/{id}",
+      "does": "Shows one item: its name, how many you have and its low level."
+    },
+    {
+      "method": "POST",
+      "path": "/items/{id}/sales",
+      "does": "Records a sale of an amount of this item and lowers its quantity by that amount."
+    },
+    {
+      "method": "POST",
+      "path": "/items/{id}/restocks",
+      "does": "Records new goods arriving for this item and raises its quantity by that amount."
+    },
+    {
+      "method": "GET",
+      "path": "/items/low",
+      "does": "Shows only the items whose quantity is at or below their low level, so you know what to buy."
+    }
+  ],
+  "rules": [
+    "Refuse a sale that is more than the quantity you currently have.",
+    "Refuse a sale or restock if the amount is zero or less.",
+    "Refuse amounts and quantities that are not whole numbers.",
+    "Refuse a new item without a name.",
+    "Refuse a new item whose starting quantity or low level is less than zero.",
+    "Refuse to sell, restock or show an item that does not exist."
+  ]
+}

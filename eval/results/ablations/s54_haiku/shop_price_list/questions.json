@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Which money unit should prices use, for example cedis with pesewas (like 12.50), or whole cedis only?",
+    "When a price changes, should you be able to edit the existing item, or do you only need to add and remove?",
+    "When you take something off the list, should it be fully deleted, or kept somewhere so you can still find it later?"
+  ],
+  "answers": [
+    "Ghana cedis, sometimes with pesewas, like 12.50.",
+    "Yes, prices change all the time, especially sugar, rice and oil. I need to change the price of an item.",
+    "It is gone: it does not show in the list and looking it up says it is not found."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00035
+}

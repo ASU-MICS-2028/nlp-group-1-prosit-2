@@ -1,0 +1,12 @@
+{
+  "questions": [
+    "Does a reservation hold the table for a set length of time (for example 2 hours), so a 7:00 booking would block someone else booking that table at 7:30? Or should only the exact same time be refused?",
+    "Should reservations be refused for dates or times that have already passed, or outside your opening hours? If opening hours matter, what are they?"
+  ],
+  "answers": [
+    "We just use the start time. Two reservations clash only if they are for the same table, the same date and the same time.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00736
+}
