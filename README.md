@@ -9,9 +9,7 @@ Nothing left of your own: see Everyone.
 
 ### Bernard (W2)
 
-| Task | Status | Done when |
-|---|---|---|
-| S4.7 Safety of the public platform | 🔵 ready | Attacks on the live platform tried and written up: prompt injection in a request, too many requests, a backend grabbing memory or disk, many builds at once. Every hole fixed or stated as a limit. `start_server` says when a backend was killed for using too much memory |
+Nothing left of your own: see Everyone.
 
 ### Michael (W3)
 
@@ -26,7 +24,9 @@ Nothing left of your own: see Everyone.
 
 ### Joseph (W4)
 
-Nothing left of your own: see Everyone.
+| Task | Status | Done when |
+|---|---|---|
+| S4.7 Safety of the public platform | 🟡 doing | Attacks on the live platform tried and written up: prompt injection in a request, too many requests, a backend grabbing memory or disk, many builds at once. Every hole fixed or stated as a limit. `start_server` says when a backend was killed for using too much memory |
 
 ### Eric (W5)
 
