@@ -1,8 +1,8 @@
 # 0056. Opus stays as the model that builds backends
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-11-09
-- Decided by: waiting for Joseph
+- Decided by: Joseph
 
 ## Context
 

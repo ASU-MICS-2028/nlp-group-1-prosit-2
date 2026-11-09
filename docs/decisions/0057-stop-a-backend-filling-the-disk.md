@@ -1,8 +1,8 @@
 # 0057. Stop a backend filling the disk with a file limit and a watchdog
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-11-09
-- Decided by: waiting for Joseph
+- Decided by: Joseph
 
 ## Context
 

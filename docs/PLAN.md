@@ -16,7 +16,7 @@
 | Alice (W1) | — | — | — | ✅ S3.1 Read Bernard's and Joseph's learnings, run their parts<br>✅ S3.2 Single agent from the command line<br>✅ S3.3 Run record and trace<br>✅ S3.4 Test-and-repair loop<br>✅ S3.5 Spec-first plan and approval<br>✅ S3.6 Planner / Builder / Tester split<br>✅ S3.7 Retrieval in the agent<br>✅ S3.8 Clarifying questions<br>✅ S3.9 Claude vs local Qwen<br>✅ S3.10 "Change it" edit loop<br>✅ S3.11 Handoff: Alice's learnings | — | — | — | — |
 | Bernard (W2) | — | ✅ S1.1 The agent's tools<br>✅ S1.2 Sandbox<br>✅ S1.3 Safety tests<br>🔵 S1.4 MCP server<br>✅ S1.5 Handoff: Bernard's learnings | — | — | — | — | — | — |
 | Michael (W3) | — | — | — | — | 🔵 S4.1 Read Alice's and Joseph's learnings, try the live platform<br>⏳ S4.2 UI on a recorded session<br>⏳ S4.3 Better UI on the live platform<br>⏳ S4.4 UI alternatives compared<br>⏳ S4.5 Usability test<br>⏳ S4.6 Handoff: Michael's learnings | — | — | — |
-| Joseph (W4) | ✅ S0.2 LLM setup | — | ✅ S2.1 Read Bernard's learnings, run his tools<br>✅ S2.2 15 benchmark tasks<br>✅ S2.3 Eval harness<br>✅ S2.4 Recipe knowledge base and search<br>✅ S2.5 Handoff: Joseph's learnings, part 1 | ✅ S3.12 Hosting on a public server<br>✅ S3.13 Agent session<br>✅ S3.14 Small live platform | 🟡 S4.7 Safety of the public platform<br>✅ S4.8 Plain-word summaries; follow mid-build messages properly | ✅ S5.1 Read Alice's learnings, try the live platform<br>✅ S5.2 Full system on all 15 tasks<br>✅ S5.3 Ablations<br>✅ S5.4 Model comparison<br>✅ S5.5 Results tables and charts<br>✅ S5.6 Handoff: Joseph's learnings, part 2 | — | — |
+| Joseph (W4) | ✅ S0.2 LLM setup | — | ✅ S2.1 Read Bernard's learnings, run his tools<br>✅ S2.2 15 benchmark tasks<br>✅ S2.3 Eval harness<br>✅ S2.4 Recipe knowledge base and search<br>✅ S2.5 Handoff: Joseph's learnings, part 1 | ✅ S3.12 Hosting on a public server<br>✅ S3.13 Agent session<br>✅ S3.14 Small live platform | ✅ S4.7 Safety of the public platform<br>✅ S4.8 Plain-word summaries; follow mid-build messages properly | ✅ S5.1 Read Alice's learnings, try the live platform<br>✅ S5.2 Full system on all 15 tasks<br>✅ S5.3 Ablations<br>✅ S5.4 Model comparison<br>✅ S5.5 Results tables and charts<br>✅ S5.6 Handoff: Joseph's learnings, part 2 | — | — |
 | Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>✅ S0.4 Ask the instructor about "Section C" | — | — | — | — | — | 🔵 S6.1 Read every learnings file, run everything<br>⏳ S6.2 Fix what doesn't fit together<br>⏳ S6.3 Section B draft<br>⏳ S6.4 Slides and recorded demo<br>⏳ S6.5 Handoff: Eric's learnings | — |
 | Everyone | 🔵 S0.6 Docker on every laptop | — | — | — | — | — | — | ⏳ S7.1 Review Section B for your part<br>🔵 S7.2 Section A (individual, any time)<br>⏳ S7.3 Viva walkthrough<br>⏳ S7.4 Rehearse and submit |
 
@@ -74,7 +74,7 @@ flowchart LR
     S4_4["S4.4 UI alternatives compared<br/>W3 · Should"]:::waiting
     S4_5["S4.5 Usability test<br/>W3 · Should"]:::waiting
     S4_6["S4.6 Handoff: Michael's learnings<br/>W3 · Must"]:::waiting
-    S4_7["S4.7 Safety of the public platform<br/>W4 · Must"]:::doing
+    S4_7["S4.7 Safety of the public platform<br/>W4 · Must"]:::done
     S4_8["S4.8 Plain-word summaries; follow mid-build messages properly<br/>W4 · Should"]:::done
   end
   subgraph Stage5["Stage 5: Joseph — full evaluation"]
@@ -224,7 +224,7 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 | S4.4 | UI alternatives compared | W3 | S4.3 | Should | todo | Ways of showing the plan, asking questions, showing progress and wording errors, compared |
 | S4.5 | Usability test | W3 | S4.4 | Should | todo | 4–5 non-developers: completion, time, SUS score, quotes |
 | S4.6 | Handoff: Michael's learnings | W3 | S4.3, S4.5 | Must | todo | `learnings/W3-*.md` complete |
-| S4.7 | Safety of the public platform | W4 | S3.14 | Must | doing | Attacks on the live platform tried and written up: prompt injection in a request, too many requests, a backend grabbing memory or disk, many builds at once. Every hole fixed or stated as a limit. `start_server` says when a backend was killed for using too much memory |
+| S4.7 | Safety of the public platform | W4 | S3.14 | Must | done | Attacks on the live platform tried and written up: prompt injection in a request, too many requests, a backend grabbing memory or disk, many builds at once. Every hole fixed or stated as a limit. `start_server` says when a backend was killed for using too much memory |
 | S4.8 | Plain-word summaries; follow mid-build messages properly | W4 | S3.14 | Should | done | The final summary has no technical words, the client can tell what they got, and a message saying "must" is enforced in the live backend. The build itself is unchanged, so the hidden-test score cannot move (decision 0054) |
 
 ## Stage 5: Joseph — full evaluation
@@ -312,7 +312,7 @@ What each person owns. The task list under the table is generated.
 7. S3.12 Hosting on a public server — Must, done
 8. S3.13 Agent session — Must, done
 9. S3.14 Small live platform — Must, done
-10. S4.7 Safety of the public platform — Must, doing
+10. S4.7 Safety of the public platform — Must, done
 11. S4.8 Plain-word summaries; follow mid-build messages properly — Should, done
 12. S5.1 Read Alice's learnings, try the live platform — Must, done
 13. S5.2 Full system on all 15 tasks — Must, done
@@ -330,7 +330,7 @@ What each person owns. The task list under the table is generated.
 5. S6.2 Fix what doesn't fit together — Must, waiting (waiting on S6.1)
 6. S6.3 Section B draft — Must, waiting (waiting on S6.1)
 7. S6.4 Slides and recorded demo — Must, waiting (waiting on S6.2, S6.3, S4.3)
-8. S6.5 Handoff: Eric's learnings — Must, waiting (waiting on S6.4, S4.6, S4.7)
+8. S6.5 Handoff: Eric's learnings — Must, waiting (waiting on S6.4, S4.6)
 
 **Everyone**
 
@@ -348,7 +348,6 @@ Generated: every place where one person's task cannot finish until another perso
 <!-- BLOCKERS:START -->
 - S6.4 Slides and recorded demo (Eric (W5)) waits on S4.3 Better UI on the live platform (Michael (W3))
 - S6.5 Handoff: Eric's learnings (Eric (W5)) waits on S4.6 Handoff: Michael's learnings (Michael (W3))
-- S6.5 Handoff: Eric's learnings (Eric (W5)) waits on S4.7 Safety of the public platform (Joseph (W4))
 - S7.1 Review Section B for your part (Everyone) waits on S6.3 Section B draft (Eric (W5))
 - S7.3 Viva walkthrough (Everyone) waits on S6.5 Handoff: Eric's learnings (Eric (W5))
 - S7.4 Rehearse and submit (Everyone) waits on S6.4 Slides and recorded demo (Eric (W5))

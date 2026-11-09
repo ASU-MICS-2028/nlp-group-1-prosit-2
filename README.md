@@ -24,9 +24,7 @@ Nothing left of your own: see Everyone.
 
 ### Joseph (W4)
 
-| Task | Status | Done when |
-|---|---|---|
-| S4.7 Safety of the public platform | 🟡 doing | Attacks on the live platform tried and written up: prompt injection in a request, too many requests, a backend grabbing memory or disk, many builds at once. Every hole fixed or stated as a limit. `start_server` says when a backend was killed for using too much memory |
+Nothing left of your own: see Everyone.
 
 ### Eric (W5)
 
@@ -36,7 +34,7 @@ Nothing left of your own: see Everyone.
 | S6.2 Fix what doesn't fit together | ⏳ waiting (on S6.1) | Each gap fixed with the owner of that part; nothing left that only one person can run |
 | S6.3 Section B draft | ⏳ waiting (on S6.1) | Approach, architecture, implementation, evaluation, written from the learnings files; final numbers taken from S5.5 |
 | S6.4 Slides and recorded demo | ⏳ waiting (on S6.2, S6.3, S4.3) | 10-minute deck with the GitHub link on slide 1, each person presenting their part; a demo recording saved |
-| S6.5 Handoff: Eric's learnings | ⏳ waiting (on S6.4, S4.6, S4.7) | `learnings/W5-*.md` complete |
+| S6.5 Handoff: Eric's learnings | ⏳ waiting (on S6.4, S4.6) | `learnings/W5-*.md` complete |
 
 ### Everyone
 
