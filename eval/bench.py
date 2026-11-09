@@ -136,8 +136,39 @@ the list of sign-ups), set response_key to the field holding it ("signups"), oth
 every operation in the list."""
 
 
+KEY_SYSTEM = """You connect a test suite to a backend. The tests always refer to a record by the id the backend returned when
+the record was created, and they send and read that id. Some backends do not work that way: to say which record is meant, they
+take or return another value the tests also supply, such as a member's name or a table's number, and an id sent there would be
+refused. Find ONLY those cases. If the app accepts and returns ids wherever the operations do, return an empty list; never add a
+rule for a backend that works with ids. For each kind of record found give: kind (a short word); created_by (the operation that
+creates it); key_field (the test's name for the value the backend uses instead, for example name or number); and used_in, every
+place the tests send or read an id of this kind where the app needs that value instead: operation and test_field (the name in the
+operation's description: a path parameter, body field or reply field, for example paid_by or member_id)."""
+KEY_SCHEMA = {"type": "object", "additionalProperties": False, "required": ["kinds"], "properties": {"kinds": {"type": "array", "items": {
+    "type": "object", "additionalProperties": False, "required": ["kind", "created_by", "key_field", "used_in"], "properties": {
+        "kind": {"type": "string"}, "created_by": {"type": "string"}, "key_field": {"type": "string"}, "used_in": {"type": "array", "items": {
+            "type": "object", "additionalProperties": False, "required": ["operation", "test_field"],
+            "properties": {"operation": {"type": "string"}, "test_field": {"type": "string"}}}}}}}}}
+
+
+def add_key_rules(model, app_text, operations, ops, effort="medium"):
+    """A copy of ops with rules for a backend that finds records by name or number. The names already in the map are not touched (decision 0055)."""
+    from eval.llm import ask
+    user = f"Operations the tests call:\n{operations}\n\nThe backend (app.py):\n```python\n{app_text}\n```"
+    text, info = ask(model, KEY_SYSTEM, user, effort=effort, schema=KEY_SCHEMA)
+    out = json.loads(json.dumps(ops))
+    for k in json.loads(text)["kinds"]:
+        if k["created_by"] in out and k["used_in"]:
+            out[k["created_by"]]["saves_key"] = {"as": k["kind"], "field": k["key_field"]}
+            for use in k["used_in"]:
+                if use["operation"] in out:
+                    out[use["operation"]].setdefault("uses_key", {})[use["test_field"]] = k["kind"]
+    return out, info
+
+
 def map_ops(model, app_text, operations, effort="medium"):
     from eval.llm import ask
     user = f"Operations the tests call:\n{operations}\n\nThe backend (app.py):\n```python\n{app_text}\n```"
     text, info = ask(model, MAP_SYSTEM, user, effort=effort, schema=mapping_schema())
-    return to_ops(text), info
+    ops, keys = add_key_rules(model, app_text, operations, to_ops(text), effort)
+    return ops, {**info, "cost_usd": round(info["cost_usd"] + keys["cost_usd"], 5)}

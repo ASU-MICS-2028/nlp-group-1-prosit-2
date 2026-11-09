@@ -21,7 +21,7 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 
 | Question | Files | Result |
 |---|---|---|
-| One LLM call, no agent | `baseline_v2.json` (final) · `baseline.json` (before the tool fixes) · `baseline_failing.json` | Opus 89%, Haiku 79% |
+| One LLM call, no agent | `baseline_v2.json` (final) · `baseline.json` (before the tool fixes) · `baseline_failing.json` | Opus 89%, Haiku 79% (one round: see `agent_vs_baseline.json` for four) |
 | Local Qwen in one call, with and without recipes | `baseline_local_nothink.json` · `baseline_local_think.json` · `baseline_local_recipes_fixed.json` · `baseline_local_recipes_search.json` | 1% · 1% · 18% · 10% |
 | Are the tests right? | `../../benchmark/validation.json` | all 15 tasks valid, 75 of 75 broken copies caught |
 | Is the measuring fair? | `fairness.json` · `mapping.json` | W4 rows 9, 10, 12 |
@@ -44,9 +44,16 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 | Question | Files | Result |
 |---|---|---|
 | **The agent on all 15, fresh run** | `harness/fresh1_restart.json` · builds in `fresh1/` | Keeps its data on **15 of 15**. Score **93.2%** (Alice's run of the same setup: 95.8%). Builds $1.80, questions $0.13, maps $0.32, avg 38.5 s |
-| **Same setup, third run** | `harness/fresh2_restart.json` · builds in `fresh2/` | Keeps its data on **15 of 15**. Score **87.5%**. Three runs: 95.8%, 93.2%, 87.5%, average 92.2% |
+| **Same setup, third run** | `harness/fresh2_restart.json` · builds in `fresh2/` | Keeps its data on **15 of 15**. Score **87.5%**. Three runs under the old scoring rules: 95.8%, 93.2%, 87.5%, average 92.2%. **Use `agent_vs_baseline.json` for the report** |
 | Can we check before publishing, with no hidden tests? | `database_check.json` · `runtime/tests/test_keeps_database.py` | 9 of 9 known answers; agrees with the real restart check on 114 of 114 builds (decision 0053) |
 | Does the data survive a restart? | `restart_check.json` · `harness/restart_church_agent_build.json` · `harness/restart_references.json` | One call: Opus keeps 1 of 15, loses 13; Haiku keeps 0, loses 12. Agent church build keeps. Check proved on 3 known backends |
+
+## Agent against one call, over repeated builds (the numbers for the report)
+
+| Question | Files | Result | Decision |
+|---|---|---|---|
+| **Is the agent better than one call?** | `agent_vs_baseline.json` · `baseline_r2.json` to `baseline_r4.json` · builds in `baseline_rounds/` | **Agent 96.0% (3 runs), one call 84.0% (4 rounds).** With shared expenses left out: 95.7% vs 87.6%. One call given full marks on it: 96.0% vs 88.4% | 0055 |
+| Can scoring cope with a record found by name or number? | `key_rules.json` | Fresh runs 93.2% to 96.9% and 87.5% to 95.3%. Hand-written 272 of 272, no rule added | 0055 |
 
 ## Plain summaries and messages during a build (S4.8)
 

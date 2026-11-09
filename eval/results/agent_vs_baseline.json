@@ -1,0 +1,71 @@
+{
+  "every test": {
+    "agent": {
+      "runs": {
+        "Alice's run (old rules: can only rise)": 95.8,
+        "fresh run 1": 96.9,
+        "fresh run 2": 95.3
+      },
+      "average": 96.0,
+      "lowest": 95.3,
+      "highest": 96.9
+    },
+    "one call": {
+      "runs": {
+        "round 1": 88.5,
+        "round 2": 84.4,
+        "round 3": 81.2,
+        "round 4": 81.8
+      },
+      "average": 84.0,
+      "lowest": 81.2,
+      "highest": 88.5
+    }
+  },
+  "leaving shared expenses out for both": {
+    "agent": {
+      "runs": {
+        "Alice's run (old rules: can only rise)": 95.5,
+        "fresh run 1": 96.6,
+        "fresh run 2": 95.0
+      },
+      "average": 95.7,
+      "lowest": 95.0,
+      "highest": 96.6
+    },
+    "one call": {
+      "runs": {
+        "round 1": 87.7,
+        "round 2": 87.7,
+        "round 3": 87.2,
+        "round 4": 87.7
+      },
+      "average": 87.6,
+      "lowest": 87.2,
+      "highest": 87.7
+    }
+  },
+  "one call given full marks on shared expenses": {
+    "agent": {
+      "runs": {
+        "Alice's run (old rules: can only rise)": 95.8,
+        "fresh run 1": 96.9,
+        "fresh run 2": 95.3
+      },
+      "average": 96.0,
+      "lowest": 95.3,
+      "highest": 96.9
+    },
+    "one call": {
+      "runs": {
+        "round 1": 88.5,
+        "round 2": 88.5,
+        "round 3": 88.0,
+        "round 4": 88.5
+      },
+      "average": 88.4,
+      "lowest": 88.0,
+      "highest": 88.5
+    }
+  }
+}

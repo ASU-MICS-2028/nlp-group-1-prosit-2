@@ -1,0 +1,769 @@
+[
+  {
+    "task": "church_signup",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 10,
+    "total": 10,
+    "seconds": 32.4,
+    "cost_usd": 0.0739,
+    "lines": 134,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_event": {
+        "method": "POST",
+        "path": "/events"
+      },
+      "list_events": {
+        "method": "GET",
+        "path": "/events"
+      },
+      "get_event": {
+        "method": "GET",
+        "path": "/events/{id}"
+      },
+      "sign_up": {
+        "method": "POST",
+        "path": "/events/{id}/signups"
+      },
+      "list_signups": {
+        "method": "GET",
+        "path": "/events/{id}/signups"
+      }
+    }
+  },
+  {
+    "task": "clinic_appointments",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 32.7,
+    "cost_usd": 0.0968,
+    "lines": 159,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_doctor": {
+        "method": "POST",
+        "path": "/doctors"
+      },
+      "list_doctors": {
+        "method": "GET",
+        "path": "/doctors"
+      },
+      "book_appointment": {
+        "method": "POST",
+        "path": "/appointments",
+        "request_fields": {
+          "time": "time_slot"
+        },
+        "response_fields": {
+          "time": "time_slot"
+        }
+      },
+      "list_doctor_appointments": {
+        "method": "GET",
+        "path": "/doctors/{id}/appointments",
+        "response_fields": {
+          "time": "time_slot"
+        }
+      },
+      "cancel_appointment": {
+        "method": "DELETE",
+        "path": "/appointments/{id}",
+        "response_fields": {
+          "time": "time_slot"
+        },
+        "response_key": "appointment"
+      }
+    }
+  },
+  {
+    "task": "football_fixtures",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 27.7,
+    "cost_usd": 0.0823,
+    "lines": 153,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "add_team": {
+        "method": "POST",
+        "path": "/teams"
+      },
+      "list_teams": {
+        "method": "GET",
+        "path": "/teams"
+      },
+      "create_fixture": {
+        "method": "POST",
+        "path": "/fixtures"
+      },
+      "get_fixture": {
+        "method": "GET",
+        "path": "/fixtures/{id}"
+      },
+      "record_score": {
+        "method": "POST",
+        "path": "/fixtures/{id}/score"
+      },
+      "team_fixtures": {
+        "method": "GET",
+        "path": "/teams/{id}/fixtures"
+      }
+    }
+  },
+  {
+    "task": "hostel_booking",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 15,
+    "total": 15,
+    "seconds": 44.4,
+    "cost_usd": 0.1259,
+    "lines": 219,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_room": {
+        "method": "POST",
+        "path": "/rooms"
+      },
+      "book_bed": {
+        "method": "POST",
+        "path": "/rooms/{id}/bookings",
+        "request_fields": {
+          "check_in": "arrival_date",
+          "check_out": "leaving_date"
+        },
+        "response_fields": {
+          "check_in": "arrival_date",
+          "check_out": "leaving_date"
+        }
+      },
+      "cancel_booking": {
+        "method": "DELETE",
+        "path": "/bookings/{id}",
+        "response_fields": {
+          "check_in": "arrival_date",
+          "check_out": "leaving_date"
+        }
+      },
+      "free_beds": {
+        "method": "GET",
+        "path": "/availability",
+        "request_fields": {
+          "check_in": "arrival_date",
+          "check_out": "leaving_date"
+        }
+      }
+    }
+  },
+  {
+    "task": "library_catalogue",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 31.0,
+    "cost_usd": 0.073,
+    "lines": 126,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "add_book": {
+        "method": "POST",
+        "path": "/books"
+      },
+      "list_books": {
+        "method": "GET",
+        "path": "/books"
+      },
+      "get_book": {
+        "method": "GET",
+        "path": "/books/{id}"
+      },
+      "borrow_book": {
+        "method": "POST",
+        "path": "/books/{id}/borrow",
+        "request_fields": {
+          "student": "student_name"
+        },
+        "response_key": "book"
+      },
+      "return_book": {
+        "method": "POST",
+        "path": "/books/{id}/return",
+        "request_fields": {
+          "student": "student_name"
+        },
+        "response_key": "book"
+      }
+    }
+  },
+  {
+    "task": "lost_and_found",
+    "tier": "easy",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 12,
+    "total": 12,
+    "seconds": 24.8,
+    "cost_usd": 0.0653,
+    "lines": 109,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "report_item": {
+        "method": "POST",
+        "path": "/items",
+        "request_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        },
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items",
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      },
+      "list_unclaimed": {
+        "method": "GET",
+        "path": "/items/unclaimed",
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}",
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      },
+      "claim_item": {
+        "method": "POST",
+        "path": "/items/{id}/claim",
+        "response_fields": {
+          "place": "location",
+          "date_found": "found_date"
+        }
+      }
+    }
+  },
+  {
+    "task": "market_stock",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 29.1,
+    "cost_usd": 0.0779,
+    "lines": 140,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "record_sale": {
+        "method": "POST",
+        "path": "/items/{id}/sell",
+        "request_fields": {
+          "quantity": "amount"
+        }
+      },
+      "record_restock": {
+        "method": "POST",
+        "path": "/items/{id}/restock",
+        "request_fields": {
+          "quantity": "amount"
+        }
+      },
+      "list_low_stock": {
+        "method": "GET",
+        "path": "/items/low"
+      }
+    }
+  },
+  {
+    "task": "momo_wallet",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 3,
+    "total": 13,
+    "seconds": 54.9,
+    "cost_usd": 0.1708,
+    "lines": 301,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "open_wallet": {
+        "method": "POST",
+        "path": "/wallets",
+        "response_fields": {
+          "id": "wallet_id"
+        }
+      },
+      "get_wallet": {
+        "method": "GET",
+        "path": "/wallets/{id}"
+      },
+      "deposit": {
+        "method": "POST",
+        "path": "/wallets/{id}/deposit"
+      },
+      "transfer": {
+        "method": "POST",
+        "path": "/transfers"
+      },
+      "list_transactions": {
+        "method": "GET",
+        "path": "/wallets/{id}/history",
+        "response_key": "history"
+      }
+    }
+  },
+  {
+    "task": "restaurant_reservations",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 12,
+    "total": 12,
+    "seconds": 32.8,
+    "cost_usd": 0.0809,
+    "lines": 115,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_table": {
+        "method": "POST",
+        "path": "/tables",
+        "request_fields": {
+          "number": "table_number"
+        },
+        "response_fields": {
+          "number": "table_number",
+          "id": "table_number"
+        },
+        "saves_key": {
+          "as": "table",
+          "field": "number"
+        },
+        "uses_key": {
+          "id": "table"
+        }
+      },
+      "list_tables": {
+        "method": "GET",
+        "path": "/tables",
+        "response_fields": {
+          "number": "table_number",
+          "id": "table_number"
+        }
+      },
+      "make_reservation": {
+        "method": "POST",
+        "path": "/reservations",
+        "request_fields": {
+          "id": "table_number",
+          "name": "customer_name"
+        },
+        "response_fields": {
+          "name": "customer_name"
+        },
+        "uses_key": {
+          "id": "table"
+        }
+      },
+      "list_reservations": {
+        "method": "GET",
+        "path": "/reservations",
+        "response_fields": {
+          "name": "customer_name"
+        }
+      }
+    }
+  },
+  {
+    "task": "school_grades_gpa",
+    "tier": "hard",
+    "vague": true,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 2,
+    "total": 12,
+    "seconds": 55.5,
+    "cost_usd": 0.1607,
+    "lines": 298,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_student": {
+        "method": "POST",
+        "path": "/students",
+        "response_fields": {
+          "id": "student_id"
+        }
+      },
+      "create_course": {
+        "method": "POST",
+        "path": "/courses",
+        "request_fields": {
+          "name": "title"
+        },
+        "response_fields": {
+          "id": "code",
+          "name": "title"
+        }
+      },
+      "record_score": {
+        "method": "POST",
+        "path": "/scores",
+        "request_fields": {
+          "id": "student_id",
+          "course_id": "course_code"
+        },
+        "response_fields": {
+          "course_id": "course_code",
+          "grade_point": "grade_points"
+        }
+      },
+      "get_results": {
+        "method": "GET",
+        "path": "/students/{id}/results",
+        "response_fields": {
+          "courses": "results",
+          "course_id": "course_code",
+          "grade_point": "grade_points"
+        }
+      }
+    }
+  },
+  {
+    "task": "shared_expenses",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 0,
+    "total": 13,
+    "seconds": 54.9,
+    "cost_usd": 0.1532,
+    "lines": 257,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_group": {
+        "method": "POST",
+        "path": "/groups"
+      },
+      "add_member": {
+        "method": "POST",
+        "path": "/groups/{id}/members",
+        "saves_key": {
+          "as": "member",
+          "field": "name"
+        },
+        "uses_key": {
+          "id": "member"
+        }
+      },
+      "add_expense": {
+        "method": "POST",
+        "path": "/groups/{id}/expenses",
+        "request_fields": {
+          "split_between": "shared_between"
+        },
+        "uses_key": {
+          "paid_by": "member",
+          "split_between": "member"
+        }
+      },
+      "get_balances": {
+        "method": "GET",
+        "path": "/groups/{id}/balances",
+        "response_fields": {
+          "member_id": "member",
+          "balance": "balance.cedis"
+        },
+        "response_key": "balances",
+        "uses_key": {
+          "member_id": "member"
+        }
+      },
+      "settle_up": {
+        "method": "POST",
+        "path": "/groups/{id}/payments",
+        "request_fields": {
+          "from_member_id": "paid_by",
+          "to_member_id": "paid_to"
+        },
+        "uses_key": {
+          "from_member_id": "member",
+          "to_member_id": "member"
+        }
+      }
+    }
+  },
+  {
+    "task": "shop_price_list",
+    "tier": "easy",
+    "vague": true,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 10,
+    "total": 13,
+    "seconds": 33.5,
+    "cost_usd": 0.0759,
+    "lines": 122,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "add_item": {
+        "method": "POST",
+        "path": "/items"
+      },
+      "list_items": {
+        "method": "GET",
+        "path": "/items"
+      },
+      "get_item": {
+        "method": "GET",
+        "path": "/items/{id}"
+      },
+      "change_price": {
+        "method": "PATCH",
+        "path": "/items/{id}"
+      },
+      "remove_item": {
+        "method": "DELETE",
+        "path": "/items/{id}"
+      }
+    }
+  },
+  {
+    "task": "susu_ledger",
+    "tier": "hard",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 14,
+    "total": 14,
+    "seconds": 52.8,
+    "cost_usd": 0.1701,
+    "lines": 298,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_group": {
+        "method": "POST",
+        "path": "/groups"
+      },
+      "add_member": {
+        "method": "POST",
+        "path": "/groups/{id}/members"
+      },
+      "list_members": {
+        "method": "GET",
+        "path": "/groups/{id}/members"
+      },
+      "record_contribution": {
+        "method": "POST",
+        "path": "/groups/{id}/contributions"
+      },
+      "pay_out": {
+        "method": "POST",
+        "path": "/groups/{id}/rounds/{round}/collect"
+      },
+      "list_payouts": {
+        "method": "GET",
+        "path": "/groups/{id}/collections"
+      },
+      "get_statement": {
+        "method": "GET",
+        "path": "/groups/{id}/members/{member_id}/statement",
+        "response_fields": {
+          "total_contributed": "total_paid_in"
+        }
+      }
+    }
+  },
+  {
+    "task": "tailoring_orders",
+    "tier": "medium",
+    "vague": false,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 36.8,
+    "cost_usd": 0.1067,
+    "lines": 193,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_customer": {
+        "method": "POST",
+        "path": "/customers",
+        "request_fields": {
+          "measurements.chest": "chest",
+          "measurements.waist": "waist",
+          "measurements.hip": "hip",
+          "measurements.length": "length"
+        },
+        "response_fields": {
+          "measurements.chest": "chest",
+          "measurements.waist": "waist",
+          "measurements.hip": "hip",
+          "measurements.length": "length"
+        }
+      },
+      "get_customer": {
+        "method": "GET",
+        "path": "/customers/{id}",
+        "response_fields": {
+          "measurements.chest": "chest",
+          "measurements.waist": "waist",
+          "measurements.hip": "hip",
+          "measurements.length": "length"
+        }
+      },
+      "create_order": {
+        "method": "POST",
+        "path": "/customers/{id}/orders"
+      },
+      "get_order": {
+        "method": "GET",
+        "path": "/orders/{id}"
+      },
+      "list_customer_orders": {
+        "method": "GET",
+        "path": "/customers/{id}/orders"
+      },
+      "list_due_orders": {
+        "method": "GET",
+        "path": "/orders/due",
+        "request_fields": {
+          "date": "on_or_before"
+        }
+      },
+      "collect_order": {
+        "method": "POST",
+        "path": "/orders/{id}/collect"
+      }
+    }
+  },
+  {
+    "task": "trotro_fares",
+    "tier": "medium",
+    "vague": true,
+    "model": "claude-opus-5-5",
+    "variant": "request",
+    "started": true,
+    "passed": 13,
+    "total": 13,
+    "seconds": 32.8,
+    "cost_usd": 0.0856,
+    "lines": 134,
+    "stop_reason": "end_turn",
+    "error": "",
+    "ops": {
+      "create_route": {
+        "method": "POST",
+        "path": "/routes",
+        "request_fields": {
+          "from_stop": "origin",
+          "to_stop": "destination"
+        },
+        "response_fields": {
+          "from_stop": "origin",
+          "to_stop": "destination"
+        }
+      },
+      "list_routes": {
+        "method": "GET",
+        "path": "/routes",
+        "response_fields": {
+          "from_stop": "origin",
+          "to_stop": "destination"
+        }
+      },
+      "find_fare": {
+        "method": "GET",
+        "path": "/fare",
+        "request_fields": {
+          "from_stop": "from",
+          "to_stop": "to"
+        },
+        "response_fields": {
+          "from_stop": "from",
+          "to_stop": "to",
+          "id": "route_id"
+        }
+      },
+      "update_fare": {
+        "method": "PATCH",
+        "path": "/routes/{id}",
+        "response_fields": {
+          "from_stop": "origin",
+          "to_stop": "destination"
+        }
+      }
+    }
+  }
+]
