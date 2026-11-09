@@ -40,6 +40,7 @@ Other things a map can say (each was found from a correct backend the simple ver
 | `response_fields` | names used only in the reply. Two test names may point at one backend field | `{"id": "table_number", "number": "table_number"}` |
 | dotted test name | the test nests the value, the backend keeps it flat | `{"measurements.chest": "chest"}` |
 | `response_key` | the backend wraps its reply; unwrap it | `"signups"` for `{"signups": [...]}` |
+| `saves_key` and `uses_key` | the backend finds a record by a value such as its name, where the tests give its id (decision 0055) | `add_member`: `{"saves_key": {"as": "member", "field": "name"}}` · `add_expense`: `{"uses_key": {"paid_by": "member"}}` |
 
 Values also move by themselves: a path parameter the backend's path does not use goes into the body (or the query string for GET), and a `{placeholder}` the tests did not give as a path parameter is taken from the body or the query string.
 

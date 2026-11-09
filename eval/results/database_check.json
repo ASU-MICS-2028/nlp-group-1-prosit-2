@@ -1,7 +1,7 @@
 {
-  "builds": 103,
+  "builds": 118,
   "table": {
-    "restart True / check True": 17,
+    "restart True / check True": 32,
     "restart True / check False": 0,
     "restart True / check None": 0,
     "restart False / check True": 0,
@@ -833,6 +833,126 @@
       "task": "trotro_fares",
       "model": "agent",
       "variant": "fresh1",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in trotro.db."
+    },
+    {
+      "task": "church_signup",
+      "model": "agent",
+      "variant": "fresh2",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in church_events.db."
+    },
+    {
+      "task": "clinic_appointments",
+      "model": "agent",
+      "variant": "fresh2",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in clinic_appointments.db."
+    },
+    {
+      "task": "football_fixtures",
+      "model": "agent",
+      "variant": "fresh2",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in league.db."
+    },
+    {
+      "task": "hostel_booking",
+      "model": "agent",
+      "variant": "fresh2",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in hostel.db."
+    },
+    {
+      "task": "library_catalogue",
+      "model": "agent",
+      "variant": "fresh2",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in library.db."
+    },
+    {
+      "task": "lost_and_found",
+      "model": "agent",
+      "variant": "fresh2",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in lost_and_found.db."
+    },
+    {
+      "task": "market_stock",
+      "model": "agent",
+      "variant": "fresh2",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in stock.db."
+    },
+    {
+      "task": "momo_wallet",
+      "model": "agent",
+      "variant": "fresh2",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in wallets.db."
+    },
+    {
+      "task": "restaurant_reservations",
+      "model": "agent",
+      "variant": "fresh2",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in chopbar.db."
+    },
+    {
+      "task": "school_grades_gpa",
+      "model": "agent",
+      "variant": "fresh2",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in results.db."
+    },
+    {
+      "task": "shared_expenses",
+      "model": "agent",
+      "variant": "fresh2",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in splitter.db."
+    },
+    {
+      "task": "shop_price_list",
+      "model": "agent",
+      "variant": "fresh2",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in shop.db."
+    },
+    {
+      "task": "susu_ledger",
+      "model": "agent",
+      "variant": "fresh2",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in susu.db."
+    },
+    {
+      "task": "tailoring_orders",
+      "model": "agent",
+      "variant": "fresh2",
+      "restart": true,
+      "check": true,
+      "why": "Keeps its data in tailoring.db."
+    },
+    {
+      "task": "trotro_fares",
+      "model": "agent",
+      "variant": "fresh2",
       "restart": true,
       "check": true,
       "why": "Keeps its data in trotro.db."

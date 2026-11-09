@@ -2,6 +2,7 @@
 
     uv run --env-file .env --with anthropic python -m eval.experiments.baseline [task ...]
     MODELS=qwen3.5-9b-local VARIANTS=request OUT=baseline_local.json ...   (other models, variants, output file)
+    ROUND=_r2 keeps a repeat's builds apart from the first round's
 
 Variants (each task x each model):
   request          the client's request only
@@ -57,7 +58,7 @@ for name in sys.argv[1:] or bench.task_names():
             start = time.time()
             text, build = ask(model, BUILD_SYSTEM, user, schema=SCHEMA)
             app = json.loads(text)["app_py"] if build["stop_reason"] == "end_turn" else ""
-            label = f"baseline_{model}_{variant.replace('+', '_')}" + os.environ.get("LOCAL_THINKING", "") + RECIPES  # kept apart
+            label = f"baseline_{model}_{variant.replace('+', '_')}" + os.environ.get("LOCAL_THINKING", "") + RECIPES + os.environ.get("ROUND", "")  # kept apart
             got = bench.score(name, label, app, {})  # does it even start? Mapping a build that crashes wastes an Opus call
             ops, mapped = {}, {"cost_usd": 0}
             if got["started"]:

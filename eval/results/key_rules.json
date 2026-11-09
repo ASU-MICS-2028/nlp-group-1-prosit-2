@@ -1,0 +1,799 @@
+{
+  "summary": {
+    "fresh1": {
+      "builds": 15,
+      "before": 179,
+      "after": 186,
+      "total": 192,
+      "got_a_rule": 2,
+      "fell": 0
+    },
+    "fresh2": {
+      "builds": 15,
+      "before": 168,
+      "after": 183,
+      "total": 192,
+      "got_a_rule": 2,
+      "fell": 0
+    },
+    "hand-written, must get no rule": {
+      "builds": 21,
+      "before": 272,
+      "after": 272,
+      "total": 272,
+      "got_a_rule": 0,
+      "fell": 0
+    },
+    "one call, haiku-5-5, request": {
+      "builds": 4,
+      "before": 11,
+      "after": 11,
+      "total": 52,
+      "got_a_rule": 1,
+      "fell": 0
+    },
+    "one call, opus-5-5, request": {
+      "builds": 3,
+      "before": 16,
+      "after": 16,
+      "total": 38,
+      "got_a_rule": 0,
+      "fell": 0
+    },
+    "one call, opus-5-5, request+ops": {
+      "builds": 1,
+      "before": 10,
+      "after": 10,
+      "total": 12,
+      "got_a_rule": 0,
+      "fell": 0
+    }
+  },
+  "rows": [
+    {
+      "group": "hand-written, must get no rule",
+      "task": "church_signup",
+      "total": 10,
+      "before": 10,
+      "after": 10,
+      "rules": false,
+      "cost_usd": 0.006
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "clinic_appointments",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.0071
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "clinic_appointments",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.00681
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "football_fixtures",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.0076
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "football_fixtures",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.00722
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "hostel_booking",
+      "total": 15,
+      "before": 15,
+      "after": 15,
+      "rules": false,
+      "cost_usd": 0.00843
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "hostel_booking",
+      "total": 15,
+      "before": 15,
+      "after": 15,
+      "rules": false,
+      "cost_usd": 0.00845
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "library_catalogue",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.00681
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "library_catalogue",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.00642
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "lost_and_found",
+      "total": 12,
+      "before": 12,
+      "after": 12,
+      "rules": false,
+      "cost_usd": 0.00619
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "market_stock",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.0069
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "market_stock",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.00701
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "momo_wallet",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.0089
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "momo_wallet",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.00917
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "restaurant_reservations",
+      "total": 12,
+      "before": 12,
+      "after": 12,
+      "rules": false,
+      "cost_usd": 0.00662
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "school_grades_gpa",
+      "total": 12,
+      "before": 12,
+      "after": 12,
+      "rules": false,
+      "cost_usd": 0.00816
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "shared_expenses",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.00976
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "shop_price_list",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.00669
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "susu_ledger",
+      "total": 14,
+      "before": 14,
+      "after": 14,
+      "rules": false,
+      "cost_usd": 0.0107
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "tailoring_orders",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.00796
+    },
+    {
+      "group": "hand-written, must get no rule",
+      "task": "trotro_fares",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.00652
+    },
+    {
+      "group": "fresh1",
+      "task": "church_signup",
+      "total": 10,
+      "before": 10,
+      "after": 10,
+      "rules": false,
+      "cost_usd": 0.00982
+    },
+    {
+      "group": "fresh1",
+      "task": "clinic_appointments",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.0102
+    },
+    {
+      "group": "fresh1",
+      "task": "football_fixtures",
+      "total": 13,
+      "before": 9,
+      "after": 9,
+      "rules": false,
+      "cost_usd": 0.00988
+    },
+    {
+      "group": "fresh1",
+      "task": "hostel_booking",
+      "total": 15,
+      "before": 15,
+      "after": 15,
+      "rules": false,
+      "cost_usd": 0.01238
+    },
+    {
+      "group": "fresh1",
+      "task": "library_catalogue",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.01088
+    },
+    {
+      "group": "fresh1",
+      "task": "lost_and_found",
+      "total": 12,
+      "before": 12,
+      "after": 12,
+      "rules": false,
+      "cost_usd": 0.00814
+    },
+    {
+      "group": "fresh1",
+      "task": "market_stock",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.00946
+    },
+    {
+      "group": "fresh1",
+      "task": "momo_wallet",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": true,
+      "cost_usd": 0.02219,
+      "ops_with_rules": {
+        "open_wallet": {
+          "method": "POST",
+          "path": "/wallets",
+          "response_fields": {
+            "id": "phone"
+          },
+          "saves_key": {
+            "as": "wallet",
+            "field": "phone"
+          },
+          "uses_key": {
+            "id": "wallet"
+          }
+        },
+        "get_wallet": {
+          "method": "GET",
+          "path": "/wallets/{id}",
+          "uses_key": {
+            "id": "wallet"
+          }
+        },
+        "deposit": {
+          "method": "POST",
+          "path": "/wallets/{id}/deposits",
+          "uses_key": {
+            "id": "wallet"
+          }
+        },
+        "transfer": {
+          "method": "POST",
+          "path": "/wallets/{from_wallet_id}/transfers",
+          "request_fields": {
+            "to_wallet_id": "to_phone"
+          },
+          "uses_key": {
+            "from_wallet_id": "wallet",
+            "to_wallet_id": "wallet"
+          }
+        },
+        "list_transactions": {
+          "method": "GET",
+          "path": "/wallets/{id}/history",
+          "response_key": "history",
+          "uses_key": {
+            "id": "wallet"
+          }
+        }
+      }
+    },
+    {
+      "group": "fresh1",
+      "task": "restaurant_reservations",
+      "total": 12,
+      "before": 5,
+      "after": 12,
+      "rules": true,
+      "cost_usd": 0.01351,
+      "ops_with_rules": {
+        "create_table": {
+          "method": "POST",
+          "path": "/tables",
+          "saves_key": {
+            "as": "table",
+            "field": "number"
+          }
+        },
+        "list_tables": {
+          "method": "GET",
+          "path": "/tables"
+        },
+        "make_reservation": {
+          "method": "POST",
+          "path": "/reservations",
+          "request_fields": {
+            "id": "table_number"
+          },
+          "uses_key": {
+            "id": "table"
+          }
+        },
+        "list_reservations": {
+          "method": "GET",
+          "path": "/reservations"
+        }
+      }
+    },
+    {
+      "group": "fresh1",
+      "task": "school_grades_gpa",
+      "total": 12,
+      "before": 12,
+      "after": 12,
+      "rules": false,
+      "cost_usd": 0.01215
+    },
+    {
+      "group": "fresh1",
+      "task": "shared_expenses",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.02108
+    },
+    {
+      "group": "fresh1",
+      "task": "shop_price_list",
+      "total": 13,
+      "before": 11,
+      "after": 11,
+      "rules": false,
+      "cost_usd": 0.00866
+    },
+    {
+      "group": "fresh1",
+      "task": "susu_ledger",
+      "total": 14,
+      "before": 14,
+      "after": 14,
+      "rules": false,
+      "cost_usd": 0.01688
+    },
+    {
+      "group": "fresh1",
+      "task": "tailoring_orders",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.01172
+    },
+    {
+      "group": "fresh1",
+      "task": "trotro_fares",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.01071
+    },
+    {
+      "group": "fresh2",
+      "task": "church_signup",
+      "total": 10,
+      "before": 10,
+      "after": 10,
+      "rules": false,
+      "cost_usd": 0.00962
+    },
+    {
+      "group": "fresh2",
+      "task": "clinic_appointments",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.01054
+    },
+    {
+      "group": "fresh2",
+      "task": "football_fixtures",
+      "total": 13,
+      "before": 8,
+      "after": 8,
+      "rules": false,
+      "cost_usd": 0.0089
+    },
+    {
+      "group": "fresh2",
+      "task": "hostel_booking",
+      "total": 15,
+      "before": 15,
+      "after": 15,
+      "rules": false,
+      "cost_usd": 0.01268
+    },
+    {
+      "group": "fresh2",
+      "task": "library_catalogue",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.01082
+    },
+    {
+      "group": "fresh2",
+      "task": "lost_and_found",
+      "total": 12,
+      "before": 12,
+      "after": 12,
+      "rules": false,
+      "cost_usd": 0.00814
+    },
+    {
+      "group": "fresh2",
+      "task": "market_stock",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.00973
+    },
+    {
+      "group": "fresh2",
+      "task": "momo_wallet",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.01935
+    },
+    {
+      "group": "fresh2",
+      "task": "restaurant_reservations",
+      "total": 12,
+      "before": 5,
+      "after": 12,
+      "rules": true,
+      "cost_usd": 0.01296,
+      "ops_with_rules": {
+        "create_table": {
+          "method": "POST",
+          "path": "/tables",
+          "saves_key": {
+            "as": "table",
+            "field": "number"
+          }
+        },
+        "list_tables": {
+          "method": "GET",
+          "path": "/tables"
+        },
+        "make_reservation": {
+          "method": "POST",
+          "path": "/reservations",
+          "request_fields": {
+            "id": "table_number",
+            "party_size": "people"
+          },
+          "response_fields": {
+            "party_size": "people"
+          },
+          "uses_key": {
+            "id": "table"
+          }
+        },
+        "list_reservations": {
+          "method": "GET",
+          "path": "/reservations",
+          "response_fields": {
+            "party_size": "people"
+          }
+        }
+      }
+    },
+    {
+      "group": "fresh2",
+      "task": "school_grades_gpa",
+      "total": 12,
+      "before": 12,
+      "after": 12,
+      "rules": false,
+      "cost_usd": 0.01262
+    },
+    {
+      "group": "fresh2",
+      "task": "shared_expenses",
+      "total": 13,
+      "before": 5,
+      "after": 13,
+      "rules": true,
+      "cost_usd": 0.02288,
+      "ops_with_rules": {
+        "create_group": {
+          "method": "POST",
+          "path": "/groups"
+        },
+        "add_member": {
+          "method": "POST",
+          "path": "/groups/{id}/members",
+          "saves_key": {
+            "as": "member",
+            "field": "name"
+          }
+        },
+        "add_expense": {
+          "method": "POST",
+          "path": "/groups/{id}/expenses",
+          "request_fields": {
+            "split_between": "shared_between"
+          },
+          "uses_key": {
+            "paid_by": "member",
+            "split_between": "member"
+          }
+        },
+        "get_balances": {
+          "method": "GET",
+          "path": "/groups/{id}/balances",
+          "response_fields": {
+            "member_id": "member"
+          },
+          "uses_key": {
+            "member_id": "member"
+          }
+        },
+        "settle_up": {
+          "method": "POST",
+          "path": "/groups/{id}/repayments",
+          "request_fields": {
+            "from_member_id": "from_member",
+            "to_member_id": "to_member"
+          },
+          "response_fields": {
+            "from_member_id": "from_member",
+            "to_member_id": "to_member"
+          },
+          "uses_key": {
+            "from_member_id": "member",
+            "to_member_id": "member"
+          }
+        }
+      }
+    },
+    {
+      "group": "fresh2",
+      "task": "shop_price_list",
+      "total": 13,
+      "before": 9,
+      "after": 9,
+      "rules": false,
+      "cost_usd": 0.00824
+    },
+    {
+      "group": "fresh2",
+      "task": "susu_ledger",
+      "total": 14,
+      "before": 14,
+      "after": 14,
+      "rules": false,
+      "cost_usd": 0.01806
+    },
+    {
+      "group": "fresh2",
+      "task": "tailoring_orders",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.01153
+    },
+    {
+      "group": "fresh2",
+      "task": "trotro_fares",
+      "total": 13,
+      "before": 13,
+      "after": 13,
+      "rules": false,
+      "cost_usd": 0.00935
+    },
+    {
+      "group": "one call, opus-5-5, request",
+      "task": "momo_wallet",
+      "total": 13,
+      "before": 3,
+      "after": 3,
+      "rules": false,
+      "cost_usd": 0.02285
+    },
+    {
+      "group": "one call, opus-5-5, request",
+      "task": "school_grades_gpa",
+      "total": 12,
+      "before": 2,
+      "after": 2,
+      "rules": false,
+      "cost_usd": 0.01532
+    },
+    {
+      "group": "one call, opus-5-5, request+ops",
+      "task": "school_grades_gpa",
+      "total": 12,
+      "before": 10,
+      "after": 10,
+      "rules": false,
+      "cost_usd": 0.01023
+    },
+    {
+      "group": "one call, haiku-5-5, request",
+      "task": "school_grades_gpa",
+      "total": 12,
+      "before": 2,
+      "after": 2,
+      "rules": false,
+      "cost_usd": 0.01508
+    },
+    {
+      "group": "one call, haiku-5-5, request",
+      "task": "shared_expenses",
+      "total": 13,
+      "before": 0,
+      "after": 0,
+      "rules": true,
+      "cost_usd": 0.02104,
+      "ops_with_rules": {
+        "create_group": {
+          "method": "POST",
+          "path": "/groups"
+        },
+        "add_member": {
+          "method": "POST",
+          "path": "/groups/{id}/members",
+          "saves_key": {
+            "as": "member",
+            "field": "name"
+          },
+          "uses_key": {
+            "id": "member"
+          }
+        },
+        "add_expense": {
+          "method": "POST",
+          "path": "/groups/{id}/expenses",
+          "request_fields": {
+            "split_between": "shared_between"
+          },
+          "uses_key": {
+            "paid_by": "member",
+            "split_between": "member"
+          }
+        },
+        "get_balances": {
+          "method": "GET",
+          "path": "/groups/{id}/balances",
+          "response_fields": {
+            "member_id": "name"
+          },
+          "response_key": "members",
+          "uses_key": {
+            "member_id": "member"
+          }
+        },
+        "settle_up": {
+          "method": "POST",
+          "path": "/groups/{id}/payments",
+          "request_fields": {
+            "from_member_id": "paid_by",
+            "to_member_id": "paid_to"
+          },
+          "uses_key": {
+            "from_member_id": "member",
+            "to_member_id": "member"
+          }
+        }
+      }
+    },
+    {
+      "group": "one call, opus-5-5, request",
+      "task": "shop_price_list",
+      "total": 13,
+      "before": 11,
+      "after": 11,
+      "rules": false,
+      "cost_usd": 0.01085
+    },
+    {
+      "group": "one call, haiku-5-5, request",
+      "task": "shop_price_list",
+      "total": 13,
+      "before": 9,
+      "after": 9,
+      "rules": false,
+      "cost_usd": 0.00821
+    },
+    {
+      "group": "one call, haiku-5-5, request",
+      "task": "susu_ledger",
+      "total": 14,
+      "before": 0,
+      "after": 0,
+      "rules": false,
+      "cost_usd": 0.01569
+    }
+  ]
+}

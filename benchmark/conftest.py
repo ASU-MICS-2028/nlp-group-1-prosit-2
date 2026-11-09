@@ -17,6 +17,24 @@ class Api:
     def __init__(self, base_url, ops):
         self.client = httpx.Client(base_url=base_url, timeout=10, limits=httpx.Limits(max_keepalive_connections=0))  # a backend that crashes drops its connection: reusing it would fail the next test too
         self.ops = ops
+        self.keys = {}  # kind -> {id the test holds: the value the backend refers to it by}
+
+    def swap(self, data, uses):
+        """In what is sent: a test always gives a record's id, but this backend finds it by name or number (decision 0055)."""
+        if not uses or not isinstance(data, dict):
+            return data
+        one = lambda kind, v: [one(kind, x) for x in v] if isinstance(v, list) else self.keys.get(kind, {}).get(v, v)
+        return {k: one(uses[k], v) if k in uses else v for k, v in data.items()}
+
+    def swap_back(self, data, uses):
+        """In replies: the name or number back to the id the test holds, at every depth."""
+        if isinstance(data, list):
+            return [self.swap_back(v, uses) for v in data]
+        if not isinstance(data, dict):
+            return data
+        ids = lambda kind: {key: i for i, key in self.keys.get(kind, {}).items()}
+        one = lambda kind, v: [one(kind, x) for x in v] if isinstance(v, list) else ids(kind).get(v, v)
+        return {k: one(uses[k], v) if k in uses else self.swap_back(v, uses) for k, v in data.items()}
 
     def call(self, op, path_params=None, json=None, params=None):
         """Call an operation by name. json is the body, params the query string (?date=...).
@@ -24,7 +42,8 @@ class Api:
         "request_fields" only in what is sent, "response_fields" only in the reply. A dotted test name
         ("measurements.chest") means the test nests the value where the backend keeps it flat ("chest"); a dotted
         backend name ("balance.cedis") is the reverse, in replies.
-        "response_key" unwraps a reply the backend wraps (e.g. {"signups": [...]} -> the list)."""
+        "response_key" unwraps a reply the backend wraps (e.g. {"signups": [...]} -> the list).
+        "saves_key" and "uses_key" (test names): the backend refers to a record by a value such as its name, not its id."""
         spec = self.ops[op]
         fields = spec.get("fields", {})  # names used both ways
         sent = {**fields, **spec.get("request_fields", {})}  # names only in what we send (body, query string)
@@ -33,8 +52,9 @@ class Api:
             back.setdefault(v, []).append(k)
         # Where a value goes can differ too: a value the tests give as a path parameter may belong in the body
         # (or the query string for GET), and a placeholder in the backend's path may come from the body.
-        path_params, json = dict(path_params or {}), (dict(json) if isinstance(json, dict) else json)
-        params = dict(params) if params else params
+        uses = spec.get("uses_key", {})
+        path_params, json = self.swap(dict(path_params or {}), uses), self.swap(dict(json), uses) if isinstance(json, dict) else json
+        params = self.swap(dict(params), uses) if params else params
         wanted = {name for _, name, _, _ in string.Formatter().parse(spec["path"]) if name}  # {placeholders} in the path
         for name in wanted - path_params.keys():
             if isinstance(json, dict) and name in json:
@@ -61,7 +81,11 @@ class Api:
         key = spec.get("response_key")
         if key and isinstance(data, dict) and key in data:
             data = data[key]
-        return r.status_code, nest(rename(lift(data, back), back))
+        reply = self.swap_back(nest(rename(lift(data, back), back)), uses) if uses else nest(rename(lift(data, back), back))
+        saves = spec.get("saves_key")
+        if saves and r.is_success and isinstance(reply, dict) and "id" in reply and saves["field"] in reply:
+            self.keys.setdefault(saves["as"], {})[reply["id"]] = reply[saves["field"]]
+        return r.status_code, reply
 
 
 def flatten(data, names):

@@ -61,6 +61,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0052](0052-read-whole-files.md) | read_file returns up to 20,000 characters | Accepted | 2026-11-06 |
 | [0053](0053-refuse-backends-that-lose-data.md) | Do not publish a backend that would lose its data | Accepted | 2026-11-06 |
 | [0054](0054-plain-summary-after-the-build.md) | Rewrite the summary after the build; keep the wording of mid-build messages | Accepted | 2026-11-08 |
+| [0055](0055-records-found-by-name-or-number.md) | Score backends that find a record by name or number; compare over repeated builds | Accepted | 2026-11-09 |
 <!-- DECISIONS:END -->
 
 ## Open questions

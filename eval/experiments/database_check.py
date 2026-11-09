@@ -19,8 +19,9 @@ for r in json.loads((ROOT / "harness/restart_references.json").read_text())["row
     jobs.append(({**r, "model": "hand-written", "variant": r["backend"]}, bench.ROOT / r["folder"] / "app.py"))
 for r in json.loads((ROOT / "harness/restart_church_agent_build.json").read_text())["rows"]:
     jobs.append(({**r, "model": "agent", "variant": "request+questions"}, bench.ROOT / r["folder"] / "app.py"))
-for r in json.loads((ROOT / "harness/fresh1_restart.json").read_text())["rows"][:15]:  # the fresh agent run, first repeat
-    jobs.append(({**r, "model": "agent", "variant": "fresh1"}, bench.ROOT / r["folder"] / "app.py"))
+for run in ("fresh1", "fresh2"):  # the fresh agent runs, first repeat
+    for r in json.loads((ROOT / f"harness/{run}_restart.json").read_text())["rows"][:15]:
+        jobs.append(({**r, "model": "agent", "variant": run}, bench.ROOT / r["folder"] / "app.py"))
 
 
 def one(job):
