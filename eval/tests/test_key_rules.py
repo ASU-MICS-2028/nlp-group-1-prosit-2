@@ -7,8 +7,15 @@ import json
 
 import httpx
 
-from eval import bench  # noqa: F401  (puts benchmark/ on the path)
-from conftest import Api
+import importlib.util
+
+from eval import bench
+
+# loaded by its path: "conftest" alone may be another folder's file when the whole repo is tested
+spec = importlib.util.spec_from_file_location("benchmark_client", bench.BENCH / "conftest.py")
+client = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(client)
+Api = client.Api
 
 OPS = {"add": {"method": "POST", "path": "/people", "saves_key": {"as": "person", "field": "name"}},
        "pay": {"method": "POST", "path": "/pay", "uses_key": {"by": "person", "split": "person"}},
