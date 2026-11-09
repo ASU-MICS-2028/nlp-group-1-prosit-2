@@ -32,6 +32,7 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 |---|---|---|
 | Every attack, what held, what was fixed, what is a stated limit | `safety/README.md` | start here |
 | Attacks from inside a backend, and from outside | `safety/backend_attacks.json` · `safety/backend_attacks2.json` | W4 rows 54 to 56 |
+| The same attacks after the fixes, on the updated server | `safety/backend_attacks_after.json` | W4 row 59 |
 | Prompt injection, many builds at once | `safety/prompt_injection.json` · `safety/many_builds.json` | W4 rows 57, 58 |
 
 ## The baseline and the benchmark

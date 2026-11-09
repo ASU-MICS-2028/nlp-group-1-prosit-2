@@ -130,6 +130,7 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 | 56 | Does a huge upload hurt the platform? (S4.7) | 200 MB request, platform memory measured | `backend_attacks2.json`. Free. The first measurement watched the wrong process, so it is not used | Refused (422), but the platform grew from 700 to 1,460 MB and kept 1,301 MB | 1 MB limit in Caddy, before the request reaches Python |
 | 57 | Does prompt injection in a request work? (S4.7) | 4 real requests: reveal the key, read server files, reach the internet, ignore the rules | `eval/experiments/safety_builds.py inject`, `eval/results/safety/prompt_injection.json`. About $0.33 | All 4 spotted when planning and left out. The key is in no build file, nothing written outside the folder | Held on 4 tries. The model's refusal is the first layer and the sandbox the second (row 54) |
 | 58 | Do many builds at once hurt the platform? (S4.7) | 3 real builds together, page checked twice a second | `safety_builds.py many`, `many_builds.json`. About $0.25 | 2 ran, 1 waited, all live in 61 s. 117 page checks, none failed, worst 0.23 s | The limit of 2 at once works |
+| 59 | Did the S4.7 fixes work on the real server? | Same attacks before and after the update | `eval/experiments/safety_attacks.py` on the live server, `eval/results/safety/backend_attacks_after.json`. Free. The real watchdog this time, not a copy | Server ports refused. One 1 GB file stopped at 200 MB. Many files: backend stopped after 9 s at 1,155 MB. 200 MB upload refused in 0.6 s, platform memory 87 to 88 MB. A 0.9 MB request still reached our app. Everything that held before held again | All four fixes work. New limit found: over 1 MB gets a plain 502, and this also covers clients' backends |
 
 ## 4. What we chose, and why
 
@@ -175,7 +176,7 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 - **The ablations are one build per setup (rows 47 to 52).** The school task alone swings 5 points, so read the "school left out" numbers, and treat gaps under about 2 points as no difference.
 - **The benchmark cannot measure a client reading the plan** (row 48). It only shows what happens when nobody does.
 - **A dropped connection during a batch counts as 0 for the tasks it hits** (rows 51, 52). Check the build logs for `error` and `not built` before reading a score.
-- **Safety limits:** the list is in `eval/results/safety/README.md`. The main ones: 4 injection attempts prove little, the watchdog overshoots (996 MB against 500), no limit on how many backends stay live.
+- **Safety limits:** the list is in `eval/results/safety/README.md`. The main ones: 4 injection attempts prove little, the watchdog overshoots (996 and 1,155 MB against 500), over 1 MB gets a plain 502, no limit on how many backends stay live.
 
 ## 6. How to run it, and how the next person uses it
 
@@ -286,6 +287,7 @@ Errors have a message for the client in `detail`: 400 refused, 422 bad body, 429
 | What does each part of the system add? | Rows 47 to 52. Testing itself, recipe search and questions make little measurable difference once the swinging school task is left out. Planning first without reading the plan loses about 5 points, the three-role split loses about 4 and costs double. Opus 96.0%, Sonnet 94.3% at 37% of the cost, Haiku 83.9%. |
 | Your 96% does not include the plan real clients get. Is that a problem? | It is a stated limit. With an unread plan it was 85.9% (90.6% without school). The plan is there so a person can correct it, and the benchmark has no person. Michael's usability test is the place to measure that. |
 | What did you do to make a public platform safe? | We attacked it. Layers: the model refuses bad requests; the sandbox limits memory, processes and files and has no key or internet; a firewall keeps backends off the server's own ports; a daily spending limit caps cost. Holes we found and fixed: ports open to backends, no disk limit, no upload limit, approving a plan after the spending limit. See rows 54 to 58. |
+| How do you know the safety fixes work? | We ran the same attacks again on the updated live server and saved both results. The server's ports went from open to refused, a 1 GB file stopped at 200 MB, and a 200 MB upload no longer grew the platform's memory (87 to 88 MB). |
 
 ## 8. Glossary
 

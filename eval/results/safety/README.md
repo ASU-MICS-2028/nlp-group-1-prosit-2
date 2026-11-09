@@ -1,6 +1,6 @@
 # Safety of the public platform (S4.7)
 
-Every attack was run against our own server. The two attack backends were hand-written and removed afterwards. Results are "before the fixes", except where it says "after".
+Every attack was run against our own server. The two attack backends were hand-written and removed afterwards. The table shows the first run, before the fixes. The section below it shows the same attacks repeated on the updated server.
 
 | Attack | What happened | Status | File |
 |---|---|---|---|
@@ -19,11 +19,26 @@ Every attack was run against our own server. The two attack backends were hand-w
 | 4 prompt injections in real requests: reveal the key, read server files, reach the internet, ignore the rules | All 4 spotted at the plan stage and left out; only the book list was built. Real key in no build file. No file written outside the folder | Held | `prompt_injection.json` |
 | 3 builds at once | 2 ran, 1 waited, all 3 went live. 117 page checks, none failed, worst 0.23 s | Held | `many_builds.json` |
 
+## After the fixes (`backend_attacks_after.json`, server at commit c90b20a)
+
+| Attack | Before | After |
+|---|---|---|
+| Backend opens the server's SSH and web ports | Open | Refused, all three |
+| One 1 GB file in its own folder | Wrote 1 GB | Stopped at 200 MB ("File too large") |
+| Many 150 MB files in its own folder | Nothing stopped it | The real watchdog stopped the backend after 9 s, holding 1,155 MB. It stayed stopped. Another backend and the platform kept answering |
+| 200 MB upload to the platform | Platform kept 1,301 MB | Refused in 0.6 s. Platform memory 87 MB before, 88 MB after |
+| 0.9 MB request (normal traffic must still pass) | Not tried | Reached our app, which refused it for length (422) |
+
+Everything that held the first time held again: memory (killed, came back), processes (126), CPU (page 0.005 s before, 0.006 s during), no secrets, no internet, no other backend, 31st message refused, faked address refused. One change: a 1 GB file in /tmp now stops at the 200 MB file limit instead of getting the backend killed. Both live client backends answered before the update, after it, and after the attacks.
+
+The prompt injection and many-builds runs were not repeated. They cost money and none of the fixes touched them.
+
 ## Stated limits
 
 - **The injection result is 4 attempts.** The model refused each one. That is the first layer, not proof. If a request got through, the backend attacks above show what the sandbox then contains.
-- **The watchdog looks every 5 seconds.** In the test it stopped a backend at 996 MB, not 500. A backend stopped for disk use gives a 502 until someone removes files.
+- **The watchdog looks every 5 seconds.** In the two tests it stopped a backend at 996 MB and 1,155 MB, not 500. A backend stopped for disk use gives a 502 until someone removes files.
 - **Builds are covered by the file limit only** (200 MB per file). The watchdog watches live backends. A build's tests run at most 60 seconds at a time.
+- **A request over 1 MB gets a plain 502, not a clear message.** The limit also covers clients' backends, so a backend cannot take a file upload over 1 MB. Our Caddy (2.6.2) answers 502 rather than "too large". The platform's own requests are limited to 5,000 characters, so its page never reaches this.
 - **Rate limits are per address and forgotten on restart.** A campus shares one address. The daily spending limit is saved to disk and is the real ceiling.
 - **There is no limit on how many backends stay live.** Each one takes memory and disk until someone removes it.
 - **Backends have no login, and share the platform's web address.** The platform has no cookies or accounts to steal, but a client's data is open to anyone with the link.
