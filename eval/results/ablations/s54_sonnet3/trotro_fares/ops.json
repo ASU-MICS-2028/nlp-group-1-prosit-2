@@ -1,0 +1,43 @@
+{
+  "create_route": {
+    "method": "POST",
+    "path": "/routes",
+    "request_fields": {
+      "from_stop": "origin",
+      "to_stop": "destination"
+    },
+    "response_fields": {
+      "from_stop": "origin",
+      "to_stop": "destination"
+    }
+  },
+  "list_routes": {
+    "method": "GET",
+    "path": "/routes",
+    "response_fields": {
+      "from_stop": "origin",
+      "to_stop": "destination"
+    }
+  },
+  "find_fare": {
+    "method": "GET",
+    "path": "/fare",
+    "request_fields": {
+      "from_stop": "origin",
+      "to_stop": "destination"
+    },
+    "response_fields": {
+      "from_stop": "origin",
+      "to_stop": "destination",
+      "id": "route_id"
+    }
+  },
+  "update_fare": {
+    "method": "PUT",
+    "path": "/routes/{id}",
+    "response_fields": {
+      "from_stop": "origin",
+      "to_stop": "destination"
+    }
+  }
+}

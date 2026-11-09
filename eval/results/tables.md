@@ -18,7 +18,7 @@ One build per setup, scored 3 times. Gaps under about 2 points are noise. The sc
 |---|---|---|---|---|---|
 | Questions + recipe search | 96.4% | 96.1% | 15 of 15 checked | $1.95 | 46.8 |
 | Full system: questions, no plan (3 runs) | 96.0% | 95.7% | 30 of 30 | $1.91 | 37 |
-| Sonnet instead of Opus | 94.3% | 93.9% | 15 of 15 checked | $0.71 | 26.1 |
+| Sonnet instead of Opus (3 runs) | 92.5% | 92.0% | 44 of 44 checked | $0.70 | 22.4 |
 | No self-testing step (prompt D) | 91.1% | 95.6% | 14 of 14 checked | $1.71 | 33.5 |
 | No questions | 90.1% | 95.0% | 14 of 14 checked | $1.80 | 36.7 |
 | Planner, Builder, Tester split | 87.0% | 91.7% | 14 of 14 checked | $4.06 | 85.4 |

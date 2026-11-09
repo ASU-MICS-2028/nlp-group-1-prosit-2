@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can two teams have the same name, or must every team name be different?",
+    "Can a team play two fixtures on the same date, or is only one fixture per team per day allowed?",
+    "If a score was entered wrongly, should it be possible to change it later, and should a fixture date be changeable too?"
+  ],
+  "answers": [
+    "We never do that, so it does not matter.",
+    "It does not happen, no need to check.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00206
+}

@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Do students need to prove who they are, for example with a phone number, email or student ID, so that only they can cancel their own booking, or is a name enough?",
+    "Should there be any limits on a stay, such as a maximum number of nights, or a rule that the arrival date cannot be in the past?",
+    "Do you need to change a room's name or number of beds later, or delete a room, and what should happen to existing bookings if the beds are reduced?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0027
+}

@@ -7,7 +7,7 @@
 set -u
 UV="uv run --env-file .env --with anthropic"
 ASK="--ask 3 --client answers"
-ARMS="s53_plan s53_noask s53_nottest s53_search s53_split s54_sonnet s54_haiku"
+ARMS=${ARMS:-"s53_plan s53_noask s53_nottest s53_search s53_split s54_sonnet s54_haiku"}
 OUT=eval/results/ablations
 
 if [ "${1:-}" = build ]; then
@@ -18,7 +18,7 @@ if [ "${1:-}" = build ]; then
     s53_nottest) $UV python -m builder build all $ASK --prompt D --run $a ;;  # prompt D: no "write and run your own tests" step
     s53_search)  $UV --extra kb python -m builder build all $ASK --search --run $a ;;
     s53_split)   $UV python -m builder plan all $ASK --yes --run $a && $UV python -m builder build all --plan --repairs 2 --run $a ;;  # Planner, Builder, Tester
-    s54_sonnet)  $UV python -m builder build all $ASK --model claude-sonnet-5-5 --run $a ;;
+    s54_sonnet*) $UV python -m builder build all $ASK --model claude-sonnet-5-5 --run $a ;;
     s54_haiku)   $UV python -m builder build all $ASK --model claude-haiku-5-5 --run $a ;;
     *) echo "unknown setup $a"; exit 2 ;;
   esac

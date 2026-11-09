@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a bill doesn't split evenly, who should get the extra pesewa: the same person each time, someone chosen at random, or should we take turns?",
+    "Besides each person's balance, do you also want to see exactly who owes whom and how much, for example a short list of payments that would settle everyone up?",
+    "Should you be able to add or remove members after a group has started, or edit and delete an expense or a payment once it is recorded?"
+  ],
+  "answers": [
+    "Any of them, as long as the shares differ by at most one pesewa and add up to the bill.",
+    "No preference: you decide.",
+    "Not for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0028
+}

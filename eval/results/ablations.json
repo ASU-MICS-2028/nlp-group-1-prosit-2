@@ -238,5 +238,20 @@
     "trotro_fares": 13.0
    }
   }
+ },
+ "sonnet_3_runs": {
+  "label": "Sonnet instead of Opus (3 runs)",
+  "runs": [
+   94.3,
+   87.5,
+   95.8
+  ],
+  "percent": 92.5,
+  "percent_without_school": 92.0,
+  "lowest": 87.5,
+  "highest": 95.8,
+  "usd": 0.7,
+  "average_seconds": 22.4,
+  "kept_data": "44 of 44 checked"
  }
 }

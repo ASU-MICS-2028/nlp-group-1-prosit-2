@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Does a customer have just one set of measurements, or do they change over time and you want to keep the old ones? Also, can the same phone number be saved twice, or should each customer have a unique number?",
+    "When a customer picks up, do they always pay the full balance, or can they collect with money still owed? Should I track the balance and later payments, or just the deposit?",
+    "Is the garment free text that you type (like 'kaba and slit'), or do you choose from a fixed list? Do you want to be able to edit or delete customers and orders, or cancel an order?"
+  ],
+  "answers": [
+    "No, measurements are kept on the customer. No preference: you decide.",
+    "No preference: you decide.",
+    "No preference: you decide. Not for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00324
+}

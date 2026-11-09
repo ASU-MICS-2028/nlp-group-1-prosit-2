@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Should the same person (same phone number) be allowed to sign up for the same event more than once, or only once?",
+    "Do you need to be able to cancel a sign-up or edit or delete an event, and if so, who is allowed to do that?",
+    "Who should be allowed to add events and see the list of people signed up: only church staff with a password, or anyone?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "Not needed for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00223
+}

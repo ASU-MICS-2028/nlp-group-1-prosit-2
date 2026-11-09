@@ -1,0 +1,15 @@
+church_signup            end_turn   3 turns  3 tools $0.0426 21.5s  own tests 3 passed 0 failed  repairs 0  follows plan None
+clinic_appointments      end_turn   3 turns  3 tools $0.0381 19.6s  own tests 2 passed 0 failed  repairs 0  follows plan None
+football_fixtures        end_turn   2 turns  3 tools $0.0337 15.0s  own tests 1 passed 0 failed  repairs 0  follows plan None
+hostel_booking           end_turn   2 turns  3 tools $0.0428 19.1s  own tests 3 passed 0 failed  repairs 0  follows plan None
+library_catalogue        end_turn   3 turns  3 tools $0.0401 19.5s  own tests 3 passed 0 failed  repairs 0  follows plan None
+lost_and_found           end_turn   3 turns  3 tools $0.0338 15.5s  own tests 2 passed 0 failed  repairs 0  follows plan None
+market_stock             end_turn   3 turns  3 tools $0.036 18.2s  own tests 5 passed 0 failed  repairs 0  follows plan None
+momo_wallet              end_turn   3 turns  3 tools $0.0717 34.5s  own tests 4 passed 0 failed  repairs 0  follows plan None
+restaurant_reservations  end_turn   2 turns  3 tools $0.0304 13.9s  own tests 2 passed 0 failed  repairs 0  follows plan None
+school_grades_gpa        end_turn   3 turns  3 tools $0.0481 21.1s  own tests 3 passed 0 failed  repairs 0  follows plan None
+shared_expenses          end_turn   3 turns  3 tools $0.0691 30.0s  own tests 5 passed 0 failed  repairs 0  follows plan None
+shop_price_list          end_turn   3 turns  3 tools $0.0278 13.9s  own tests 2 passed 0 failed  repairs 0  follows plan None
+susu_ledger              end_turn   3 turns  3 tools $0.057 25.4s  own tests 1 passed 0 failed  repairs 0  follows plan None
+tailoring_orders         end_turn   3 turns  3 tools $0.0477 22.8s  own tests 3 passed 0 failed  repairs 0  follows plan None
+trotro_fares             end_turn   3 turns  3 tools $0.0381 17.9s  own tests 5 passed 0 failed  repairs 0  follows plan None

@@ -40,6 +40,15 @@ for name, label in SETUPS.items():
                            "average_seconds": round(sum(b["seconds"] for b in built.values()) / len(built), 1), "builds": len(built),
                            "times_ran_its_own_tests": tool_calls.get("run_tests", 0), "repairs": sum(b["repairs"] for b in built.values()),
                            "stops": dict(collections.Counter(b["stop"] for b in built.values())), "per_task": each}
+# S5.4 repeated: Sonnet built 3 times, against the full system's 3 Opus builds
+runs = [read(R / f"harness/{n}.json")["rows"] for n in ("s54_sonnet", "s54_sonnet2", "s54_sonnet3")]
+each = [100 * sum(r["passed"] for r in rows) / (3 * tests) for rows in runs]
+left = [100 * sum(r["passed"] for r in rows if r["task"] != HARD) / (3 * (tests - TOTAL[HARD])) for rows in runs]
+usd = [sum(read(p)["cost_usd"] for p in (R / "ablations" / n).glob("*/" + f)) for n in ("s54_sonnet", "s54_sonnet2", "s54_sonnet3") for f in ("run.json", "questions.json")]
+seconds = [read(p)["seconds"] for n in ("s54_sonnet", "s54_sonnet2", "s54_sonnet3") for p in (R / "ablations" / n).glob("*/run.json")]
+out["sonnet_3_runs"] = {"label": "Sonnet instead of Opus (3 runs)", "runs": [round(x, 1) for x in each], "percent": round(sum(each) / 3, 1), "percent_without_school": round(sum(left) / 3, 1),
+                        "lowest": round(min(each), 1), "highest": round(max(each), 1), "usd": round(sum(usd) / 3, 2), "average_seconds": round(sum(seconds) / len(seconds), 1),
+                        "kept_data": f"{sum(r.get('keeps_data') is True for rows in runs for r in rows) // 3} of {sum(r.get('keeps_data') is not None for rows in runs for r in rows) // 3} checked"}
 (R / "ablations.json").write_text(json.dumps(out, indent=1) + "\n")
 print("full system (3 runs)", out["full system (3 runs)"])
 for name, s in out["setups"].items():
