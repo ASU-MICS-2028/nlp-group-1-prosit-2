@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Do students need to log in or give contact details like phone or email, or is just their name enough? And how do we know which student is cancelling, so one student cannot cancel another's booking?",
+    "Should students pay or give a deposit when booking, and do you need to see prices or payment status?",
+    "Is there a limit on how long a stay can be or how far ahead a student can book, and can a student book more than one bed at the same time?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No payments for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00264
+}

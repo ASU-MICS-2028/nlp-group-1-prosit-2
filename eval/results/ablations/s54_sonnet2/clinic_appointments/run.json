@@ -1,0 +1,43 @@
+{
+  "request": "We run a small clinic in Tamale with a few doctors, and we want patients to book appointments. We need to add each doctor with their name and what they specialise in, and see the list of doctors. A patient books with a doctor by giving their name, the date and the time slot, for example 09:00 or 14:30. A doctor cannot have two appointments on the same date in the same time slot, so a second booking for that slot must be refused, but a different doctor can still be booked for it. We want to see all of one doctor's appointments for a particular day. If a patient cancels, the appointment is removed and the slot becomes free for someone else to book.\n\nThe client's answers to your questions:\nQ: Are the time slots fixed (for example every 30 minutes, 09:00 to 17:00), or can a patient give any time? And what hours is the clinic open?\nA: No preference: you decide.\nQ: Besides the patient's name, do you need their phone number so the clinic can reach them, and how should a patient be identified if they cancel (for example by a booking number or by name and phone)?\nA: No, we only take the patient's name when booking.\nQ: Should bookings in the past or on days the clinic is closed or a doctor is away be refused?\nA: No preference: you decide.\n\nWhere the client has no preference or did not answer, choose the simplest option and add nothing they did not ask for (no logins, PINs or extra required fields).",
+  "model": "claude-sonnet-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "search": false,
+  "stop": "end_turn",
+  "turns": 3,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 1,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 8,
+    "out": 2959,
+    "cache_write": 4602,
+    "cache_read": 6104
+  },
+  "cost_usd": 0.0423,
+  "seconds": 20.6,
+  "tests": {
+    "passed": 4,
+    "failed": 0
+  },
+  "summary": "I wrote `app.py` and `tests/test_app.py`, and all 4 tests pass. The data is stored in a SQLite file called `clinic.db`.\n\n- **`POST /doctors`** adds a doctor. It takes `name` and `specialty`.\n- **`GET /doctors`** lists all the doctors.\n- **`POST /appointments`** books a slot. It takes `doctor_id`, `patient_name`, `date` (YYYY-MM-DD) and `time` (HH:MM, for example 09:00 or 14:30).\n  - If that doctor already has that date and time booked, it returns 409. Another doctor can still be booked for the same slot.\n  - An unknown doctor returns 404, and a badly formatted date or time returns 422.\n- **`GET /doctors/{id}/appointments?date=YYYY-MM-DD`** shows one doctor's appointments for that day, in time order.\n- **`DELETE /appointments/{id}`** cancels an appointment and frees the slot. Patients cancel with the booking number (the `id`) returned when they book.\n\nYou had no preference on opening hours, so I chose the simplest options. Any valid time of day is accepted, there are no fixed slots or opening hours, and bookings in the past are not refused.",
+  "plan": null,
+  "change": null,
+  "follows_plan": null
+}

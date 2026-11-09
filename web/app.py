@@ -6,16 +6,38 @@ Small on purpose (decision 0049): Michael owns the page and can replace index.ht
 """
 
 import pathlib
+import threading
 import time
 from collections import defaultdict
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 from builder import session
+from runtime.deploy import DEPLOY_ROOT, stop_oversized
 
-app = FastAPI(title="Prosit 2 platform", docs_url=None, redoc_url=None)
+
+def watch_disk():
+    """Every 5 seconds. A loop that died would leave the disk unguarded, so one bad look (a file vanishing mid-count) only skips a turn."""
+    while True:
+        time.sleep(5)
+        try:
+            for name in stop_oversized():
+                print(f"Stopped backend {name}: it holds too much on disk", flush=True)
+        except OSError as e:
+            print(f"Disk check skipped: {e}", flush=True)
+
+
+@asynccontextmanager
+async def lifespan(app):
+    if DEPLOY_ROOT.exists():  # only on the server
+        threading.Thread(target=watch_disk, daemon=True).start()
+    yield
+
+
+app = FastAPI(title="Prosit 2 platform", docs_url=None, redoc_url=None, lifespan=lifespan)
 PAGE = pathlib.Path(__file__).parent / "index.html"
 LIMITS = {"start": (5, 86400), "message": (30, 3600)}  # (how many, in how many seconds), per person, on top of the daily spending limit
 SEEN = defaultdict(list)

@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Do you sell some items by different sizes or units, like a tin, a sachet, or a bag of rice by the cup or by the bag, and should each one have its own price?",
+    "When a price changes, do you want to edit the old price, and do you need to keep a record of the old prices?",
+    "When you take something off the list, should it be gone completely, or kept hidden so you can bring it back if you start selling it again?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "It is gone: it does not show in the list and looking it up says it is not found."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00236
+}

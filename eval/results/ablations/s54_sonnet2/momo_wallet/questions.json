@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Is there a maximum amount per deposit, per transfer, or per day, or any maximum wallet balance? If so, what are the numbers?",
+    "How should phone numbers be written, and should we accept only Ghana numbers (like 024 123 4567 or +233 24 123 4567) and treat both formats as the same number?",
+    "Who is allowed to see a wallet's balance and history, and how do they prove it is them (for example a PIN or a code sent by SMS)?"
+  ],
+  "answers": [
+    "No limits for now.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0028
+}

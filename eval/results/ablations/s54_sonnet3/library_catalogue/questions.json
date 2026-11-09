@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can one student borrow the same book more than once at the same time, and is there a limit on how many books one student can have out at once?",
+    "Should the librarian be the only one who can add books, and do students need to log in, or is typing their name enough (what if two students share the same name)?",
+    "Is there a due date or time limit for borrowing, and should the librarian be able to see who has which book, edit a book's copy count, or remove a book?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No, they just give their name.",
+    "Not needed for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00265
+}

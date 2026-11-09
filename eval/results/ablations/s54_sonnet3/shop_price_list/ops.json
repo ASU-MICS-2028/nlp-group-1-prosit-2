@@ -1,0 +1,22 @@
+{
+  "add_item": {
+    "method": "POST",
+    "path": "/items"
+  },
+  "list_items": {
+    "method": "GET",
+    "path": "/items"
+  },
+  "get_item": {
+    "method": "GET",
+    "path": "/items/{id}"
+  },
+  "change_price": {
+    "method": "PUT",
+    "path": "/items/{id}"
+  },
+  "remove_item": {
+    "method": "DELETE",
+    "path": "/items/{id}"
+  }
+}

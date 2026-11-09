@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Is there a limit on how much can be deposited or sent at once, or in total per day? If so, what amounts?",
+    "Who can check a wallet's balance and history, and how should they prove they are the owner (for example a PIN or an OTP sent to the phone)?",
+    "How will people enter phone numbers: any format such as 024... or +233..., or one fixed format? And should deposits and transfers have fees or a note or reference?"
+  ],
+  "answers": [
+    "No limits for now.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00281
+}

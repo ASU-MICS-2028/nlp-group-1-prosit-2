@@ -1,0 +1,160 @@
+{
+ "start": {
+  "platform": [
+   200,
+   0.109
+  ],
+  "server_free_mb": 3008,
+  "disk_free_gb": 24.45
+ },
+ "look_inside": {
+  "status": 200,
+  "seconds": 0.0,
+  "body": {
+   "setting names": [
+    "GPG_KEY",
+    "HOME",
+    "HOSTNAME",
+    "LANG",
+    "PATH",
+    "PYTHONDONTWRITEBYTECODE",
+    "PYTHON_SHA256",
+    "PYTHON_VERSION"
+   ],
+   "pid1 setting names": [
+    "GPG_KEY",
+    "HOME",
+    "HOSTNAME",
+    "LANG",
+    "PATH",
+    "PYTHONDONTWRITEBYTECODE",
+    "PYTHON_SHA256",
+    "PYTHON_VERSION"
+   ],
+   "user": 995,
+   "platform key file": "FileNotFoundError",
+   "docker socket": false,
+   "app folder": [
+    "app.py"
+   ],
+   "write system files": "OSError",
+   "root listing has home": false
+  }
+ },
+ "probe": {
+  "status": 200,
+  "seconds": 0.1,
+  "body": {
+   "my_address": "10.200.3.2",
+   "internet 1.1.1.1:443": "OSError: [Errno 101] Network is unreachable",
+   "internet 8.8.8.8:53": "OSError: [Errno 101] Network is unreachable",
+   "google metadata 169.254.169.254:80": "OSError: [Errno 101] Network is unreachable",
+   "server ssh (gateway:22)": "OPEN",
+   "server web (gateway:80)": "OPEN",
+   "server web (gateway:443)": "OPEN",
+   "platform (gateway:8080)": "ConnectionRefusedError: [Errno 111] Connection refused",
+   "other backend by address": "OSError: [Errno 101] Network is unreachable",
+   "other backend by name": "gaierror: [Errno -3] Temporary failure in name resolution",
+   "dns example.com": "gaierror"
+  }
+ },
+ "disk_1gb": {
+  "status": 200,
+  "seconds": 5.6,
+  "body": {
+   "wrote_mb": 1024
+  },
+  "disk_used_more_mb": 1024,
+  "platform": [
+   200,
+   0.008
+  ]
+ },
+ "disk_delete": {
+  "status": 200,
+  "seconds": 0.3,
+  "body": {
+   "deleted": true
+  }
+ },
+ "tmp_1gb": {
+  "status": 502,
+  "seconds": 3.2,
+  "body": "",
+  "after": {
+   "oom_killed": "true",
+   "restarts": "0",
+   "exit_code": "0",
+   "status": "running"
+  },
+  "platform": [
+   200,
+   0.05
+  ]
+ },
+ "memory_1500mb": {
+  "status": 502,
+  "seconds": 3.3,
+  "body": "",
+  "platform": [
+   200,
+   0.026
+  ],
+  "after": {
+   "oom_killed": "false",
+   "restarts": "2",
+   "exit_code": "0",
+   "status": "running"
+  },
+  "server_lowest_free_mb": 361,
+  "came_back": true,
+  "after_restart": {
+   "oom_killed": "false",
+   "restarts": "2",
+   "exit_code": "0",
+   "status": "running"
+  }
+ },
+ "fork_300": {
+  "status": 200,
+  "seconds": 0.3,
+  "body": {
+   "started": 126,
+   "error": "[Errno 11] Resource temporarily unavailable"
+  },
+  "platform": [
+   200,
+   0.006
+  ]
+ },
+ "cpu_12s": {
+  "platform_median_seconds_before": 0.005,
+  "platform_median_seconds_during": 0.006
+ },
+ "too_many_messages": {
+  "first_30": [
+   400
+  ],
+  "number_31": 429
+ },
+ "faked_address_after_limit": 429,
+ "empty_request_is_free": 400,
+ "upload_200mb": {
+  "status": 422,
+  "seconds": 7.3,
+  "platform_memory_before_mb": 0,
+  "platform_memory_peak_mb": 0,
+  "platform": [
+   200,
+   0.008
+  ]
+ },
+ "end": {
+  "platform": [
+   200,
+   0.007
+  ],
+  "server_free_mb": 1724,
+  "disk_free_gb": 24.45
+ }
+}

@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can one student borrow more than one copy of the same book at the same time, and is there a limit on how many books one student can have out?",
+    "Does the librarian need to log in, and should students identify themselves only by typing their name, or do they need a login too? What if two students have the same name?",
+    "Should the librarian also be able to edit or remove a book, or change the number of copies after adding it, and is there a due date or history of past loans to track?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No, they just give their name.",
+    "Not needed for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00271
+}

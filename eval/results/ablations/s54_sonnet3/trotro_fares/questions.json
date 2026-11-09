@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "If a route goes from Circle to Madina, is the fare the same coming back from Madina to Circle, or can it be different?",
+    "Do you need to keep a history of old fares (for example, what the fare was last month), or only the current fare?",
+    "If a passenger asks about two stops that have no direct route between them, what should they be told?"
+  ],
+  "answers": [
+    "Yes. Circle to Madina costs the same as Madina to Circle, so we keep one route for both directions and passengers can ask either way.",
+    "No preference: you decide.",
+    "Say it was not found. Do not try to join two routes together; only direct routes count."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00208
+}

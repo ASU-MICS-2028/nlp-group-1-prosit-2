@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "How long does a reservation hold a table? For example, if one group books at 7:00pm, can another group book the same table at 8:00pm, or only after a set time like 2 hours?",
+    "Should customers be able to cancel or change a reservation, and should the owner be able to cancel one so the table is free again?",
+    "Should the owner need to log in to add tables and see reservations, or can anyone who has the link do it?"
+  ],
+  "answers": [
+    "We just use the start time. Two reservations clash only if they are for the same table, the same date and the same time.",
+    "Not for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00259
+}

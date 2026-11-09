@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Does every member pay the same fixed amount each round, or can each person pay a different amount, and can someone pay less than the full amount or pay twice in the same round?",
+    "Who decides which member collects in a round: do you pick them each time, or is there a fixed order that the system should follow?",
+    "Will you run more than one susu group, and can the same person be in more than one group, or is it only your one group at the market?"
+  ],
+  "answers": [
+    "No, record whatever each member actually paid; the pot is the total paid in for that round.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00269
+}

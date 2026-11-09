@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "How long does a reservation hold the table? For example, if someone books a table at 6:00pm, can another person book the same table at 7:00pm, or is the table blocked for a set time like 2 hours?",
+    "Will customers book by themselves (for example on a website or phone app), or will you or your staff enter the reservations? And do you want to be able to cancel a reservation so the table becomes free again?",
+    "What are your opening hours, and how far ahead can people book? Should the system refuse dates in the past or times when you are closed?"
+  ],
+  "answers": [
+    "We just use the start time. Two reservations clash only if they are for the same table, the same date and the same time.",
+    "Not for now.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00304
+}

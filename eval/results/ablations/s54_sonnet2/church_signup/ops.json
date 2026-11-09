@@ -1,0 +1,22 @@
+{
+  "create_event": {
+    "method": "POST",
+    "path": "/events"
+  },
+  "list_events": {
+    "method": "GET",
+    "path": "/events"
+  },
+  "get_event": {
+    "method": "GET",
+    "path": "/events/{id}"
+  },
+  "sign_up": {
+    "method": "POST",
+    "path": "/events/{id}/signups"
+  },
+  "list_signups": {
+    "method": "GET",
+    "path": "/events/{id}/signups"
+  }
+}

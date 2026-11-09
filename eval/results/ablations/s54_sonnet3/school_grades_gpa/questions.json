@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "What score ranges give each grade (A, B, C and so on), and how many GPA points is each grade worth, for example A = 4.0? Please send your college's grading table.",
+    "Do all courses count equally in the GPA, or does each course have credit hours or units that make some count more?",
+    "Should the system keep a record of the old scores that were replaced, or just keep the latest one? And should a student's score for the same course be allowed to be entered again in a later semester or year (a resit), or is there only one score per course ever?"
+  ],
+  "answers": [
+    "80 to 100 is A (4.0), 75 to 79 is B+ (3.5), 70 to 74 is B (3.0), 65 to 69 is C+ (2.5), 60 to 64 is C (2.0), 55 to 59 is D+ (1.5), 50 to 54 is D (1.0), and below 50 is F (0.0).",
+    "Yes. Every course has credit hours, a whole number from 1 to 6, and the GPA is weighted by them: add up grade point times credit hours over all the student's courses and divide by the total credit hours.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00285
+}

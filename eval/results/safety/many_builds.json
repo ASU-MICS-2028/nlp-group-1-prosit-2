@@ -1,0 +1,24 @@
+{
+ "builds": [
+  {
+   "state": "live",
+   "was_queued": false,
+   "docs": 200
+  },
+  {
+   "state": "live",
+   "was_queued": false,
+   "docs": 200
+  },
+  {
+   "state": "live",
+   "was_queued": true,
+   "docs": 200
+  }
+ ],
+ "seconds_for_all": 61,
+ "page_checks": 117,
+ "page_not_200": 0,
+ "page_median_seconds": 0.008,
+ "page_worst_seconds": 0.233
+}

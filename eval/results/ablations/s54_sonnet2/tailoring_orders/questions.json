@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can a customer have more than one set of measurements over time (for example if their size changes), or should there be just one current set per customer that you update?",
+    "Besides 'collected', does an order have other stages you want to track, such as 'in progress' or 'ready for pickup', or is it only either not collected or collected?",
+    "Can a customer pay more deposit later on an existing order, and should the system then show the balance still owed, or do you only record the deposit once when the order is taken?"
+  ],
+  "answers": [
+    "No, measurements are kept on the customer.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0028
+}

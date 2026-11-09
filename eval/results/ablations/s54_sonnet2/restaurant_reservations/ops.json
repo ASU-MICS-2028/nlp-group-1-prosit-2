@@ -1,0 +1,30 @@
+{
+  "create_table": {
+    "method": "POST",
+    "path": "/tables",
+    "request_fields": {
+      "number": "table_number"
+    },
+    "response_fields": {
+      "number": "table_number"
+    }
+  },
+  "list_tables": {
+    "method": "GET",
+    "path": "/tables",
+    "response_fields": {
+      "number": "table_number"
+    }
+  },
+  "make_reservation": {
+    "method": "POST",
+    "path": "/reservations",
+    "request_fields": {
+      "id": "table_id"
+    }
+  },
+  "list_reservations": {
+    "method": "GET",
+    "path": "/reservations"
+  }
+}

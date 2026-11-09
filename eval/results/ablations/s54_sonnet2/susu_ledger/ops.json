@@ -1,0 +1,33 @@
+{
+  "create_group": {
+    "method": "POST",
+    "path": "/groups"
+  },
+  "add_member": {
+    "method": "POST",
+    "path": "/groups/{id}/members"
+  },
+  "list_members": {
+    "method": "GET",
+    "path": "/groups/{id}/members"
+  },
+  "record_contribution": {
+    "method": "POST",
+    "path": "/groups/{id}/contributions"
+  },
+  "pay_out": {
+    "method": "POST",
+    "path": "/groups/{id}/rounds/{round}/collect"
+  },
+  "list_payouts": {
+    "method": "GET",
+    "path": "/groups/{id}/collections"
+  },
+  "get_statement": {
+    "method": "GET",
+    "path": "/groups/{id}/members/{member_id}/statement",
+    "response_fields": {
+      "total_contributed": "total_paid"
+    }
+  }
+}

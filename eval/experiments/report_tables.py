@@ -25,6 +25,8 @@ base = abl["full system (3 runs)"]
 rows = [("Full system: questions, no plan (3 runs)", base["percent"], base["percent_without_school"], base["usd"], base["kept_data"], None)]
 rows += [(s["label"], s["percent"], s["percent_without_school"], round(s["build_usd"] + s["questions_and_plan_usd"], 2), s["kept_data"], s["average_seconds"])
          for s in abl["setups"].values()]
+s = abl["sonnet_3_runs"]  # the 3-run average, not the first Sonnet build
+rows = [r for r in rows if r[0] != "Sonnet instead of Opus"] + [(s["label"], s["percent"], s["percent_without_school"], s["usd"], s["kept_data"], s["average_seconds"])]
 rows.sort(key=lambda r: r[1])
 
 fig, ax = plt.subplots(figsize=(9, 4.6))

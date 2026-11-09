@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "For each item, do you sell it in different sizes or units (like a tin, a sachet, or per kilo) with different prices, or is there just one price per item?",
+    "Do you ever need to change the price of something already on the list, or only add and remove items?",
+    "When you stop selling something, should it disappear completely, or do you want to keep a record of it in case you sell it again later?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "Yes, prices change all the time, especially sugar, rice and oil. I need to change the price of an item.",
+    "It is gone: it does not show in the list and looking it up says it is not found."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00223
+}
