@@ -16,6 +16,9 @@ sudo mkdir -p /srv/deployed /etc/caddy/backends
 sudo chown platform /srv/deployed /etc/caddy/backends
 sudo tee /etc/caddy/Caddyfile >/dev/null <<CADDY
 $HOST {
+	request_body {
+		max_size 1MB
+	}
 	import /etc/caddy/backends/*.caddy
 	reverse_proxy 127.0.0.1:8080
 }
@@ -37,6 +40,8 @@ Requires=docker.service
 User=platform
 WorkingDirectory=/home/platform/repo
 EnvironmentFile=/home/platform/.env
+# Backends live in 10.200.x.x. They must not open connections to this server (ssh, Caddy). Replies to connections we opened still pass.
+ExecStartPre=+/bin/sh -c 'iptables -C INPUT -s 10.200.0.0/16 -m conntrack --ctstate NEW -j REJECT 2>/dev/null || iptables -I INPUT -s 10.200.0.0/16 -m conntrack --ctstate NEW -j REJECT'
 Environment=BUILDS_ROOT=/home/platform/builds PUBLIC_HOST=$HOST
 ExecStart=/home/platform/.local/bin/uv run --with anthropic uvicorn web.app:app --host 127.0.0.1 --port 8080
 Restart=always

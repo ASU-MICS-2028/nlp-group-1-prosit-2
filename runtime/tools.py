@@ -174,6 +174,8 @@ def start_server(root, timeout=20):
     while time.time() < deadline:
         if process.poll() is not None:  # the process ended by itself: the app crashed
             sandbox.remove(name)
+            if process.returncode == 137:  # 137 = the sandbox killed it, as in run_tests
+                return fail("Server was killed while starting: it used more than the sandbox's memory limit (512 MB).\n" + log_path.read_text(errors="replace"))
             return fail("Server crashed while starting:\n" + log_path.read_text(errors="replace"))
         try:
             # Any answer means it is up. Give up connecting after 0.1 s and try again (log row 8).
@@ -224,5 +226,6 @@ def http_request(root, method, path, json=None, timeout=10):
             return fail(f"Request failed: {e}")
         SERVERS.pop(root)
         sandbox.remove(name)
-        return fail("The server has stopped. Its log:\n" + log_path.read_text(errors="replace"))
+        why = "was killed: it used more than the sandbox's memory limit (512 MB)" if process.wait(5) == 137 else "has stopped"
+        return fail(f"The server {why}. Its log:\n" + log_path.read_text(errors="replace"))
     return ok(f"{response.status_code}\n{response.text}")

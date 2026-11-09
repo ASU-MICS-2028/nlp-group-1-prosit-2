@@ -63,6 +63,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0054](0054-plain-summary-after-the-build.md) | Rewrite the summary after the build; keep the wording of mid-build messages | Accepted | 2026-11-08 |
 | [0055](0055-records-found-by-name-or-number.md) | Score backends that find a record by name or number; compare over repeated builds | Accepted | 2026-11-09 |
 | [0056](0056-opus-stays-for-builds.md) | Opus stays as the model that builds backends | Proposed | 2026-11-09 |
+| [0057](0057-stop-a-backend-filling-the-disk.md) | Stop a backend filling the disk with a file limit and a watchdog | Proposed | 2026-11-09 |
 <!-- DECISIONS:END -->
 
 ## Open questions

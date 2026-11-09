@@ -1,0 +1,65 @@
+{
+ "memory_at_rest": {
+  "available": 2393,
+  "cached": 392,
+  "shmem": 2
+ },
+ "memory_1500mb": {
+  "status": 502,
+  "seconds": 0.6,
+  "body": "",
+  "lowest_available": 1911,
+  "highest_shmem": 2,
+  "available_6s_after": 2322
+ },
+ "tmp_1gb": {
+  "status": 502,
+  "seconds": 1.4,
+  "body": "",
+  "lowest_available": 1911,
+  "highest_shmem": 467,
+  "available_6s_after": 2323
+ },
+ "upload_200mb": {
+  "status": 422,
+  "seconds": 6.3,
+  "platform_mb_before": 700,
+  "platform_mb_peak": 1460,
+  "platform_mb_after": 1301
+ },
+ "file_limit": {
+  "one_1gb_file": {
+   "status": 200,
+   "seconds": 0.7,
+   "body": {
+    "wrote_mb": 200,
+    "error": "[Errno 27] File too large"
+   }
+  },
+  "on_disk_mb": 200,
+  "five_150mb_files": {
+   "status": 200,
+   "seconds": 4.6,
+   "body": {
+    "wrote_mb": 750
+   }
+  },
+  "on_disk_mb_after_many": 750
+ },
+ "watchdog": {
+  "attack_reply": {
+   "status": 502,
+   "seconds": 6.6,
+   "body": ""
+  },
+  "at_seconds": 7.5,
+  "mb_when_stopped": 996,
+  "final_mb": 996,
+  "cleared": 200
+ },
+ "end": {
+  "available": 1296,
+  "cached": 393,
+  "shmem": 2
+ }
+}

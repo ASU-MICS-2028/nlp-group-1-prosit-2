@@ -189,6 +189,16 @@ def test_daily_limit_stops_new_builds_and_changes(world, monkeypatch):
         session.send(sid, "a change")
 
 
+def test_a_plan_cannot_be_approved_after_the_daily_limit(world, monkeypatch):
+    monkeypatch.setattr(session, "clarify", lambda *a: ([], 6.0))
+    sid = session.start("first")
+    wait(sid, "waiting_approval")
+    monkeypatch.setattr(session, "MAX_DAILY_USD", 5.0)
+    with pytest.raises(session.Refused):
+        session.approve(sid)
+    assert session.get(sid)["state"] == "waiting_approval"
+
+
 def test_messages_out_of_turn_are_refused(world):
     with pytest.raises(session.Refused):
         session.send("nope", "hi")

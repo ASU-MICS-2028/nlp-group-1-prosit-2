@@ -68,6 +68,28 @@ def test_sqlite_database_can_be_written_in_the_project(project):
     assert passes(project, code)["ok"] and (project / "app.db").exists()
 
 
+def test_server_killed_for_memory_says_so(project):
+    write_file(project, "app.py", "x = bytearray(900 * 2**20)\nfor i in range(0, len(x), 4096):\n    x[i] = 1\nfrom fastapi import FastAPI\napp = FastAPI()\n")
+    result = start_server(project)
+    assert not result["ok"] and "memory limit (512 MB)" in result["output"]
+    assert w2_containers() == []
+
+
+def test_server_killed_for_memory_during_a_request_says_so(project):
+    write_file(project, "app.py", "from fastapi import FastAPI\napp = FastAPI()\n@app.get('/grab')\ndef grab():\n    x = bytearray(900 * 2**20)\n    for i in range(0, len(x), 4096):\n        x[i] = 1\n    return 'survived'\n")
+    assert start_server(project)["ok"]
+    result = http_request(project, "GET", "/grab")
+    assert not result["ok"] and "memory limit (512 MB)" in result["output"]
+    assert w2_containers() == []
+
+
+def test_one_file_cannot_grow_past_the_limit(project):
+    code = ("import pytest\n\ndef test_x():\n    with pytest.raises(OSError):\n        with open('big.bin', 'wb') as f:\n"
+            "            for _ in range(250):\n                f.write(b'x' * 2**20)\n                f.flush()\n")
+    assert passes(project, code)["ok"]
+    assert (project / "big.bin").stat().st_size <= 200 * 2**20
+
+
 def test_server_cannot_reach_the_internet_but_we_can_reach_it(project):
     app = ("import httpx\nfrom fastapi import FastAPI\napp = FastAPI()\n@app.get('/out')\ndef out():\n"
            "    try:\n        httpx.get('http://example.com', timeout=5)\n        return 'REACHED'\n"

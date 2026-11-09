@@ -28,6 +28,7 @@ HOST = os.environ.get("PUBLIC_HOST", "34-78-38-126.sslip.io")
 DEPLOY_ROOT = Path(os.environ.get("DEPLOY_ROOT", "/srv/deployed"))
 CADDY_DIR = Path(os.environ.get("CADDY_DIR", "/etc/caddy/backends"))
 CADDYFILE = "/etc/caddy/Caddyfile"
+MAX_BACKEND_MB = 500
 NAME = re.compile(r"[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?")  # goes into docker names, paths and Caddy's file: nothing else allowed
 
 
@@ -90,6 +91,16 @@ def deploy(folder, name, timeout=20):
     url = f"https://{HOST}/b/{name}"
     endpoints = [f"{m.upper()} {p}" for p, ops in spec.get("paths", {}).items() for m in ops]
     return {"ok": True, "url": url, "docs_url": f"{url}/docs", "endpoints": endpoints, "output": f"Deployed at {url}"}
+
+
+def stop_oversized():
+    """Stop every live backend holding more than MAX_BACKEND_MB on disk, so one backend cannot fill the server (decision 0057). Its data stays."""
+    stopped = []
+    for home in DEPLOY_ROOT.glob("*"):
+        if sum(f.stat().st_size for f in home.rglob("*") if f.is_file()) > MAX_BACKEND_MB * 2**20:
+            subprocess.run(["docker", "stop", "-t", "0", f"d-{home.name}"], capture_output=True)
+            stopped.append(home.name)
+    return stopped
 
 
 def tables(db):

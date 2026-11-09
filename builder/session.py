@@ -216,6 +216,8 @@ def approve(sid):
     s = find(sid)
     if s.state != "waiting_approval":
         raise Refused("There is no plan waiting for approval.")
+    if spent_today() >= MAX_DAILY_USD:  # a plan drafted before the limit was reached must not start a build after it
+        raise Refused("The platform has reached its limit for today. Please try again tomorrow.")
     s.emit("approved")
     s.go("building")
     s.background(s.work)
