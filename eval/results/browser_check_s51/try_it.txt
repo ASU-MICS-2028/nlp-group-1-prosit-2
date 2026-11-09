@@ -1,0 +1,9 @@
+One backend built through the live page on 2026-11-09 (S5.1), then used over the public internet:
+--- GET /cakes before
+[]
+--- POST /cakes
+{"name":"Chocolate","id":1,"price":120.0}
+--- POST /cakes bad price (should be refused)
+{"detail":[{"type":"value_error","loc":["body","price"],"msg":"Value error, price must be zero or more","input":-1,"ctx":{"error":{}}}]} [422]
+--- GET /cakes after
+[{"name":"Chocolate","id":1,"price":120.0}]
