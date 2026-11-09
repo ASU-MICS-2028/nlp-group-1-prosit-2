@@ -1,0 +1,48 @@
+{
+  "open_wallet": {
+    "method": "POST",
+    "path": "/wallets",
+    "response_fields": {
+      "id": "phone"
+    },
+    "saves_key": {
+      "as": "wallet",
+      "field": "phone"
+    },
+    "uses_key": {
+      "id": "wallet"
+    }
+  },
+  "get_wallet": {
+    "method": "GET",
+    "path": "/wallets/{id}",
+    "uses_key": {
+      "id": "wallet"
+    }
+  },
+  "deposit": {
+    "method": "POST",
+    "path": "/wallets/{id}/deposits",
+    "uses_key": {
+      "id": "wallet"
+    }
+  },
+  "transfer": {
+    "method": "POST",
+    "path": "/wallets/{from_wallet_id}/transfers",
+    "request_fields": {
+      "to_wallet_id": "to_phone"
+    },
+    "uses_key": {
+      "from_wallet_id": "wallet",
+      "to_wallet_id": "wallet"
+    }
+  },
+  "list_transactions": {
+    "method": "GET",
+    "path": "/wallets/{id}/transactions",
+    "uses_key": {
+      "id": "wallet"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a bill does not split evenly, who should get the extra pesewa(s)? For example, the members in the order they were chosen, or picked at random.",
+    "Besides each member's balance, do you want the app to suggest who should pay whom, and how much, to settle up?",
+    "Should people be able to edit or delete expenses and repayments, or remove a member from a group, after they have been recorded?"
+  ],
+  "answers": [
+    "Any of them, as long as the shares differ by at most one pesewa and add up to the bill.",
+    "No preference: you decide.",
+    "Not for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00884
+}

@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Do you sell some things by different sizes or units, like a tin, a sachet or a carton of the same item, and should each one have its own price?",
+    "When your prices change, do you want to edit the price of an item already on the list, or just remove it and add it again?",
+    "When you stop selling something, should it disappear completely, or do you want to keep it somewhere in case you sell it again later?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "Yes, prices change all the time, especially sugar, rice and oil. I need to change the price of an item.",
+    "It is gone: it does not show in the list and looking it up says it is not found."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00235
+}

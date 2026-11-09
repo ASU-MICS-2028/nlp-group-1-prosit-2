@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When you add a route like Circle to Madina, does the same fare also apply going back from Madina to Circle, or do the two directions need separate fares?",
+    "Should only trusted staff be able to add routes and change fares, with a password or login, or can anyone with the page change them?",
+    "If a passenger asks for two stops that have no direct route between them, should the system say no route exists, or should it show a trip with a change of vehicle?"
+  ],
+  "answers": [
+    "Yes. Circle to Madina costs the same as Madina to Circle, so we keep one route for both directions and passengers can ask either way.",
+    "No preference: you decide.",
+    "Say it was not found. Do not try to join two routes together; only direct routes count."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00039
+}

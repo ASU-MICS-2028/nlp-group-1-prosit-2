@@ -1,0 +1,58 @@
+{
+  "summary": "This plan lets your Legon hostel add rooms, lets students book a place (not a specific bed) in a room without calling you, lets them cancel, and lets you check how many beds are free in each room for chosen dates. A booking uses a bed for every night from the arrival date up to the night before the leaving date, so someone leaving on the 12th and someone arriving on the 12th can share the same bed. You assign the actual bed at the front desk. You had no preference on cancelling, so we chose the simplest option: each booking gets a booking number when it is made, and a booking is cancelled using that number. No logins, PINs or passwords are added. Questions for you: (1) Anyone who knows a booking number could cancel that booking. Is that acceptable, or would you like some extra check later? (2) Students' names and stay dates are kept in the system. Would you like to limit who can see or change this information for privacy reasons?",
+  "data": [
+    {
+      "name": "Room",
+      "fields": [
+        "Room number (given automatically)",
+        "Room name",
+        "Number of beds"
+      ]
+    },
+    {
+      "name": "Booking",
+      "fields": [
+        "Booking number (given automatically and shown to the student when they book)",
+        "Which room it is for",
+        "Student's name",
+        "Arrival date",
+        "Leaving date"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/rooms",
+      "does": "Adds a new room with its name and how many beds it has."
+    },
+    {
+      "method": "POST",
+      "path": "/rooms/{roomNumber}/bookings",
+      "does": "Books a place in the chosen room for a student, using their name, arrival date and leaving date. If it succeeds, it gives back the booking number."
+    },
+    {
+      "method": "DELETE",
+      "path": "/bookings/{bookingNumber}",
+      "does": "Cancels the booking with this booking number, so the bed is free again for those nights."
+    },
+    {
+      "method": "GET",
+      "path": "/availability?arrival={date}&leaving={date}",
+      "does": "For the chosen arrival and leaving dates, shows each room and how many beds are free on every night of that stay."
+    }
+  ],
+  "rules": [
+    "A room must have a name.",
+    "A room's number of beds must be a whole number of at least 1.",
+    "A booking must include the student's name, an arrival date and a leaving date.",
+    "A booking is refused if the leaving date is not after the arrival date.",
+    "A booking is refused if the chosen room does not exist.",
+    "A booking uses a bed for each night from the arrival date up to the night before the leaving date. The leaving night itself is not counted, so a stay ending on the 12th does not clash with a stay starting on the 12th.",
+    "A booking is refused if, on any night of the stay, every bed in the room is already taken by other bookings.",
+    "A cancellation is refused if no booking has that booking number.",
+    "Once a booking is cancelled, it no longer takes up a bed on any night.",
+    "An availability check is refused if the leaving date is not after the arrival date.",
+    "In an availability check, a room's free beds are its total beds minus the most beds taken on any single night of the chosen stay."
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "questions": [
+    "Who should be able to add events and see the sign-up lists: only church staff with a login, or anyone who has the link?",
+    "Can one person sign up more than once for the same event, for example with the same phone number, and can people cancel their own sign-up?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00025
+}

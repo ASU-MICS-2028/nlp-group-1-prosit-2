@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "What grade should each score range get (for example, 70 to 100 is A), and what GPA points does each grade carry (for example, A is 4.0)? Please send your exact grading table.",
+    "Does each course have credit units (for example, 3 or 4 units), and should GPA be weighted by those units? If not, should every course count equally?",
+    "Who will use the system, and what should each person be able to do? For example, can lecturers only enter scores for their own courses, can the exams officer see everything, and can students log in to see only their own results?"
+  ],
+  "answers": [
+    "80 to 100 is A (4.0), 75 to 79 is B+ (3.5), 70 to 74 is B (3.0), 65 to 69 is C+ (2.5), 60 to 64 is C (2.0), 55 to 59 is D+ (1.5), 50 to 54 is D (1.0), and below 50 is F (0.0).",
+    "Yes. Every course has credit hours, a whole number from 1 to 6, and the GPA is weighted by them: add up grade point times credit hours over all the student's courses and divide by the total credit hours.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00046
+}

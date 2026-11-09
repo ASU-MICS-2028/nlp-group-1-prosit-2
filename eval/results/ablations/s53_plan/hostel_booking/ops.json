@@ -1,0 +1,42 @@
+{
+  "create_room": {
+    "method": "POST",
+    "path": "/rooms",
+    "response_fields": {
+      "id": "roomNumber"
+    }
+  },
+  "book_bed": {
+    "method": "POST",
+    "path": "/rooms/{id}/bookings",
+    "request_fields": {
+      "student_name": "studentName",
+      "check_in": "arrival",
+      "check_out": "leaving"
+    },
+    "response_fields": {
+      "id": "bookingNumber",
+      "student_name": "studentName",
+      "check_in": "arrival",
+      "check_out": "leaving",
+      "room_id": "roomNumber"
+    }
+  },
+  "cancel_booking": {
+    "method": "DELETE",
+    "path": "/bookings/{id}"
+  },
+  "free_beds": {
+    "method": "GET",
+    "path": "/availability",
+    "request_fields": {
+      "check_in": "arrival",
+      "check_out": "leaving"
+    },
+    "response_fields": {
+      "room_id": "roomNumber",
+      "free_beds": "freeBeds"
+    },
+    "response_key": "rooms"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Who should be allowed to mark an item as claimed: only the lost-and-found desk staff, who would sign in with a password, or anyone who uses the board?",
+    "Should the report form also ask for the finder's name and contact details, so the desk can call them, or should reports stay anonymous?",
+    "Should items ever leave the board on their own, for example after a set number of weeks, or should they stay until someone removes them by hand?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0004
+}

@@ -1,0 +1,12 @@
+{
+  "questions": [
+    "When a student cancels, how should we know the booking is theirs? For example, should they get a booking code when they book, or is giving their name enough?",
+    "Should one student be allowed to hold more than one booking for the same nights, or should that be refused?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00848
+}

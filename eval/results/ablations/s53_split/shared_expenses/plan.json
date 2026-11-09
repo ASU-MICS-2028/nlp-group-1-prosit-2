@@ -1,0 +1,99 @@
+{
+  "summary": "This plan sets up a shared-costs tracker. One friend creates a group and adds friends to it by name. Anyone can then record an expense: who paid, how much in cedis, and which members share it. The cost is split equally between those members, and the payer does not have to be one of them. If a bill does not split evenly, the extra pesewas go to any of the sharers, so no two shares differ by more than one pesewa and the shares always add up exactly to the bill. You can also record when one friend pays another back. Each member has a balance: a positive number is what they are owed overall, a negative number is what they owe. The balances in a group always add up to zero. Choices made where you had no preference: the app will not suggest who should pay whom to settle up, only show balances. As you asked, recorded expenses, repayments and members cannot be edited, deleted or removed for now. Nothing in your request was unsafe or outside the backend, so nothing was left out. Questions for you, not included in this plan: (1) Privacy: anyone who knows a group's reference number could see its members and amounts. Should access be limited? (2) Should two members of the same group be allowed to have the same name? Matching names could make it unclear who owes whom.",
+  "data": [
+    {
+      "name": "Group",
+      "fields": [
+        "group number (given automatically when the group is created)",
+        "the list of members in the group"
+      ]
+    },
+    {
+      "name": "Member",
+      "fields": [
+        "member number (given automatically)",
+        "which group they belong to",
+        "name"
+      ]
+    },
+    {
+      "name": "Expense",
+      "fields": [
+        "expense number (given automatically)",
+        "which group it belongs to",
+        "who paid (a member of the group)",
+        "amount in cedis (to the pesewa)",
+        "which members it is shared between",
+        "each sharer's share in cedis (worked out automatically)",
+        "when it was recorded (filled in automatically)"
+      ]
+    },
+    {
+      "name": "Repayment",
+      "fields": [
+        "repayment number (given automatically)",
+        "which group it belongs to",
+        "who paid back (a member of the group)",
+        "who received the money (a member of the group)",
+        "amount in cedis (to the pesewa)",
+        "when it was recorded (filled in automatically)"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/groups",
+      "does": "Creates a new group and gives back its group number."
+    },
+    {
+      "method": "GET",
+      "path": "/groups/{groupNumber}",
+      "does": "Shows a group and the names of its members."
+    },
+    {
+      "method": "POST",
+      "path": "/groups/{groupNumber}/members",
+      "does": "Adds a friend to the group by name."
+    },
+    {
+      "method": "POST",
+      "path": "/groups/{groupNumber}/expenses",
+      "does": "Records an expense: who paid, the amount in cedis, and which members share it. It works out each member's equal share."
+    },
+    {
+      "method": "GET",
+      "path": "/groups/{groupNumber}/expenses",
+      "does": "Lists every expense recorded in the group, with who paid, the amount, and each sharer's share."
+    },
+    {
+      "method": "POST",
+      "path": "/groups/{groupNumber}/repayments",
+      "does": "Records that one member paid another member back a given amount in cedis."
+    },
+    {
+      "method": "GET",
+      "path": "/groups/{groupNumber}/repayments",
+      "does": "Lists every repayment recorded in the group."
+    },
+    {
+      "method": "GET",
+      "path": "/groups/{groupNumber}/balances",
+      "does": "Shows each member's balance: how much they are owed overall, or how much they owe if the number is negative."
+    }
+  ],
+  "rules": [
+    "Refuse any expense or repayment amount that is zero or less.",
+    "Refuse amounts that include fractions of a pesewa (more than two decimal places in cedis).",
+    "Refuse a member without a name.",
+    "Refuse an expense whose payer is not a member of that group.",
+    "Refuse an expense that is not shared between at least one member, that lists anyone who is not a member of that group, or that lists the same member more than once.",
+    "The payer of an expense does not need to be one of the members sharing it.",
+    "An expense is split equally between its sharers. If it does not divide evenly, no two shares may differ by more than one pesewa, and the shares must add up exactly to the amount paid.",
+    "Refuse a repayment if either the person paying back or the person receiving is not a member of that group.",
+    "Refuse a repayment where someone pays themselves back.",
+    "A member's balance is: what they paid for expenses, minus their shares of expenses, plus what they paid back to others, minus what others paid back to them.",
+    "The balances of all members in a group must always add up to exactly zero.",
+    "Expenses, repayments and members cannot be edited, deleted or removed once recorded."
+  ]
+}

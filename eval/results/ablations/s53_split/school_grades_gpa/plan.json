@@ -1,0 +1,62 @@
+{
+  "summary": "This plan keeps your college's students, courses and exam scores in one place. It replaces your spreadsheets. You can register students and courses. Lecturers can enter a score out of 100 for a student in a course. For any student you can see each course they have a score in, the grade for that course and their overall GPA. GPA is weighted by credit hours, using the grade scale you gave. You had no preference about students retaking a course, so I chose the simplest option: each student has only one score per course. Entering a score again for the same student and course replaces the old one, whether it is a correction or a resit. Only the latest score is kept and counted. Some choices and questions for you: (1) To keep things simple, each student is registered with a student number and full name, and each course with a course code, title and credit hours. Tell me if you need more details. (2) Your grade ranges use whole numbers. If a score like 79.5 is entered, I plan to give it the lower grade (B+), because it has not reached 80. Would you rather allow only whole-number scores? (3) Right now anyone who can reach the system could enter or change scores and view results. Would you like to limit who can do this, to protect students' privacy? I have not added this, because you did not ask for it.",
+  "data": [
+    {
+      "name": "Student",
+      "fields": [
+        "Student number (given by the college, different for every student)",
+        "Full name"
+      ]
+    },
+    {
+      "name": "Course",
+      "fields": [
+        "Course code (different for every course, for example MTH101)",
+        "Course title",
+        "Credit hours (a whole number from 1 to 6)"
+      ]
+    },
+    {
+      "name": "Score",
+      "fields": [
+        "Student number (which student)",
+        "Course code (which course)",
+        "Score out of 100 (the latest one entered)"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/students",
+      "does": "Registers a new student with their student number and full name."
+    },
+    {
+      "method": "POST",
+      "path": "/courses",
+      "does": "Registers a new course with its code, title and credit hours."
+    },
+    {
+      "method": "PUT",
+      "path": "/students/{studentNumber}/scores/{courseCode}",
+      "does": "Enters a student's score for a course. If that student already has a score for that course, the new score replaces the old one."
+    },
+    {
+      "method": "GET",
+      "path": "/students/{studentNumber}/results",
+      "does": "Shows one student's results. It lists every course they have a score in, with the score, grade and grade points, and their overall GPA weighted by credit hours."
+    }
+  ],
+  "rules": [
+    "Refuse a score below 0 or above 100.",
+    "Refuse a score for a student number that has not been registered.",
+    "Refuse a score for a course code that has not been registered.",
+    "Refuse to register a student whose student number is already in use.",
+    "Refuse to register a course whose course code is already in use.",
+    "Refuse a course whose credit hours are not a whole number from 1 to 6.",
+    "Refuse a student without a student number or full name, and a course without a code, title or credit hours.",
+    "Grades are given like this: 80\u2013100 is A (4.0), 75 up to 80 is B+ (3.5), 70 up to 75 is B (3.0), 65 up to 70 is C+ (2.5), 60 up to 65 is C (2.0), 55 up to 60 is D+ (1.5), 50 up to 55 is D (1.0), and below 50 is F (0.0).",
+    "GPA is worked out like this: multiply each course's grade points by its credit hours, add these up, then divide by the total credit hours of the courses the student has scores in. A student with no scores yet has no GPA.",
+    "Each student has only one score per course. Entering a new score replaces the old one, and only the latest score counts toward grades and GPA."
+  ]
+}

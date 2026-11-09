@@ -1,0 +1,30 @@
+church_signup            approved $0.0276
+clinic_appointments      approved $0.0345
+football_fixtures        approved $0.0187
+hostel_booking           approved $0.0312
+library_catalogue        approved $0.0293
+lost_and_found           approved $0.0205
+market_stock             approved $0.0232
+momo_wallet              approved $0.0389
+restaurant_reservations  approved $0.0209
+school_grades_gpa        approved $0.037
+shared_expenses          approved $0.0301
+shop_price_list          approved $0.0273
+susu_ledger              approved $0.0386
+tailoring_orders         approved $0.0322
+trotro_fares             approved $0.0262
+church_signup            end_turn   2 turns  3 tools $0.1176 34.3s  own tests 19 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+clinic_appointments      end_turn   3 turns  5 tools $0.1871 54.9s  own tests 23 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+football_fixtures        end_turn   2 turns  3 tools $0.122 33.6s  own tests 13 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+hostel_booking           end_turn   3 turns  6 tools $0.1794 52.0s  own tests 24 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+library_catalogue        end_turn   2 turns  3 tools $0.1205 35.5s  own tests 17 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+lost_and_found           end_turn   2 turns  3 tools $0.1073 31.8s  own tests 16 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+market_stock             end_turn   2 turns  3 tools $0.1058 29.6s  own tests 19 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+momo_wallet              end_turn   2 turns  3 tools $0.2121 61.9s  own tests 18 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+restaurant_reservations  end_turn   2 turns  3 tools $0.1305 40.3s  own tests 5 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+school_grades_gpa        end_turn   2 turns  3 tools $0.1452 44.4s  own tests 22 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+shared_expenses          end_turn   2 turns  3 tools $0.188 65.5s  own tests 5 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+shop_price_list          end_turn   2 turns  3 tools $0.0949 47.5s  own tests 19 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+susu_ledger              end_turn   2 turns  3 tools $0.1795 55.4s  own tests 8 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+tailoring_orders         end_turn   2 turns  3 tools $0.1386 71.3s  own tests 30 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}
+trotro_fares             end_turn   2 turns  3 tools $0.1254 85.7s  own tests 26 passed 0 failed  repairs 0  follows plan {'missing': [], 'extra': []}

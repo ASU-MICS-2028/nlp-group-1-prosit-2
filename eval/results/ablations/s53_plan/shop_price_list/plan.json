@@ -1,0 +1,42 @@
+{
+  "summary": "This plan keeps your shop's price list on the computer instead of in your notebook. You will be able to add an item with its price, see everything you sell, look up the price of one item by its name, and take an item off the list when you stop selling it. You told us you had no preference on three questions, so we chose the simplest option each time. First, each item has one price. If you sell something in different sizes, such as a full bag of rice and one cup of rice, add each size as its own item with its own name, for example 'Rice (full bag)' and 'Rice (cup)'. Second, old prices are not kept. Third, to look up a price you type the item's full name. Capital and small letters do not matter, so 'milo' finds 'Milo'. You did not ask for a way to change a price, so there is no separate step for it. To change a price, take the item off the list and add it again with the new price. Would you like a direct way to change a price instead? Would you also like to search by part of a name, so that typing 'milo' shows every Milo item? Prices are written in Ghana cedis.",
+  "data": [
+    {
+      "name": "Item",
+      "fields": [
+        "Name of the item (for example 'Milo 400g tin')",
+        "Price in Ghana cedis (for example 35.50)"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/items",
+      "does": "Adds a new item and its price to your list."
+    },
+    {
+      "method": "GET",
+      "path": "/items",
+      "does": "Shows every item on your list with its price."
+    },
+    {
+      "method": "GET",
+      "path": "/items/{name}",
+      "does": "Shows the price of one item when you type its full name."
+    },
+    {
+      "method": "DELETE",
+      "path": "/items/{name}",
+      "does": "Takes one item off your list when you stop selling it."
+    }
+  ],
+  "rules": [
+    "An item cannot be added without a name.",
+    "An item cannot be added without a price.",
+    "The price must be a number, and it cannot be less than zero.",
+    "An item cannot be added if an item with the same name is already on the list. Capital and small letters count as the same, so 'Milo' and 'milo' are the same name.",
+    "If you look up an item that is not on the list, you will get a message saying it was not found.",
+    "If you try to take off an item that is not on the list, you will get a message saying it was not found."
+  ]
+}

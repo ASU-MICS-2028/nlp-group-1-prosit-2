@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Is the contribution the same amount for every member and every round, and can a member pay in more than once for the same round (for example, part now and part later)?",
+    "Who chooses the collector for each round, for example by a fixed order or by the group leader, and must a member have paid for that round before they can collect?",
+    "Can a member be removed or leave the group, or be added partway through, and if so, what happens to their past payments and collections?"
+  ],
+  "answers": [
+    "No, record whatever each member actually paid; the pot is the total paid in for that round.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.0007
+}

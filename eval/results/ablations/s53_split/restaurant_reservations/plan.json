@@ -1,0 +1,53 @@
+{
+  "summary": "This plan lets your chop bar in Cape Coast keep a list of its tables and take table reservations. You can add a table (its table number and how many seats it has) and see all your tables. A customer reserves one particular table by giving their name, phone number, how many people are coming, the date and the time. A reservation is refused if the group is bigger than that table's seats, or if that same table is already reserved for the exact same date and time. As you asked, only the exact same start time counts as a clash, so a 7:00 booking does not block 7:30, and other tables can still be booked at the same time. You can see all reservations for any date you choose. You had no preference about past dates or opening hours, so we kept it simple: the system will not check for dates that have passed or for opening hours. A question for you: customers' names and phone numbers will be stored, and anyone who can reach the reservation list could see them. Would you like to limit who can view that list? We have not added anything for this unless you ask.",
+  "data": [
+    {
+      "name": "Table",
+      "fields": [
+        "Table number (each table has its own number)",
+        "Number of seats"
+      ]
+    },
+    {
+      "name": "Reservation",
+      "fields": [
+        "Table number being reserved",
+        "Customer name",
+        "Customer phone number",
+        "Number of people coming",
+        "Date",
+        "Time"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/tables",
+      "does": "Adds a new table, with its table number and how many seats it has."
+    },
+    {
+      "method": "GET",
+      "path": "/tables",
+      "does": "Shows the list of all your tables and how many seats each has."
+    },
+    {
+      "method": "POST",
+      "path": "/reservations",
+      "does": "Makes a reservation for a particular table, using the customer's name, phone number, how many people are coming, the date and the time."
+    },
+    {
+      "method": "GET",
+      "path": "/reservations?date={date}",
+      "does": "Shows all reservations for the date you choose."
+    }
+  ],
+  "rules": [
+    "Refuse a reservation if the number of people coming is more than the number of seats at the chosen table.",
+    "Refuse a reservation if that same table is already reserved for the same date and the same time. Other tables can still be reserved for that date and time.",
+    "Two reservations clash only when they are for the same table, the same date and the exact same time. Different start times never clash.",
+    "Refuse a reservation for a table number that has not been added.",
+    "Refuse a reservation that is missing the customer's name, phone number, number of people, date or time.",
+    "Refuse adding a table that is missing its table number or number of seats, or that uses a table number already added."
+  ]
+}

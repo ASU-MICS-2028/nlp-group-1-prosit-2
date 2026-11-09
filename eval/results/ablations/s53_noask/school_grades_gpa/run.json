@@ -1,0 +1,43 @@
+{
+  "request": "I am the exams officer at a small college in Cape Coast and I want to keep our students' results in one place instead of in spreadsheets. We need to register our students and the courses we teach. Lecturers enter each student's score for a course, out of 100. For each student we want to see their results, with the grade for every course they have a score in, and their overall GPA. Sometimes a lecturer makes a mistake and enters a score again, and then the new score is the one that counts. Scores below 0 or above 100 should not be accepted.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "search": false,
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 5138,
+    "cache_write": 6203,
+    "cache_read": 1468
+  },
+  "cost_usd": 0.1344,
+  "seconds": 39.6,
+  "tests": {
+    "passed": 7,
+    "failed": 0
+  },
+  "summary": "I've built the results system in one file, `app.py`, which saves everything to a database file called `results.db` in the same folder. I wrote 7 automatic tests covering what you asked for, and they all pass.\n\n**What it can do:**\n- **Register students:** `POST /students` takes a student number and a name. If someone tries to register a student number that already exists, it's refused. `GET /students` lists all students and `GET /students/{id}` shows one.\n- **Register courses:** `POST /courses` takes a course code and a title. Repeated course codes are refused. `GET /courses` lists all courses and `GET /courses/{id}` shows one.\n- **Enter scores:** `POST /scores` takes a student, a course and a score.\n  - **Scores outside 0 to 100 are refused.** Exactly 0 and exactly 100 are accepted.\n  - **Corrections:** if a lecturer enters a score again for the same student and course, the new score replaces the old one.\n  - If the student or course doesn't exist, the score is refused.\n- **See a student's results:** `GET /students/{id}/results` shows every course the student has a score in, with the score, grade and grade points, plus their overall GPA. A student with no scores yet shows no GPA.\n\n**Two things to check:** you didn't give me a grading scale or say how to work out the GPA, so I made these choices:\n\n1. **Grading scale:** I used a scale common in Ghana:\n\n   | Score | Grade | Points |\n   |---|---|---|\n   | 80\u2013100 | A | 4.0 |\n   | 75\u201379 | B+ | 3.5 |\n   | 70\u201374 | B | 3.0 |\n   | 65\u201369 | C+ | 2.5 |\n   | 60\u201364 | C | 2.0 |\n   | 55\u201359 | D+ | 1.5 |\n   | 50\u201354 | D | 1.0 |\n   | Below 50 | E | 0 |\n\n   If your college uses a different scale, tell me and I'll change it.\n\n2. **GPA:** this is a plain average of the grade points across all the student's courses, rounded to 2 decimal places. Every course counts the same, because I didn't record credit hours. If your college gives some courses more weight, I can add credit hours to courses and use them in the GPA.",
+  "plan": null,
+  "change": null,
+  "follows_plan": null
+}

@@ -1,0 +1,39 @@
+{
+  "add_item": {
+    "method": "POST",
+    "path": "/items",
+    "saves_key": {
+      "as": "item",
+      "field": "name"
+    },
+    "uses_key": {
+      "id": "item"
+    }
+  },
+  "list_items": {
+    "method": "GET",
+    "path": "/items",
+    "uses_key": {
+      "id": "item"
+    }
+  },
+  "get_item": {
+    "method": "GET",
+    "path": "/items/{id}",
+    "uses_key": {
+      "id": "item"
+    }
+  },
+  "change_price": {
+    "method": "PATCH",
+    "path": "/items/{id}"
+  },
+  "remove_item": {
+    "method": "DELETE",
+    "path": "/items/{id}",
+    "response_key": "item",
+    "uses_key": {
+      "id": "item"
+    }
+  }
+}

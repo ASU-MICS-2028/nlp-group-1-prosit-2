@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a student cancels, how should they prove the booking is theirs: a booking code given at booking time, or their name plus phone number?",
+    "Does the student choose a specific bed number in the room, or does the system assign any free bed?",
+    "Can one student hold more than one bed at the same time, for example to book for a friend, or is it one bed per student for each stay?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "Just a place in the room; we assign the actual bed at the front desk.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00045
+}

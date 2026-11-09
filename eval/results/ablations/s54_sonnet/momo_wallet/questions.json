@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Is there a maximum amount for a single deposit or transfer, or a maximum balance a wallet can hold? If yes, what are the limits in cedis?",
+    "Who is allowed to see a wallet's balance and history, and how should they prove it is really them (for example a PIN or a code sent by SMS)? The same question applies to who can start a transfer.",
+    "What should happen when you send money to a phone number that has no wallet: refuse it with a clear message, or hold the money until that person opens a wallet?"
+  ],
+  "answers": [
+    "No limits for now.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00296
+}

@@ -1,0 +1,47 @@
+{
+  "summary": "This plan puts your shop's price list on the computer in place of your notebook. You can add an item with its price, see your whole list, look up the price of one item, change an item's price when it goes up or down, and take an item off the list when you stop selling it. Each item gets its own number so the computer can tell items apart. Prices are in Ghana cedis. You had no preference about sizes, so I chose the simplest option: each size or pack is added as its own item with its own name and price, for example 'Milo tin' and 'Milo carton'. When you change a price, the new price replaces the old one and the old price is not kept. Questions for you: (1) Would you like the old prices kept so you can see what sugar, rice or oil used to cost? (2) Should the list refuse two items with exactly the same name, so you do not add the same thing twice by mistake? These are not in the plan unless you say yes.",
+  "data": [
+    {
+      "name": "Item (one thing you sell)",
+      "fields": [
+        "Number: given by the computer when the item is added, used to find it again",
+        "Name: what the item is called, for example 'Rice 5kg bag' or 'Sugar 1kg'",
+        "Price: how much it costs, in Ghana cedis"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/items",
+      "does": "Adds a new item to your list with its name and price."
+    },
+    {
+      "method": "GET",
+      "path": "/items",
+      "does": "Shows every item on your list with its price."
+    },
+    {
+      "method": "GET",
+      "path": "/items/{number}",
+      "does": "Shows the name and price of one item."
+    },
+    {
+      "method": "PATCH",
+      "path": "/items/{number}",
+      "does": "Changes the price of one item. The new price replaces the old one."
+    },
+    {
+      "method": "DELETE",
+      "path": "/items/{number}",
+      "does": "Takes an item off your list when you stop selling it."
+    }
+  ],
+  "rules": [
+    "Refuse to add an item that has no name.",
+    "Refuse to add an item that has no price.",
+    "Refuse a price that is not a number or is less than zero.",
+    "Refuse a price change if the new price is missing, not a number, or less than zero.",
+    "If you ask to see, change or remove an item that is not on the list, say it was not found and change nothing."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Will only you use this system, or do you need separate logins for staff members?",
+    "Can a customer pick up an order while still owing money on it, or must the full price be paid before you mark it collected?",
+    "Besides 'collected', do you want to track other stages for an order, such as 'being sewn' or 'ready for pickup'?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00037
+}

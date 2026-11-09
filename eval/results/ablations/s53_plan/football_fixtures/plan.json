@@ -1,0 +1,60 @@
+{
+  "summary": "This plan keeps track of the fixtures of your community football league in Kumasi. You add teams (each with a name), schedule fixtures on a date between a home team and an away team, record the score after the match (recording it again replaces the old score), and see all fixtures of one team, whether it plays at home or away. As you answered, we will not check for a team playing twice on the same date, and we will not require team names to be different. Nothing in your request had to be left out. A question for you: the list of teams and fixtures will be open to anyone who can reach the system. Is that fine, or would you like to limit who can add teams, schedule fixtures or record scores? We have not added this unless you ask.",
+  "data": [
+    {
+      "name": "Team",
+      "fields": [
+        "team number (given automatically)",
+        "name"
+      ]
+    },
+    {
+      "name": "Fixture",
+      "fields": [
+        "fixture number (given automatically)",
+        "date of the match",
+        "home team",
+        "away team",
+        "goals scored by the home team (empty until the score is recorded)",
+        "goals scored by the away team (empty until the score is recorded)"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/teams",
+      "does": "Adds a new team with its name."
+    },
+    {
+      "method": "GET",
+      "path": "/teams",
+      "does": "Shows the list of all teams."
+    },
+    {
+      "method": "POST",
+      "path": "/fixtures",
+      "does": "Schedules a fixture on a date between a home team and an away team."
+    },
+    {
+      "method": "PUT",
+      "path": "/fixtures/{fixtureNumber}/score",
+      "does": "Records the score of a fixture: how many goals the home team and the away team scored. Recording it again replaces the old score."
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{teamNumber}/fixtures",
+      "does": "Shows all fixtures of one team, both the ones it plays at home and the ones it plays away."
+    }
+  ],
+  "rules": [
+    "A team must have a name.",
+    "A fixture must have a date, a home team and an away team.",
+    "The home team and the away team must be teams that have already been added.",
+    "A team cannot play against itself: the home team and the away team must be different.",
+    "A score can only be recorded for a fixture that exists.",
+    "A score must give the goals for both the home team and the away team.",
+    "Goals can never be negative: each side's goals must be zero or more, in whole numbers.",
+    "Fixtures of a team can only be shown for a team that exists."
+  ]
+}

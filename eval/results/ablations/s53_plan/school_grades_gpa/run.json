@@ -1,0 +1,116 @@
+{
+  "request": "I am the exams officer at a small college in Cape Coast and I want to keep our students' results in one place instead of in spreadsheets. We need to register our students and the courses we teach. Lecturers enter each student's score for a course, out of 100. For each student we want to see their results, with the grade for every course they have a score in, and their overall GPA. Sometimes a lecturer makes a mistake and enters a score again, and then the new score is the one that counts. Scores below 0 or above 100 should not be accepted.\n\nThe client's answers to your questions:\nQ: What grading scale do you use? Please list each score range with its letter grade and grade points (for example 80\u2013100 = A = 4.0).\nA: 80 to 100 is A (4.0), 75 to 79 is B+ (3.5), 70 to 74 is B (3.0), 65 to 69 is C+ (2.5), 60 to 64 is C (2.0), 55 to 59 is D+ (1.5), 50 to 54 is D (1.0), and below 50 is F (0.0).\nQ: Should the GPA be weighted by each course's credit hours? If so, how many credit hours does each course carry?\nA: Yes. Every course has credit hours, a whole number from 1 to 6, and the GPA is weighted by them: add up grade point times credit hours over all the student's courses and divide by the total credit hours.\nQ: Should GPA be shown per semester or academic year as well as overall? If so, should each score be recorded against a semester or year?\nA: No preference: you decide.\n\nWhere the client has no preference or did not answer, choose the simplest option and add nothing they did not ask for (no logins, PINs or extra required fields).",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "search": false,
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 5201,
+    "cache_write": 7971,
+    "cache_read": 3129
+  },
+  "cost_usd": 0.1452,
+  "seconds": 44.4,
+  "tests": {
+    "passed": 22,
+    "failed": 0
+  },
+  "summary": "Your results system is built and all 22 automated checks pass. It's one program (`app.py`) that saves everything in a single file in the project folder.\n\n**What it does:**\n- **`POST /students`**: registers a student with their student number and full name. It refuses a student number that's already in use, and a blank number or name.\n- **`GET /students`**: lists all registered students.\n- **`POST /courses`**: registers a course with its code, title and credit hours. It refuses a course code that's already in use, and credit hours that aren't a whole number from 1 to 6.\n- **`GET /courses`**: lists all registered courses.\n- **`PUT /students/{student number}/scores/{course code}`**: a lecturer enters a score, for example `{\"score\": 72.5}`. It refuses scores below 0 or above 100, and students or courses that aren't registered. If a score is entered again for the same student and course, the new one replaces the old one.\n- **`GET /students/{student number}/results`**: shows each course the student has a score in, with the score, letter grade and grade points, plus their overall GPA weighted by credit hours. A student with no scores yet shows no GPA rather than 0.\n\n**Decisions I made, since you had no preference:**\n- **GPA:** shown overall only. Scores aren't recorded against a semester or year.\n- **Grade ranges:** treated as starting points, so 79.5 counts as B+.\n- **Your questions 2 and 3:** I allowed decimal scores like 72.5 and show the GPA to 2 decimal places. Both are easy to change.\n\n**Still open from the plan:**\n- **Who can use it:** anyone who can reach the system can enter or change scores and see every student's results. Tell me if you'd like to limit this to protect students' privacy.\n- **Removing or correcting entries:** at the moment you can't remove or correct a student or course after registering it. A typo in a name or in credit hours would stay, and wrong credit hours would make GPAs wrong. If you need corrections, I can add them.",
+  "plan": {
+    "summary": "This plan keeps your students, your courses and the scores lecturers enter, all in one place. For any student you can see each course they have a score in, the score, the letter grade and grade points from your scale, and their overall GPA weighted by credit hours. If a lecturer enters a score again for the same student and course, the new score replaces the old one. Since you had no preference, GPA is shown overall only and scores are not recorded against a semester or year. That can be added later if you want it. Your grade ranges are read as starting points: 80 or more is A, 75 up to just below 80 is B+, and so on. This means a score such as 79.5 counts as B+. Questions for you: (1) As planned, anyone who can reach the system could enter or change scores and see every student's results. Would you like to limit who can do this to protect students' privacy? (2) Should scores be whole numbers only, or are decimals like 72.5 allowed? (3) How many decimal places should the GPA show? (4) Do you need to remove or correct students or courses once they are registered?",
+    "data": [
+      {
+        "name": "Student",
+        "fields": [
+          "Student number (the college's own ID for the student, unique)",
+          "Full name"
+        ]
+      },
+      {
+        "name": "Course",
+        "fields": [
+          "Course code (unique, e.g. MTH101)",
+          "Course title",
+          "Credit hours (a whole number from 1 to 6)"
+        ]
+      },
+      {
+        "name": "Score",
+        "fields": [
+          "Which student",
+          "Which course",
+          "Score out of 100 (only the latest one entered counts)"
+        ]
+      }
+    ],
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "/students",
+        "does": "Registers a new student with their student number and full name."
+      },
+      {
+        "method": "GET",
+        "path": "/students",
+        "does": "Lists all registered students."
+      },
+      {
+        "method": "POST",
+        "path": "/courses",
+        "does": "Registers a new course with its code, title and credit hours."
+      },
+      {
+        "method": "GET",
+        "path": "/courses",
+        "does": "Lists all registered courses."
+      },
+      {
+        "method": "PUT",
+        "path": "/students/{student number}/scores/{course code}",
+        "does": "A lecturer enters a student's score for a course. If a score was already entered for that student and course, the new score replaces it."
+      },
+      {
+        "method": "GET",
+        "path": "/students/{student number}/results",
+        "does": "Shows a student's results: every course they have a score in, with the score, letter grade and grade points, plus their overall GPA. The GPA is worked out by multiplying each course's grade points by its credit hours, adding these up, and dividing by the total credit hours."
+      }
+    ],
+    "rules": [
+      "Refuse a score below 0 or above 100.",
+      "Refuse a score for a student who is not registered.",
+      "Refuse a score for a course that is not registered.",
+      "Refuse a course whose credit hours are not a whole number from 1 to 6.",
+      "Refuse to register a student with a student number that is already in use.",
+      "Refuse to register a course with a course code that is already in use.",
+      "Each student has only one score per course. Entering it again replaces the old score.",
+      "Grades follow your scale: 80 to 100 is A (4.0), 75 to below 80 is B+ (3.5), 70 to below 75 is B (3.0), 65 to below 70 is C+ (2.5), 60 to below 65 is C (2.0), 55 to below 60 is D+ (1.5), 50 to below 55 is D (1.0), and below 50 is F (0.0).",
+      "A student with no scores yet is shown with no GPA rather than a GPA of zero."
+    ]
+  },
+  "change": null,
+  "follows_plan": {
+    "missing": [],
+    "extra": []
+  }
+}

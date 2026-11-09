@@ -1,0 +1,43 @@
+{
+  "request": "I sell provisions at Makola market and I want to keep track of my stock. For each item I want to save its name, how many I have, and the level at which I consider it to be running low. When I sell some of an item the quantity should go down, but I must not be able to sell more than I have. When new goods arrive I record a restock and the quantity goes up. The amount sold or restocked must always be more than zero. I want to see all my items, look at one item, and see a list of the items that are at or below their low level so I know what to buy.",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "search": false,
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 3472,
+    "cache_write": 4713,
+    "cache_read": 1463
+  },
+  "cost_usd": 0.0936,
+  "seconds": 28.0,
+  "tests": {
+    "passed": 16,
+    "failed": 0
+  },
+  "summary": "I've built your stock tracker and tested it: all 16 tests pass. Your stock is saved in a file called `stock.db` in the same folder as the app.\n\n**What you can do with it**\n- **Add an item** (`POST /items`): send a name, how many you have, and the level where it counts as running low. For example: `{\"name\": \"Rice\", \"quantity\": 10, \"low_level\": 3}`.\n- **See all your items** (`GET /items`).\n- **See items running low** (`GET /items/low`): lists every item at or below its low level, so you know what to buy.\n- **Look at one item** (`GET /items/{id}`): each item gets a number when you add it; use that number here.\n- **Record a sale** (`POST /items/{id}/sell`, send `{\"amount\": 4}`): the quantity goes down by that amount.\n- **Record a restock** (`POST /items/{id}/restock`, send `{\"amount\": 7}`): the quantity goes up by that amount.\n\n**What it refuses**\n- **Selling more than you have:** refused, and your stock stays as it was. You can sell exactly what you have, which brings it to zero.\n- **Selling or restocking zero or a negative amount:** refused.\n- **An empty name, or a negative quantity or low level, when adding an item:** refused.\n- **An item number that doesn't exist:** you get a \"not found\" reply.\n\n**Things to know**\n- An item counts as running low when its quantity equals its low level, not only when it drops below. For example, 3 bags of oil with a low level of 3 shows on the list.\n- You can't change an item's name or low level, or delete an item, because you didn't ask for that.\n- The app doesn't stop you adding two items with the same name.",
+  "plan": null,
+  "change": null,
+  "follows_plan": null
+}

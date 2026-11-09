@@ -1,0 +1,33 @@
+{
+  "create_group": {
+    "method": "POST",
+    "path": "/groups"
+  },
+  "add_member": {
+    "method": "POST",
+    "path": "/groups/{id}/members"
+  },
+  "add_expense": {
+    "method": "POST",
+    "path": "/groups/{id}/expenses",
+    "request_fields": {
+      "split_between": "shared_between"
+    }
+  },
+  "get_balances": {
+    "method": "GET",
+    "path": "/groups/{id}/balances"
+  },
+  "settle_up": {
+    "method": "POST",
+    "path": "/groups/{id}/repayments",
+    "request_fields": {
+      "from_member_id": "from_member",
+      "to_member_id": "to_member"
+    },
+    "response_fields": {
+      "from_member_id": "from_member",
+      "to_member_id": "to_member"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "summary": "This plan replaces your exercise book with a simple record-keeping system for your susu group. You can start a group, add members (name and phone number), record each payment a member makes for a round in cedis, and record who collects the pot at the end of a round. The system works out the pot for you: it is exactly the total paid in for that round. You can see the list of members, the list of collections so far, and a statement for any member showing how much they have paid in and how much they have received. Each member can pay any amount above zero, and may pay more than once in the same round; every payment is kept. Where you had no preference, we chose the simplest option. You pick the collector for each round when you record the collection; there is no fixed order set at the start. Rounds do not have to go strictly one after another, so money can be recorded for any round that has not yet been collected. This system only keeps records. It does not move or hold any real money. Question for you: members' phone numbers will appear in the member list. Should anyone who can see the list be able to see them, or would you like to limit who sees them? We have not added any protection for this because you did not ask for it.",
+  "data": [
+    {
+      "name": "Group",
+      "fields": [
+        "group number (given by the system)",
+        "group name"
+      ]
+    },
+    {
+      "name": "Member",
+      "fields": [
+        "member number (given by the system)",
+        "which group they belong to",
+        "name",
+        "phone number"
+      ]
+    },
+    {
+      "name": "Payment",
+      "fields": [
+        "payment number (given by the system)",
+        "which group",
+        "which member paid",
+        "which round it is for (round number)",
+        "amount paid in cedis"
+      ]
+    },
+    {
+      "name": "Collection",
+      "fields": [
+        "collection number (given by the system)",
+        "which group",
+        "which round was collected (round number)",
+        "which member collected",
+        "pot amount in cedis (worked out by the system as the total paid in for that round)"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/groups",
+      "does": "Starts a new susu group with the name you give it."
+    },
+    {
+      "method": "POST",
+      "path": "/groups/{groupId}/members",
+      "does": "Adds a member to the group with their name and phone number."
+    },
+    {
+      "method": "GET",
+      "path": "/groups/{groupId}/members",
+      "does": "Shows the list of all members in the group."
+    },
+    {
+      "method": "POST",
+      "path": "/groups/{groupId}/payments",
+      "does": "Records that a member paid an amount in cedis for a given round."
+    },
+    {
+      "method": "POST",
+      "path": "/groups/{groupId}/collections",
+      "does": "Records that a chosen member collected the pot for a given round. The system adds up everything paid in for that round and saves that total as the pot."
+    },
+    {
+      "method": "GET",
+      "path": "/groups/{groupId}/collections",
+      "does": "Shows all the collections made so far: which round, who collected, and how much the pot was."
+    },
+    {
+      "method": "GET",
+      "path": "/groups/{groupId}/members/{memberId}/statement",
+      "does": "Shows one member's statement: the total they have paid in altogether and the total they have received from collections."
+    }
+  ],
+  "rules": [
+    "A member must have a name and a phone number; refuse to add a member without both.",
+    "A payment must be more than zero cedis; refuse zero or negative amounts.",
+    "A payment or collection must be for a member who belongs to that group; refuse it otherwise.",
+    "Refuse any payment into a round that has already been collected.",
+    "Each round can have only one collector; refuse a second collection for the same round.",
+    "A member can collect only once; refuse a collection for a member who has already collected.",
+    "Refuse to record a collection for a round where nobody has paid anything.",
+    "The pot is always exactly the total paid in for that round; it cannot be typed in or changed by hand."
+  ]
+}

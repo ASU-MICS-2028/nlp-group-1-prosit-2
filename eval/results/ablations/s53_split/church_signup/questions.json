@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can one sign-up include more than one person (for example, a parent signing up their whole family), or does each sign-up always count as one place?",
+    "Should the same phone number be blocked from signing up twice for the same event?",
+    "Do people need to be able to cancel their sign-up so the place opens up for someone else?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00777
+}

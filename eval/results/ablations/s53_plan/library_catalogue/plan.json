@@ -1,0 +1,58 @@
+{
+  "summary": "This plan sets up a simple catalogue for your school library. Anyone using the system can add a book with its title, its author and how many copies the library owns. Students can see every book and look at one book to see how many copies are still on the shelf. A student borrows a book by giving their name and returns it the same way. The system keeps track of who has which copy, so a student can only return a book they actually borrowed, and a book cannot be borrowed once every copy is out. Where you had no preference, we chose the simplest option. Adding books is open to anyone, with no password. There is no limit on how many books a student can borrow. A student may borrow more than one copy of the same book, as long as copies are on the shelf. As you asked, there are no due dates and no overdue lists. Some questions for you to consider, which are not included in this plan: Should students' names be kept private, so that only the librarian can see who borrowed what? Should books be editable or removable after they are added? Two students with exactly the same name would be treated as the same person. Is that acceptable, or should students give something extra to tell them apart?",
+  "data": [
+    {
+      "name": "Book",
+      "fields": [
+        "Book number (given automatically, used to pick out one book)",
+        "Title",
+        "Author",
+        "Number of copies the library owns",
+        "Number of copies still on the shelf (worked out from copies owned minus copies currently borrowed)"
+      ]
+    },
+    {
+      "name": "Loan (one borrowed copy)",
+      "fields": [
+        "Loan number (given automatically)",
+        "Which book was borrowed",
+        "Name of the student who borrowed it"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/books",
+      "does": "Adds a new book to the catalogue, using its title, its author and how many copies the library owns."
+    },
+    {
+      "method": "GET",
+      "path": "/books",
+      "does": "Shows every book in the catalogue with its title and author."
+    },
+    {
+      "method": "GET",
+      "path": "/books/{book number}",
+      "does": "Shows one book: its title, its author, how many copies the library owns and how many are still on the shelf."
+    },
+    {
+      "method": "POST",
+      "path": "/books/{book number}/borrow",
+      "does": "A student borrows one copy of this book by giving their name. One fewer copy is then on the shelf."
+    },
+    {
+      "method": "POST",
+      "path": "/books/{book number}/return",
+      "does": "A student returns one copy of this book by giving their name. One more copy is then back on the shelf."
+    }
+  ],
+  "rules": [
+    "A book cannot be added without a title and an author.",
+    "The number of copies must be a whole number and cannot be below zero.",
+    "Borrowing or returning is refused if the student does not give a name.",
+    "Borrowing or returning is refused if the book does not exist in the catalogue.",
+    "Borrowing is refused when every copy of the book is already out, until a copy comes back.",
+    "A return is refused if that student does not currently have a copy of that book borrowed."
+  ]
+}

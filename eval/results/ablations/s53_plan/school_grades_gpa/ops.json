@@ -1,0 +1,65 @@
+{
+  "create_student": {
+    "method": "POST",
+    "path": "/students",
+    "request_fields": {
+      "name": "full_name"
+    },
+    "response_fields": {
+      "id": "student_number",
+      "name": "full_name"
+    },
+    "saves_key": {
+      "as": "student",
+      "field": "name"
+    },
+    "uses_key": {
+      "id": "student"
+    }
+  },
+  "create_course": {
+    "method": "POST",
+    "path": "/courses",
+    "request_fields": {
+      "name": "title",
+      "credits": "credit_hours"
+    },
+    "response_fields": {
+      "id": "code",
+      "name": "title",
+      "credits": "credit_hours"
+    },
+    "saves_key": {
+      "as": "course",
+      "field": "name"
+    },
+    "uses_key": {
+      "id": "course"
+    }
+  },
+  "record_score": {
+    "method": "PUT",
+    "path": "/students/{id}/scores/{course_id}",
+    "response_fields": {
+      "course_id": "course_code",
+      "grade_point": "grade_points"
+    },
+    "uses_key": {
+      "id": "student",
+      "course_id": "course"
+    }
+  },
+  "get_results": {
+    "method": "GET",
+    "path": "/students/{id}/results",
+    "response_fields": {
+      "courses": "results",
+      "course_id": "course_code",
+      "grade_point": "grade_points"
+    },
+    "uses_key": {
+      "id": "student",
+      "course_id": "course"
+    }
+  }
+}

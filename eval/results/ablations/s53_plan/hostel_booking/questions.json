@@ -1,0 +1,12 @@
+{
+  "questions": [
+    "When a student cancels, how should we know the booking is theirs: a booking code we give them at booking time, or can anyone cancel any booking by name?",
+    "Should a student just get 'a bed' in the room, or pick a specific numbered bed (for example, Bed 2) that stays theirs for the whole stay?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "Just a place in the room; we assign the actual bed at the front desk."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00992
+}

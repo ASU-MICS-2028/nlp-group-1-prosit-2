@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "How should a customer prove a wallet is theirs before sending money, for example with a PIN, or does your shop staff do everything for them?",
+    "Should 024 123 4567 and +233 24 123 4567 count as the same phone number, so the same person cannot open two wallets?",
+    "Are there any fees, or a maximum amount per deposit, per transfer, or per wallet balance?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No, one phone number, one wallet.",
+    "No fees for now. No limits for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.01002
+}

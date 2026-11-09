@@ -1,0 +1,44 @@
+{
+  "summary": "This plan keeps a simple list of trotro routes for your station in Accra. Each route joins two stops (for example Circle and Madina) and has one fare in cedis that applies in both directions. Staff can add routes, see all routes, and change a route's fare when prices go up. Passengers can ask for the fare between two stops in either order; if there is no direct route between them, they are told no route was found, and the system never joins two routes together. You had no preference about restricting who can add routes or change fares, so following your instruction to keep it simple, nothing is locked: anyone who can reach the system can add routes and change fares. A question for you: would you like to limit adding routes and changing fares to station staff later? Also, would you like to keep a history of old fares when a fare changes? Neither is included unless you ask.",
+  "data": [
+    {
+      "name": "Route",
+      "fields": [
+        "Route number (given automatically so each route can be pointed to)",
+        "First stop name (for example Circle)",
+        "Second stop name (for example Madina)",
+        "Fare in cedis (the same in both directions)"
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/routes",
+      "does": "Adds a new route by giving its two stops and its fare in cedis."
+    },
+    {
+      "method": "GET",
+      "path": "/routes",
+      "does": "Shows every route with its two stops and its fare."
+    },
+    {
+      "method": "GET",
+      "path": "/fare?from=STOP&to=STOP",
+      "does": "Lets a passenger give two stops in any order and get the fare of the direct route between them, or a message saying no route was found."
+    },
+    {
+      "method": "PATCH",
+      "path": "/routes/{route number}",
+      "does": "Changes the fare of one route to a new amount in cedis."
+    }
+  ],
+  "rules": [
+    "Refuse to add a route unless both stops and a fare are given.",
+    "Refuse a route whose two stops are the same stop.",
+    "Refuse a fare that is not a number greater than zero.",
+    "Refuse to add a route between two stops that already have a route, in either direction (Circle to Madina and Madina to Circle count as the same route).",
+    "When looking up a fare, treat the stops the same in either order, and if there is no direct route between them, answer that no route was found; never combine routes or add fares together.",
+    "Refuse to change the fare of a route that does not exist."
+  ]
+}

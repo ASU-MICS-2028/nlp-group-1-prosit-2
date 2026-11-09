@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a price goes up or down, do you want to change it directly on the list, and should the old price be kept so you can see what it used to be?",
+    "Do some things have more than one price depending on size or amount (for example a full bag of rice versus one cup, or a single tin versus a carton)?",
+    "When you look up a price, will you type the full name of the item, or would you like to type part of the name (like 'milo') and see every item that matches?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.01066
+}

@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Can the same team play more than one fixture on the same date, and should the system block two fixtures between the same two teams on the same day?",
+    "Once a score is recorded, should it be possible to change or correct it later, and can a score be entered for a fixture whose date is still in the future?",
+    "When you view a team's fixtures, what should be shown for each one (for example date, opponent, home or away, score), and should they be sorted by date or limited to upcoming or past ones?"
+  ],
+  "answers": [
+    "It does not happen, no need to check.",
+    "Yes, recording it again replaces the old score.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00264
+}

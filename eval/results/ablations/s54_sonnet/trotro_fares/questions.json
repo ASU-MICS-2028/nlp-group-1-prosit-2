@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Is a route one-way, or does Circle to Madina also cover Madina to Circle at the same fare?",
+    "Should the app keep a history of old fares and the date each change happened, or just show the current fare?",
+    "When a passenger's trip has no direct route, for example two routes joined together, should it add the fares of the connecting routes or just say there is no route?"
+  ],
+  "answers": [
+    "Yes. Circle to Madina costs the same as Madina to Circle, so we keep one route for both directions and passengers can ask either way.",
+    "No preference: you decide.",
+    "Say it was not found. Do not try to join two routes together; only direct routes count."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00226
+}

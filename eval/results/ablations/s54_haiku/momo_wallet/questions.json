@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "When a customer puts money into their wallet, where does that money come from? For example, does shop staff record cash they received, or does it come through a payment service like MTN MoMo or Vodafone Cash?",
+    "Who may check a wallet's balance and history? Only shop staff, or the customer too, and if the customer, should they need a PIN or a code sent to their phone?",
+    "Should any transfers or deposits have a fee or a maximum amount, and can customers take money out of their wallet back to cash?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No preference: you decide.",
+    "No fees for now. No limits for now. Not for now, only deposits and transfers."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00057
+}

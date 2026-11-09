@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "What phone number formats should we accept, and should 0244123456 and +233244123456 count as the same number, so that person can only have one wallet?",
+    "Should transfers charge a fee? If so, how much, and who pays it?",
+    "Is there a maximum amount for a single deposit or transfer, or a maximum wallet balance? If so, what are the limits in cedis?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No fees for now.",
+    "No limits for now."
+  ],
+  "client": "answers",
+  "cost_usd": 0.01292
+}

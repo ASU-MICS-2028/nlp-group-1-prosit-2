@@ -1,0 +1,14 @@
+{
+  "questions": [
+    "Which time slots are allowed: any time a patient types, or only fixed slots (for example every 30 minutes between 08:00 and 17:00)? If fixed, what are the opening hours and slot length?",
+    "Besides the patient's name, should we record anything else, such as a phone number, so you can contact them and tell apart two patients with the same name?",
+    "Should bookings for dates that have already passed be refused, and is there a limit on how far ahead someone can book?"
+  ],
+  "answers": [
+    "No preference: you decide.",
+    "No, we only take the patient's name when booking.",
+    "No preference: you decide."
+  ],
+  "client": "answers",
+  "cost_usd": 0.00931
+}

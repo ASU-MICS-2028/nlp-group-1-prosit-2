@@ -1,0 +1,30 @@
+python(46285) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+church_signup            end_turn   3 turns  3 tools $0.0454 61.5s  own tests 4 passed 0 failed  repairs 0  follows plan None
+python(49566) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+clinic_appointments      end_turn   3 turns  3 tools $0.042 31.3s  own tests 3 passed 0 failed  repairs 0  follows plan None
+python(51269) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+football_fixtures        end_turn   3 turns  3 tools $0.0387 17.9s  own tests 3 passed 0 failed  repairs 0  follows plan None
+python(52828) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+hostel_booking           end_turn   2 turns  3 tools $0.0486 32.3s  own tests 4 passed 0 failed  repairs 0  follows plan None
+python(54131) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+library_catalogue        end_turn   3 turns  3 tools $0.0417 20.1s  own tests 4 passed 0 failed  repairs 0  follows plan None
+python(55201) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+lost_and_found           end_turn   3 turns  3 tools $0.0318 14.5s  own tests 2 passed 0 failed  repairs 0  follows plan None
+python(56236) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+market_stock             end_turn   3 turns  3 tools $0.0397 17.8s  own tests 5 passed 0 failed  repairs 0  follows plan None
+python(58028) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+momo_wallet              end_turn   3 turns  3 tools $0.0704 38.6s  own tests 4 passed 0 failed  repairs 0  follows plan None
+python(59181) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+restaurant_reservations  end_turn   2 turns  3 tools $0.0301 14.0s  own tests 1 passed 0 failed  repairs 0  follows plan None
+python(60344) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+school_grades_gpa        end_turn   3 turns  3 tools $0.0485 22.5s  own tests 3 passed 0 failed  repairs 0  follows plan None
+python(62074) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+shared_expenses          end_turn   3 turns  3 tools $0.0702 32.4s  own tests 5 passed 0 failed  repairs 0  follows plan None
+python(63031) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+shop_price_list          end_turn   3 turns  3 tools $0.0273 12.8s  own tests 2 passed 0 failed  repairs 0  follows plan None
+python(64367) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+susu_ledger              end_turn   3 turns  3 tools $0.0524 34.7s  own tests 2 passed 0 failed  repairs 0  follows plan None
+python(66127) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+tailoring_orders         end_turn   3 turns  3 tools $0.0466 22.2s  own tests 3 passed 0 failed  repairs 0  follows plan None
+python(67247) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+trotro_fares             end_turn   3 turns  3 tools $0.0395 18.3s  own tests 6 passed 0 failed  repairs 0  follows plan None

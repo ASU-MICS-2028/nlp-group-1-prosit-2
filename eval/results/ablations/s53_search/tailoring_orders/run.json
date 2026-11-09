@@ -1,0 +1,43 @@
+{
+  "request": "I run a small tailoring shop in Kumasi and I want to keep my orders in order. I need to save each customer with their name, phone number and their measurements: chest, waist, hip and length, all in inches. For a customer I take orders, and each order has the garment, the date it is due, the price and the deposit the customer has paid, in cedis. The deposit can never be more than the price. I want to see all the orders for one customer and look at a single order. I also want to see every order that is due on or before a date I choose, so I know what to finish first. When a customer picks up their clothes I mark the order as collected, and collected orders should no longer show in that due list.\n\nThe client's answers to your questions:\nQ: When a customer pays more money later, should I add it to the deposit on that order, or is the deposit only entered once when the order is taken?\nA: No preference: you decide.\nQ: Can an order be marked as collected while the customer still owes money, or must it be fully paid first?\nA: No preference: you decide.\nQ: Should each order keep the measurements used for that garment, or does each customer have just one set of measurements that you update when they change?\nA: No, measurements are kept on the customer.\n\nWhere the client has no preference or did not answer, choose the simplest option and add nothing they did not ask for (no logins, PINs or extra required fields).",
+  "model": "claude-opus-5-5",
+  "prompt": "B",
+  "effort": "medium",
+  "search": true,
+  "stop": "end_turn",
+  "turns": 2,
+  "repairs": 0,
+  "tool_calls": [
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "write_file",
+      "ok": true
+    },
+    {
+      "turn": 0,
+      "tool": "run_tests",
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "in": 6,
+    "out": 4160,
+    "cache_write": 5757,
+    "cache_read": 1881
+  },
+  "cost_usd": 0.1128,
+  "seconds": 35.1,
+  "tests": {
+    "passed": 8,
+    "failed": 0
+  },
+  "summary": "Your order system is built and all 8 of my checks pass. It keeps everything in a file called `tailoring.db` in the same folder as the app, so your customers and orders stay saved when you close and reopen it.\n\n**What you can do**\n- **Save a customer:** send `POST /customers` with name, phone, and chest, waist, hip and length in inches.\n- **Look up a customer:** `GET /customers/{id}`.\n- **Take an order for a customer:** send `POST /customers/{id}/orders` with the garment, the due date (written like 2030-05-10), the price and the deposit in cedis.\n  - If the deposit is more than the price, the order is refused with an error and nothing is saved.\n  - Negative amounts and missing details are also refused.\n- **See all orders for one customer:** `GET /customers/{id}/orders`, earliest due date first.\n- **Look at one order:** `GET /orders/{id}`. It shows the garment, due date, price, deposit and whether it's been collected.\n- **See what to finish first:** `GET /orders/due?by=2030-01-10` lists every order due on or before that date that hasn't been collected yet, earliest first.\n- **Mark an order as collected:** `POST /orders/{id}/collect`. After that it no longer shows in the due list.\n\nIf you ask for a customer or order that doesn't exist, you get a \"not found\" message.\n\n**Two choices I made where you had no preference**\n- **The deposit is entered once, when you take the order.** There's no way to add a later payment to it, and you can't change an order or a customer's measurements after saving them. That includes updating measurements when they change, which you mentioned. I can add these if you want.\n- **An order can be marked collected even if the customer still owes money.** The app doesn't block the pickup or check the balance.",
+  "plan": null,
+  "change": null,
+  "follows_plan": null
+}

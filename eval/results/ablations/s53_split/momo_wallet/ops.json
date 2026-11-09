@@ -1,0 +1,39 @@
+{
+  "open_wallet": {
+    "method": "POST",
+    "path": "/wallets",
+    "response_fields": {
+      "id": "wallet_number"
+    }
+  },
+  "get_wallet": {
+    "method": "GET",
+    "path": "/wallets/{id}",
+    "response_fields": {
+      "id": "wallet_number"
+    }
+  },
+  "deposit": {
+    "method": "POST",
+    "path": "/wallets/{id}/deposits",
+    "response_fields": {
+      "id": "wallet_number"
+    },
+    "response_key": "wallet"
+  },
+  "transfer": {
+    "method": "POST",
+    "path": "/wallets/{from_wallet_id}/transfers",
+    "request_fields": {
+      "to_wallet_id": "to_wallet_number"
+    },
+    "response_fields": {
+      "id": "wallet_number"
+    },
+    "response_key": "wallet"
+  },
+  "list_transactions": {
+    "method": "GET",
+    "path": "/wallets/{id}/history"
+  }
+}

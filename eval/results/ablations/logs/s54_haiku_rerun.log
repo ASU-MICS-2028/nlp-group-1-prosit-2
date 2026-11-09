@@ -1,0 +1,5 @@
+shared_expenses          end_turn   3 turns  3 tools $0.0064 38.8s  own tests 9 passed 0 failed  repairs 0  follows plan None
+shop_price_list          end_turn   5 turns  4 tools $0.0041 25.7s  own tests 3 passed 0 failed  repairs 0  follows plan None
+susu_ledger              end_turn   5 turns  7 tools $0.007 47.6s  own tests 16 passed 0 failed  repairs 0  follows plan None
+tailoring_orders         end_turn   3 turns  3 tools $0.0046 27.8s  own tests 18 passed 0 failed  repairs 0  follows plan None
+trotro_fares             end_turn   2 turns  3 tools $0.0037 23.4s  own tests 16 passed 0 failed  repairs 0  follows plan None
