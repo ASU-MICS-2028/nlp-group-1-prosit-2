@@ -102,3 +102,10 @@ def approve(sid: str, request: Request):
     limit(request, "message")
     client_says(session.approve, sid)
     return {"ok": True}
+
+
+@app.post("/api/builds/{sid}/take-down")
+def take_down(sid: str, request: Request):
+    limit(request, "message")
+    client_says(session.take_down, sid)
+    return {"ok": True}

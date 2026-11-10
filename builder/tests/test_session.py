@@ -208,6 +208,36 @@ def test_messages_out_of_turn_are_refused(world):
         session.approve(sid)
 
 
+def test_only_a_published_backend_can_be_taken_down(world, monkeypatch):
+    removed = []
+    monkeypatch.setattr(session, "undeploy", removed.append)  # never the real one: it runs docker and caddy
+    with pytest.raises(session.Refused):
+        session.take_down("nope")
+    sid = session.start("x")
+    with pytest.raises(session.Refused):  # nothing published yet
+        session.take_down(sid)
+    wait(sid, "waiting_answers")
+    session.send(sid, ["a", "b"])
+    wait(sid, "waiting_approval")
+    session.approve(sid)
+    wait(sid, "live")
+    s = session.SESSIONS[sid]
+    s.state = "building"  # a change in progress would publish it again
+    with pytest.raises(session.Refused):
+        session.take_down(sid)
+    s.state = "live"
+    session.take_down(sid)
+    got = session.get(sid)
+    assert removed == [sid] and got["state"] == "failed" and got["url"] is None and "taken down" in got["error"]
+    with pytest.raises(session.Refused):  # already offline
+        session.take_down(sid)
+    session.send(sid, "bring it back")
+    assert wait(sid, "live")["url"] == LIVE["url"]
+    s.state = "failed"  # a change that failed: the earlier version is still online, so it can be taken down
+    session.take_down(sid)
+    assert removed == [sid, sid]
+
+
 def test_message_mid_build_reaches_claude(monkeypatch, tmp_path):
     made = pretend(monkeypatch, [tool_reply("list_files", {}), done_reply()])
     box = [["no adding books"], []]

@@ -1,0 +1,11 @@
+# S6.2 fix 2: take a build down (decision 0059). 2026-11-10, this Mac, no key, $0
+$ uv run --with anthropic python -m pytest builder web -q
+82 passed in 1.34s
+# The new test, with take_down broken on purpose three times (each change undone after):
+#   building check removed: 1 failed · undeploy call removed: 1 failed · url not cleared: 1 failed
+$ BUILDS_ROOT=<scratchpad>/s6builds2 uv run --with anthropic python -m uvicorn web.app:app --host 127.0.0.1 --port 8080
+take-down, made-up id -> {"detail":"No such build."} 400
+a real request with no key -> state failed (fails at once, nothing published)
+take-down of that build -> {"detail":"There is no live backend to take down."} 400
+server stopped, port 8080 free
+# Not tested: a real live build taken down. A build only reaches 'live' on the server (publishing needs its Caddy). First real use: Eric's own test build.

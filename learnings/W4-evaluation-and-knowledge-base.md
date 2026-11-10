@@ -225,13 +225,14 @@ Check it: `uv run python -m runtime.experiments.deploy_check` on the server prin
 **The session (for the platform's backend; decision 0048):**
 
 ```python
-from builder.session import start, send, approve, get, Refused
+from builder.session import start, send, approve, get, take_down, Refused
 sid = start("I need a sign-up sheet for church events ...")   # returns at once; Refused has a message for the client
 got = get(sid)                                                # poll this; get(sid, after=got["next"]) returns only new events
 # got: id, state, questions, plan, plan_text, url, docs_url, endpoints, summary, error, next, events
 send(sid, ["Weekly", "No"])                                   # state waiting_answers: the answers, in order
 send(sid, "add a phone number")                               # waiting_approval: change the plan. building: tell the agent. live or failed: change the app
 approve(sid)                                                  # waiting_approval: build it
+take_down(sid)                                                # live, or failed with an earlier version online: offline, data kept, state failed (added Nov 10, decision 0059)
 ```
 
 Run with `--env-file` (the key) and `BUILDS_ROOT`. Real check on the server (about $0.30): `BUILDS_ROOT=/home/platform/builds uv run --env-file /home/platform/.env --with anthropic python -m builder.experiments.session_check`. Free tests: `uv run --with anthropic python -m pytest builder -q`.
@@ -245,6 +246,7 @@ Run with `--env-file` (the key) and `BUILDS_ROOT`. Real check on the server (abo
 | `GET /api/builds/{id}?after=N` | What `get` returns above. The page asks every 1.5–5 seconds |
 | `POST /api/builds/{id}/messages` with `{"message": "..."}` or a list of answers | What `send` does above |
 | `POST /api/builds/{id}/approve` | Build the plan |
+| `POST /api/builds/{id}/take-down` | What `take_down` does above. Uses the message limit (added Nov 10 by Eric, decision 0059) |
 
 Errors have a message for the client in `detail`: 400 refused, 422 bad body, 429 over the limit. On a laptop: `uv run --env-file .env --with anthropic python -m uvicorn web.app:app --port 8080`. Questions, plan and build work; publishing fails, because it needs the server's Caddy and folders, so the state ends as `failed`. Free tests: `uv run --with anthropic python -m pytest web -q` (6 passed, checked Nov 10).
 
