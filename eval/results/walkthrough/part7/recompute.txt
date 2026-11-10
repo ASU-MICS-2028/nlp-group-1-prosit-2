@@ -1,0 +1,19 @@
+hidden tests in all: 192 over 15 tasks
+agent: Alice's run (s38_list_all)  tasks 15  rows per task {3: 15}  last row  95.8%  mean of rows  95.8%
+agent: fresh1 (key_rules 'after')  tasks 15  rows per task {1: 15}  last row  96.9%  mean of rows  96.9%
+agent: fresh2 (key_rules 'after')  tasks 15  rows per task {1: 15}  last row  95.3%  mean of rows  95.3%
+one call: round 1 (baseline_v2)    tasks 15  rows per task {1: 15}  last row  88.5%  mean of rows  88.5%
+one call: round 2 (baseline_r2)    tasks 15  rows per task {1: 15}  last row  84.4%  mean of rows  84.4%
+one call: round 3 (baseline_r3)    tasks 15  rows per task {1: 15}  last row  81.2%  mean of rows  81.2%
+one call: round 4 (baseline_r4)    tasks 15  rows per task {1: 15}  last row  81.8%  mean of rows  81.8%
+
+average: agent 96.0% over 3 runs; one call 84.0% over 4 rounds
+
+run_totals.json keys: ['fresh1', 'fresh2', 'p1', 's310_change', 's310_rebuild', 's33_check', 's34', 's34_credit_stop', 's34_try', 's35']
+
+# cost and time per task (W1 section 1 says about 13 cents and 40 s)
+s38_list_all {"builds": 15, "build_usd": 1.77, "question_usd": 0.13, "avg_seconds": 36.9}
+fresh1 {"builds": 15, "build_usd": 1.79, "question_usd": 0.13, "avg_seconds": 38.5}
+fresh2 {"builds": 15, "build_usd": 1.79, "question_usd": 0.12, "avg_seconds": 36.6}
+keys with s38: ['s38_brief1', 's38_brief2', 's38_brief3', 's38_list1', 's38_list2', 's38_list3', 's38_list_all', 's38_none1']
+full_system.json keys: ['how', 'per_run', 'average_percent', 'tasks']
