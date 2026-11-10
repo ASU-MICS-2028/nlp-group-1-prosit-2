@@ -64,6 +64,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0055](0055-records-found-by-name-or-number.md) | Score backends that find a record by name or number; compare over repeated builds | Accepted | 2026-11-09 |
 | [0056](0056-opus-stays-for-builds.md) | Opus stays as the model that builds backends | Accepted | 2026-11-09 |
 | [0057](0057-stop-a-backend-filling-the-disk.md) | Stop a backend filling the disk with a file limit and a watchdog | Accepted | 2026-11-09 |
+| [0058](0058-drop-the-mcp-server.md) | Drop S1.4, the MCP server | Accepted | 2026-11-10 |
 <!-- DECISIONS:END -->
 
 ## Open questions
