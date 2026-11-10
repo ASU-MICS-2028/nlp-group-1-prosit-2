@@ -181,7 +181,7 @@ Totals: tool attacks 0/7 worked in both modes. Code attacks: Docker blocked 14/1
 - **Prompt injection was tested on one model, 9 times.** Claude ignored every hidden instruction, but a weaker model may not. The local Qwen comparison belongs to S3.9.
 - **Running programs directly on this Windows laptop sometimes stalls.** One `run_tests` hit the 60-second limit once (16 retries took about 3 s), and one full test run in subprocess mode took 514 s instead of 89 s, with a server that did not start within 20 s. My guess is Windows scanning brand-new files. Docker runs were steady. The time limits are what catch it.
 - **Docker adds time**: about 2–3 s per test run or server start, and about 10 ms per request (row 11).
-- **Docker Desktop must be running**, and the image built once (section 6). Containers run Linux even on Windows, so file paths inside them use `/`.
+- **Docker must be running** (Docker Desktop, or OrbStack on a Mac), and the image built once (section 6). Containers run Linux even on Windows, so file paths inside them use `/`.
 - **Tested on Windows 11** with Docker Desktop 29.9 (Python 3.12 inside the containers, 3.14 on the laptop).
 - **Skipped: S1.4, the MCP server** (`Could`). It would let Claude Desktop call these tools, but nothing in the plan needs it, and it would add a dependency and more code to defend. If someone wants it later, each tool already has a docstring and plain arguments, which is what an MCP tool needs.
 - **Not yet tested with a real agent:**
@@ -199,11 +199,13 @@ Totals: tool attacks 0/7 worked in both modes. Code attacks: Docker blocked 14/1
 uv sync
 docker build -t w2-sandbox runtime/sandbox     # once: the sandbox image (about 270 MB, 1-2 minutes)
 docker pull alpine/socat:1.8.0.3               # once: the "door" for servers
-uv run pytest runtime -q                       # expect: 51 passed (about 3 minutes)
+uv run pytest runtime -q                       # expect: 66 passed (46 s on an Apple M5, Nov 10)
 ```
 **Checked from a fresh clone** (Oct 26, Windows 11): following only these steps, the image built from scratch, 51 tests passed in 156 s, and the church hidden tests passed 10/10 against a server started with `start_server` (Joseph's use, below).
 
-Docker Desktop must be running. On a machine without Docker, set the environment variable `SANDBOX=subprocess` (PowerShell: `$env:SANDBOX="subprocess"`). Then expect 44 passed and 7 skipped, and remember that nothing is isolated.
+**Checked again** (Nov 10, Apple M5 with OrbStack, an updated copy): 66 passed in 46 s. The extra 15 tests were added in November (keeping data, disk limits). With `SANDBOX=subprocess`: 56 passed, 10 skipped (the 10 sandbox tests), measured while Docker was running.
+
+Docker must be running (Docker Desktop, or OrbStack on a Mac: it gives the same `docker` command). On a machine without Docker, set the environment variable `SANDBOX=subprocess` (PowerShell: `$env:SANDBOX="subprocess"`). Then expect 56 passed and 10 skipped, and remember that nothing is isolated.
 
 **Re-run the experiments** (all free except the two that call Claude and need the key: `error_format.py`, about $0.85, and `prompt_injection.py`, about $0.55):
 ```

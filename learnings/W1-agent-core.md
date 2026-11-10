@@ -280,11 +280,11 @@ Exact commands and what you should see. Then the handoff: what the next person i
 
 ### First: check the parts the agent stands on
 
-The agent uses Bernard's tools and is scored by Joseph's harness, so check both work before running it. Open Docker Desktop and wait until it says it is running. Then, in a terminal in the repo folder, run these **one at a time** (see section 5 for why):
+The agent uses Bernard's tools and is scored by Joseph's harness, so check both work before running it. Open Docker Desktop (or OrbStack) and wait until it says it is running. Then, in a terminal in the repo folder, run these **one at a time** (see section 5 for why):
 
 | # | Command | What it checks | You should see |
 |---|---|---|---|
-| 1 | `uv run pytest runtime -q` | Bernard's 51 checks on the tools and the sandbox (about 1 minute) | `51 passed` |
+| 1 | `uv run pytest runtime -q` | Bernard's 66 checks on the tools and the sandbox (about 1 minute) | `66 passed` |
 | 2 | `uv run python benchmark/validate.py church_signup`, then `git checkout benchmark/validation.json` to undo the file it rewrites | The church task's hidden tests pass on the right answer and catch 5 broken ones | `✅ church_signup: 10 tests \| reference ✅ \| mutants killed 5/5` |
 | 3 | `uv run python -m eval.harness all --references` | The harness gives Joseph's correct answers full marks (about 15 s, free) | 21 lines at full score, then `272/272 tests = 100.0%` |
 | 4 | `uv run --extra kb python -m kb.search "two people booked the same room"` | The recipe search works (the first run downloads a 90 MB model) | `15 ... No double booking: one slot, one booking` at the top |

@@ -18,7 +18,10 @@ One row per decision. Every decision compares at least 2 options. Add rows as yo
 
 | # | Question | Options compared | How we tested it | Results (numbers) | Winner and why |
 |---|---|---|---|---|---|
-| 1 | e.g. How many repair attempts before giving up? | 0, 1, 3, 5 | All 15 benchmark requests, 2 runs each | pass rate 41% / 58% / 71% / 72%; cost 1x / 1.4x / 2.1x / 3.0x | 3: almost all the gain of 5 at 2/3 of the cost |
+| 1 | Is the safety hook on in an updated old copy? | None: a setup check | `git config core.hooksPath`, then ran `.githooks/pre-commit` by hand | Empty: the hook was off. After `git config core.hooksPath .githooks` it passed (exit code 0) | Turn it on once per copy, as `learnings/00-repo-setup.md` section 5 says |
+| 2 | Is the project's Python right for this Mac? | Old `.venv` (Python 3.14.7) · Mac Python 3.14.10 · Mac Python 3.12.8 | `uv sync`, then `uv run python -c "import platform; print(platform.machine())"` | `uv sync` reported no problem, but Python said `x86_64`: an Intel copy left from an older Mac, running through translation. After rebuilding `.venv`: `arm64` | Python 3.12.8 on `arm64`, to match the sandbox image (`python:3.12-slim`). Not measured against 3.14 |
+| 3 | Does the sandbox work with OrbStack instead of Docker Desktop? | None: a setup check | `docker run --rm hello-world`, then the setup and tests in W2 section 6 | Greeting printed, nothing left behind. Sandbox image built in 44 s (297 MB). 66 passed in 46 s | Works: the team's code calls the plain `docker` command |
+| 4 | Do the expected test counts in the learnings files still hold? | None: a check | `uv run pytest runtime -q`, then the same with `SANDBOX=subprocess` | 66 passed (the notes said 51); 56 passed, 10 skipped (the notes said 44 and 7). 15 tests were added in November | Fixed the expected numbers in W2 and W1 section 6; dated records left as they were |
 
 ## 4. What we chose, and why
 
