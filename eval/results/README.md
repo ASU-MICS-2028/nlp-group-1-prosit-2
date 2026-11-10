@@ -35,6 +35,12 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 | The same attacks after the fixes, on the updated server | `safety/backend_attacks_after.json` | W4 row 59 |
 | Prompt injection, many builds at once | `safety/prompt_injection.json` · `safety/many_builds.json` | W4 rows 57, 58 |
 
+## Windows
+
+| Question | Files | Result |
+|---|---|---|
+| Do the runtime tests pass on Windows? | `windows_check.md` | W4 row 60. Typed by hand from Bernard's run. The fix is not yet confirmed on Windows |
+
 ## The baseline and the benchmark
 
 | Question | Files | Result |
