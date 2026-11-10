@@ -1,0 +1,12 @@
+# web/ on this Mac with NO key loaded (no --env-file); BUILDS_ROOT = a throwaway folder; started with: uv run --with anthropic python -m uvicorn web.app:app --port 8080; 2026-11-10
+GET /                      -> 200
+POST empty request         -> {"detail":"Please describe the backend you need."} 400
+POST 5001 characters       -> 422
+POST a real request        -> {"id":"becb0b1a5b0"}
+GET /api/builds/<id> after about 0 s:
+{'state': 'failed', 'error': 'Something went wrong on our side. Please try again.', 'questions': [], 'url': None}
+
+# the failed session's own log (session.jsonl in the throwaway folder):
+{"event": "request", "t": 0.0, "text": "I run a small church and want people to sign up for events."}
+{"event": "error", "t": 0.0, "detail": "KeyError: 'LLM_API_KEY'"}
+{"event": "state", "t": 0.0, "state": "failed"}

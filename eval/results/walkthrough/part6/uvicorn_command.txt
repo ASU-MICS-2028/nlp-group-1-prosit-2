@@ -1,0 +1,8 @@
+# Starting web/ the way W4 section 6 says, on this Mac (uv 0.13.7, .venv rebuilt Nov 10 with uv sync), no key, 2026-11-10
+$ uv run --with anthropic uvicorn web.app:app --port 8080
+ModuleNotFoundError: No module named 'anthropic'
+(exit: server did not start)
+$ uv run --with anthropic which uvicorn
+<repo>/.venv/bin/uvicorn
+$ uv run --with anthropic python -m uvicorn web.app:app --port 8080   -> starts; see local_no_key.txt
+# Why: the plain uvicorn command is the project .venv copy, which runs the .venv Python; anthropic is not a project dependency, only added by --with to a separate layer that python -m uvicorn uses.

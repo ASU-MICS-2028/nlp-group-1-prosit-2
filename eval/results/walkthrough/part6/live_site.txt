@@ -1,0 +1,5 @@
+# GET the live platform's page only (no build), 2026-11-10
+$ curl -s -o page.html -w 'status %{http_code}, %{size_download} bytes, %{time_total} s' https://34-78-38-126.sslip.io/
+status 200, 8249 bytes, 1.074180 s
+$ diff live page against web/index.html in this branch
+identical

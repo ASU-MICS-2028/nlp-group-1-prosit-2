@@ -246,7 +246,9 @@ Run with `--env-file` (the key) and `BUILDS_ROOT`. Real check on the server (abo
 | `POST /api/builds/{id}/messages` with `{"message": "..."}` or a list of answers | What `send` does above |
 | `POST /api/builds/{id}/approve` | Build the plan |
 
-Errors have a message for the client in `detail`: 400 refused, 422 bad body, 429 over the limit. On a laptop: `uv run --env-file .env --with anthropic uvicorn web.app:app --port 8080`. Questions, plan and build work; publishing fails, because it needs the server's Caddy and folders, so the state ends as `failed`. Free tests: `uv run --with anthropic python -m pytest web -q`.
+Errors have a message for the client in `detail`: 400 refused, 422 bad body, 429 over the limit. On a laptop: `uv run --env-file .env --with anthropic python -m uvicorn web.app:app --port 8080`. Questions, plan and build work; publishing fails, because it needs the server's Caddy and folders, so the state ends as `failed`. Free tests: `uv run --with anthropic python -m pytest web -q` (6 passed, checked Nov 10).
+
+Checked Nov 10 on a fresh `uv sync`: the plain `uvicorn web.app:app` form stops with `ModuleNotFoundError: No module named 'anthropic'`. `anthropic` is not a project dependency, and plain `uvicorn` runs the project's own Python, which cannot see what `--with` adds; `python -m uvicorn` can. With no key, the page loads and a request ends as `failed` with "Something went wrong on our side. Please try again." (`eval/results/walkthrough/part6/`).
 
 **Updating the server:** `git push`, then `bash setup_server.sh main` on the server (from `web/`). Joseph has server access.
 
