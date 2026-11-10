@@ -190,6 +190,7 @@ uv run python -m eval.harness all --references
 # expect: 21 lines, each 100%, then the total; about 15 s. Free (every reference has its ops.json)
 uv run --extra kb python -m kb.search "two people booked the same room"
 # expect: 15 ... No double booking: one slot, one booking   first. The first run downloads a 90 MB model
+# and PyTorch (about 2 min; .venv grows by about 900 MB; checked Nov 10). Warnings about HF_TOKEN and redirects are harmless
 ```
 
 **What you get, and how to use it:**
