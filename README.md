@@ -77,7 +77,7 @@ A non-developer describes a backend in plain words ("I run a tailoring shop, I n
 | [`knowledge/`](knowledge/README.md) | Everything people and coding assistants need to know about the project: the assignment, course, team, setup, lecture summaries | Anyone who knows something the others don't |
 | `benchmark/` | The 15 plain-language requests and their hidden tests ([format](benchmark/README.md)) | Joseph (W4), Stage 2 |
 | `builder/` | Agent core: ReAct loop, Planner / Builder / Tester, orchestrator, memory, CLI | W1 |
-| `runtime/` | Tools, Docker sandbox, test runner, server launcher, MCP server | W2 |
+| `runtime/` | Tools, Docker sandbox, test runner, server launcher | W2 |
 | `ui/` | The web page | W3 |
 | `eval/`, `kb/` | Test harness, ablation runs and results; the recipe knowledge base for RAG | W4 |
 | `projects/` | Backends the agent generates (git-ignored) | — |
