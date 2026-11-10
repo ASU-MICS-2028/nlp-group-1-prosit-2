@@ -1,0 +1,22 @@
+W1110 14:32:59.000000 81850 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 9727.18it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 18617.23it/s]
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 24862.72it/s]
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 17828.28it/s]
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8338.24it/s]
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 13313.76it/s]
+random (no search)               hit@1 0.05  hit@3 0.17  mrr 0.19  refuse 0.13     0.0 ms  {'agent': 0.04, 'error': 0.0, 'ghana': 0.17, 'long': 0.0, 'paraphrase': 0.06, 'typo_or_short': 0.12}
+bm25 full recipe                 hit@1 0.58  hit@3 0.74  mrr 0.69  refuse 0.54    0.02 ms  {'agent': 0.49, 'error': 0.85, 'ghana': 0.83, 'long': 0.0, 'paraphrase': 0.5, 'typo_or_short': 0.88}
+bm25 text only (no code)         hit@1 0.58  hit@3 0.78  mrr 0.70  refuse 0.55    0.02 ms  {'agent': 0.42, 'error': 0.77, 'ghana': 0.67, 'long': 1.0, 'paraphrase': 0.75, 'typo_or_short': 1.0}
+bm25 k1=1.2 b=0.5                hit@1 0.58  hit@3 0.73  mrr 0.69  refuse 0.54    0.02 ms  {'agent': 0.49, 'error': 0.85, 'ghana': 0.83, 'long': 0.0, 'paraphrase': 0.5, 'typo_or_short': 0.88}
+dense MiniLM-L6 (22M)            hit@1 0.68  hit@3 0.95  mrr 0.81  refuse 0.66   19.31 ms  {'agent': 0.61, 'error': 0.77, 'ghana': 0.83, 'long': 0.0, 'paraphrase': 0.69, 'typo_or_short': 1.0}
+dense bge-small (33M)            hit@1 0.63  hit@3 0.90  mrr 0.77  refuse 0.61     5.5 ms  {'agent': 0.6, 'error': 0.62, 'ghana': 0.5, 'long': 0.0, 'paraphrase': 0.69, 'typo_or_short': 1.0}
+dense bge-small text only        hit@1 0.58  hit@3 0.79  mrr 0.71  refuse 0.55    5.46 ms  {'agent': 0.46, 'error': 0.77, 'ghana': 0.5, 'long': 0.0, 'paraphrase': 0.75, 'typo_or_short': 1.0}
+dense bge-base (110M)            hit@1 0.69  hit@3 0.89  mrr 0.80  refuse 0.64   27.27 ms  {'agent': 0.67, 'error': 0.69, 'ghana': 0.67, 'long': 0.0, 'paraphrase': 0.69, 'typo_or_short': 1.0}
+dense bge-small + query prefix   hit@1 0.68  hit@3 0.89  mrr 0.80  refuse 0.66    6.72 ms  {'agent': 0.67, 'error': 0.69, 'ghana': 0.5, 'long': 0.0, 'paraphrase': 0.69, 'typo_or_short': 1.0}
+dense bge-base + query prefix    hit@1 0.69  hit@3 0.89  mrr 0.80  refuse 0.63    8.85 ms  {'agent': 0.65, 'error': 0.69, 'ghana': 0.67, 'long': 0.0, 'paraphrase': 0.75, 'typo_or_short': 1.0}
+hybrid bm25 + bge-small          hit@1 0.71  hit@3 0.88  mrr 0.81  refuse 0.66    5.53 ms  {'agent': 0.58, 'error': 0.92, 'ghana': 0.83, 'long': 0.0, 'paraphrase': 0.88, 'typo_or_short': 1.0}
+hybrid bm25 + bge-base           hit@1 0.71  hit@3 0.88  mrr 0.81  refuse 0.66    7.14 ms  {'agent': 0.58, 'error': 0.92, 'ghana': 1.0, 'long': 0.0, 'paraphrase': 0.81, 'typo_or_short': 1.0}
+hybrid bm25 + MiniLM             hit@1 0.72  hit@3 0.87  mrr 0.82  refuse 0.66    3.29 ms  {'agent': 0.6, 'error': 1.0, 'ghana': 1.0, 'long': 0.0, 'paraphrase': 0.75, 'typo_or_short': 1.0}
+hybrid bm25 + bge-small prefix   hit@1 0.72  hit@3 0.88  mrr 0.82  refuse 0.66    5.55 ms  {'agent': 0.6, 'error': 1.0, 'ghana': 0.83, 'long': 0.0, 'paraphrase': 0.81, 'typo_or_short': 1.0}

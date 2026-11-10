@@ -1,0 +1,15 @@
+# Part 1 setup checks, S6.1 walkthrough, Apple M5 Pro, OrbStack, 2026-11-10
+# Recorded by hand (decision 0051): the BEFORE states, from the terminal that day
+before: git config core.hooksPath -> (empty: hook off); after 'git config core.hooksPath .githooks', .githooks/pre-commit by hand -> exit code 0
+before: .venv python platform.machine() -> x86_64 (Intel copy from an older Mac, Python 3.14.7)
+docker build -t w2-sandbox runtime/sandbox -> built in 44 s
+
+# Run again now (commands and their real output)
+$ git config core.hooksPath
+.githooks
+$ uv run python -c 'import platform, sys; print(platform.machine(), sys.version.split()[0])'
+arm64 3.12.8
+$ docker context show
+orbstack
+$ docker image ls w2-sandbox --format '{{.Repository}} {{.Size}}'
+w2-sandbox 297MB
