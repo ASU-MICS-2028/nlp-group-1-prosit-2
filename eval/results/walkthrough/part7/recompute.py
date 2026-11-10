@@ -33,3 +33,20 @@ print(f"\naverage: agent {sum(agent) / len(agent):.1f}% over {len(agent)} runs; 
 
 runs = json.loads((R / "run_totals.json").read_text())
 print("\nrun_totals.json keys:", list(runs)[:10] if isinstance(runs, dict) else len(runs))
+
+# The two fresh agent runs above come from key_rules.json ("after": rescored with the new key rules, decision 0055),
+# not from harness rows. Check their "before" side against the raw harness files of the same builds.
+print("\n# fresh runs: key_rules 'before' against the raw harness rows (old rules)")
+for g in ("fresh1", "fresh2"):
+    before = {r["task"]: r["before"] for r in keys if r["group"] == g}
+    rows = json.loads((R / f"harness/{g}_restart.json").read_text())["rows"]
+    per = defaultdict(list)
+    for r in rows:
+        per[r["task"]].append(r["passed"])
+    same = all(before[t] == per[t][-1] for t in before) and all(len(set(v)) == 1 for v in per.values())
+    print(f"{g}: before {sum(before.values())}/192 = {100 * sum(before.values()) / 192:.1f}%  harness {g}_restart: "
+          f"{sum(v[-1] for v in per.values())}/192 = {100 * sum(v[-1] for v in per.values()) / 192:.1f}%  "
+          f"rows per task {Counter(len(v) for v in per.values())}  every task identical: {same}")
+    after = {r["task"]: r["after"] for r in keys if r["group"] == g}
+    print(f"   rescoring changed {sum(after[t] != before[t] for t in after)} tasks: "
+          + ", ".join(f"{t} {before[t]}->{after[t]}" for t in after if after[t] != before[t]))

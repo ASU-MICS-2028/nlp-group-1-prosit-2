@@ -11,9 +11,8 @@ average: agent 96.0% over 3 runs; one call 84.0% over 4 rounds
 
 run_totals.json keys: ['fresh1', 'fresh2', 'p1', 's310_change', 's310_rebuild', 's33_check', 's34', 's34_credit_stop', 's34_try', 's35']
 
-# cost and time per task (W1 section 1 says about 13 cents and 40 s)
-s38_list_all {"builds": 15, "build_usd": 1.77, "question_usd": 0.13, "avg_seconds": 36.9}
-fresh1 {"builds": 15, "build_usd": 1.79, "question_usd": 0.13, "avg_seconds": 38.5}
-fresh2 {"builds": 15, "build_usd": 1.79, "question_usd": 0.12, "avg_seconds": 36.6}
-keys with s38: ['s38_brief1', 's38_brief2', 's38_brief3', 's38_list1', 's38_list2', 's38_list3', 's38_list_all', 's38_none1']
-full_system.json keys: ['how', 'per_run', 'average_percent', 'tasks']
+# fresh runs: key_rules 'before' against the raw harness rows (old rules)
+fresh1: before 179/192 = 93.2%  harness fresh1_restart: 179/192 = 93.2%  rows per task Counter({3: 15})  every task identical: True
+   rescoring changed 1 tasks: restaurant_reservations 5->12
+fresh2: before 168/192 = 87.5%  harness fresh2_restart: 168/192 = 87.5%  rows per task Counter({3: 15})  every task identical: True
+   rescoring changed 2 tasks: restaurant_reservations 5->12, shared_expenses 5->13
