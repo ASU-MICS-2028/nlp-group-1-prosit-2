@@ -1,6 +1,6 @@
 """The platform's backend: the page talks to this, this talks to the agent, and the page never reaches the agent itself (Lecture 8).
 
-    uv run --env-file .env --with anthropic uvicorn web.app:app --port 8080     # on a laptop: building works, publishing needs the server
+    uv run --env-file .env --with anthropic python -m uvicorn web.app:app --port 8080     # on a laptop: building works, publishing needs the server
 
 Small on purpose (decision 0049): Michael owns the page and can replace index.html without touching this file.
 """

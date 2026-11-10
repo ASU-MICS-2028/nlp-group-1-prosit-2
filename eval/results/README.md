@@ -35,6 +35,12 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 | The same attacks after the fixes, on the updated server | `safety/backend_attacks_after.json` | W4 row 59 |
 | Prompt injection, many builds at once | `safety/prompt_injection.json` · `safety/many_builds.json` | W4 rows 57, 58 |
 
+## Review of the S6.1 walkthrough
+
+| Question | Files | Result |
+|---|---|---|
+| Do Eric's S6.1 claims hold when someone else runs them? | `review_pr14.md` | Yes. Typed by hand. Test counts go up by one after merging `main` |
+
 ## Windows
 
 | Question | Files | Result |
