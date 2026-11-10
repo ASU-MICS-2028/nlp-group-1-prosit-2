@@ -297,7 +297,7 @@ If something goes wrong:
 ### Run the agent
 
 ```
-uv run --with anthropic python -m pytest builder -q        # the free tests (pretend Claude): 51 passed
+uv run --with anthropic python -m pytest builder -q        # the free tests (pretend Claude): 75 passed (51 for the agent, plus 24 for Joseph's session from Nov 6; checked Nov 10)
 uv run --env-file .env --with anthropic python -m builder build church_signup --run try1     # one task, about $0.10
 uv run --env-file .env --with anthropic python -m eval.harness church_signup projects/try1/church_signup --repeat 3 --name try1
 ```
