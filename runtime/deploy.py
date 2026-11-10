@@ -17,6 +17,7 @@ import shutil
 import sqlite3
 import subprocess
 import time
+from contextlib import closing
 from pathlib import Path
 
 import httpx
@@ -107,14 +108,14 @@ def tables(db):
     """{table name: rows} in a SQLite file; {} if it is not one. Goes by the file's first bytes, not its name."""
     if db.read_bytes()[:16] != b"SQLite format 3\0":
         return {}
-    with sqlite3.connect(db) as c:
+    with closing(sqlite3.connect(db)) as c:  # "with connect" alone leaves it open, and Windows cannot delete an open file
         names = [n for n, in c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")]
         return {n: c.execute(f'SELECT COUNT(*) FROM "{n}"').fetchone()[0] for n in names}
 
 
 def add_a_row(db, table):
     """Put one made-up row in a table, filling only the columns that must have a value. A table that refuses it is left as it was."""
-    with sqlite3.connect(db) as c:
+    with closing(sqlite3.connect(db)) as c, c:  # the second c saves the row; closing alone would lose it
         columns = c.execute(f'PRAGMA table_info("{table}")').fetchall()  # (id, name, type, not null, default, primary key)
         needed = [(name, kind.upper()) for _, name, kind, required, default, key in columns
                   if (required or key) and default is None and not (key and "INT" in kind.upper())]
