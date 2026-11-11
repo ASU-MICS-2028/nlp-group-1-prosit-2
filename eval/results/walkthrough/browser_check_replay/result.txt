@@ -1,6 +1,6 @@
 Free run of eval/experiments/browser_check.py against the playback (web/replay.py), Nov 11, MacBook, Chrome at 390 px.
 Purpose: run the new take-down lines once before the one paid live run, so a mistake there cannot spoil the demo video.
-Changed in a throwaway copy only: the docs step (the saved docs link is on the real server, which this laptop's sandbox could not reach),
+Changed in a throwaway copy only: the docs step (the saved docs link is on the real server; from this shell curl and Python failed its certificate check, though openssl verified the chain),
 so `link` was a local address that does not exist and `d` opened the start page.
 
   uv run --with anthropic python -m web.replay eval/results/sessions/bakery_through_the_page.jsonl
