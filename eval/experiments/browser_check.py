@@ -1,11 +1,12 @@
-"""The public page in real Chrome at phone width, one real build (about $0.20). Screenshots go to the folder given:
-    uv run --with playwright python eval/experiments/browser_check.py eval/results/browser_check"""
+"""The public page in real Chrome at phone width, one real build (about $0.20). Screenshots and a video (.webm) go to the folder given:
+    uv run --with playwright python eval/experiments/browser_check.py eval/results/browser_check
+The video needs Playwright's ffmpeg, once per laptop: uv run --with playwright playwright install ffmpeg"""
 import sys, time
 from playwright.sync_api import sync_playwright
 U = "https://34-78-38-126.sslip.io"; OUT = sys.argv[1]
 with sync_playwright() as p:
     b = p.chromium.launch(channel="chrome", headless=True)
-    c = b.new_context(viewport={"width": 390, "height": 800})
+    c = b.new_context(viewport={"width": 390, "height": 800}, record_video_dir=OUT)  # the video is the demo recording (S6.4)
     g = c.new_page(); errors = []
     g.on("pageerror", lambda e: errors.append(str(e)))
     g.goto(U); g.wait_for_selector("textarea"); g.screenshot(path=f"{OUT}/1_start.png")
