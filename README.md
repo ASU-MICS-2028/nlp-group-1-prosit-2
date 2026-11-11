@@ -78,7 +78,7 @@ A non-developer describes a backend in plain words ("I run a tailoring shop, I n
 | `benchmark/` | The 15 plain-language requests and their hidden tests ([format](benchmark/README.md)) | Joseph (W4), Stage 2 |
 | `builder/` | Agent core: ReAct loop, Planner / Builder / Tester, orchestrator, memory, CLI | W1 |
 | `runtime/` | Tools, Docker sandbox, test runner, server launcher | W2 |
-| `ui/` | The web page | W3 |
+| `web/` | The live platform: the page (`index.html`, Michael's design) and its server (`app.py`) | W3 (page), W4 (server) |
 | `eval/`, `kb/` | Test harness, ablation runs and results; the recipe knowledge base for RAG | W4 |
 | `projects/` | Backends the agent generates (git-ignored) | — |
 | `models/` | The local Qwen model file (git-ignored; download it to exactly this path, see [`knowledge/environment.md`](knowledge/environment.md#the-llms)) | — |

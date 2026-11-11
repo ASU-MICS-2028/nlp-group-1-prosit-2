@@ -4,42 +4,89 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Backend Builder</title>
+<!-- Michael's design (his ui/index.html, Nov 6) on Joseph's page logic (decision 0060). One file, no build step. -->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#f6f7f9; --card:#fff; --text:#1c2230; --soft:#5b6475; --line:#dde1e8; --accent:#1f6feb; --on-accent:#fff; --good:#157f4a; --bad:#b3261e; }
-  @media (prefers-color-scheme: dark) { :root { --bg:#12151b; --card:#1b2029; --text:#e8ebf1; --soft:#a0a9b8; --line:#2e3542; --accent:#5a9bff; --on-accent:#0b1220; --good:#5fd39a; --bad:#ff8a80; } }
+  :root { color-scheme:light; --ground:#E7E7E3; --card:#F6F6F3; --ink:#171B2E; --soft:#5A6075; --line:#C9CAC4; --indigo:#1E2A4A; --on-indigo:#E7E7E3;
+          --tape:#F0BF2B; --tape-ink:#3A2F08; --bad:#A8341F; --good:#2C6A4C;
+          --head:"Bricolage Grotesque","Trebuchet MS",sans-serif; --body:"Public Sans","Segoe UI",system-ui,sans-serif; }
+  @media (prefers-color-scheme: dark) { :root { color-scheme:dark; --ground:#14182A; --card:#1C2238; --ink:#E9E9E4; --soft:#9CA3BA; --line:#333B58; --indigo:#0D1121; --bad:#E8806B; --good:#7CC4A0; } }
   * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
-  main { max-width:680px; margin:0 auto; padding:32px 16px 64px; }
-  h1 { font-size:1.6rem; margin:0 0 4px; }
-  h2 { font-size:1.1rem; margin:0 0 8px; }
+  body { margin:0; background:var(--ground); color:var(--ink); font:400 17px/1.55 var(--body); }
+  .app { display:grid; grid-template-columns:230px 1fr; min-height:100vh; }
+  /* the tape measure on the left: how far along the client is */
+  aside { background:var(--indigo); color:var(--on-indigo); padding:28px 22px; display:flex; gap:16px; position:sticky; top:0; height:100vh; }
+  .rule { width:22px; flex:none; border-radius:2px; position:relative; overflow:hidden; background-size:22px 100%,10px 100%,auto;
+          background-image:repeating-linear-gradient(to bottom,var(--tape-ink) 0 2px,transparent 2px 40px),repeating-linear-gradient(to bottom,var(--tape-ink) 0 1px,transparent 1px 8px);
+          background-color:var(--tape); background-repeat:repeat-y; }
+  .rule i { position:absolute; inset:0 0 auto 0; height:calc(var(--p,0)*1%); background:rgba(23,27,46,.62); transition:height .6s ease; }
+  .stops { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; justify-content:space-between; flex:1; }
+  .stops li { font:500 15px/1.2 var(--head); opacity:.55; }
+  .stops li small { display:block; font:400 13px/1.35 var(--body); margin-top:3px; }
+  .stops li.past { opacity:.85; }
+  .stops li.on { opacity:1; }
+  .stops li.on b { background:var(--tape); color:var(--tape-ink); padding:1px 7px; border-radius:2px; }
+  main { padding:56px clamp(20px,5vw,72px) 96px; max-width:820px; min-width:0; }
+  h1 { font:700 clamp(30px,4.4vw,46px)/1.08 var(--head); margin:0 0 14px; letter-spacing:-.01em; }
+  h2 { font:700 22px/1.2 var(--head); margin:0 0 10px; }
+  h3 { font:700 19px/1.2 var(--head); margin:18px 0 6px; }
   p { margin:0 0 12px; }
   .soft { color:var(--soft); }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px; margin-top:20px; }
-  label { display:block; font-weight:600; margin:14px 0 6px; }
-  textarea, input { width:100%; padding:10px 12px; font:inherit; color:inherit; background:var(--bg); border:1px solid var(--line); border-radius:8px; }
-  textarea { min-height:110px; resize:vertical; }
-  button { font:inherit; font-weight:600; padding:10px 18px; margin:14px 8px 0 0; border-radius:8px; border:1px solid var(--accent); background:var(--accent); color:var(--on-accent); cursor:pointer; }
-  button.quiet { background:transparent; color:var(--accent); }
+  .card { margin-top:28px; }
+  label { display:block; font-weight:600; margin:16px 0 6px; }
+  textarea, input { width:100%; font:inherit; color:inherit; background:var(--card); border:1.5px solid var(--line); border-radius:4px; padding:14px 16px; }
+  textarea { min-height:130px; resize:vertical; }
+  textarea:focus, input:focus { border-color:var(--ink); }
+  :focus-visible { outline:3px solid var(--tape); outline-offset:2px; }
+  button { font:600 16px var(--body); cursor:pointer; border-radius:4px; padding:12px 20px; margin:16px 10px 0 0; border:1.5px solid var(--tape-ink); background:var(--tape); color:var(--tape-ink); }
+  button.quiet { background:transparent; border-color:var(--ink); color:var(--ink); }
+  button.ex { font-weight:400; font-size:15px; margin-top:10px; background:transparent; border:1.5px dashed var(--soft); color:var(--soft); }
   button:disabled { opacity:.5; cursor:default; }
-  pre { white-space:pre-wrap; overflow-wrap:anywhere; font:inherit; margin:0; }
-  ul { padding-left:20px; margin:8px 0; }
-  code { overflow-wrap:anywhere; }
+  .ent { background:var(--card); border:1.5px solid var(--ink); border-radius:4px; padding:16px 18px; margin-bottom:14px; box-shadow:5px 5px 0 var(--line); }
+  .ent h3 { margin-top:0; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; }
+  .chips span { border:1px solid var(--line); border-radius:99px; padding:2px 11px; font-size:14px; background:var(--ground); }
+  .steps { list-style:none; padding:0; margin:16px 0; }
+  .steps li { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--line); }
+  .steps li::before { content:"✓"; width:22px; flex:none; text-align:center; font-weight:700; color:var(--good); }
+  .steps li:last-child::before { content:"○"; color:var(--ink); }  /* the step it is on now */
+  pre { white-space:pre-wrap; overflow-wrap:anywhere; font:inherit; margin:0 0 12px; }
+  ul { padding-left:20px; margin:8px 0 12px; }
+  code, a { overflow-wrap:anywhere; }
+  a { color:var(--ink); }
   .error { color:var(--bad); font-weight:600; margin-top:12px; }
-  .good { color:var(--good); font-weight:600; }
-  a { color:var(--accent); overflow-wrap:anywhere; }
+  .good { color:var(--good); }
+  @media (max-width: 760px) {
+    .app { grid-template-columns:1fr; }
+    aside { position:static; height:auto; flex-direction:column; padding:16px 20px; }
+    .rule { width:100%; height:22px; background-size:100% 22px,100% 10px,auto;
+            background-image:repeating-linear-gradient(to right,var(--tape-ink) 0 2px,transparent 2px 40px),repeating-linear-gradient(to right,var(--tape-ink) 0 1px,transparent 1px 8px); background-repeat:repeat-x; }
+    .rule i { inset:0 auto 0 0; width:calc(var(--p,0)*1%); height:auto; transition:width .6s ease; }
+    .stops { flex-direction:row; } .stops li small, .stops li:not(.on) { display:none; }
+    main { padding-top:28px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
 </style>
 </head>
 <body>
-<main>
-  <h1>Backend Builder</h1>
-  <p class="soft">Describe what you need in plain words. We build it, test it and put it online.</p>
-  <div id="view"></div>
-  <p id="problem" class="error" role="alert"></p>
-</main>
+<div class="app">
+  <aside aria-label="Progress"><div class="rule" id="rule" role="progressbar" aria-valuemin="0" aria-valuemax="100"><i></i></div><ol class="stops" id="stops"></ol></aside>
+  <main>
+    <h1>Backend Builder</h1>
+    <p class="soft">Describe what you need in plain words. We build it, test it and put it online.</p>
+    <div id="view"></div>
+    <p id="problem" class="error" role="alert"></p>
+  </main>
+</div>
 <script>
 const view = document.getElementById("view"), problem = document.getElementById("problem");
 const WORDS = { write_file: "Writing the code", edit_file: "Changing the code", read_file: "Reading the code", list_files: "Looking at the project",
                 run_tests: "Testing it", start_server: "Trying it out", http_request: "Trying it out", stop_server: "Finishing the trial" };
+const STAGES = [["Describe", "What you need"], ["Questions", "So we get it right"], ["Plan", "Your approval"], ["Build", "We do the work"], ["Try it", "Use it and change it"]];
+const STAGE = { asking: 1, waiting_answers: 1, planning: 2, waiting_approval: 2, building: 3, failed: 3, live: 4 };
+const EXAMPLES = [["Tailoring shop", "I run a tailoring shop. I need to keep track of customers, their measurements and their orders."],
+                  ["Church sign-up", "I run a church. People sign up for events and I need to see who is coming."],
+                  ["Bakery orders", "I sell bread to shops every morning and need to know who ordered what."]];
 let id = new URLSearchParams(location.search).get("b"), next = 0, last = {}, progress = [], shown = null;
 
 function el(tag, props = {}, ...kids) { const e = Object.assign(document.createElement(tag), props); e.append(...kids); return e; }  // text only, never HTML
@@ -65,6 +112,15 @@ function box(label, placeholder, button, send, quiet) {
 function steps() {
   return el("ul", {}, ...["Getting started", ...progress].slice(-8).map(t => el("li", { textContent: t })));
 }
+function rail() {
+  const at = id ? STAGE[last.state] ?? 0 : 0;
+  document.getElementById("stops").replaceChildren(...STAGES.map(([name, note], i) =>
+    el("li", { className: i === at ? "on" : i < at ? "past" : "" }, el("b", { textContent: name }), el("small", { textContent: note }))));
+  const r = document.getElementById("rule");
+  r.style.setProperty("--p", at * 25);
+  r.setAttribute("aria-valuenow", at * 25);
+  r.setAttribute("aria-label", `Step ${at + 1} of 5: ${STAGES[at][0]}`);
+}
 
 function draw() {
   const s = last.state;
@@ -72,13 +128,17 @@ function draw() {
   if (s !== shown) {
     shown = s;
     view.replaceChildren(screen(s));
+    rail();
   }
   const list = document.getElementById("steps");
   if (list) list.replaceChildren(...steps().children);
 }
 function screen(s) {
-  if (!id) return card(...box("What do you need?", "For example: I run a tailoring shop. I need to keep my customers, their measurements and their orders.", "Start",
-    async text => { const made = await api("", { request: text }); id = made.id; next = 0; progress = []; history.replaceState(null, "", "?b=" + id); }));
+  if (!id) {
+    const [label, input, start] = box("What do you need?", "For example: I run a tailoring shop. I need to keep my customers, their measurements and their orders.", "Start",
+      async text => { const made = await api("", { request: text }); id = made.id; next = 0; progress = []; history.replaceState(null, "", "?b=" + id); });
+    return card(label, input, el("div", {}, ...EXAMPLES.map(([name, text]) => el("button", { className: "ex", textContent: name, onclick: () => { problem.textContent = ""; input.value = text; input.focus(); } }))), start);
+  }
   if (s === "asking") return card(el("p", { textContent: "Reading your request…" }));
   if (s === "planning") return card(el("p", { textContent: "Writing a plan for you to check…" }));
   if (s === "waiting_answers") {
@@ -86,19 +146,29 @@ function screen(s) {
     return card(el("h2", { textContent: "A few quick questions" }), ...inputs.flat(),
       el("button", { textContent: "Continue", onclick: () => act(() => api(`/${id}/messages`, { message: inputs.map(p => p[1].value.trim() || "No preference: you decide.") })) }));
   }
-  if (s === "waiting_approval") return card(el("h2", { textContent: "Here is the plan" }), el("pre", { textContent: last.plan_text }),
-    el("button", { textContent: "Looks good, build it", onclick: () => act(() => api(`/${id}/approve`, {})) }),
-    ...box("Or tell us what to change", "For example: also keep a phone number", "Change the plan", t => api(`/${id}/messages`, { message: t }), true));
-  if (s === "building") return card(el("h2", { textContent: "Building… usually about a minute" }), el("ul", { id: "steps" }),
+  if (s === "waiting_approval") {
+    const p = last.plan, rules = p.rules || [];
+    return card(el("h2", { textContent: "Here is the plan" }), el("p", { className: "soft", textContent: p.summary + " Nothing is built until you say so." }),
+      el("h3", { textContent: "What it will keep track of" }),
+      ...p.data.map(d => el("div", { className: "ent" }, el("h3", { textContent: d.name }), el("div", { className: "chips" }, ...d.fields.map(f => el("span", { textContent: f }))))),
+      el("h3", { textContent: "What you will be able to do" }), el("ul", {}, ...p.endpoints.map(e => el("li", { textContent: e.does }))),
+      ...(rules.length ? [el("h3", { textContent: "Rules it will follow" }), el("ul", {}, ...rules.map(r => el("li", { textContent: r })))] : []),
+      el("button", { textContent: "Looks good, build it", onclick: () => act(() => api(`/${id}/approve`, {})) }),
+      ...box("Or tell us what to change", "For example: also keep a phone number", "Change the plan", t => api(`/${id}/messages`, { message: t }), true));
+  }
+  if (s === "building") return card(el("h2", { textContent: "Building… usually about a minute" }), el("ul", { id: "steps", className: "steps" }),
     ...box("Changed your mind about something?", "You can tell us while we build", "Send", t => api(`/${id}/messages`, { message: t }), true));
   if (s === "live") return card(el("h2", { className: "good", textContent: "Your backend is live" }),
     el("p", {}, "Try it here: ", el("a", { href: last.docs_url, target: "_blank", rel: "noopener", textContent: last.docs_url })),
     el("p", {}, "Its address, for a website or app: ", el("code", { textContent: last.url })),
-    el("h2", { textContent: "What it can do" }), el("ul", {}, ...last.endpoints.map(e => el("li", {}, el("code", { textContent: e })))),
+    el("h3", { textContent: "What it can do" }), el("ul", {}, ...last.endpoints.map(e => el("li", {}, el("code", { textContent: e })))),
     el("pre", { textContent: (last.summary || "").replace(/\*\*|`/g, "") }),  // the agent writes markdown; plain text is enough here
     ...box("Want to change something?", "For example: also let me delete a customer", "Change it", t => api(`/${id}/messages`, { message: t }), true),
+    el("button", { className: "quiet", textContent: "Take it offline",  // decision 0059: the data stays, and a message brings it back
+      onclick: () => confirm("Take your backend offline? Its data is kept, and a message brings it back.") && act(() => api(`/${id}/take-down`, {})) }),
     el("button", { className: "quiet", textContent: "Build something else", onclick: () => { location.href = "/"; } }));
-  return card(el("h2", { textContent: "That did not work" }), el("p", { textContent: last.error || "Something went wrong." }),
+  return card(el("h2", { textContent: "It is not online" }),  // a failed build, or one taken down: the message says which
+    el("p", { textContent: last.error || "Something went wrong." }),
     ...box("Tell us what to try", "For example: please try again", "Try again", t => api(`/${id}/messages`, { message: t })),
     el("button", { className: "quiet", textContent: "Start again", onclick: () => { location.href = "/"; } }));
 }
