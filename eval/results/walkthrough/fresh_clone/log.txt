@@ -1,0 +1,132 @@
+# Rerun Nov 11 by Joseph, of branch w5-integration (2348a74), with `set -o pipefail` so each exit code is the real command's.
+# The last check's 'exit 1' is lsof finding nothing open (0 ports, 0 containers), the good result; the script now says exit 0 there.
+# The first run (main 37f4ada, by Eric) is in git history.
+
+$ date -u; sw_vers -productVersion; uname -m; docker context show; uv --version
+Wed Nov 11 23:06:28 UTC 2026
+27.0.1
+arm64
+desktop-linux
+uv 0.13.5 (Homebrew 2026-10-22 aarch64-apple-darwin)
+-> exit 0, 0 s
+
+$ git clone -q -b w5-integration https://github.com/ASU-MICS-2028/nlp-group-1-prosit-2 <scratchpad>/fresh && cd <scratchpad>/fresh && git log --oneline -1
+2348a74 Review fixes for #17: replay breaks saved, plain error for unfinished sessions, fresh-clone exit codes, labels and citations
+-> exit 0, 15 s
+
+$ git config core.hooksPath .githooks && git config core.hooksPath
+.githooks
+-> exit 0, 0 s
+
+$ uv sync
+Using CPython 3.12.14
+Creating virtual environment at: .venv
+Resolved 79 packages in 26ms
+Installed 24 packages in 62ms
+ + annotated-doc==0.0.5
+ + annotated-types==0.8.0
+ + anyio==4.15.1
+ + certifi==2026.7.22
+ + click==8.5.0
+ + fastapi==0.143.3
+ + h11==0.16.0
+ + httpcore==1.0.9
+ + httpx==0.28.1
+ + idna==3.20
+ + iniconfig==2.3.1
+ + opentelemetry-api==1.45.1
+ + packaging==26.3
+ + pluggy==1.7.0
+ + pydantic==2.14.1
+ + pydantic-core==2.50.1
+ + pygments==2.21.0
+ + pytest==9.1.1
+ + sqlalchemy==2.1.5
+ + sqlmodel==0.0.48
+ + starlette==1.8.0
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.4
+ + uvicorn==0.54.0
+-> exit 0, 0 s
+
+$ uv run python -c 'import platform, sys; print(platform.machine(), sys.version.split()[0])'
+arm64 3.12.14
+-> exit 0, 0 s
+
+$ docker build --no-cache -q -t w2-sandbox runtime/sandbox && docker image ls w2-sandbox --format '{{.Repository}} {{.Size}} {{.CreatedSince}}'
+sha256:3b320e640de576b65a6e3242dd107372ca03256e02cc114a15f4ecb4f96991f9
+w2-sandbox 300MB 5 seconds ago
+-> exit 0, 40 s
+
+$ docker pull -q alpine/socat:1.8.0.3
+docker.io/alpine/socat:1.8.0.3
+-> exit 0, 2 s
+
+$ uv run pytest runtime -q 2>&1 | tail -3
+...................................................................      [100%]
+67 passed in 69.33s (0:01:09)
+-> exit 0, 72 s
+
+$ SANDBOX=subprocess uv run pytest runtime -q 2>&1 | tail -3
+...........................................ssssssssss..............      [100%]
+57 passed, 10 skipped in 25.77s
+-> exit 0, 26 s
+
+$ uv run --with anthropic python -m pytest builder web -q 2>&1 | tail -3
+........................................................................ [ 85%]
+............                                                             [100%]
+84 passed in 2.02s
+-> exit 0, 2 s
+
+$ uv run python -m pytest eval/tests -q 2>&1 | tail -3
+...                                                                      [100%]
+3 passed in 0.07s
+-> exit 0, 1 s
+
+$ uv run python benchmark/validate.py church_signup; git status --short
+✅ church_signup: 10 tests | reference ✅ | mutants killed 5/5
+-> exit 0, 4 s
+
+$ uv run python -m eval.harness all --references 2>&1 | tail -4
+susu_ledger              reference    14/14   3.7s
+tailoring_orders         reference    13/13   2.3s
+trotro_fares             reference    13/13   2.4s
+272/272 tests = 100.0% · 21/21 backends fully pass · 12 s · maps $0.000
+-> exit 0, 12 s
+
+$ uv run --extra kb python -m kb.search 'two people booked the same room' 2>&1 | grep -v -i -E 'download|warn|hf_token|redirect' | head -6
+Installed 33 packages in 627ms
+
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 103/103 [00:00<00:00, 7470.27it/s]
+15 0.3445 No double booking: one slot, one booking
+05 0.1915 Refuse a request that breaks a rule (full, too much, not allowed)
+06 0.1547 No duplicates: a value must be unique
+-> exit 0, 76 s
+
+$ uv run python eval/experiments/audit_numbers.py 2>&1 | tail -2
+105 numbers checked, 105 match, 0 differ
+-> exit 0, 0 s
+
+$ PYTHONPATH=. uv run --with anthropic --with playwright python eval/results/walkthrough/part6/new_page/check_page.py 2>&1 | grep -E 'errors|sideways scroll True|Traceback|Error' ; git status --short | head -5
+phone page errors: []
+desktop page errors: []
+phone_dark page errors: []
+ M eval/results/walkthrough/part6/new_page/desktop_5_live.png
+ M eval/results/walkthrough/part6/new_page/phone_3_plan.png
+ M eval/results/walkthrough/part6/new_page/phone_5_live.png
+ M eval/results/walkthrough/part6/new_page/phone_dark_5_live.png
+?? eval/results/harness/run_20261111_230910.json
+-> exit 0, 115 s
+
+$ curl -s -o /dev/null -w 'GET / %{http_code}\n' http://127.0.0.1:8081/; curl -s -X POST http://127.0.0.1:8081/api/builds -H 'content-type: application/json' -d '{"request": ""}'; echo
+GET / 200
+{"detail":"Please describe the backend you need."}
+-> exit 0, 1 s
+
+$ lsof -i :8081 -i :8090 | wc -l; docker ps --format '{{.Names}}' | grep -v -E 'k3d-' | wc -l
+       0
+       0
+-> exit 1, 0 s
+
+DONE

@@ -189,6 +189,8 @@ uv run python benchmark/validate.py church_signup
 # expect: ✅ church_signup: 10 tests | reference ✅ | mutants killed 5/5   (it rewrites benchmark/validation.json: commit that only if you changed a task)
 uv run python -m eval.harness all --references
 # expect: 21 lines, each 100%, then the total; about 15 s. Free (every reference has its ops.json)
+uv run python -m pytest eval/tests -q
+# expect: 3 passed. Use python -m: plain `uv run pytest eval/tests` stops with "No module named 'eval'" (checked from a fresh clone, Nov 11)
 uv run --extra kb python -m kb.search "two people booked the same room"
 # expect: 15 ... No double booking: one slot, one booking   first. The first run downloads a 90 MB model
 # and PyTorch (about 2 min; .venv grows by about 900 MB; checked Nov 10). Warnings about HF_TOKEN and redirects are harmless

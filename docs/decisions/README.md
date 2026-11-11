@@ -67,6 +67,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0058](0058-drop-the-mcp-server.md) | Drop S1.4, the MCP server | Accepted | 2026-11-10 |
 | [0059](0059-take-a-build-down.md) | A client can take their build down | Accepted | 2026-11-10 |
 | [0060](0060-michaels-design-on-the-live-page.md) | The live page uses Michael's design, in one plain file | Proposed | 2026-11-11 |
+| [0061](0061-play-back-a-saved-session.md) | Play back a saved session through the real page | Proposed | 2026-11-11 |
 <!-- DECISIONS:END -->
 
 ## Open questions

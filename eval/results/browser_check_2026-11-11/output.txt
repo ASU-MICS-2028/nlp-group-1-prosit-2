@@ -1,0 +1,35 @@
+empty click: 'Please type something first.' True
+questions: ['Can one order include more than one cake, or several of the same cake, or is it always exactly one cake per order?', "Besides the customer's name, should an order record anything else, such as a pickup date, phone number, or whether it's paid or collected?", 'Do you also need to change or remove cakes and see a list of all orders, or just add cakes, list them, and record orders?']
+url keeps the build: https://34-78-38-126.sslip.io/?b=b4b1adc3b6d
+survives a page refresh
+progress: ['Getting started']
+result: Your backend is live
+Your backend is live
+
+Try it here: https://34-78-38-126.sslip.io/b/b4b1adc3b6d/docs
+
+Its address, for a website or app: https://34-78-38-126.sslip.io/b/b4b1adc3b6d
+
+What it can do
+GET /cakes
+POST /cakes
+POST /orders
+Your bakery system is ready.
+
+What you can do with it:
+- Add a cake with its name and price. Each cake gets its own number automatically.
+- See all your cakes, with number, name and price, in the order you added them.
+- Record an order for one cake, with the customer's name and a pickup date. The time the order was recorded is filled in automatically.
+
+What it turns away:
+- A cake with no name, or a name that is only spaces.
+- A cake with no price, or a price that is not a number zero or above.
+- An order with no customer name.
+- An order that does not say which cake, or names a cake that is not on your list.
+- An order with no pickup date, or a date that is not a real date i
+no sideways scroll on a phone: True
+docs link: https://34-78-38-126.sslip.io/b/b4b1adc3b6d/docs
+docs operations: 3
+taken down: 404
+page errors: []
+exit 0
