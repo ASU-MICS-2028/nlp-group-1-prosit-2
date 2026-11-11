@@ -69,6 +69,7 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 | Whole journey with a message during the build | `sessions/animal_shelter.jsonl` | live; colour added and required (corrected, W4 row 41) |
 | Whole journey through the public page in Chrome | `sessions/bakery_through_the_page.jsonl` · `browser_check/*.png` | live, no page errors. Screenshots are from before three small page fixes |
 | Same journey again, with the restart check and plain summary on the server (S5.1) | `browser_check_s51/` (`output.txt`, `try_it.txt`, screenshots) | live, no page errors; the new backend stores data and refuses a bad price |
+| Does the new page use fewer technical words than the one before it? (S4.4, W3 row 4) | `page_compare/` (`page_compare.txt`, `page_compare.json`, 10 screenshots), made by `eval/experiments/page_compare.py` with the saved bakery session played back (`web/replay.py`) | plan screen: GET and POST before, none now; the live screen still shows the action list on both. A word count, not a user test |
 | Full system per task: score, keeps data, time, cost (S5.2) | `full_system.json` | 96.0% over 3 runs; 13 of 15 tasks always pass; football and shop lose tests; about $1.91 a run |
 
 ## Keeping data after a restart

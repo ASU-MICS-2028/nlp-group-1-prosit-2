@@ -15,7 +15,7 @@
 |---|---|---|---|---|---|---|---|---|
 | Alice (W1) | — | — | — | ✅ S3.1 Read Bernard's and Joseph's learnings, run their parts<br>✅ S3.2 Single agent from the command line<br>✅ S3.3 Run record and trace<br>✅ S3.4 Test-and-repair loop<br>✅ S3.5 Spec-first plan and approval<br>✅ S3.6 Planner / Builder / Tester split<br>✅ S3.7 Retrieval in the agent<br>✅ S3.8 Clarifying questions<br>✅ S3.9 Claude vs local Qwen<br>✅ S3.10 "Change it" edit loop<br>✅ S3.11 Handoff: Alice's learnings | — | — | — | — |
 | Bernard (W2) | — | ✅ S1.1 The agent's tools<br>✅ S1.2 Sandbox<br>✅ S1.3 Safety tests<br>✅ S1.5 Handoff: Bernard's learnings | — | — | — | — | — | — |
-| Michael (W3) | — | — | — | — | 🔵 S4.1 Read Alice's and Joseph's learnings, try the live platform<br>⏳ S4.2 UI on a recorded session<br>⏳ S4.3 Better UI on the live platform<br>⏳ S4.4 UI alternatives compared<br>⏳ S4.5 Usability test<br>⏳ S4.6 Handoff: Michael's learnings | — | — | — |
+| Michael (W3) | — | — | — | — | 🔵 S4.1 Read Alice's and Joseph's learnings, try the live platform<br>✅ S4.2 UI on a recorded session<br>🟡 S4.3 Better UI on the live platform<br>🟡 S4.4 UI alternatives compared<br>⏳ S4.5 Usability test<br>🟡 S4.6 Handoff: Michael's learnings | — | — | — |
 | Joseph (W4) | ✅ S0.2 LLM setup | — | ✅ S2.1 Read Bernard's learnings, run his tools<br>✅ S2.2 15 benchmark tasks<br>✅ S2.3 Eval harness<br>✅ S2.4 Recipe knowledge base and search<br>✅ S2.5 Handoff: Joseph's learnings, part 1 | ✅ S3.12 Hosting on a public server<br>✅ S3.13 Agent session<br>✅ S3.14 Small live platform | ✅ S4.7 Safety of the public platform<br>✅ S4.8 Plain-word summaries; follow mid-build messages properly | ✅ S5.1 Read Alice's learnings, try the live platform<br>✅ S5.2 Full system on all 15 tasks<br>✅ S5.3 Ablations<br>✅ S5.4 Model comparison<br>✅ S5.5 Results tables and charts<br>✅ S5.6 Handoff: Joseph's learnings, part 2 | — | — |
 | Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>✅ S0.4 Ask the instructor about "Section C" | — | — | — | — | — | 🟡 S6.1 Read every learnings file, run everything<br>🟡 S6.2 Fix what doesn't fit together<br>⏳ S6.3 Section B draft<br>⏳ S6.4 Slides and recorded demo<br>⏳ S6.5 Handoff: Eric's learnings | — |
 | Everyone | 🔵 S0.6 Docker on every laptop | — | — | — | — | — | — | ⏳ S7.1 Review Section B for your part<br>🔵 S7.2 Section A (individual, any time)<br>⏳ S7.3 Viva walkthrough<br>⏳ S7.4 Rehearse and submit |
@@ -68,11 +68,11 @@ flowchart LR
   end
   subgraph Stage4["Stage 4: Michael — UI and usability"]
     S4_1["S4.1 Read Alice's and Joseph's learnings, try the live platform<br/>W3 · Must"]:::ready
-    S4_2["S4.2 UI on a recorded session<br/>W3 · Must"]:::waiting
-    S4_3["S4.3 Better UI on the live platform<br/>W3 · Must"]:::waiting
-    S4_4["S4.4 UI alternatives compared<br/>W3 · Should"]:::waiting
+    S4_2["S4.2 UI on a recorded session<br/>W3 · Must"]:::done
+    S4_3["S4.3 Better UI on the live platform<br/>W3 · Must"]:::doing
+    S4_4["S4.4 UI alternatives compared<br/>W3 · Should"]:::doing
     S4_5["S4.5 Usability test<br/>W3 · Should"]:::waiting
-    S4_6["S4.6 Handoff: Michael's learnings<br/>W3 · Must"]:::waiting
+    S4_6["S4.6 Handoff: Michael's learnings<br/>W3 · Must"]:::doing
     S4_7["S4.7 Safety of the public platform<br/>W4 · Must"]:::done
     S4_8["S4.8 Plain-word summaries; follow mid-build messages properly<br/>W4 · Should"]:::done
   end
@@ -216,11 +216,11 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 | ID | Task | Who | Needs | Priority | Status | Done when |
 |---|---|---|---|---|---|---|
 | S4.1 | Read Alice's and Joseph's learnings, try the live platform | W3 | S3.14 | Must | todo | You built a backend through the live page, and `web/` runs on your laptop (section 6 of `learnings/W4-*.md`) |
-| S4.2 | UI on a recorded session | W3 | S4.1 | Must | todo | `web/index.html` can play back a saved session (describe → questions → plan → progress → try it), so you can change the page without paying for builds |
-| S4.3 | Better UI on the live platform | W3 | S4.2 | Must | todo | On the public address, a non-developer can describe, answer, approve, try and change a backend with nothing but the page, and understands every word on it |
-| S4.4 | UI alternatives compared | W3 | S4.3 | Should | todo | Ways of showing the plan, asking questions, showing progress and wording errors, compared |
+| S4.2 | UI on a recorded session | W3 | S4.1 | Must | done | `web/index.html` can play back a saved session (describe → questions → plan → progress → try it), so you can change the page without paying for builds |
+| S4.3 | Better UI on the live platform | W3 | S4.2 | Must | doing | On the public address, a non-developer can describe, answer, approve, try and change a backend with nothing but the page, and understands every word on it |
+| S4.4 | UI alternatives compared | W3 | S4.3 | Should | doing | Ways of showing the plan, asking questions, showing progress and wording errors, compared |
 | S4.5 | Usability test | W3 | S4.4 | Should | todo | 4–5 non-developers: completion, time, SUS score, quotes |
-| S4.6 | Handoff: Michael's learnings | W3 | S4.3, S4.5 | Must | todo | `learnings/W3-*.md` complete |
+| S4.6 | Handoff: Michael's learnings | W3 | S4.3, S4.5 | Must | doing | `learnings/W3-*.md` complete |
 | S4.7 | Safety of the public platform | W4 | S3.14 | Must | done | Attacks on the live platform tried and written up: prompt injection in a request, too many requests, a backend grabbing memory or disk, many builds at once. Every hole fixed or stated as a limit. `start_server` says when a backend was killed for using too much memory |
 | S4.8 | Plain-word summaries; follow mid-build messages properly | W4 | S3.14 | Should | done | The final summary has no technical words, the client can tell what they got, and a message saying "must" is enforced in the live backend. The build itself is unchanged, so the hidden-test score cannot move (decision 0054) |
 
@@ -291,11 +291,11 @@ What each person owns. The task list under the table is generated.
 **Michael (W3)**
 
 1. S4.1 Read Alice's and Joseph's learnings, try the live platform — Must, ready
-2. S4.2 UI on a recorded session — Must, waiting (waiting on S4.1)
-3. S4.3 Better UI on the live platform — Must, waiting (waiting on S4.2)
-4. S4.4 UI alternatives compared — Should, waiting (waiting on S4.3)
+2. S4.2 UI on a recorded session — Must, done
+3. S4.3 Better UI on the live platform — Must, doing
+4. S4.4 UI alternatives compared — Should, doing
 5. S4.5 Usability test — Should, waiting (waiting on S4.4)
-6. S4.6 Handoff: Michael's learnings — Must, waiting (waiting on S4.3, S4.5)
+6. S4.6 Handoff: Michael's learnings — Must, doing
 
 **Joseph (W4)**
 

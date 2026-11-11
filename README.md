@@ -16,11 +16,10 @@ Nothing left of your own: see Everyone.
 | Task | Status | Done when |
 |---|---|---|
 | S4.1 Read Alice's and Joseph's learnings, try the live platform | 🔵 ready | You built a backend through the live page, and `web/` runs on your laptop (section 6 of `learnings/W4-*.md`) |
-| S4.2 UI on a recorded session | ⏳ waiting (on S4.1) | `web/index.html` can play back a saved session (describe → questions → plan → progress → try it), so you can change the page without paying for builds |
-| S4.3 Better UI on the live platform | ⏳ waiting (on S4.2) | On the public address, a non-developer can describe, answer, approve, try and change a backend with nothing but the page, and understands every word on it |
-| S4.4 UI alternatives compared | ⏳ waiting (on S4.3) | Ways of showing the plan, asking questions, showing progress and wording errors, compared |
+| S4.3 Better UI on the live platform | 🟡 doing | On the public address, a non-developer can describe, answer, approve, try and change a backend with nothing but the page, and understands every word on it |
+| S4.4 UI alternatives compared | 🟡 doing | Ways of showing the plan, asking questions, showing progress and wording errors, compared |
 | S4.5 Usability test | ⏳ waiting (on S4.4) | 4–5 non-developers: completion, time, SUS score, quotes |
-| S4.6 Handoff: Michael's learnings | ⏳ waiting (on S4.3, S4.5) | `learnings/W3-*.md` complete |
+| S4.6 Handoff: Michael's learnings | 🟡 doing | `learnings/W3-*.md` complete |
 
 ### Joseph (W4)
 

@@ -1,0 +1,6 @@
+screen        words before -> now   technical words before | now
+1_describe       23 -> 28      - | -
+2_questions      89 -> 90      - | -
+3_plan          329 -> 340     GET POST | -
+4_building       31 -> 32      - | -
+5_live          327 -> 336     GET POST docs https id | GET POST docs https id
