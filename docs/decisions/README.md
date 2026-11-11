@@ -66,6 +66,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0057](0057-stop-a-backend-filling-the-disk.md) | Stop a backend filling the disk with a file limit and a watchdog | Accepted | 2026-11-09 |
 | [0058](0058-drop-the-mcp-server.md) | Drop S1.4, the MCP server | Accepted | 2026-11-10 |
 | [0059](0059-take-a-build-down.md) | A client can take their build down | Proposed | 2026-11-10 |
+| [0060](0060-michaels-design-on-the-live-page.md) | The live page uses Michael's design, in one plain file | Proposed | 2026-11-11 |
 <!-- DECISIONS:END -->
 
 ## Open questions

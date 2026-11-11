@@ -81,5 +81,5 @@ These are written for Claude Code skills, but they are plain Markdown, so any as
 | `scripts/check_secrets.py`, `.githooks/pre-commit` | Block keys, `.env`, model files and big files from commits |
 | `.claude/` | Claude Code settings and the step-by-step guides (skills) |
 | `.github/` | GitHub checks, the pull request template, Copilot's pointer to this file |
-| `builder/` (W1), `runtime/` (W2), `ui/` (W3), `eval/` and `kb/` (W4) | Code, created by each owner in their stage |
+| `builder/` (W1), `runtime/` (W2), `web/index.html` (W3), `web/app.py`, `eval/` and `kb/` (W4) | Code, created by each owner in their stage |
 | `projects/`, `models/` | Generated backends and the local model file (both git-ignored) |
