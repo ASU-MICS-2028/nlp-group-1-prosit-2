@@ -1,0 +1,19 @@
+Free run of eval/experiments/browser_check.py against the playback (web/replay.py), Nov 11, MacBook, Chrome at 390 px.
+Purpose: run the new take-down lines once before the one paid live run, so a mistake there cannot spoil the demo video.
+Changed in a throwaway copy only: the docs step (the saved docs link is on the real server, which this laptop's sandbox could not reach),
+so `link` was a local address that does not exist and `d` opened the start page.
+
+  uv run --with anthropic python -m web.replay eval/results/sessions/bakery_through_the_page.jsonl
+  uv run --no-project --with playwright python <copy of browser_check.py> <folder> http://127.0.0.1:8090
+
+Last lines it printed:
+url keeps the build: http://127.0.0.1:8090/?b=be59acd3609
+survives a page refresh
+result: Your backend is live
+no sideways scroll on a phone: True
+docs link: https://34-78-38-126.sslip.io/b/bf7fe9a80ae/docs
+taken down: 404
+page errors: []
+
+Files: 1 to 5 screenshots, 7_taken_down.png (kept here), two .webm videos (the page and the second tab; not kept, about the same as the paid run will make).
+Result: Take it offline, the confirm box, the taken-down screen and the closing `finally` all work. Not tested here: the real undeploy on the server (the paid run does that).
