@@ -167,7 +167,8 @@ function screen(s) {
     el("button", { className: "quiet", textContent: "Take it offline",  // decision 0059: the data stays, and a message brings it back
       onclick: () => confirm("Take your backend offline? Its data is kept, and a message brings it back.") && act(() => api(`/${id}/take-down`, {})) }),
     el("button", { className: "quiet", textContent: "Build something else", onclick: () => { location.href = "/"; } }));
-  return card(el("h2", { textContent: "That did not work" }), el("p", { textContent: last.error || "Something went wrong." }),
+  return card(el("h2", { textContent: "It is not online" }),  // a failed build, or one taken down: the message says which
+    el("p", { textContent: last.error || "Something went wrong." }),
     ...box("Tell us what to try", "For example: please try again", "Try again", t => api(`/${id}/messages`, { message: t })),
     el("button", { className: "quiet", textContent: "Start again", onclick: () => { location.href = "/"; } }));
 }
