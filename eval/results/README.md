@@ -69,6 +69,7 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 | Whole journey with a message during the build | `sessions/animal_shelter.jsonl` | live; colour added and required (corrected, W4 row 41) |
 | Whole journey through the public page in Chrome | `sessions/bakery_through_the_page.jsonl` · `browser_check/*.png` | live, no page errors. Screenshots are from before three small page fixes |
 | Same journey again, with the restart check and plain summary on the server (S5.1) | `browser_check_s51/` (`output.txt`, `try_it.txt`, screenshots) | live, no page errors; the new backend stores data and refuses a bad price |
+| Taking a live build down (decision 0059), one real build on the server | `sessions/take_down_live.json` · `../experiments/take_down_live.py` | refused while building; link 200 before, 404 after; second try refused; other backends 200; $0.09 |
 | Full system per task: score, keeps data, time, cost (S5.2) | `full_system.json` | 96.0% over 3 runs; 13 of 15 tasks always pass; football and shop lose tests; about $1.91 a run |
 
 ## Keeping data after a restart

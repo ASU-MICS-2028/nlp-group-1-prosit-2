@@ -1,0 +1,90 @@
+{
+ "steps": [
+  {
+   "t": 0.5,
+   "step": "started",
+   "id": "b22e82e2121"
+  },
+  {
+   "t": 6.9,
+   "step": "state",
+   "state": "waiting_answers",
+   "questions": [
+    "Should the rating be whole numbers only (1, 2, 3, 4, 5), or are half stars like 3.5 allowed?",
+    "Must every book have a rating when you add it, or can you leave the rating blank?",
+    "In what order should the list show your books: newest added first, by title, or by rating?"
+   ]
+  },
+  {
+   "t": 16.6,
+   "step": "state",
+   "state": "waiting_approval"
+  },
+  {
+   "t": 16.7,
+   "step": "approve",
+   "status": 200
+  },
+  {
+   "t": 22.1,
+   "step": "take_down_while_building",
+   "status": 400,
+   "body": {
+    "detail": "There is no live backend to take down."
+   }
+  },
+  {
+   "t": 65.3,
+   "step": "state",
+   "state": "live",
+   "url": "https://34-78-38-126.sslip.io/b/b22e82e2121",
+   "error": null
+  },
+  {
+   "t": 65.4,
+   "step": "link_before",
+   "status": 200
+  },
+  {
+   "t": 66.3,
+   "step": "take_down",
+   "status": 200,
+   "body": {
+    "ok": true
+   }
+  },
+  {
+   "t": 68.7,
+   "step": "link_after",
+   "status": 404
+  },
+  {
+   "t": 68.9,
+   "step": "after",
+   "state": "failed",
+   "url": null,
+   "endpoints": [],
+   "error": "This backend was taken down. Send a message to build it again."
+  },
+  {
+   "t": 69.1,
+   "step": "take_down_again",
+   "status": 400,
+   "body": {
+    "detail": "There is no live backend to take down."
+   }
+  },
+  {
+   "t": 69.3,
+   "step": "other_backend",
+   "name": "beae21105e9",
+   "status": 200
+  },
+  {
+   "t": 69.4,
+   "step": "other_backend",
+   "name": "church-demo",
+   "status": 200
+  }
+ ]
+}
