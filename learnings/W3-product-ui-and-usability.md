@@ -58,7 +58,7 @@ The tape measure across the top (on a phone, a bar with the stage's name) shows 
 
 ## 5. What breaks, and the limits
 
-- **Not yet on the public address.** The new page reaches the live link only when Joseph reruns `setup_server.sh` on the server. Until then the live link has the old page and no take-down.
+- **On the public address since Nov 11 (evening).** The live page matched `main` by 21:44, and one real build went from start to taken offline through it (`eval/results/browser_check_2026-11-11/`, W5 row 16). The wording change in PR #17 (the live screen's heading) reaches the server only when `setup_server.sh` runs again after that merge.
 - **No usability test yet (S4.5).** Nobody outside the team has used the page. No completion rates, times, SUS scores or quotes exist.
 - **Questions come without answer choices.** Michael's Nov 6 page showed one question per screen with choices; the agent's questions are free text.
 - **"Try it" opens the backend's `/docs` page**, which is a technical page (the course allows it, Lecture 8). Michael's pretend "Try it" table was not carried over.
