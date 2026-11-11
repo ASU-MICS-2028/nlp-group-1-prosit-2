@@ -21,7 +21,7 @@ S4.2 asks for a way to show and test the page without paying for a build. A real
 
 ## Consequences
 
-- Free and repeatable: `web/test_web.py::test_replay_plays_a_saved_session` plays the bakery session at full speed (web tests: 7 passed; breaking `replay.py` three ways made it fail each time). `eval/experiments/page_compare.py` uses it to compare page versions (W3 row 4), and `eval/experiments/browser_check.py` can run against it (`eval/results/walkthrough/browser_check_replay/`).
+- Free and repeatable: `web/test_web.py::test_replay_plays_a_saved_session` plays the bakery session at full speed (web tests: 7 passed; breaking `replay.py` three ways made it fail each time: `eval/results/replay_breaks/output.txt`, made by `eval/experiments/replay_breaks.py`). `eval/experiments/page_compare.py` uses it to compare page versions (W3 row 4), and `eval/experiments/browser_check.py` can run against it (`eval/results/walkthrough/browser_check_replay/`).
 - Whatever you type, you get the saved session's questions, plan and result. Only the first build in the file plays; a later change plays it again.
 - The link on the live screen points to the saved build on the real server, which may be offline.
 - It shows how the page behaves, not how good a build is: scores still come from real builds and the harness.

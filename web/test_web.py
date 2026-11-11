@@ -60,6 +60,13 @@ def test_replay_plays_a_saved_session(monkeypatch, tmp_path):
     assert [e["tool"] for e in shown["events"] if e.get("kind") == "tool"][:2] == ["write_file", "write_file"]
 
 
+def test_replay_refuses_an_unfinished_session(tmp_path):
+    from web import replay
+    saved = tmp_path / "session.jsonl"
+    saved.write_text('{"event": "request", "t": 0, "text": "x"}\n')
+    with pytest.raises(ValueError, match="cannot be played back"):
+        replay.fakes(saved)
+
 def test_each_person_has_a_limit(api):
     me, other = {"x-forwarded-for": "1.1.1.1"}, {"x-forwarded-for": "2.2.2.2"}
     for _ in range(5):

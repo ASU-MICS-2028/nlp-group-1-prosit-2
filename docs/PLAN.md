@@ -216,7 +216,7 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 | ID | Task | Who | Needs | Priority | Status | Done when |
 |---|---|---|---|---|---|---|
 | S4.1 | Read Alice's and Joseph's learnings, try the live platform | W3 | S3.14 | Must | todo | You built a backend through the live page, and `web/` runs on your laptop (section 6 of `learnings/W4-*.md`) |
-| S4.2 | UI on a recorded session | W3 | S4.1 | Must | done | `web/index.html` can play back a saved session (describe → questions → plan → progress → try it), so you can change the page without paying for builds |
+| S4.2 | UI on a recorded session | W3 | S4.1 | Must | done | `web/index.html` can play back a saved session, served by `web/replay.py` (describe → questions → plan → progress → try it), so you can change the page without paying for builds |
 | S4.3 | Better UI on the live platform | W3 | S4.2 | Must | doing | On the public address, a non-developer can describe, answer, approve, try and change a backend with nothing but the page, and understands every word on it |
 | S4.4 | UI alternatives compared | W3 | S4.3 | Should | doing | Ways of showing the plan, asking questions, showing progress and wording errors, compared |
 | S4.5 | Usability test | W3 | S4.4 | Should | todo | 4–5 non-developers: completion, time, SUS score, quotes |

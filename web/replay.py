@@ -19,10 +19,12 @@ def fakes(saved, pace=1.0):
     """The stand-ins for the paid steps, read from one saved session. pace=0 plays at once (the test uses it)."""
     events = [json.loads(line) for line in Path(saved).read_text().splitlines()]
     questions = next((e["questions"] for e in events if e["event"] == "questions"), [])
-    plan = next(e["plan"] for e in events if e["event"] == "plan")
-    live = next(e for e in events if e["event"] == "live")
     agent = [e for e in events if e["event"] == "agent"]
-    end = next(e["detail"] for e in agent if e["detail"]["event"] == "end")  # ponytail: only the first build; a later change plays it again
+    plan = next((e["plan"] for e in events if e["event"] == "plan"), None)
+    live = next((e for e in events if e["event"] == "live"), None)
+    end = next((e["detail"] for e in agent if e["detail"]["event"] == "end"), None)
+    if plan is None or live is None or end is None:
+        raise ValueError(f"{saved} cannot be played back: it needs a plan, a finished build and a live link")  # ponytail: only the first build; a later change plays it again
 
     def build(request, root, model, on_event, inbox, **k):
         for before, e in zip([agent[0]] + agent, agent):

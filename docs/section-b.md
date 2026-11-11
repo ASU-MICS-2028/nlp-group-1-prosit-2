@@ -54,7 +54,7 @@ flowchart TD
 | Choice | Lost against it | What we measured | Source |
 |---|---|---|---|
 | Path guard: find where a path really ends, then check it is inside the project | Checking the text of the path | 18 attack paths among 24: the text check let 5 through, the real-path check 0 (on a Mac, 2 harmless names that stay inside the project) | W2 row 1, W4 row 6 |
-| Docker sandbox | Plain subprocess | Of 16 harmful-code attacks, Docker blocked 15, subprocess 5 | W2 row 13 |
+| Docker sandbox | Plain subprocess | Of 16 harmful-code attacks, Docker blocked 15, subprocess 5 | W2 row 13 (Nov 10 rerun, `eval/results/walkthrough/part2/attacks.txt`) |
 | Server on a private network behind a door | No network; Docker's normal network | Only the door blocked the internet and still let our computer in | W2 row 10 |
 | Keep the start and the end of long tool output | Keep only the start | 21 of 21 key facts kept, against 14 to 20 of 21 | W2 row 5 |
 | Dense search (all-MiniLM-L6-v2), top 3 | BM25, bigger dense models, hybrid, random | Right recipe in the top 3: 95%, against BM25 74%, hybrid 87%, random 17% | W4 row 24 |

@@ -1,12 +1,13 @@
 #!/bin/bash
 # S6.1: a brand-new clone from GitHub, only the commands in README, knowledge/environment.md and the learnings files.
 S=<scratchpad>   # a temporary folder
+BRANCH=${1:-main}   # which branch to clone
 OUT=$S/fresh_out/log.txt
 : > $OUT
-run() { echo "\$ $*" >> $OUT; start=$(date +%s); bash -c "$*" >> $OUT 2>&1; code=$?; echo "-> exit $code, $(( $(date +%s) - start )) s" >> $OUT; echo >> $OUT; }
+run() { echo "\$ $*" >> $OUT; start=$(date +%s); bash -o pipefail -c "$*" >> $OUT 2>&1; code=$?; echo "-> exit $code, $(( $(date +%s) - start )) s" >> $OUT; echo >> $OUT; }
 cd $S && rm -rf $S/fresh
 run "date -u; sw_vers -productVersion; uname -m; docker context show; uv --version"
-run "git clone -q https://github.com/ASU-MICS-2028/nlp-group-1-prosit-2 $S/fresh && cd $S/fresh && git log --oneline -1"
+run "git clone -q -b $BRANCH https://github.com/ASU-MICS-2028/nlp-group-1-prosit-2 $S/fresh && cd $S/fresh && git log --oneline -1"
 cd $S/fresh
 run "git config core.hooksPath .githooks && git config core.hooksPath"
 run "uv sync"
@@ -16,7 +17,7 @@ run "docker pull -q alpine/socat:1.8.0.3"
 run "uv run pytest runtime -q 2>&1 | tail -3"
 run "SANDBOX=subprocess uv run pytest runtime -q 2>&1 | tail -3"
 run "uv run --with anthropic python -m pytest builder web -q 2>&1 | tail -3"
-run "uv run pytest eval/tests -q 2>&1 | tail -3"
+run "uv run python -m pytest eval/tests -q 2>&1 | tail -3"
 run "uv run python benchmark/validate.py church_signup; git status --short"
 run "uv run python -m eval.harness all --references 2>&1 | tail -4"
 run "uv run --extra kb python -m kb.search 'two people booked the same room' 2>&1 | grep -v -i -E 'download|warn|hf_token|redirect' | head -6"

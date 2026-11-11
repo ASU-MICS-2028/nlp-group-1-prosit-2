@@ -1,6 +1,6 @@
 # Audit: every learnings row against a saved file (Nov 6, 2026)
 
-Every experiment row in every learnings file, checked. Michael's and Eric's files still hold only the template row. `eval/experiments/audit_numbers.py` checks 105 written numbers against the files automatically; all match. `eval/experiments/replicate_free.sh` re-runs everything free on a Mac, with the output in `replicated/`.
+Every experiment row in every learnings file, checked. Michael's and Eric's files still held only the template row then (both have rows now, not audited here). `eval/experiments/audit_numbers.py` checks 105 written numbers against the files automatically; all match. `eval/experiments/replicate_free.sh` re-runs everything free on a Mac, with the output in `replicated/`.
 
 | Mark | Means |
 |---|---|
