@@ -1,29 +1,28 @@
+# Rerun Nov 11 by Joseph, of branch w5-integration (2348a74), with `set -o pipefail` so each exit code is the real command's.
+# The last check's 'exit 1' is lsof finding nothing open (0 ports, 0 containers), the good result; the script now says exit 0 there.
+# The first run (main 37f4ada, by Eric) is in git history.
+
 $ date -u; sw_vers -productVersion; uname -m; docker context show; uv --version
-Wed Nov 11 12:50:55 UTC 2026
-27.2
+Wed Nov 11 23:06:28 UTC 2026
+27.0.1
 arm64
-orbstack
-uv 0.13.7 (Homebrew 2026-11-03 aarch64-apple-darwin)
+desktop-linux
+uv 0.13.5 (Homebrew 2026-10-22 aarch64-apple-darwin)
 -> exit 0, 0 s
 
-$ git clone -q https://github.com/ASU-MICS-2028/nlp-group-1-prosit-2 <scratchpad>/fresh && cd <scratchpad>/fresh && git log --oneline -1
-37f4ada Merge pull request #16 from ASU-MICS-2028/w5-new-page
--> exit 0, 13 s
+$ git clone -q -b w5-integration https://github.com/ASU-MICS-2028/nlp-group-1-prosit-2 <scratchpad>/fresh && cd <scratchpad>/fresh && git log --oneline -1
+2348a74 Review fixes for #17: replay breaks saved, plain error for unfinished sessions, fresh-clone exit codes, labels and citations
+-> exit 0, 15 s
 
 $ git config core.hooksPath .githooks && git config core.hooksPath
 .githooks
 -> exit 0, 0 s
 
 $ uv sync
-Using CPython 3.15.2 interpreter at: /opt/homebrew/opt/python@3.15/bin/python3.15
+Using CPython 3.12.14
 Creating virtual environment at: .venv
-Resolved 79 packages in 13ms
-Downloading pydantic-core (1.9MiB)
-Downloading sqlalchemy (2.4MiB)
- Downloaded pydantic-core
- Downloaded sqlalchemy
-Prepared 2 packages in 27.37s
-Installed 24 packages in 45ms
+Resolved 79 packages in 26ms
+Installed 24 packages in 62ms
  + annotated-doc==0.0.5
  + annotated-types==0.8.0
  + anyio==4.15.1
@@ -48,41 +47,40 @@ Installed 24 packages in 45ms
  + typing-extensions==4.16.0
  + typing-inspection==0.4.4
  + uvicorn==0.54.0
--> exit 0, 28 s
+-> exit 0, 0 s
 
 $ uv run python -c 'import platform, sys; print(platform.machine(), sys.version.split()[0])'
-arm64 3.15.2
+arm64 3.12.14
 -> exit 0, 0 s
 
 $ docker build --no-cache -q -t w2-sandbox runtime/sandbox && docker image ls w2-sandbox --format '{{.Repository}} {{.Size}} {{.CreatedSince}}'
-sha256:1f392bc0bfef73c4de93e389b9a5ce9b09ecbd11e99a0a8cd071f9e69f37000e
-w2-sandbox 297MB 2 seconds ago
--> exit 0, 84 s
+sha256:3b320e640de576b65a6e3242dd107372ca03256e02cc114a15f4ecb4f96991f9
+w2-sandbox 300MB 5 seconds ago
+-> exit 0, 40 s
 
 $ docker pull -q alpine/socat:1.8.0.3
 docker.io/alpine/socat:1.8.0.3
--> exit 0, 1 s
+-> exit 0, 2 s
 
 $ uv run pytest runtime -q 2>&1 | tail -3
 ...................................................................      [100%]
-67 passed in 48.18s
--> exit 0, 51 s
+67 passed in 69.33s (0:01:09)
+-> exit 0, 72 s
 
 $ SANDBOX=subprocess uv run pytest runtime -q 2>&1 | tail -3
 ...........................................ssssssssss..............      [100%]
-57 passed, 10 skipped in 24.12s
--> exit 0, 24 s
+57 passed, 10 skipped in 25.77s
+-> exit 0, 26 s
 
 $ uv run --with anthropic python -m pytest builder web -q 2>&1 | tail -3
-........................................................................ [ 87%]
-..........                                                               [100%]
-82 passed in 3.49s
--> exit 0, 5 s
+........................................................................ [ 85%]
+............                                                             [100%]
+84 passed in 2.02s
+-> exit 0, 2 s
 
-$ uv run pytest eval/tests -q 2>&1 | tail -3
-ERROR eval/tests/test_key_rules.py
-!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
-1 error in 0.08s
+$ uv run python -m pytest eval/tests -q 2>&1 | tail -3
+...                                                                      [100%]
+3 passed in 0.07s
 -> exit 0, 1 s
 
 $ uv run python benchmark/validate.py church_signup; git status --short
@@ -90,20 +88,21 @@ $ uv run python benchmark/validate.py church_signup; git status --short
 -> exit 0, 4 s
 
 $ uv run python -m eval.harness all --references 2>&1 | tail -4
-susu_ledger              reference    14/14   1.9s
-tailoring_orders         reference    13/13   1.5s
-trotro_fares             reference    13/13   1.2s
-272/272 tests = 100.0% · 21/21 backends fully pass · 10 s · maps $0.000
--> exit 0, 10 s
+susu_ledger              reference    14/14   3.7s
+tailoring_orders         reference    13/13   2.3s
+trotro_fares             reference    13/13   2.4s
+272/272 tests = 100.0% · 21/21 backends fully pass · 12 s · maps $0.000
+-> exit 0, 12 s
 
 $ uv run --extra kb python -m kb.search 'two people booked the same room' 2>&1 | grep -v -i -E 'download|warn|hf_token|redirect' | head -6
-   Building pyyaml==6.0.3
-      Built pyyaml==6.0.3
-Installed 33 packages in 221ms
-Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 10439.90it/s]
+Installed 33 packages in 627ms
+
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 103/103 [00:00<00:00, 7470.27it/s]
 15 0.3445 No double booking: one slot, one booking
 05 0.1915 Refuse a request that breaks a rule (full, too much, not allowed)
--> exit 0, 860 s
+06 0.1547 No duplicates: a value must be unique
+-> exit 0, 76 s
 
 $ uv run python eval/experiments/audit_numbers.py 2>&1 | tail -2
 105 numbers checked, 105 match, 0 differ
@@ -114,10 +113,11 @@ phone page errors: []
 desktop page errors: []
 phone_dark page errors: []
  M eval/results/walkthrough/part6/new_page/desktop_5_live.png
+ M eval/results/walkthrough/part6/new_page/phone_3_plan.png
  M eval/results/walkthrough/part6/new_page/phone_5_live.png
  M eval/results/walkthrough/part6/new_page/phone_dark_5_live.png
-?? eval/results/harness/run_20261111_125426.json
--> exit 0, 47 s
+?? eval/results/harness/run_20261111_230910.json
+-> exit 0, 115 s
 
 $ curl -s -o /dev/null -w 'GET / %{http_code}\n' http://127.0.0.1:8081/; curl -s -X POST http://127.0.0.1:8081/api/builds -H 'content-type: application/json' -d '{"request": ""}'; echo
 GET / 200
@@ -127,8 +127,6 @@ GET / 200
 $ lsof -i :8081 -i :8090 | wc -l; docker ps --format '{{.Names}}' | grep -v -E 'k3d-' | wc -l
        0
        0
--> exit 0, 0 s
+-> exit 1, 0 s
 
 DONE
-$ uv run python -m pytest eval/tests -q   (rerun: the plain "uv run pytest eval/tests" above cannot import eval)
-3 passed in 0.10s

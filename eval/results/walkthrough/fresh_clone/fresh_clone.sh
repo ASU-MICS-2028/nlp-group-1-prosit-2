@@ -28,5 +28,5 @@ BUILDS_ROOT=$S/fresh_builds uv run --with anthropic python -m uvicorn web.app:ap
 P=$!; sleep 6
 run "curl -s -o /dev/null -w 'GET / %{http_code}\n' http://127.0.0.1:8081/; curl -s -X POST http://127.0.0.1:8081/api/builds -H 'content-type: application/json' -d '{\"request\": \"\"}'; echo"
 kill $P; sleep 1
-run "lsof -i :8081 -i :8090 | wc -l; docker ps --format '{{.Names}}' | grep -v -E 'k3d-' | wc -l"
+run "(lsof -i :8081 -i :8090 || true) | wc -l; docker ps --format '{{.Names}}' | grep -v -E 'k3d-' | wc -l"
 echo DONE >> $OUT
