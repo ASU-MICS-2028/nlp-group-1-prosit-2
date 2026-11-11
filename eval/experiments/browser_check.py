@@ -31,4 +31,8 @@ with sync_playwright() as p:
     wide = g.evaluate("document.documentElement.scrollWidth <= innerWidth"); print("no sideways scroll on a phone:", wide)
     link = g.locator("a").first.get_attribute("href"); print("docs link:", link)
     d = c.new_page(); d.goto(link); d.wait_for_selector(".opblock", timeout=20000); d.screenshot(path=f"{OUT}/6_docs.png"); print("docs operations:", d.locator(".opblock").count())
+    if g.is_visible("button:has-text('Take it offline')"):  # the new page (decision 0059): take the test build down, on the real server
+        g.on("dialog", lambda d: d.accept()); g.click("button:has-text('Take it offline')")  # it asks first; Playwright would say no
+        g.wait_for_selector("text=This backend was taken down", timeout=30000); g.screenshot(path=f"{OUT}/7_taken_down.png", full_page=True)
+        print("taken down:", d.goto(link).status)  # the docs link should no longer answer 200
     print("page errors:", errors); b.close()
