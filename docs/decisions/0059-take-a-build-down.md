@@ -1,8 +1,8 @@
 # 0059. A client can take their build down
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-11-10
-- Decided by: Eric (W5), with the team's agreement that he fixes what the S6.1 audit finds; Joseph to review in PR #14
+- Decided by: Eric (W5), with the team's agreement that he fixes what the S6.1 audit finds; accepted by Joseph (W4) on 2026-11-11
 
 ## Context
 
@@ -26,5 +26,5 @@ The S6.1 walkthrough found that a build, once live, stays public until Joseph lo
 - Limit 1: the key is the build id, which is in the public link. Anyone with the link can take the backend offline. That is the same rule as today's messages (anyone with the id can already send a change), and no data is lost. Logins would fix both; not needed for the demo.
 - Limit 2: sessions live in memory, so a build made before the server's last restart cannot be taken down this way. Joseph's manual `undeploy` still covers those.
 - The data of a taken-down build stays on the server disk (its folder in `DEPLOY_ROOT`), as it already does after a manual `undeploy`. Nothing removes it yet.
-- Not tested on the server: a build reaches `live` only there. Free tests and a no-key run on a laptop: `eval/results/walkthrough/part6/take_down.txt`. The first real use should be Eric's own test build.
+- Tested on the server on 2026-11-11 with one real build (`eval/results/sessions/take_down_live.json`, about $0.09): refused while building, link 200 before and 404 after, a second take-down refused, both other live backends still 200. Laptop checks: `eval/results/walkthrough/part6/take_down.txt`.
 - Joseph's saved attack results (`eval/results/safety/`) were made before this route existed; they are left as they are.
