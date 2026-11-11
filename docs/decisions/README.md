@@ -65,6 +65,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0056](0056-opus-stays-for-builds.md) | Opus stays as the model that builds backends | Accepted | 2026-11-09 |
 | [0057](0057-stop-a-backend-filling-the-disk.md) | Stop a backend filling the disk with a file limit and a watchdog | Accepted | 2026-11-09 |
 | [0058](0058-drop-the-mcp-server.md) | Drop S1.4, the MCP server | Accepted | 2026-11-10 |
+| [0059](0059-take-a-build-down.md) | A client can take their build down | Proposed | 2026-11-10 |
 <!-- DECISIONS:END -->
 
 ## Open questions

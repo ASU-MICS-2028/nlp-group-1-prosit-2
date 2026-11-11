@@ -1,0 +1,141 @@
+1. list_files format (characters)
+   church reference (2 files): flat 15, tree 15
+   typical project (12 files): flat 182, tree 168
+
+   tree looks like:
+app.py
+database.py
+models.py
+ops.json
+requirements.txt
+README.md
+routers/
+  __init__.py
+  events.py
+  signups.py
+tests/
+  conftest.py
+  test_events.py
+  test_signups.py
+
+2. characters the LLM writes for one change (tokens ~ characters / 4)
+   write_file  1407  edit_file   92  (15x fewer with edit)
+   write_file  1430  edit_file   63  (23x fewer with edit)
+   write_file  1434  edit_file  129  (11x fewer with edit)
+   3 edits with write_file: 4271 characters, about 1067 tokens, $0.0214
+   3 edits with edit_file: 284 characters, about 71 tokens, $0.0014
+
+3. file sizes vs the 4,000 limit
+   benchmark/church_signup/hidden_tests/test_church_signup.py: 2586 characters
+   benchmark/church_signup/mutants/capacity_off_by_one.py: 1550 characters
+   benchmark/church_signup/mutants/missing_event_200.py: 1548 characters
+   benchmark/church_signup/mutants/name_optional.py: 1506 characters
+   benchmark/church_signup/mutants/signups_never_listed.py: 1521 characters
+   benchmark/church_signup/mutants/signups_shared.py: 1595 characters
+   benchmark/church_signup/reference/app.py: 1407 characters
+   benchmark/clinic_appointments/hidden_tests/test_clinic_appointments.py: 3968 characters
+   benchmark/clinic_appointments/mutants/cancel_does_nothing.py: 1760 characters
+   benchmark/clinic_appointments/mutants/clash_ignores_date.py: 1790 characters
+   benchmark/clinic_appointments/mutants/clash_ignores_doctor.py: 1795 characters
+   benchmark/clinic_appointments/mutants/day_filter_ignored.py: 1781 characters
+   benchmark/clinic_appointments/mutants/double_booking_allowed.py: 1618 characters
+   benchmark/clinic_appointments/reference/app.py: 1705 characters
+   benchmark/clinic_appointments/reference_b/app.py: 1470 characters
+   benchmark/conftest.py: 8095 characters
+   benchmark/football_fixtures/hidden_tests/test_football_fixtures.py: 4021 characters
+   benchmark/football_fixtures/mutants/home_fixtures_only.py: 2056 characters
+   benchmark/football_fixtures/mutants/negative_away_allowed.py: 2055 characters
+   benchmark/football_fixtures/mutants/score_swapped.py: 2175 characters
+   benchmark/football_fixtures/mutants/self_play_allowed.py: 2009 characters
+   benchmark/football_fixtures/mutants/unknown_team_allowed.py: 2064 characters
+   benchmark/football_fixtures/reference/app.py: 1962 characters
+   benchmark/football_fixtures/reference_b/app.py: 1624 characters
+   benchmark/hostel_booking/hidden_tests/test_hostel_booking.py: 4660 characters
+   benchmark/hostel_booking/mutants/cancel_keeps_bed.py: 2342 characters
+   benchmark/hostel_booking/mutants/counts_overlapping_bookings.py: 2565 characters
+   benchmark/hostel_booking/mutants/free_beds_ignore_dates.py: 2460 characters
+   benchmark/hostel_booking/mutants/leaving_day_counted.py: 2319 characters
+   benchmark/hostel_booking/mutants/zero_nights_allowed.py: 2311 characters
+   benchmark/hostel_booking/reference/app.py: 2206 characters
+   benchmark/hostel_booking/reference_b/app.py: 2208 characters
+   benchmark/library_catalogue/hidden_tests/test_library_catalogue.py: 3342 characters
+   benchmark/library_catalogue/mutants/borrow_off_by_one.py: 1685 characters
+   benchmark/library_catalogue/mutants/loans_shared.py: 2067 characters
+   benchmark/library_catalogue/mutants/return_by_anyone.py: 1799 characters
+   benchmark/library_catalogue/mutants/return_not_counted.py: 1717 characters
+   benchmark/library_catalogue/mutants/shelf_shared.py: 1763 characters
+   benchmark/library_catalogue/reference/app.py: 1592 characters
+   benchmark/library_catalogue/reference_b/app.py: 1385 characters
+   benchmark/lost_and_found/hidden_tests/test_lost_and_found.py: 3112 characters
+   benchmark/lost_and_found/mutants/claim_marks_all.py: 1526 characters
+   benchmark/lost_and_found/mutants/claim_not_saved.py: 1535 characters
+   benchmark/lost_and_found/mutants/double_claim_allowed.py: 1396 characters
+   benchmark/lost_and_found/mutants/owner_optional.py: 1444 characters
+   benchmark/lost_and_found/mutants/waiting_unfiltered.py: 1454 characters
+   benchmark/lost_and_found/reference/app.py: 1346 characters
+   benchmark/market_stock/hidden_tests/test_market_stock.py: 3379 characters
+   benchmark/market_stock/mutants/low_stock_strict.py: 1572 characters
+   benchmark/market_stock/mutants/negative_amounts_allowed.py: 1562 characters
+   benchmark/market_stock/mutants/oversell_allowed.py: 1455 characters
+   benchmark/market_stock/mutants/restock_not_saved.py: 1544 characters
+   benchmark/market_stock/mutants/sell_all_refused.py: 1579 characters
+   benchmark/market_stock/reference/app.py: 1450 characters
+   benchmark/market_stock/reference_b/app.py: 1625 characters
+   benchmark/momo_wallet/hidden_tests/test_momo_wallet.py: 4553 characters
+   benchmark/momo_wallet/mutants/balance_can_go_negative.py: 2386 characters
+   benchmark/momo_wallet/mutants/float_money.py: 2404 characters
+   benchmark/momo_wallet/mutants/negative_transfer_allowed.py: 2402 characters
+   benchmark/momo_wallet/mutants/receiver_not_credited.py: 2325 characters
+   benchmark/momo_wallet/mutants/self_transfer_allowed.py: 2354 characters
+   benchmark/momo_wallet/reference/app.py: 2275 characters
+   benchmark/momo_wallet/reference_b/app.py: 2223 characters
+   benchmark/restaurant_reservations/hidden_tests/test_restaurant_reservations.py: 3841 characters
+   benchmark/restaurant_reservations/mutants/clash_ignores_table.py: 1605 characters
+   benchmark/restaurant_reservations/mutants/date_filter_ignored.py: 1564 characters
+   benchmark/restaurant_reservations/mutants/double_reservation_allowed.py: 1409 characters
+   benchmark/restaurant_reservations/mutants/full_table_refused.py: 1636 characters
+   benchmark/restaurant_reservations/mutants/party_limit_ignored.py: 1474 characters
+   benchmark/restaurant_reservations/reference/app.py: 1511 characters
+   benchmark/school_grades_gpa/hidden_tests/test_school_grades_gpa.py: 4431 characters
+   benchmark/school_grades_gpa/mutants/boundary_off_by_one.py: 2238 characters
+   benchmark/school_grades_gpa/mutants/gpa_not_rounded.py: 2280 characters
+   benchmark/school_grades_gpa/mutants/gpa_unweighted.py: 2347 characters
+   benchmark/school_grades_gpa/mutants/rescore_adds_second_entry.py: 2292 characters
+   benchmark/school_grades_gpa/mutants/score_range_unchecked.py: 2218 characters
+   benchmark/school_grades_gpa/reference/app.py: 2139 characters
+   benchmark/shared_expenses/hidden_tests/test_shared_expenses.py: 4565 characters
+   benchmark/shared_expenses/mutants/payer_share_skipped.py: 2796 characters
+   benchmark/shared_expenses/mutants/settle_wrong_direction.py: 2791 characters
+   benchmark/shared_expenses/mutants/split_among_everyone.py: 2908 characters
+   benchmark/shared_expenses/mutants/split_member_unchecked.py: 2669 characters
+   benchmark/shared_expenses/mutants/split_rounding.py: 2761 characters
+   benchmark/shared_expenses/reference/app.py: 2617 characters
+   benchmark/shop_price_list/hidden_tests/test_shop_price_list.py: 3580 characters
+   benchmark/shop_price_list/mutants/category_filter_ignored.py: 1653 characters
+   benchmark/shop_price_list/mutants/duplicate_case_sensitive.py: 1708 characters
+   benchmark/shop_price_list/mutants/id_reused_after_remove.py: 1796 characters
+   benchmark/shop_price_list/mutants/remove_does_nothing.py: 1626 characters
+   benchmark/shop_price_list/mutants/zero_price_allowed.py: 1694 characters
+   benchmark/shop_price_list/reference/app.py: 1534 characters
+   benchmark/susu_ledger/hidden_tests/test_susu_ledger.py: 5749 characters
+   benchmark/susu_ledger/mutants/collect_twice.py: 3429 characters
+   benchmark/susu_ledger/mutants/late_contribution.py: 3433 characters
+   benchmark/susu_ledger/mutants/pot_all_rounds.py: 3462 characters
+   benchmark/susu_ledger/mutants/round_collected_twice.py: 3437 characters
+   benchmark/susu_ledger/mutants/statement_counts_everyone.py: 3519 characters
+   benchmark/susu_ledger/reference/app.py: 3358 characters
+   benchmark/tailoring_orders/hidden_tests/test_tailoring_orders.py: 4666 characters
+   benchmark/tailoring_orders/mutants/deposit_not_checked.py: 1912 characters
+   benchmark/tailoring_orders/mutants/due_filter_strict.py: 2044 characters
+   benchmark/tailoring_orders/mutants/due_includes_collected.py: 1995 characters
+   benchmark/tailoring_orders/mutants/full_deposit_refused.py: 2042 characters
+   benchmark/tailoring_orders/mutants/orders_shared.py: 1976 characters
+   benchmark/tailoring_orders/reference/app.py: 1934 characters
+   benchmark/trotro_fares/hidden_tests/test_trotro_fares.py: 3390 characters
+   benchmark/trotro_fares/mutants/duplicate_allowed.py: 1453 characters
+   benchmark/trotro_fares/mutants/one_direction_only.py: 1605 characters
+   benchmark/trotro_fares/mutants/unknown_route_200.py: 1528 characters
+   benchmark/trotro_fares/mutants/update_not_saved.py: 1543 characters
+   benchmark/trotro_fares/mutants/zero_fare_allowed.py: 1569 characters
+   benchmark/trotro_fares/reference/app.py: 1482 characters
+   benchmark/validate.py: 5816 characters

@@ -14,6 +14,7 @@ def api(monkeypatch):
     monkeypatch.setattr(session, "get", lambda sid, after=0: {"id": sid, "state": "live", "next": after})
     monkeypatch.setattr(session, "send", lambda sid, m: None)
     monkeypatch.setattr(session, "approve", lambda sid: None)
+    monkeypatch.setattr(session, "take_down", lambda sid: None)
     return TestClient(web.app)
 
 
@@ -24,6 +25,7 @@ def test_page_and_journey(api):
     assert api.post("/api/builds/b1/messages", json={"message": ["a", "b"]}).status_code == 200
     assert api.post("/api/builds/b1/messages", json={"message": "a change"}).status_code == 200
     assert api.post("/api/builds/b1/approve").status_code == 200
+    assert api.post("/api/builds/b1/take-down").status_code == 200
 
 
 def test_refusals_reach_the_client_in_their_words(api):
@@ -45,5 +47,6 @@ def test_each_person_has_a_limit(api):
     for _ in range(30):
         assert api.post("/api/builds/b1/messages", json={"message": "m"}, headers=me).status_code == 200
     assert api.post("/api/builds/b1/approve", headers=me).status_code == 429
+    assert api.post("/api/builds/b1/take-down", headers=me).status_code == 429
 
 

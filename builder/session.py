@@ -8,6 +8,7 @@
     send(sid, "add a phone number")  # or approve(sid)
     send(sid, "no adding events")    # while building: the agent sees it between turns
     get(sid)["url"]                  # state "live": the public link. A later send is a change, and the link stays the same
+    take_down(sid)                   # off the address; state "failed", the data stays, and a message builds it again
 
 Before publishing, a real restart check (runtime.deploy.keeps_database, decision 0053).
 States: asking, waiting_answers, planning, waiting_approval, building, live, failed. Choices in decisions 0041 (a person
@@ -24,7 +25,7 @@ from datetime import date
 from pathlib import Path
 
 from builder.agent import build, clarify, make_plan, plain_summary, plan_text, with_answers
-from runtime.deploy import deploy, keeps_database
+from runtime.deploy import deploy, keeps_database, undeploy
 
 BUILDS = Path(os.environ.get("BUILDS_ROOT", "builds"))
 MODEL = "claude-opus-5-5"
@@ -210,6 +211,17 @@ def send(sid, message):
         s.go("building")
         return s.background(s.work, message)
     raise Refused("Please wait a moment: this build is not ready for a message yet.")
+
+
+def take_down(sid):
+    """The client wants the backend offline (decision 0059). Its data stays on the server, so a message can bring it back."""
+    s = find(sid)
+    if s.state == "building" or not s.url:  # a running build would publish it again; no url means nothing is online
+        raise Refused("There is no live backend to take down.")
+    undeploy(s.id)
+    s.url, s.docs_url, s.endpoints = None, None, []
+    s.error = "This backend was taken down. Send a message to build it again."
+    s.go("failed")  # not a new state: the page and send() already treat "failed" as offline, and a message rebuilds it
 
 
 def approve(sid):

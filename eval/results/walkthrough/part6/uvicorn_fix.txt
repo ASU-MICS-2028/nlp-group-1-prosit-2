@@ -1,0 +1,10 @@
+# S6.2 fix: web/app.py line 3 and web/setup_server.sh line 46 now start with 'python -m uvicorn' (2026-11-10, this Mac, uv 0.13.7, no key)
+$ uv run --with anthropic python -m pytest web -q
+......                                                                   [100%]
+6 passed in 1.27s
+$ BUILDS_ROOT=<scratchpad>/s6builds uv run --with anthropic python -m uvicorn web.app:app --host 127.0.0.1 --port 8080   (the ExecStart line, without the server-only env)
+GET / -> 200
+page has 'Backend Builder': 2 line(s)
+empty request -> {"detail":"Please describe the backend you need."}
+ModuleNotFoundError lines in server log: 0
+server stopped, port 8080 free

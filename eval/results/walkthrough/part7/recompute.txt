@@ -1,0 +1,18 @@
+hidden tests in all: 192 over 15 tasks
+agent: Alice's run (s38_list_all)  tasks 15  rows per task {3: 15}  last row  95.8%  mean of rows  95.8%
+agent: fresh1 (key_rules 'after')  tasks 15  rows per task {1: 15}  last row  96.9%  mean of rows  96.9%
+agent: fresh2 (key_rules 'after')  tasks 15  rows per task {1: 15}  last row  95.3%  mean of rows  95.3%
+one call: round 1 (baseline_v2)    tasks 15  rows per task {1: 15}  last row  88.5%  mean of rows  88.5%
+one call: round 2 (baseline_r2)    tasks 15  rows per task {1: 15}  last row  84.4%  mean of rows  84.4%
+one call: round 3 (baseline_r3)    tasks 15  rows per task {1: 15}  last row  81.2%  mean of rows  81.2%
+one call: round 4 (baseline_r4)    tasks 15  rows per task {1: 15}  last row  81.8%  mean of rows  81.8%
+
+average: agent 96.0% over 3 runs; one call 84.0% over 4 rounds
+
+run_totals.json keys: ['fresh1', 'fresh2', 'p1', 's310_change', 's310_rebuild', 's33_check', 's34', 's34_credit_stop', 's34_try', 's35']
+
+# fresh runs: key_rules 'before' against the raw harness rows (old rules)
+fresh1: before 179/192 = 93.2%  harness fresh1_restart: 179/192 = 93.2%  rows per task Counter({3: 15})  every task identical: True
+   rescoring changed 1 tasks: restaurant_reservations 5->12
+fresh2: before 168/192 = 87.5%  harness fresh2_restart: 168/192 = 87.5%  rows per task Counter({3: 15})  every task identical: True
+   rescoring changed 2 tasks: restaurant_reservations 5->12, shared_expenses 5->13

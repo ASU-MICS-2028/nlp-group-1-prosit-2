@@ -17,7 +17,7 @@
 | Bernard (W2) | — | ✅ S1.1 The agent's tools<br>✅ S1.2 Sandbox<br>✅ S1.3 Safety tests<br>✅ S1.5 Handoff: Bernard's learnings | — | — | — | — | — | — |
 | Michael (W3) | — | — | — | — | 🔵 S4.1 Read Alice's and Joseph's learnings, try the live platform<br>⏳ S4.2 UI on a recorded session<br>⏳ S4.3 Better UI on the live platform<br>⏳ S4.4 UI alternatives compared<br>⏳ S4.5 Usability test<br>⏳ S4.6 Handoff: Michael's learnings | — | — | — |
 | Joseph (W4) | ✅ S0.2 LLM setup | — | ✅ S2.1 Read Bernard's learnings, run his tools<br>✅ S2.2 15 benchmark tasks<br>✅ S2.3 Eval harness<br>✅ S2.4 Recipe knowledge base and search<br>✅ S2.5 Handoff: Joseph's learnings, part 1 | ✅ S3.12 Hosting on a public server<br>✅ S3.13 Agent session<br>✅ S3.14 Small live platform | ✅ S4.7 Safety of the public platform<br>✅ S4.8 Plain-word summaries; follow mid-build messages properly | ✅ S5.1 Read Alice's learnings, try the live platform<br>✅ S5.2 Full system on all 15 tasks<br>✅ S5.3 Ablations<br>✅ S5.4 Model comparison<br>✅ S5.5 Results tables and charts<br>✅ S5.6 Handoff: Joseph's learnings, part 2 | — | — |
-| Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>✅ S0.4 Ask the instructor about "Section C" | — | — | — | — | — | 🔵 S6.1 Read every learnings file, run everything<br>⏳ S6.2 Fix what doesn't fit together<br>⏳ S6.3 Section B draft<br>⏳ S6.4 Slides and recorded demo<br>⏳ S6.5 Handoff: Eric's learnings | — |
+| Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>✅ S0.4 Ask the instructor about "Section C" | — | — | — | — | — | 🟡 S6.1 Read every learnings file, run everything<br>🟡 S6.2 Fix what doesn't fit together<br>⏳ S6.3 Section B draft<br>⏳ S6.4 Slides and recorded demo<br>⏳ S6.5 Handoff: Eric's learnings | — |
 | Everyone | 🔵 S0.6 Docker on every laptop | — | — | — | — | — | — | ⏳ S7.1 Review Section B for your part<br>🔵 S7.2 Section A (individual, any time)<br>⏳ S7.3 Viva walkthrough<br>⏳ S7.4 Rehearse and submit |
 
 ✅ done · 🟡 in progress · 🔵 ready to start · ⏳ waiting on another task
@@ -85,8 +85,8 @@ flowchart LR
     S5_6["S5.6 Handoff: Joseph's learnings, part 2<br/>W4 · Must"]:::done
   end
   subgraph Stage6["Stage 6: Eric — integration and writing"]
-    S6_1["S6.1 Read every learnings file, run everything<br/>W5 · Must"]:::ready
-    S6_2["S6.2 Fix what doesn't fit together<br/>W5 · Must"]:::waiting
+    S6_1["S6.1 Read every learnings file, run everything<br/>W5 · Must"]:::doing
+    S6_2["S6.2 Fix what doesn't fit together<br/>W5 · Must"]:::doing
     S6_3["S6.3 Section B draft<br/>W5 · Must"]:::waiting
     S6_4["S6.4 Slides and recorded demo<br/>W5 · Must"]:::waiting
     S6_5["S6.5 Handoff: Eric's learnings<br/>W5 · Must"]:::waiting
@@ -239,8 +239,8 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 
 | ID | Task | Who | Needs | Priority | Status | Done when |
 |---|---|---|---|---|---|---|
-| S6.1 | Read every learnings file, run everything | W5 | S3.14 | Must | todo | A fresh clone runs the whole platform following only the README and the learnings files |
-| S6.2 | Fix what doesn't fit together | W5 | S6.1 | Must | todo | Each gap fixed with the owner of that part; nothing left that only one person can run |
+| S6.1 | Read every learnings file, run everything | W5 | S3.14 | Must | doing | A fresh clone runs the whole platform following only the README and the learnings files |
+| S6.2 | Fix what doesn't fit together | W5 | S6.1 | Must | doing | Each gap fixed with the owner of that part; nothing left that only one person can run |
 | S6.3 | Section B draft | W5 | S6.1 | Must | todo | Approach, architecture, implementation, evaluation, written from the learnings files; final numbers taken from S5.5 |
 | S6.4 | Slides and recorded demo | W5 | S6.2, S6.3, S4.3 | Must | todo | 10-minute deck with the GitHub link on slide 1, each person presenting their part; a demo recording saved |
 | S6.5 | Handoff: Eric's learnings | W5 | S6.4, S4.6, S4.7, S5.6 | Must | todo | `learnings/W5-*.md` complete |
@@ -322,8 +322,8 @@ What each person owns. The task list under the table is generated.
 1. S0.1 Set up the repo — Must, done
 2. S0.3 Assign owners — Must, done
 3. S0.4 Ask the instructor about "Section C" — Should, done
-4. S6.1 Read every learnings file, run everything — Must, ready
-5. S6.2 Fix what doesn't fit together — Must, waiting (waiting on S6.1)
+4. S6.1 Read every learnings file, run everything — Must, doing
+5. S6.2 Fix what doesn't fit together — Must, doing
 6. S6.3 Section B draft — Must, waiting (waiting on S6.1)
 7. S6.4 Slides and recorded demo — Must, waiting (waiting on S6.2, S6.3, S4.3)
 8. S6.5 Handoff: Eric's learnings — Must, waiting (waiting on S6.4, S4.6)

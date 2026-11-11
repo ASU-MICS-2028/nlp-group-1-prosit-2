@@ -10,7 +10,7 @@ Plain words. What goes in, what comes out, why the system needs it.
 
 The agent is the "brain" of the system. **In:** a client's request in plain words, such as "I need a sign-up sheet for church events". **Out:** a folder with a working program (`app.py`) that does what the client asked, plus a short report of what it cost. Claude does the thinking, but it never touches the computer itself. It asks for actions ("write this file", "run the tests"), our code does them in Bernard's sandbox and tells Claude what happened, and this repeats until Claude says it is finished.
 
-**Where it ended up (Stage 3):** the agent first asks the client up to 3 questions, then builds and tests the app in one go. On the 15 benchmark tasks it passes **95.8%** of the hidden tests, against **89%** for a single Claude call with no tools (Joseph's baseline), for about 13 cents and 40 seconds per task. A client can also approve a plan first (`plan`), ask for a change later (`change`), or run it free on this laptop with Qwen (59% on the easy tasks, much slower).
+**Where it ended up (Stage 3):** the agent first asks the client up to 3 questions, then builds and tests the app in one go. On the 15 benchmark tasks it passes **95.8%** of the hidden tests, against **89%** for a single Claude call with no tools (Joseph's baseline), for about 13 cents and 40 seconds per task. *(Note, Nov 10: these are one agent run against one baseline round. For the report, use the repeated runs in `eval/results/agent_vs_baseline.json` (decision 0055): the agent averages **96.0%** over 3 runs (95.3 to 96.9), one call **84.0%** over 4 rounds (81.2 to 88.5). Rechecked in `eval/results/walkthrough/part7/`: two of the three agent runs are rescored with the key rules, W4 row 43.)* A client can also approve a plan first (`plan`), ask for a change later (`change`), or run it free on this laptop with Qwen (59% on the easy tasks, much slower).
 
 ## 2. How it works, step by step
 
@@ -280,11 +280,11 @@ Exact commands and what you should see. Then the handoff: what the next person i
 
 ### First: check the parts the agent stands on
 
-The agent uses Bernard's tools and is scored by Joseph's harness, so check both work before running it. Open Docker Desktop and wait until it says it is running. Then, in a terminal in the repo folder, run these **one at a time** (see section 5 for why):
+The agent uses Bernard's tools and is scored by Joseph's harness, so check both work before running it. Open Docker Desktop (or OrbStack) and wait until it says it is running. Then, in a terminal in the repo folder, run these **one at a time** (see section 5 for why):
 
 | # | Command | What it checks | You should see |
 |---|---|---|---|
-| 1 | `uv run pytest runtime -q` | Bernard's 51 checks on the tools and the sandbox (about 1 minute) | `51 passed` |
+| 1 | `uv run pytest runtime -q` | Bernard's 67 checks on the tools and the sandbox (about 1 minute) | `67 passed` |
 | 2 | `uv run python benchmark/validate.py church_signup`, then `git checkout benchmark/validation.json` to undo the file it rewrites | The church task's hidden tests pass on the right answer and catch 5 broken ones | `✅ church_signup: 10 tests \| reference ✅ \| mutants killed 5/5` |
 | 3 | `uv run python -m eval.harness all --references` | The harness gives Joseph's correct answers full marks (about 15 s, free) | 21 lines at full score, then `272/272 tests = 100.0%` |
 | 4 | `uv run --extra kb python -m kb.search "two people booked the same room"` | The recipe search works (the first run downloads a 90 MB model) | `15 ... No double booking: one slot, one booking` at the top |
@@ -297,7 +297,7 @@ If something goes wrong:
 ### Run the agent
 
 ```
-uv run --with anthropic python -m pytest builder -q        # the free tests (pretend Claude): 51 passed
+uv run --with anthropic python -m pytest builder -q        # the free tests (pretend Claude): 76 passed (51 for the agent, plus 25 for Joseph's session: 24 from Nov 6 and the take-down test of Nov 10; checked Nov 10)
 uv run --env-file .env --with anthropic python -m builder build church_signup --run try1     # one task, about $0.10
 uv run --env-file .env --with anthropic python -m eval.harness church_signup projects/try1/church_signup --repeat 3 --name try1
 ```

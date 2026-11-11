@@ -1,0 +1,6 @@
+# ui/ (Michael) on this Mac with NO key, started with its docstring command minus --env-file, 2026-11-10
+$ uv run --with anthropic --with fastapi --with uvicorn uvicorn ui.server:app --port 8001
+GET /                     -> 200
+POST /api/start (a request) -> {"detail":"Could not reach the AI service (KeyError)."} 502
+POST /api/start (empty)   -> {"id":"cc3a2629","questions":[]} 200
+POST /api/builds (web/'s address) -> 404

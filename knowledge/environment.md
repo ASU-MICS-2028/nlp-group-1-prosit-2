@@ -78,6 +78,7 @@ Tested on macOS (Oct 26): a killed program left 2 containers and 1 network; thes
 ## Notes
 
 - The known setup is macOS on Apple Silicon (arm64). Linux has not been checked yet. If you find a difference, write it here.
+- **OrbStack works instead of Docker Desktop** (checked Nov 10, Apple M5): it gives the same `docker` command (`docker context show` prints `orbstack`), `docker run --rm hello-world` works, and Bernard's tests give 66 passed.
 
 ### Windows 11 (checked Oct 25, Bernard's laptop)
 

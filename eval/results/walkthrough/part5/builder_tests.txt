@@ -1,0 +1,6 @@
+Downloading anthropic (2.3MiB)
+ Downloaded anthropic
+Installed 16 packages in 40ms
+........................................................................ [ 96%]
+...                                                                      [100%]
+75 passed in 2.81s

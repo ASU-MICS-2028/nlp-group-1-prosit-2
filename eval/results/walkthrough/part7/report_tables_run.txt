@@ -1,0 +1,7 @@
+Downloading matplotlib (8.9MiB)
+Downloading pillow (4.6MiB)
+Downloading fonttools (3.0MiB)
+ Downloaded fonttools
+ Downloaded pillow
+ Downloaded matplotlib
+Installed 11 packages in 55ms
