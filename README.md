@@ -29,7 +29,6 @@ Nothing left of your own: see Everyone.
 
 | Task | Status | Done when |
 |---|---|---|
-| S6.1 Read every learnings file, run everything | 🟡 doing | A fresh clone runs the whole platform following only the README and the learnings files |
 | S6.2 Fix what doesn't fit together | 🟡 doing | Each gap fixed with the owner of that part; nothing left that only one person can run |
 | S6.3 Section B draft | 🟡 doing | Approach, architecture, implementation, evaluation, written from the learnings files; final numbers taken from S5.5 |
 | S6.4 Slides and recorded demo | 🟡 doing | 10-minute deck with the GitHub link on slide 1, each person presenting their part; a demo recording saved |
