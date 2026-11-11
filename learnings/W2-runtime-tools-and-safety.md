@@ -199,13 +199,13 @@ Totals: tool attacks 0/7 worked in both modes. Code attacks: Docker blocked 15/1
 uv sync
 docker build -t w2-sandbox runtime/sandbox     # once: the sandbox image (about 270 MB, 1-2 minutes)
 docker pull alpine/socat:1.8.0.3               # once: the "door" for servers
-uv run pytest runtime -q                       # expect: 66 passed (46 s on an Apple M5, Nov 10)
+uv run pytest runtime -q                       # expect: 67 passed (57 s on an Apple M5, Nov 11)
 ```
 **Checked from a fresh clone** (Oct 26, Windows 11): following only these steps, the image built from scratch, 51 tests passed in 156 s, and the church hidden tests passed 10/10 against a server started with `start_server` (Joseph's use, below).
 
-**Checked again** (Nov 10, Apple M5 with OrbStack, an updated copy): 66 passed in 46 s. The extra 15 tests were added in November (keeping data, disk limits). With `SANDBOX=subprocess`: 56 passed, 10 skipped (the 10 sandbox tests), measured while Docker was running.
+**Checked again** (Nov 10, Apple M5 with OrbStack, an updated copy): 66 passed in 46 s. The extra 15 tests were added in November (keeping data, disk limits). With `SANDBOX=subprocess`: 56 passed, 10 skipped (the 10 sandbox tests), measured while Docker was running. *Nov 11: 67 passed, and 57 passed with 10 skipped, after Joseph's Windows fix added one test (`runtime/tests/test_database_closed.py`, PR #13).*
 
-Docker must be running (Docker Desktop, or OrbStack on a Mac: it gives the same `docker` command). On a machine without Docker, set the environment variable `SANDBOX=subprocess` (PowerShell: `$env:SANDBOX="subprocess"`). Then expect 56 passed and 10 skipped, and remember that nothing is isolated.
+Docker must be running (Docker Desktop, or OrbStack on a Mac: it gives the same `docker` command). On a machine without Docker, set the environment variable `SANDBOX=subprocess` (PowerShell: `$env:SANDBOX="subprocess"`). Then expect 57 passed and 10 skipped, and remember that nothing is isolated.
 
 **Re-run the experiments** (all free except the two that call Claude and need the key: `error_format.py`, about $0.85, and `prompt_injection.py`, about $0.55):
 ```

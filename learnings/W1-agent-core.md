@@ -284,7 +284,7 @@ The agent uses Bernard's tools and is scored by Joseph's harness, so check both 
 
 | # | Command | What it checks | You should see |
 |---|---|---|---|
-| 1 | `uv run pytest runtime -q` | Bernard's 66 checks on the tools and the sandbox (about 1 minute) | `66 passed` |
+| 1 | `uv run pytest runtime -q` | Bernard's 67 checks on the tools and the sandbox (about 1 minute) | `67 passed` |
 | 2 | `uv run python benchmark/validate.py church_signup`, then `git checkout benchmark/validation.json` to undo the file it rewrites | The church task's hidden tests pass on the right answer and catch 5 broken ones | `✅ church_signup: 10 tests \| reference ✅ \| mutants killed 5/5` |
 | 3 | `uv run python -m eval.harness all --references` | The harness gives Joseph's correct answers full marks (about 15 s, free) | 21 lines at full score, then `272/272 tests = 100.0%` |
 | 4 | `uv run --extra kb python -m kb.search "two people booked the same room"` | The recipe search works (the first run downloads a 90 MB model) | `15 ... No double booking: one slot, one booking` at the top |
