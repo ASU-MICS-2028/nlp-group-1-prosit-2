@@ -1,0 +1,30 @@
+phone empty Start: 'Please type something first.'
+phone example click clears the message: True
+phone 1_describe: sideways scroll False
+phone 2_questions: sideways scroll False
+phone 3_plan: sideways scroll False
+phone refresh keeps the build: yes
+phone 4_building: sideways scroll False
+phone 5_live: sideways scroll False
+phone 6_taken_down: sideways scroll False
+phone page errors: []
+desktop empty Start: 'Please type something first.'
+desktop example click clears the message: True
+desktop 1_describe: sideways scroll False
+desktop 2_questions: sideways scroll False
+desktop 3_plan: sideways scroll False
+desktop refresh keeps the build: yes
+desktop 4_building: sideways scroll False
+desktop 5_live: sideways scroll False
+desktop 6_taken_down: sideways scroll False
+desktop page errors: []
+phone_dark empty Start: 'Please type something first.'
+phone_dark example click clears the message: True
+phone_dark 1_describe: sideways scroll False
+phone_dark 2_questions: sideways scroll False
+phone_dark 3_plan: sideways scroll False
+phone_dark refresh keeps the build: yes
+phone_dark 4_building: sideways scroll False
+phone_dark 5_live: sideways scroll False
+phone_dark 6_taken_down: sideways scroll False
+phone_dark page errors: []

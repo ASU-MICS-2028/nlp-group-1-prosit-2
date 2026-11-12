@@ -56,6 +56,7 @@
   a { color:var(--ink); }
   .error { color:var(--bad); font-weight:600; margin-top:12px; }
   .good { color:var(--good); }
+  summary { cursor:pointer; font-weight:600; margin:14px 0 8px; }
   @media (max-width: 760px) {
     .app { grid-template-columns:1fr; }
     aside { position:static; height:auto; flex-direction:column; padding:16px 20px; }
@@ -73,7 +74,7 @@
   <aside aria-label="Progress"><div class="rule" id="rule" role="progressbar" aria-valuemin="0" aria-valuemax="100"><i></i></div><ol class="stops" id="stops"></ol></aside>
   <main>
     <h1>Backend Builder</h1>
-    <p class="soft">Describe what you need in plain words. We build it, test it and put it online.</p>
+    <p class="soft">Describe what you need in plain words. We build a backend, the part of an app or website that keeps your records, test it and put it online.</p>
     <div id="view"></div>
     <p id="problem" class="error" role="alert"></p>
   </main>
@@ -159,9 +160,12 @@ function screen(s) {
   if (s === "building") return card(el("h2", { textContent: "Building… usually about a minute" }), el("ul", { id: "steps", className: "steps" }),
     ...box("Changed your mind about something?", "You can tell us while we build", "Send", t => api(`/${id}/messages`, { message: t }), true));
   if (s === "live") return card(el("h2", { className: "good", textContent: "Your backend is live" }),
-    el("p", {}, "Try it here: ", el("a", { href: last.docs_url, target: "_blank", rel: "noopener", textContent: last.docs_url })),
-    el("p", {}, "Its address, for a website or app: ", el("code", { textContent: last.url })),
-    el("h3", { textContent: "For the person who builds your website or app" }), el("ul", {}, ...last.endpoints.map(e => el("li", {}, el("code", { textContent: e })))),
+    el("p", {}, el("a", { href: last.docs_url, target: "_blank", rel: "noopener", textContent: "Open the try-it page" }),
+      el("span", { className: "soft", textContent: ": add records and look at them. It is made for developers, so some words there are technical." })),
+    // S4.4: the address and the action list are for a developer, so they stay folded until opened
+    el("details", {}, el("summary", { textContent: "For the person who builds your website or app" }),
+      el("p", {}, "Address: ", el("code", { textContent: last.url })),
+      el("ul", {}, ...last.endpoints.map(e => el("li", {}, el("code", { textContent: e }))))),
     el("pre", { textContent: (last.summary || "").replace(/\*\*|`/g, "") }),  // the agent writes markdown; plain text is enough here
     ...box("Want to change something?", "For example: also let me delete a customer", "Change it", t => api(`/${id}/messages`, { message: t }), true),
     el("button", { className: "quiet", textContent: "Take it offline",  // decision 0059: the data stays, and a message brings it back

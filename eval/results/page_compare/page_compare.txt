@@ -1,6 +1,6 @@
-screen        words before -> now   technical words before | now
-1_describe       23 -> 28      - | -
-2_questions      89 -> 90      - | -
-3_plan          329 -> 340     GET POST | -
-4_building       31 -> 32      - | -
-5_live          327 -> 336     GET POST docs https id | GET POST docs https id
+screen        words before -> nov11 -> now   technical words before | nov11 | now   ...not counting the agent's summary
+1_describe    23   -> 28   -> 40     - | - | -   - | - | -
+2_questions   89   -> 90   -> 102    - | - | -   - | - | -
+3_plan        329  -> 340  -> 352    GET POST | - | -   - | - | -
+4_building    31   -> 32   -> 44     - | - | -   - | - | -
+5_live        327  -> 336  -> 336    GET POST docs https id | GET POST docs https id | GET POST id   GET POST docs https | GET POST docs https | -
