@@ -20,12 +20,8 @@ Nothing left of your own: see Everyone.
 | Task | Status | Done when |
 |---|---|---|
 | S4.3 Better UI on the live platform | 🟡 doing | On the public address, a non-developer can describe, answer, approve, try and change a backend with nothing but the page, and understands every word on it |
-| S4.4 UI alternatives compared | 🟡 doing | Ways of showing the plan, asking questions, showing progress and wording errors, compared |
-| S4.6 Handoff: Michael's learnings | 🟡 doing | `learnings/W3-*.md` complete |
-| S6.2 Fix what doesn't fit together | 🟡 doing | Each gap fixed with the owner of that part; nothing left that only one person can run |
-| S6.3 Section B draft | 🟡 doing | Approach, architecture, implementation, evaluation, written from the learnings files; final numbers taken from S5.5 |
 | S6.4 Slides and recorded demo | 🟡 doing | 10-minute deck with the GitHub link on slide 1, each person presenting their part; a demo recording saved |
-| S6.5 Handoff: Eric's learnings | ⏳ waiting (on S6.4, S4.6) | `learnings/W5-*.md` complete |
+| S6.5 Handoff: Eric's learnings | ⏳ waiting (on S6.4) | `learnings/W5-*.md` complete |
 
 ### Eric (W5)
 
@@ -36,8 +32,8 @@ Nothing left of your own: see Everyone.
 | Task | Status | Done when |
 |---|---|---|
 | S0.6 Docker on every laptop | 🔵 ready | `docker run --rm hello-world` works for all 5 |
-| S4.5 Usability test | ⏳ waiting (on S4.4) | 4–5 non-developers: completion, time, SUS score, quotes |
-| S7.1 Review Section B for your part | ⏳ waiting (on S6.3) | Each owner confirms their part is correct |
+| S4.5 Usability test | 🔵 ready | 4–5 non-developers: completion, time, SUS score, quotes |
+| S7.1 Review Section B for your part | 🔵 ready | Each owner confirms their part is correct |
 | S7.2 Section A (individual, any time) | 🔵 ready | 3–5 pages each, own words, topics a–r told as one story |
 | S7.3 Viva walkthrough | ⏳ waiting (on S6.5) | Each owner has taught their part; everyone can answer every part's viva questions |
 | S7.4 Rehearse and submit | ⏳ waiting (on S7.1, S7.2, S7.3, S6.4) | Two timed run-throughs; report and slides on Canvas with the GitHub link on page 1 |
