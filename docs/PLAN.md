@@ -16,9 +16,9 @@
 | Alice (W1) | — | — | — | ✅ S3.1 Read Bernard's and Joseph's learnings, run their parts<br>✅ S3.2 Single agent from the command line<br>✅ S3.3 Run record and trace<br>✅ S3.4 Test-and-repair loop<br>✅ S3.5 Spec-first plan and approval<br>✅ S3.6 Planner / Builder / Tester split<br>✅ S3.7 Retrieval in the agent<br>✅ S3.8 Clarifying questions<br>✅ S3.9 Claude vs local Qwen<br>✅ S3.10 "Change it" edit loop<br>✅ S3.11 Handoff: Alice's learnings | — | — | — | — |
 | Bernard (W2) | — | ✅ S1.1 The agent's tools<br>✅ S1.2 Sandbox<br>✅ S1.3 Safety tests<br>✅ S1.5 Handoff: Bernard's learnings | — | — | — | — | — | — |
 | Michael (W3) | — | — | — | — | ✅ S4.2 UI on a recorded session | — | — | — |
-| Joseph (W4) | ✅ S0.2 LLM setup | — | ✅ S2.1 Read Bernard's learnings, run his tools<br>✅ S2.2 15 benchmark tasks<br>✅ S2.3 Eval harness<br>✅ S2.4 Recipe knowledge base and search<br>✅ S2.5 Handoff: Joseph's learnings, part 1 | ✅ S3.12 Hosting on a public server<br>✅ S3.13 Agent session<br>✅ S3.14 Small live platform | ✅ S4.1 Read Alice's and Joseph's learnings, try the live platform<br>🟡 S4.3 Better UI on the live platform<br>✅ S4.4 UI alternatives compared<br>✅ S4.6 Handoff: Michael's learnings<br>✅ S4.7 Safety of the public platform<br>✅ S4.8 Plain-word summaries; follow mid-build messages properly | ✅ S5.1 Read Alice's learnings, try the live platform<br>✅ S5.2 Full system on all 15 tasks<br>✅ S5.3 Ablations<br>✅ S5.4 Model comparison<br>✅ S5.5 Results tables and charts<br>✅ S5.6 Handoff: Joseph's learnings, part 2 | ✅ S6.2 Fix what doesn't fit together<br>✅ S6.3 Section B draft<br>🟡 S6.4 Slides and recorded demo<br>⏳ S6.5 Handoff: Eric's learnings | — |
+| Joseph (W4) | ✅ S0.2 LLM setup | — | ✅ S2.1 Read Bernard's learnings, run his tools<br>✅ S2.2 15 benchmark tasks<br>✅ S2.3 Eval harness<br>✅ S2.4 Recipe knowledge base and search<br>✅ S2.5 Handoff: Joseph's learnings, part 1 | ✅ S3.12 Hosting on a public server<br>✅ S3.13 Agent session<br>✅ S3.14 Small live platform | ✅ S4.1 Read Alice's and Joseph's learnings, try the live platform<br>✅ S4.3 Better UI on the live platform<br>✅ S4.4 UI alternatives compared<br>✅ S4.6 Handoff: Michael's learnings<br>✅ S4.7 Safety of the public platform<br>✅ S4.8 Plain-word summaries; follow mid-build messages properly | ✅ S5.1 Read Alice's learnings, try the live platform<br>✅ S5.2 Full system on all 15 tasks<br>✅ S5.3 Ablations<br>✅ S5.4 Model comparison<br>✅ S5.5 Results tables and charts<br>✅ S5.6 Handoff: Joseph's learnings, part 2 | ✅ S6.2 Fix what doesn't fit together<br>✅ S6.3 Section B draft<br>✅ S6.4 Slides and recorded demo<br>✅ S6.5 Handoff: Eric's learnings | — |
 | Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>✅ S0.4 Ask the instructor about "Section C" | — | — | — | — | — | ✅ S6.1 Read every learnings file, run everything | — |
-| Everyone | 🔵 S0.6 Docker on every laptop | — | — | — | 🔵 S4.5 Usability test | — | — | 🔵 S7.1 Review Section B for your part<br>🔵 S7.2 Section A (individual, any time)<br>⏳ S7.3 Viva walkthrough<br>⏳ S7.4 Rehearse and submit |
+| Everyone | 🔵 S0.6 Docker on every laptop | — | — | — | 🔵 S4.5 Usability test | — | — | 🔵 S7.1 Review Section B for your part<br>🔵 S7.2 Section A (individual, any time)<br>🔵 S7.3 Viva walkthrough<br>⏳ S7.4 Rehearse and submit |
 
 ✅ done · 🟡 in progress · 🔵 ready to start · ⏳ waiting on another task
 <!-- BOARD:END -->
@@ -69,7 +69,7 @@ flowchart LR
   subgraph Stage4["Stage 4: Michael — UI and usability"]
     S4_1["S4.1 Read Alice's and Joseph's learnings, try the live platform<br/>W4 · Must"]:::done
     S4_2["S4.2 UI on a recorded session<br/>W3 · Must"]:::done
-    S4_3["S4.3 Better UI on the live platform<br/>W4 · Must"]:::doing
+    S4_3["S4.3 Better UI on the live platform<br/>W4 · Must"]:::done
     S4_4["S4.4 UI alternatives compared<br/>W4 · Should"]:::done
     S4_5["S4.5 Usability test<br/>All · Should"]:::ready
     S4_6["S4.6 Handoff: Michael's learnings<br/>W4 · Must"]:::done
@@ -88,13 +88,13 @@ flowchart LR
     S6_1["S6.1 Read every learnings file, run everything<br/>W5 · Must"]:::done
     S6_2["S6.2 Fix what doesn't fit together<br/>W4 · Must"]:::done
     S6_3["S6.3 Section B draft<br/>W4 · Must"]:::done
-    S6_4["S6.4 Slides and recorded demo<br/>W4 · Must"]:::doing
-    S6_5["S6.5 Handoff: Eric's learnings<br/>W4 · Must"]:::waiting
+    S6_4["S6.4 Slides and recorded demo<br/>W4 · Must"]:::done
+    S6_5["S6.5 Handoff: Eric's learnings<br/>W4 · Must"]:::done
   end
   subgraph Stage7["Stage 7: Everyone — review, viva, submit"]
     S7_1["S7.1 Review Section B for your part<br/>All · Must"]:::ready
     S7_2["S7.2 Section A (individual, any time)<br/>All · Must"]:::ready
-    S7_3["S7.3 Viva walkthrough<br/>All · Must"]:::waiting
+    S7_3["S7.3 Viva walkthrough<br/>All · Must"]:::ready
     S7_4["S7.4 Rehearse and submit<br/>All · Must"]:::waiting
   end
   S1_1 --> S1_2
@@ -217,7 +217,7 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 |---|---|---|---|---|---|---|
 | S4.1 | Read Alice's and Joseph's learnings, try the live platform | W4 | S3.14 | Must | done | You built a backend through the live page, and `web/` runs on your laptop (section 6 of `learnings/W4-*.md`) (done by Joseph in S5.1, decision 0062) |
 | S4.2 | UI on a recorded session | W3 | S4.1 | Must | done | `web/index.html` can play back a saved session, served by `web/replay.py` (describe → questions → plan → progress → try it), so you can change the page without paying for builds |
-| S4.3 | Better UI on the live platform | W4 | S4.2 | Must | doing | On the public address, a non-developer can describe, answer, approve, try and change a backend with nothing but the page, and understands every word on it |
+| S4.3 | Better UI on the live platform | W4 | S4.2 | Must | done | On the public address, a non-developer can describe, answer, approve, try and change a backend with nothing but the page, and understands every word on it (live with a real build on Nov 12, W5 row 17; a change after going live, W4 row 32; whether people understand every word is S4.5) |
 | S4.4 | UI alternatives compared | W4 | S4.3 | Should | done | Ways of showing the plan, asking questions, showing progress and wording errors, compared |
 | S4.5 | Usability test | All | S4.4 | Should | todo | 4–5 non-developers: completion, time, SUS score, quotes |
 | S4.6 | Handoff: Michael's learnings | W4 | S4.3 | Must | done | `learnings/W3-*.md` complete |
@@ -242,8 +242,8 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 | S6.1 | Read every learnings file, run everything | W5 | S3.14 | Must | done | A fresh clone runs the whole platform following only the README and the learnings files |
 | S6.2 | Fix what doesn't fit together | W4 | S6.1 | Must | done | Each gap fixed with the owner of that part; nothing left that only one person can run |
 | S6.3 | Section B draft | W4 | S6.1 | Must | done | Approach, architecture, implementation, evaluation, written from the learnings files; final numbers taken from S5.5 |
-| S6.4 | Slides and recorded demo | W4 | S6.2, S6.3, S4.3 | Must | doing | 10-minute deck with the GitHub link on slide 1, each person presenting their part; a demo recording saved |
-| S6.5 | Handoff: Eric's learnings | W4 | S6.4, S4.6, S4.7, S5.6 | Must | todo | `learnings/W5-*.md` complete |
+| S6.4 | Slides and recorded demo | W4 | S6.2, S6.3, S4.3 | Must | done | 10-minute deck with the GitHub link on slide 1, each person presenting their part; a demo recording saved |
+| S6.5 | Handoff: Eric's learnings | W4 | S6.4, S4.6, S4.7, S5.6 | Must | done | `learnings/W5-*.md` complete |
 
 ## Stage 7: Everyone — review, viva, submit
 
@@ -304,7 +304,7 @@ What each person owns. The task list under the table is generated.
 8. S3.13 Agent session — Must, done
 9. S3.14 Small live platform — Must, done
 10. S4.1 Read Alice's and Joseph's learnings, try the live platform — Must, done
-11. S4.3 Better UI on the live platform — Must, doing
+11. S4.3 Better UI on the live platform — Must, done
 12. S4.4 UI alternatives compared — Should, done
 13. S4.6 Handoff: Michael's learnings — Must, done
 14. S4.7 Safety of the public platform — Must, done
@@ -317,8 +317,8 @@ What each person owns. The task list under the table is generated.
 21. S5.6 Handoff: Joseph's learnings, part 2 — Must, done
 22. S6.2 Fix what doesn't fit together — Must, done
 23. S6.3 Section B draft — Must, done
-24. S6.4 Slides and recorded demo — Must, doing
-25. S6.5 Handoff: Eric's learnings — Must, waiting (waiting on S6.4)
+24. S6.4 Slides and recorded demo — Must, done
+25. S6.5 Handoff: Eric's learnings — Must, done
 
 **Eric (W5)**
 
@@ -333,8 +333,8 @@ What each person owns. The task list under the table is generated.
 2. S4.5 Usability test — Should, ready
 3. S7.1 Review Section B for your part — Must, ready
 4. S7.2 Section A (individual, any time) — Must, ready
-5. S7.3 Viva walkthrough — Must, waiting (waiting on S6.5)
-6. S7.4 Rehearse and submit — Must, waiting (waiting on S7.1, S7.2, S7.3, S6.4)
+5. S7.3 Viva walkthrough — Must, ready
+6. S7.4 Rehearse and submit — Must, waiting (waiting on S7.1, S7.2, S7.3)
 <!-- PEOPLE:END -->
 
 ## Who waits on whom
@@ -342,6 +342,5 @@ What each person owns. The task list under the table is generated.
 Generated: every place where one person's task cannot finish until another person's task is done. In a relay, these are the handoffs.
 
 <!-- BLOCKERS:START -->
-- S7.3 Viva walkthrough (Everyone) waits on S6.5 Handoff: Eric's learnings (Joseph (W4))
-- S7.4 Rehearse and submit (Everyone) waits on S6.4 Slides and recorded demo (Joseph (W4))
+- Nothing: no task is waiting on someone else's work.
 <!-- BLOCKERS:END -->

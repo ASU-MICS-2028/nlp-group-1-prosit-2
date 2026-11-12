@@ -17,11 +17,7 @@ Nothing left of your own: see Everyone.
 
 ### Joseph (W4)
 
-| Task | Status | Done when |
-|---|---|---|
-| S4.3 Better UI on the live platform | 🟡 doing | On the public address, a non-developer can describe, answer, approve, try and change a backend with nothing but the page, and understands every word on it |
-| S6.4 Slides and recorded demo | 🟡 doing | 10-minute deck with the GitHub link on slide 1, each person presenting their part; a demo recording saved |
-| S6.5 Handoff: Eric's learnings | ⏳ waiting (on S6.4) | `learnings/W5-*.md` complete |
+Nothing left of your own: see Everyone.
 
 ### Eric (W5)
 
@@ -35,8 +31,8 @@ Nothing left of your own: see Everyone.
 | S4.5 Usability test | 🔵 ready | 4–5 non-developers: completion, time, SUS score, quotes |
 | S7.1 Review Section B for your part | 🔵 ready | Each owner confirms their part is correct |
 | S7.2 Section A (individual, any time) | 🔵 ready | 3–5 pages each, own words, topics a–r told as one story |
-| S7.3 Viva walkthrough | ⏳ waiting (on S6.5) | Each owner has taught their part; everyone can answer every part's viva questions |
-| S7.4 Rehearse and submit | ⏳ waiting (on S7.1, S7.2, S7.3, S6.4) | Two timed run-throughs; report and slides on Canvas with the GitHub link on page 1 |
+| S7.3 Viva walkthrough | 🔵 ready | Each owner has taught their part; everyone can answer every part's viva questions |
+| S7.4 Rehearse and submit | ⏳ waiting (on S7.1, S7.2, S7.3) | Two timed run-throughs; report and slides on Canvas with the GitHub link on page 1 |
 
 Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand.
 <!-- STATUS:END -->
