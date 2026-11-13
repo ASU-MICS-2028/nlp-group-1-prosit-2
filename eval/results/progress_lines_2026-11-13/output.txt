@@ -1,0 +1,17 @@
+== before (main) ==
+ 0.0 s  ['Getting started']
+ 3.7 s  ['Getting started', 'Writing the code', 'Writing the code']
+ 4.2 s  (message sent)
+ 6.5 s  ['Getting started', 'Writing the code', 'Writing the code', 'Your message reached the builder', 'Testing it (12 passed, 0 failed)', 'Your message reached the builder']
+ 9.6 s  ['Your message reached the builder', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code']
+12.8 s  ['Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Testing it (12 passed, 0 failed)']
+live after 15.6 s
+== after (this branch) ==
+ 0.0 s  ['Getting started']
+ 3.9 s  ['Getting started', 'Writing the code']
+ 4.2 s  (message sent)
+ 4.5 s  ['Getting started', 'Writing the code', 'Message sent: the builder reads it at its next step']
+ 6.8 s  ['Getting started', 'Writing the code', 'Message sent: the builder reads it at its next step', 'Your message reached the builder', 'Testing it (12 passed, 0 failed)', 'Your message reached the builder']
+ 9.9 s  ['Getting started', 'Writing the code', 'Message sent: the builder reads it at its next step', 'Your message reached the builder', 'Testing it (12 passed, 0 failed)', 'Your message reached the builder', 'Changing the code']
+13.0 s  ['Getting started', 'Writing the code', 'Message sent: the builder reads it at its next step', 'Your message reached the builder', 'Testing it (12 passed, 0 failed)', 'Your message reached the builder', 'Changing the code', 'Testing it (12 passed, 0 failed)']
+live after 15.9 s

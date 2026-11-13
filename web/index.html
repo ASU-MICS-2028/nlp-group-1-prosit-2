@@ -113,6 +113,7 @@ function box(label, placeholder, button, send, quiet) {
 function steps() {
   return el("ul", {}, ...["Getting started", ...progress].slice(-8).map(t => el("li", { textContent: t })));
 }
+function add(t) { if (progress.at(-1) !== t) progress.push(t); }  // the agent often uses one tool several times in a row: show it once
 function rail() {
   const at = id ? STAGE[last.state] ?? 0 : 0;
   document.getElementById("stops").replaceChildren(...STAGES.map(([name, note], i) =>
@@ -158,7 +159,8 @@ function screen(s) {
       ...box("Or tell us what to change", "For example: also keep a phone number", "Change the plan", t => api(`/${id}/messages`, { message: t }), true));
   }
   if (s === "building") return card(el("h2", { textContent: "Building… usually about a minute" }), el("ul", { id: "steps", className: "steps" }),
-    ...box("Changed your mind about something?", "You can tell us while we build", "Send", t => api(`/${id}/messages`, { message: t }), true));
+    ...box("Changed your mind about something?", "You can tell us while we build", "Send",
+      t => api(`/${id}/messages`, { message: t }).then(() => add("Message sent: the builder reads it at its next step")), true));
   if (s === "live") return card(el("h2", { className: "good", textContent: "Your backend is live" }),
     el("p", {}, el("a", { href: last.docs_url, target: "_blank", rel: "noopener", textContent: "Open the try-it page" }),
       el("span", { className: "soft", textContent: ": add records and look at them. It is made for developers, so some words there are technical." })),
@@ -184,11 +186,11 @@ async function poll(once) {
       next = last.next;
       for (const e of last.events) {
         if (e.event === "state" && e.state === "building") progress = [];
-        if (e.event === "queued") progress.push("Waiting for a free spot…");
-        if (e.event === "agent" && e.kind === "message") progress.push("Your message reached the builder");
+        if (e.event === "queued") add("Waiting for a free spot…");
+        if (e.event === "agent" && e.kind === "message") add("Your message reached the builder");
         if (e.event === "agent" && e.kind === "tool" && WORDS[e.tool]) {
           const t = e.tests ? ` (${e.tests.passed} passed, ${e.tests.failed} failed)` : "";
-          progress.push(WORDS[e.tool] + t);
+          add(WORDS[e.tool] + t);
         }
       }
     } catch (e) {
