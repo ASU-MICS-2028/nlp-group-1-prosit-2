@@ -50,6 +50,9 @@
   .steps li { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--line); }
   .steps li::before { content:"✓"; width:22px; flex:none; text-align:center; font-weight:700; color:var(--good); }
   .steps li:last-child::before { content:"○"; color:var(--ink); }  /* the step it is on now */
+  .wait { display:flex; gap:12px; } .wait::before { content:"○"; width:22px; flex:none; text-align:center; font-weight:700; }
+  .steps li:last-child::before, .wait::before { animation:pulse 1.2s ease-in-out infinite; }  /* a sign of life during long waits */
+  @keyframes pulse { 50% { opacity:.2; } }
   pre { white-space:pre-wrap; overflow-wrap:anywhere; font:inherit; margin:0 0 12px; }
   ul { padding-left:20px; margin:8px 0 12px; }
   code, a { overflow-wrap:anywhere; }
@@ -58,7 +61,7 @@
   .good { color:var(--good); }
   summary { cursor:pointer; font-weight:600; margin:14px 0 8px; }
   @media (max-width: 760px) {
-    .app { grid-template-columns:1fr; }
+    .app { grid-template-columns:1fr; grid-template-rows:auto 1fr; }  /* without rows, a short screen stretched the bar */
     aside { position:static; height:auto; flex-direction:column; padding:16px 20px; }
     .rule { width:100%; height:22px; background-size:100% 22px,100% 10px,auto;
             background-image:repeating-linear-gradient(to right,var(--tape-ink) 0 2px,transparent 2px 40px),repeating-linear-gradient(to right,var(--tape-ink) 0 1px,transparent 1px 8px); background-repeat:repeat-x; }
@@ -66,7 +69,7 @@
     .stops { flex-direction:row; } .stops li small, .stops li:not(.on) { display:none; }
     main { padding-top:28px; }
   }
-  @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
+  @media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }
 </style>
 </head>
 <body>
@@ -80,7 +83,7 @@
   </main>
 </div>
 <script>
-const view = document.getElementById("view"), problem = document.getElementById("problem");
+const view = document.getElementById("view"), problem = document.getElementById("problem"), LOST = "Lost connection. Trying again…";
 const WORDS = { write_file: "Writing the code", edit_file: "Changing the code", read_file: "Reading the code", list_files: "Looking at the project",
                 run_tests: "Testing it", start_server: "Trying it out", http_request: "Trying it out", stop_server: "Finishing the trial" };
 const STAGES = [["Describe", "What you need"], ["Questions", "So we get it right"], ["Plan", "Your approval"], ["Build", "We do the work"], ["Try it", "Use it and change it"]];
@@ -97,12 +100,14 @@ async function api(path, body) {
   const options = body === undefined ? {} : { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) };
   const r = await fetch("/api/builds" + path, options);
   const data = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(typeof data.detail === "string" ? data.detail : "Please check what you typed and try again.");
+  if (!r.ok) throw Object.assign(new Error(typeof data.detail === "string" ? data.detail : "Please check what you typed and try again."), { status: r.status });
   return data;
 }
 async function act(work) {
   problem.textContent = "";
-  try { await work(); shown = null; await poll(true); } catch (e) { problem.textContent = e.message; }
+  const buttons = [...view.querySelectorAll("button")];
+  buttons.forEach(b => b.disabled = true);  // one click, one request: a double click on Start started two builds
+  try { await work(); shown = null; await poll(true); } catch (e) { problem.textContent = e instanceof TypeError ? "Lost connection. Please try again." : e.message; } finally { buttons.forEach(b => b.disabled = false); }
 }
 function box(label, placeholder, button, send, quiet) {
   const input = el("textarea", { placeholder, id: "box" });
@@ -141,8 +146,8 @@ function screen(s) {
       async text => { const made = await api("", { request: text }); id = made.id; next = 0; progress = []; history.replaceState(null, "", "?b=" + id); });
     return card(label, input, el("div", {}, ...EXAMPLES.map(([name, text]) => el("button", { className: "ex", textContent: name, onclick: () => { problem.textContent = ""; input.value = text; input.focus(); } }))), start);
   }
-  if (s === "asking") return card(el("p", { textContent: "Reading your request…" }));
-  if (s === "planning") return card(el("p", { textContent: "Writing a plan for you to check…" }));
+  if (s === "asking") return card(el("p", { className: "wait", textContent: "Reading your request…" }));
+  if (s === "planning") return card(el("p", { className: "wait", textContent: "Writing a plan for you to check…" }));
   if (s === "waiting_answers") {
     const inputs = last.questions.map((q, i) => [el("label", { textContent: q, htmlFor: "q" + i }), el("input", { id: "q" + i, placeholder: "Leave empty if you have no preference" })]);
     return card(el("h2", { textContent: "A few quick questions" }), ...inputs.flat(),
@@ -182,20 +187,22 @@ function screen(s) {
 async function poll(once) {
   if (id) {
     try {
-      last = await api(`/${id}?after=${next}`);
-      next = last.next;
-      for (const e of last.events) {
+      const after = next, got = await api(`/${id}?after=${after}`);
+      if (problem.textContent === LOST) problem.textContent = "";
+      for (const e of after === next ? got.events : []) {  // a click polls at once, so two polls can overlap: only the first takes these events
         if (e.event === "state" && e.state === "building") progress = [];
         if (e.event === "queued") add("Waiting for a free spot…");
         if (e.event === "agent" && e.kind === "message") add("Your message reached the builder");
+        if (e.event === "agent" && e.kind === "end") add("Putting it online");  // publishing takes a while and sends no events
         if (e.event === "agent" && e.kind === "tool" && WORDS[e.tool]) {
           const t = e.tests ? ` (${e.tests.passed} passed, ${e.tests.failed} failed)` : "";
           add(WORDS[e.tool] + t);
         }
       }
+      if (after === next) { last = got; next = got.next; }
     } catch (e) {
-      problem.textContent = e.message;
-      id = null; shown = "gone"; history.replaceState(null, "", "/");
+      if (e.status !== 400) problem.textContent = LOST;  // no answer, or the server restarting: keep the build and try again
+      else { problem.textContent = e.message; id = null; shown = "gone"; history.replaceState(null, "", "/"); }  // the server says there is no such build
     }
   }
   draw();
