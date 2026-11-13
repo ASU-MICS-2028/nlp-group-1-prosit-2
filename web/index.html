@@ -146,6 +146,7 @@ function screen(s) {
       async text => { const made = await api("", { request: text }); id = made.id; next = 0; progress = []; history.replaceState(null, "", "?b=" + id); });
     return card(label, input, el("div", {}, ...EXAMPLES.map(([name, text]) => el("button", { className: "ex", textContent: name, onclick: () => { problem.textContent = ""; input.value = text; input.focus(); } }))), start);
   }
+  if (!s) return card(el("p", { className: "wait", textContent: "Opening your build…" }));  // a ?b= link whose first status call has not come back
   if (s === "asking") return card(el("p", { className: "wait", textContent: "Reading your request…" }));
   if (s === "planning") return card(el("p", { className: "wait", textContent: "Writing a plan for you to check…" }));
   if (s === "waiting_answers") {
@@ -193,7 +194,7 @@ async function poll(once) {
         if (e.event === "state" && e.state === "building") progress = [];
         if (e.event === "queued") add("Waiting for a free spot…");
         if (e.event === "agent" && e.kind === "message") add("Your message reached the builder");
-        if (e.event === "agent" && e.kind === "end") add("Putting it online");  // publishing takes a while and sends no events
+        if (e.event === "agent" && e.kind === "end") add("Putting it online");  // going online sends no events (about 2 s in the saved sessions)
         if (e.event === "agent" && e.kind === "tool" && WORDS[e.tool]) {
           const t = e.tests ? ` (${e.tests.passed} passed, ${e.tests.failed} failed)` : "";
           add(WORDS[e.tool] + t);

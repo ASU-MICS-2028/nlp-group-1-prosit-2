@@ -48,6 +48,14 @@ with sync_playwright() as p:
     except Exception: print("   back online: did not reach live")
     c.close()
 
+    c, g = page(); g.goto(U); g.fill("textarea", ASK); g.click("button:has-text('Start')"); g.wait_for_selector("text=A few quick questions"); link = g.evaluate("location.href"); c.close()
+    c, g = page(); g.route("**/api/builds/**", lambda r: r.abort()); g.goto(link); time.sleep(3)
+    print("4b. a build's link opened while the server cannot be reached:", repr(g.inner_text("#view")[:60]), "|", repr(g.inner_text("#problem")))
+    g.unroute("**/api/builds/**")
+    try: g.wait_for_selector("text=A few quick questions", timeout=10000); print("    server back: shows the build's questions")
+    except Exception: print("    server back: does not show the build")
+    c.close()
+
     c, g = page(); to_plan(g); normal = build(g, sends=2); c.close()
     c, g = page(); g.add_init_script(SLOW); to_plan(g); slow = build(g, sends=2); c.close()
     print("5. two messages sent; lines in the build list with normal replies:", len(normal), "| with every reply 0.8 s slow:", len(slow))

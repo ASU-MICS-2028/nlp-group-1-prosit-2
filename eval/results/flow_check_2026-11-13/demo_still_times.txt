@@ -7,4 +7,9 @@ Read from frames taken at 3, 6, 9, 12, 20, 28, 40, 50, 60 and 72 s:
 - 3 to 13 s: 'Reading your request…', then 'Writing a plan for you to check…', one line each; the dark bar at the top is 299 px tall at 6 s, over a third of the phone screen (88 px at 40 s, on the build screen); measured as the first light pixel down the right edge of each frame
 - 23.6 to 33.6 s (10 s): the build list shows only 'Getting started'
 - 43.6 to 55.6 s (12 s): no change after the message reached the builder
-- 63.6 to 80.7 s (17 s): the list ends on 'Testing it (23 passed, 0 failed)' while the backend is put online; nothing says so
+- 63.6 to 80.7 s (17 s): the list ends on 'Testing it (23 passed, 0 failed)' and nothing moves. The recording alone cannot say how much of this is the agent's last reply and how much is going online
+
+What the waits are, from the two saved sessions in eval/results/sessions/ (times in s from the request):
+- bakery_through_the_page.jsonl: building 14.4, last test 54.0, agent ends 59.9, live 62.2. Going online 2.3 s; the agent's last reply 5.9 s. Longest gaps: 17.3 s before the first step, 17.0 s mid-build
+- animal_shelter.jsonl: building 13.0, agent ends 52.0, live 54.1. Going online 2.1 s. Longest gaps: 14.5 s before the first step, 13.0 s mid-build
+So the long still stretches are mostly the agent working between steps; going online is about 2 s. The next real build should log the same split

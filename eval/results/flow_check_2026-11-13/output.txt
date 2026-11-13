@@ -4,14 +4,16 @@
 3. after 'Looks good' at the bottom of the plan, scrolled down by 0 px
 4. offline for 4 s mid-build: build forgotten: True | message: 'Failed to fetch'
    back online: did not reach live
+4b. a build's link opened while the server cannot be reached: 'What do you need?\nTailoring shopChurch sign-upBakery orders\n' | 'Failed to fetch'
+    server back: does not show the build
 5. two messages sent; lines in the build list with normal replies: 14 | with every reply 0.8 s slow: 21
 6. the build list over time:
  0.0 s  ['Getting started']
  4.2 s  (message sent)
  4.2 s  ['Getting started', 'Writing the code', 'Writing the code']
- 7.1 s  ['Getting started', 'Writing the code', 'Writing the code', 'Your message reached the builder', 'Testing it (12 passed, 0 failed)', 'Your message reached the builder']
+ 7.0 s  ['Getting started', 'Writing the code', 'Writing the code', 'Your message reached the builder', 'Testing it (12 passed, 0 failed)', 'Your message reached the builder']
 10.2 s  ['Your message reached the builder', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code']
-11.8 s  ['Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Testing it (12 passed, 0 failed)']
+11.5 s  ['Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Changing the code', 'Testing it (12 passed, 0 failed)']
 live after 14.6 s; the list's last line: 'Testing it (12 passed, 0 failed)'
 
 == after: this branch's page
@@ -20,14 +22,15 @@ live after 14.6 s; the list's last line: 'Testing it (12 passed, 0 failed)'
 3. after 'Looks good' at the bottom of the plan, scrolled down by 0 px
 4. offline for 4 s mid-build: build forgotten: False | message: 'Lost connection. Trying again…'
    back online: reached live
+4b. a build's link opened while the server cannot be reached: 'Opening your build…' | 'Lost connection. Trying again…'
+    server back: shows the build's questions
 5. two messages sent; lines in the build list with normal replies: 10 | with every reply 0.8 s slow: 10
 6. the build list over time:
  0.0 s  ['Getting started']
- 3.9 s  ['Getting started', 'Writing the code']
  4.2 s  (message sent)
+ 4.2 s  ['Getting started', 'Writing the code']
  4.5 s  ['Getting started', 'Writing the code', 'Message sent: the builder reads it at its next step']
- 7.1 s  ['Getting started', 'Writing the code', 'Message sent: the builder reads it at its next step', 'Your message reached the builder', 'Testing it (12 passed, 0 failed)', 'Your message reached the builder']
- 9.9 s  ['Getting started', 'Writing the code', 'Message sent: the builder reads it at its next step', 'Your message reached the builder', 'Testing it (12 passed, 0 failed)', 'Your message reached the builder', 'Changing the code']
-11.5 s  ['Getting started', 'Writing the code', 'Message sent: the builder reads it at its next step', 'Your message reached the builder', 'Testing it (12 passed, 0 failed)', 'Your message reached the builder', 'Changing the code', 'Testing it (12 passed, 0 failed)']
-14.4 s  []
+ 7.0 s  ['Getting started', 'Writing the code', 'Message sent: the builder reads it at its next step', 'Your message reached the builder', 'Testing it (12 passed, 0 failed)', 'Your message reached the builder']
+10.2 s  ['Getting started', 'Writing the code', 'Message sent: the builder reads it at its next step', 'Your message reached the builder', 'Testing it (12 passed, 0 failed)', 'Your message reached the builder', 'Changing the code']
+11.8 s  ['Getting started', 'Writing the code', 'Message sent: the builder reads it at its next step', 'Your message reached the builder', 'Testing it (12 passed, 0 failed)', 'Your message reached the builder', 'Changing the code', 'Testing it (12 passed, 0 failed)']
 live after 14.6 s; the list's last line: 'Putting it online'
