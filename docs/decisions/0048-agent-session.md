@@ -24,6 +24,6 @@ Three guards. A build is published only if its own tests ran and passed, because
 
 - The page has one small interface, and it never sees code, tool output, costs or error details (`get` leaves them out).
 - A restart forgets sessions in progress; backends already live keep running.
-- The agent decides how to apply a mid-build message. In the real check it added the colour, but as an optional field, though the message said it must be given. So the client should read the result.
+- The agent decides how to apply a mid-build message. In the real check it added the colour. We first wrote that the field came out optional; W4 row 41 found that wrong: the app refuses a missing colour, so it is required, as the message asked. The client should still read the result.
 - The limit counts what has been spent, so a build already running can pass it a little (each build stops at $2).
 - A plan is shown although plan-first scored lower with automatic approval (0041). A real person approving it has not been measured: Michael's usability test should watch this.

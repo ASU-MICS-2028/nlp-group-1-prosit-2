@@ -8,7 +8,7 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 
 | Question | Files in `harness/` | Result | Decision |
 |---|---|---|---|
-| **One agent or several (multi-agent)?** | `s38_list_all`, `fresh1_restart`, `fresh2_restart` (one agent with questions, three runs) · `s36_split` (Planner / Builder / Tester, one run) | **95.8%, 93.2%, 87.5%** (average 92.2%) vs **84.4%** | 0044 |
+| **One agent or several (multi-agent)?** | `s38_list_all`, `fresh1_restart`, `fresh2_restart` (one agent with questions, three runs) · `s36_split` (Planner / Builder / Tester, one run) | **95.8%, 93.2%, 87.5%** (average 92.2%) vs **84.4%**, under the old scoring rules; rescored, 96.0% against 87.0% (`tables.md`) | 0044 |
 | Which system prompt? | `s32_A` `s32_B` `s32_C` `s32_D` | B: 87.0% | 0038 |
 | Do repairs help? | `s34_r0` `s34_r1` `s34_r3` `s34_r5` | 87.0% for all: the loop never ran | 0040 |
 | Plan first? | `s35` (v1) · `s35v2` (v2) | 74.5% · 82.8% | 0041 |

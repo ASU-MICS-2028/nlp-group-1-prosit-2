@@ -25,3 +25,5 @@ Before publishing, `runtime.deploy.keeps_database` starts a copy of the app and 
 - It cannot see an app that has a database but also keeps some data in memory. None of the saved builds does this, but the check would pass one. The real restart check would catch it in the evaluation.
 - An app that creates its tables only at the first request would be sent back. The prompt says to create them at the start.
 - Only SQLite counts as a database, which matches decision 0002.
+
+**Update (Nov 12):** checked again on more saved builds, the two agree on **114 of 114** where both give an answer (32 keep their data, 82 lose it), W4 row 39. The 99 and 17 above are the first check.
