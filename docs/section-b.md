@@ -109,7 +109,7 @@ With school left out, self-testing, recipe search and questions make little meas
 
 **4.4 The live platform and its safety.** A full journey through the public page, in Chrome at phone width, went live with no page errors (W4 row 45). A message sent mid-build, to require a value or remove a feature, was obeyed in 8 of 8 builds (W4 row 41). Attacked from inside a backend, the server killed memory use at 512 MB and stopped 300 processes at 126, but its own SSH and web ports were open; a firewall rule now closes them (W4 row 54). A 200 MB file limit and a watchdog at 500 MB keep the disk from filling (W4 row 55), Caddy refuses requests over 1 MB (W4 row 56), and all four fixes held when the attacks were rerun (W4 row 59). Prompt injection, instructions hidden in a request, was obeyed in 0 of 9 test builds (W2 row 14), and all 4 tries on the live platform were spotted when planning (W4 row 57).
 
-**4.5 Usability.** [S4.5 RESULTS: not yet run]. The plan exists so a person can correct it, which only a test with non-developers can measure. So far we have a word count: the new plan screen shows no technical words, where the old one showed GET and POST (W3 row 4).
+**4.5 Usability.** [S4.5 RESULTS: not yet run; kit in `eval/usability/README.md`]. The plan exists so a person can correct it, which only a test with non-developers can measure. So far we have a word count over three versions of the page, with the same saved build played back: the plan screen showed GET and POST before Michael's design and none since (W3 row 4), and on the live screen the page's own technical words went from 4 (GET, POST, docs, https) to 0 once the address and the action list were folded away for the client's developer (W3 row 7). Every screen still works at phone and desktop width and in dark mode (W3 row 7).
 
 **4.6 Do the numbers hold?** An audit matched 105 written numbers to their saved files (eval/results/AUDIT.md). W5 reran the free checks on a second Mac from the learnings files alone (W5 rows 5 to 12), then from a fresh copy, where every free part passed (W5 row 15).
 
@@ -117,8 +117,8 @@ With school left out, self-testing, recipe search and questions make little meas
 
 - **Small benchmark.** The 15 tasks are ours, and each ablation is a single build (eval/results/tables.md).
 - **A rule written after the fact.** The name-or-number rule came after we saw the failures; the hand-written backends are its check (decision 0055).
-- **No person in the loop.** With an unread plan the score was 85.9% (eval/results/tables.md). [S4.5 RESULTS: not yet run]
+- **No person in the loop.** With an unread plan the score was 85.9% (eval/results/tables.md), and no non-developer has used the page yet (S4.5). The questions have no answer choices, and "Try it" opens a page made for developers (W3 rows 8 and 10).
 - **Safety gaps.** Generated code can still delete the project's own files (W2 row 13). Four injection tries prove little, the watchdog overshoots (996 and 1,155 MB against 500), and requests over 1 MB get a plain error page (W4 section 5).
 - **One small server.** It has 4 GB for every backend and build, and no backups (W4 section 5). Pulling the plug 5 seconds after a write lost that write (W4 row 30). Backends have no login unless the client asks, so anyone with the link can add data (W4 section 5).
 - **Retrieval.** Search cannot tell that no recipe fits (W4 row 25), and questions in Twi return noise (W4 row 26).
-- **Not yet live.** The new page design and the take-down button reach the public address only at the next server update (W3 section 5).
+- **One person runs the server.** The new page and take-down are live, checked with real builds (W5 row 16, decision 0059), but only Joseph can update the server, so a change reaches the public address only when he runs `setup_server.sh` (W3 section 5).

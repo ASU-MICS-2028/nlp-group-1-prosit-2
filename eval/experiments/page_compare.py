@@ -1,4 +1,5 @@
-"""S4.4, free: the page before decision 0060 (Joseph's, at 2735bfb) against the page now (Michael's design on the same logic).
+"""S4.4, free: the page before decision 0060 (Joseph's, at 2735bfb), the page on Nov 11 (Michael's design on the same logic,
+at 2dbf7a1), and the page now (live screen: developer details folded away, a named try-it link, "backend" explained).
 The same saved bakery session plays through both (web/replay.py), in real Chrome at phone width. For each screen: how many
 words the client reads, and which of them are technical words from a fixed list. A word count, not a user test (that is S4.5).
 
@@ -19,8 +20,13 @@ TECH = {"api", "endpoint", "endpoints", "json", "swagger", "docs", "schema", "de
         "server", "http", "https", "sqlite", "url", "id"}
 VERBS = {"GET", "POST", "PUT", "PATCH", "DELETE"}  # only in capitals: "get" and "delete" are plain words
 
-old = pathlib.Path(tempfile.mkdtemp()) / "index.html"
-old.write_text(subprocess.run(["git", "show", "2735bfb:web/index.html"], capture_output=True, text=True, check=True).stdout)
+def page_at(commit):
+    f = pathlib.Path(tempfile.mkdtemp()) / "index.html"
+    f.write_text(subprocess.run(["git", "show", f"{commit}:web/index.html"], capture_output=True, text=True, check=True).stdout)
+    return f
+
+
+VERSIONS = [("before", page_at("2735bfb")), ("nov11", page_at("2dbf7a1")), ("now", web.PAGE)]
 for name, fake in replay.fakes(SAVED, pace=0.2).items():
     setattr(session, name, fake)
 session.BUILDS = pathlib.Path(tempfile.mkdtemp())
@@ -39,14 +45,16 @@ OUT.mkdir(exist_ok=True)
 rows = {}
 with sync_playwright() as p:
     browser = p.chromium.launch(channel="chrome", headless=True)
-    for version, page in [("before", old), ("now", web.PAGE)]:
+    for version, page in VERSIONS:
         web.PAGE = page
         g = browser.new_context(viewport={"width": 390, "height": 800}).new_page()
 
         def screen(name):
             g.wait_for_timeout(800)
             g.screenshot(path=OUT / f"{version}_{name}.png", full_page=True)
-            rows.setdefault(name, {})[version] = words(g.inner_text("body"))
+            body = g.inner_text("body")
+            summary = "".join(g.locator("pre").all_inner_texts())  # the agent's own summary, not the page's words
+            rows.setdefault(name, {})[version] = words(body) + (words(body.replace(summary, ""))[1],)
 
         g.goto("http://127.0.0.1:8091/"); g.wait_for_selector("textarea"); screen("1_describe")
         g.fill("textarea", REQUEST); g.click("button:has-text('Start')")
@@ -59,9 +67,11 @@ with sync_playwright() as p:
     browser.close()
 server.should_exit = True
 
-lines = ["screen        words before -> now   technical words before | now"]
+names = [v for v, _ in VERSIONS]
+lines = ["screen        words " + " -> ".join(names) + "   technical words " + " | ".join(names) + "   ...not counting the agent's summary"]
 for name, v in rows.items():
-    lines.append(f"{name:13} {v['before'][0]:5} -> {v['now'][0]:<5}   {' '.join(v['before'][1]) or '-'} | {' '.join(v['now'][1]) or '-'}")
+    lines.append(f"{name:13} " + " -> ".join(f"{v[n][0]:<4}" for n in names) + "   " + " | ".join(" ".join(v[n][1]) or "-" for n in names)
+                 + "   " + " | ".join(" ".join(v[n][2]) or "-" for n in names))
 print("\n".join(lines))
 (OUT / "page_compare.txt").write_text("\n".join(lines) + "\n")
 (OUT / "page_compare.json").write_text(json.dumps(rows, indent=1) + "\n")

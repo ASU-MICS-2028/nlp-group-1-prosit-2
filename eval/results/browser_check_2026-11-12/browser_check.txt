@@ -1,0 +1,37 @@
+Installed 2 packages in 21ms
+empty click: 'Please type something first.' True
+questions: ["Should an order also record a pickup date or time, or just the cake and the customer's name?", 'Can one order include several cakes or a quantity (for example, 3 of the same cake), or is it always one cake per order?', 'Do you need to mark orders as picked up or cancelled, or to edit and remove cakes later?']
+url keeps the build: https://34-78-38-126.sslip.io/?b=b590b69c002
+survives a page refresh
+progress: ['Getting started']
+result: Your backend is live
+Your backend is live
+
+Open the try-it page: add records and look at them. It is made for developers, so some words there are technical.
+
+For the person who builds your website or app
+It is ready. You can start adding your cakes and recording orders.
+
+What you can do with it:
+- Add a cake with its name and price.
+- See all your cakes with their names and prices.
+- Record an order for one cake, with the customer's name and a pickup date.
+
+What it turns away:
+- A cake with no name, or a blank name.
+- A cake with no price, or a price below zero.
+- An order with no customer name.
+- An order with no pickup date.
+- A pickup date that doesn't exist, such as 30 February.
+- An order for a cake that isn't on your list.
+
+Choices I made for you:
+- Every new order must have a pickup date.
+- Pickup dates in the past are accepted.
+- The time an order is recorded is filled in automatically.
+- A price of 
+no sideways scroll on a phone: True
+docs link: https://34-78-38-126.sslip.io/b/b590b69c002/docs
+docs operations: 3
+taken down: 404
+page errors: []

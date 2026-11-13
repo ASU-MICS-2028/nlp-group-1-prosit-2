@@ -6,6 +6,8 @@ Owner: Michael
 
 > **Draft by Eric (W5), Nov 11, for Michael to check.** Written only from what is on disk: decisions 0049, 0059 and 0060, the code in `web/`, and the saved results named in each row. Michael: you defend this part in the viva, so read every line, correct anything wrong, and put sections 1, 2, 4 and 5 into your own words. Your own design reasons (why the tape measure, why these colours, what you tried before Nov 6) are not on disk: add them as rows where it says `[MICHAEL: ...]`.
 
+> **Nov 12, Joseph (decision 0062):** S4.3, S4.4 and this handoff (S4.6) moved to Joseph so the project could finish. Added rows 7 to 11, and filled sections 4 and 5. The usability test (S4.5) has a ready kit (`eval/usability/README.md`) but has not been run. Michael still presents and defends this part, so the `[MICHAEL: ...]` gaps stay his.
+
 ## 1. What this part does, in one paragraph
 
 The page is the only thing a client ever sees. It is one file, `web/index.html`, served by the platform's backend (`web/app.py`) at the public address. The client types what they need in plain words, answers up to three questions, reads the plan and approves it, watches the build in plain steps, and gets a link to their working backend. Afterwards they can ask for a change or take the backend offline. The page never talks to the agent itself: it only asks the platform's backend, at `/api/builds`, and draws what comes back (Lecture 8). The look is Michael's design (colours, fonts, dark mode, a tape-measure progress bar, plan cards); the page logic is Joseph's, which had already worked on the live site (decision 0060).
@@ -30,7 +32,7 @@ A real example: the bakery build made through the public page (`eval/results/ses
 2. **Questions.** The bakery got three, for example "Can one order include more than one cake, or a quantity (e.g. 3 of the same cake), or is it always a single cake per order?". An empty answer is sent as "No preference: you decide."
 3. **Plan.** Shown as cards made from the plan's data: what is kept (with its fields), what each action does, and the rules. "Looks good, build it" approves it; or the client types what should be different and gets a new plan.
 4. **Build.** A step list in plain words, from the agent's events: `write_file` shows as "Writing the code", `run_tests` as "Testing it", and so on (the `WORDS` list in the page). A box lets the client send a message; it reaches the agent between turns ("Your message reached the builder").
-5. **Live.** "Your backend is live", a link to try it (the backend's `/docs` page), its address, the list of actions for whoever builds the client's website or app, and a plain summary. Buttons: Change it, Take it offline (asks first), Build something else.
+5. **Live.** "Your backend is live", an "Open the try-it page" link (the backend's `/docs` page) with a line saying what it is, a folded "For the person who builds your website or app" (its address and its list of actions, shown only when opened, row 7), and a plain summary. Buttons: Change it, Take it offline (asks first), Build something else.
 6. **Not online.** If the build failed, or the client took it offline, the screen says "It is not online" and the plain reason, with a box to try again.
 
 The tape measure across the top (on a phone, a bar with the stage's name) shows the five stages: Describe, Questions, Plan, Build, Try it. The stage comes from the build's state (`STAGE` in the page); a failed build stays at Build.
@@ -44,7 +46,12 @@ The tape measure across the top (on a phone, a bar with the stage's name) shows 
 | 3 | How do we try the page without paying for builds (S4.2)? | A recorded demo inside the page (Michael's Nov 6 page: made-up tailoring data and its own copy of each screen) · play a real saved `session.jsonl` through the real backend and page (`web/replay.py`) | `test_replay_plays_a_saved_session` in `web/test_web.py`: the bakery session plays from start to live. Then broke `replay.py` three ways (wrong link, events not sent, tests failing) | 7 web tests passed. Each of the 3 breaks made the test fail (`eval/results/replay_breaks/output.txt`, made by `eval/experiments/replay_breaks.py`). The page needs no demo code | **Play back a saved session**: the page runs exactly as it does live, so what you see is what clients see. Any saved session works, not one made-up example |
 | 4 | Does the new page use fewer technical words (S4.4)? | The page before decision 0060 (Joseph's, commit `2735bfb`) · the page now | `eval/experiments/page_compare.py`: the same saved bakery session through both pages in Chrome at phone width; counts every word on each screen and the technical words from a fixed list (`eval/results/page_compare/`) | Words per screen, before then now: describe 23 / 28, questions 89 / 90, plan 329 / 340, build 31 / 32, live 327 / 336. Technical words on the plan: GET, POST / none. On the live screen: GET, POST, docs, https, id on both | **Now**: the plan has no technical words. The live screen still has the action list (`GET /cakes`) and this old session's summary, written before summaries were made plain (decision 0054). The list's heading now says it is for whoever builds the client's website or app. A word count, not a user test |
 | 5 | What heading does a build that is not online get? | "That did not work" · "It is not online" | Read with take-down (decision 0059): a build taken offline on purpose is also in the `failed` state | None: a wording choice | **"It is not online"**: true for both cases; the message under it says which |
-| 6 | `[MICHAEL: your design choices before Nov 6, for example the tape measure, one question per screen with choices, plan as cards or sentences]` | | | | |
+| 6 | What was the aim of the design before Nov 6? | A rich, many-featured page · a simple one | Michael's own account, passed on by Joseph on Nov 12. No measurement | None: a design aim | **Simple**: Michael says he was going for something simplistic. It fits decision 0060 (one plain HTML file, nothing to build) and row 7 (fold away what a client does not need). `[MICHAEL: add the details, for example the tape measure and the colours]` |
+| 7 | How should the live screen show what only a developer needs (the address and the `GET /cakes` list)? (S4.3, S4.4) | Shown in full (Nov 11) · removed · folded under "For the person who builds your website or app", opened with a click | `eval/experiments/page_compare.py` rerun with three versions (before 0060 at `2735bfb`, Nov 11 at `2dbf7a1`, now), the saved bakery session, Chrome at phone width. Then the free screen check at 3 sizes (`eval/results/page_check_2026-11-12/`) | Technical words in the page's own text on the live screen: GET POST docs https before, GET POST docs https on Nov 11, **none now**. Words on that screen 327 / 336 / 336. 18 of 18 screens, no sideways scrolling, 0 page errors, 8 web tests passed. This old session's summary still has GET, POST and id: it predates plain summaries (decision 0054) | **Folded**: the client sees no technical words, and their developer still finds the address and actions in one click. Removing them would leave the developer with nothing. A word count, not a user test: S4.5 decides if people find it |
+| 8 | How is the try-it link shown? (S4.3) | The raw address (`https://.../b/bf7fe9a80ae/docs`) · "Open the try-it page" with one line on what it is | Same run as row 7 | The raw address added "https" and "docs" to the technical words; the named link adds none. The browser check still finds it as the first link (`browser_check.py` line 34, unchanged) | **Named link**, and the line says the page it opens is made for developers, so the technical words there are not a surprise. A plain "Try it" panel inside our page (Michael's Nov 6 idea) would be better but needs new code; not done |
+| 9 | Is the word "backend" explained? (S4.3) | Not explained · one sentence under the title | Read every screen for words a non-developer might not know | "Backend" is in the title on every screen, the live heading and the take-offline question, and was never explained. The sentence adds 12 words to each screen (describe 28 → 40) | **One sentence**: "the part of an app or website that keeps your records". The live heading stays "Your backend is live", because the browser checks wait for those words |
+| 10 | How are questions asked? (S4.4) | All on one screen, free text (now) · one per screen with answer choices (Michael, Nov 6) | Read both against what the agent returns (W1 row 7, `eval/results/sessions/bakery_through_the_page.jsonl`) | The agent returns up to 3 questions as plain sentences, with no answer choices. Choices would need a change to the agent's question step (W1), which would have to be measured again on all 15 tasks. Bakery: 3 questions, 90 words on the screen | **All on one screen, free text**, because that is what the agent gives. An empty answer becomes "No preference: you decide." Reasoned, not measured |
+| 11 | How are progress and errors shown? (S4.4) | Progress: the agent's tool names (`write_file`) · plain words from the `WORDS` list · stage name only. Errors: a fixed "Something went wrong" · the server's own sentence (`detail`) | Read with the saved bakery session; the building screen in `page_compare` | Building screen: 31 / 32 / 44 words, no technical words in any version, because tool names are turned into plain words ("Writing the code", "Testing it (12 passed, 0 failed)"). The server's refusals are already written for clients ("Please type something first.", "No such build.") | **Plain words for each step, and the server's own sentence for errors**: the client sees what is happening and why something was refused. Reasoned with a word count, not a user test |
 
 ## 4. What we chose, and why
 
@@ -52,22 +59,25 @@ The tape measure across the top (on a phone, a bar with the stage's name) shows 
 - Joseph's tested logic: the build id in the address, polling every 1.5 s (5 s while waiting for the client), plain error messages (row 1).
 - Michael's look: colours and fonts as named tokens, dark mode, the tape-measure progress bar, plan cards, the ✓ and ○ step list, three example requests (row 1).
 - Trying the page for free by playing back a saved session, not a demo inside the page (row 3).
-- Plain words on every screen a client reads, with the technical list labelled for their developer (rows 4 and 5).
+- Plain words on every screen a client reads: "backend" explained once, a named try-it link, and the address and action list folded away for their developer (rows 4, 5, 7, 8, 9).
+- Questions on one screen as the agent writes them, steps in plain words, refusals in the server's own sentence (rows 10 and 11).
 
-`[MICHAEL: your words]`
+`[MICHAEL: your words, for the viva]`
 
 ## 5. What breaks, and the limits
 
-- **On the public address since Nov 11 (evening).** The live page matched `main` by 21:44, and one real build went from start to taken offline through it (`eval/results/browser_check_2026-11-11/`, W5 row 16). The wording change in PR #17 (the live screen's heading) reaches the server only when `setup_server.sh` runs again after that merge.
+- **On the public address since Nov 11 (evening).** The live page matched `main` by 21:44, and one real build went from start to taken offline through it (`eval/results/browser_check_2026-11-11/`, W5 row 16). The Nov 12 changes (rows 7 to 9) reach the server only when `setup_server.sh` runs again after they are merged.
 - **No usability test yet (S4.5).** Nobody outside the team has used the page. No completion rates, times, SUS scores or quotes exist.
 - **Questions come without answer choices.** Michael's Nov 6 page showed one question per screen with choices; the agent's questions are free text.
 - **"Try it" opens the backend's `/docs` page**, which is a technical page (the course allows it, Lecture 8). Michael's pretend "Try it" table was not carried over.
-- **The live screen still shows actions like `GET /cakes`**, for whoever builds the client's website or app.
+- **Actions like `GET /cakes` are still on the live screen, folded away** under "For the person who builds your website or app" (row 7).
 - **Anyone with the link can take the backend offline** (decision 0059), as anyone with it can send messages.
 - **The fonts come from Google Fonts.** If that is blocked, the page falls back to the system fonts.
 - **Playback** (`web/replay.py`) plays only the first build of a saved session; a later change plays it again. The link at the end points to the saved build, which may be offline. The saved code is not copied.
 
-`[MICHAEL: what you would do with more time]`
+**With more time:** run the usability test (S4.5, kit ready); offer answer choices for the questions (needs a change to the agent, row 10); a plain "Try it" panel inside the page instead of the `/docs` page (row 8); show the cost of a build to the client.
+
+`[MICHAEL: anything you would add]`
 
 ## 6. How to run it, and how the next person uses it
 
@@ -117,6 +127,7 @@ A refused request comes back as status 400 with `detail`, a sentence written for
 | Which stage does the progress bar show for a failed build? | Build (stage 3 in `STAGE`): the build did not finish |
 | How do we try the page without paying? | `web/replay.py` swaps the paid steps (questions, plan, build, publish, summary) for what a saved `session.jsonl` says they did, and runs the real backend and page |
 | Why is the playback in the backend and not inside the page? | The page then has no demo code at all, and runs exactly as it does live |
+| Why are the address and the action list folded away? | The client does not need them and they are full of technical words; their developer does, and finds them with one click. On the live screen the page's own technical words went from 4 to 0 (row 7) |
 | Why one plain file and not React? | The server has no Node; a plain file needs nothing installed or built, and is less code to explain |
 
 ## 8. Glossary
@@ -131,5 +142,6 @@ A refused request comes back as status 400 with `detail`, a sentence written for
 - **Token (design)**: a named colour or size, like `--ink`, set once and used everywhere, so dark mode only changes the names' values.
 - **Replay (playback)**: running a saved session again, with no paid calls, to see every screen.
 - **`session.jsonl`**: the file each build saves, one line per event (request, questions, plan, each tool the agent used, live).
+- **Folded (`<details>`)**: a part of the page that shows only its heading until clicked; the browser does this itself, with no code of ours.
 - **Sideways scrolling**: a page wider than the phone's screen, so the client must scroll left and right. None of ours do.
 - **SUS (System Usability Scale)**: a standard 10-question form people fill in after using something; it gives a score from 0 to 100.

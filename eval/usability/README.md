@@ -1,17 +1,19 @@
 # Usability test kit (task S4.5)
 
-For 4 to 5 people who do not write code (not on the team, not computing students). About 15 minutes each. Nothing here is a result: the results go in `eval/results/usability/` once real people have used the page (decision 0051).
+For 4 to 5 people who do not write code (not on the team, not computing students). About 15 minutes each, so about an hour and a half for five, with two of us. Anyone on the team can run it (decision 0062). Bring a phone or laptop with the live page open, this sheet, and a timer. Nothing here is a result: the results go in `eval/results/usability/` once real people have used the page (decision 0051).
 
 ## Before
 
-- **The live page must be the new one.** Joseph reruns `setup_server.sh` on the server first; check that the live page has a "Take it offline" button after a build.
-- **Cost.** Each person makes one real build: about $0.20, so about $1.00 for five. Ask Eric before starting.
+- **The live page must be the new one.** Joseph reruns `setup_server.sh` on the server first. Check that the start page says "the part of an app or website that keeps your records", and that a live build shows "Open the try-it page" and a folded "For the person who builds your website or app".
+- **Cost.** Each person makes one real build: about $0.20, so about $1.00 for five. Tell Joseph before starting, so the day's $10 limit is not hit by other builds.
 - **Privacy.** The repo is public. Write no names, phone numbers or emails: call people P1 to P5. Ask each person if you may write down what they say, and quote only their exact words.
 - One person runs the test and says as little as possible; a second writes notes and keeps time. Do not help unless they are stuck for a minute; write down each time you help.
 
 ## What to say
 
-"We are testing the page, not you. Please say out loud what you are thinking as you go. There are no wrong answers."
+First, consent: "We are a student group testing a website. It takes about 15 minutes. We will not write down your name. May we write down what you say, and quote it in our report without your name?" Only go on with a yes; if they say no to quotes, write no quotes for them.
+
+Then: "We are testing the page, not you. Please say out loud what you are thinking as you go. There are no wrong answers."
 
 ## The tasks
 
