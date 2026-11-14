@@ -1,0 +1,15 @@
+When the screen changes in the Nov 11 recording of one real build on the public link (eval/results/browser_check_2026-11-11/demo.mp4, 86.4 s, phone width).
+Command: ffmpeg -i eval/results/browser_check_2026-11-11/demo.mp4 -vf "select='gt(scene,0.003)',showinfo" -f null - (the times of frames that differ from the one before)
+
+Changes at (s): 0.3 0.6 0.8 0.9 1.9 2.0 2.1 2.2 6.7 7.3 7.6 13.6 13.8 13.9 14.1 14.3 18.3 18.4 18.5 23.6 33.6 34.1 37.5 43.6 55.6 58.9 63.6 80.7 81.0 83.4 84.8 
+
+Read from frames taken at 3, 6, 9, 12, 20, 28, 40, 50, 60 and 72 s:
+- 3 to 13 s: 'Reading your request…', then 'Writing a plan for you to check…', one line each; the dark bar at the top is 299 px tall at 6 s, over a third of the phone screen (88 px at 40 s, on the build screen); measured as the first light pixel down the right edge of each frame
+- 23.6 to 33.6 s (10 s): the build list shows only 'Getting started'
+- 43.6 to 55.6 s (12 s): no change after the message reached the builder
+- 63.6 to 80.7 s (17 s): the list ends on 'Testing it (23 passed, 0 failed)' and nothing moves. The recording alone cannot say how much of this is the agent's last reply and how much is going online
+
+What the waits are, from the two saved sessions in eval/results/sessions/ (times in s from the request):
+- bakery_through_the_page.jsonl: building 14.4, last test 54.0, agent ends 59.9, live 62.2. Going online 2.3 s; the agent's last reply 5.9 s. Longest gaps: 17.3 s before the first step, 17.0 s mid-build
+- animal_shelter.jsonl: building 13.0, agent ends 52.0, live 54.1. Going online 2.1 s. Longest gaps: 14.5 s before the first step, 13.0 s mid-build
+So the long still stretches are mostly the agent working between steps; going online is about 2 s. The next real build should log the same split
