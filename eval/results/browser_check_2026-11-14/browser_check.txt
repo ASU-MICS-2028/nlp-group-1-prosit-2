@@ -1,0 +1,40 @@
+Downloading playwright (46.6MiB)
+ Downloaded playwright
+Installed 2 packages in 20ms
+empty click: 'Please type something first.' True
+questions: ["Besides the cake and the customer's name, should an order record anything else, such as how many cakes, a pickup date, or a phone number?", 'Can one order include several different cakes, or is it always one cake per order?', 'Do you need to see, change, or cancel orders after they are placed, or mark them as picked up or paid?']
+url keeps the build: https://34-78-38-126.sslip.io/?b=b4af1bc7bf9
+survives a page refresh
+progress: ['Getting started', 'Message sent: the builder reads it at its next step']
+  0.0 s ['Getting started', 'Message sent: the builder reads it at its next step']
+  6.2 s ['Writing the code']
+ 10.5 s ['Your message reached the builder']
+ 19.3 s ['Changing the code']
+ 34.5 s ['Testing it (19 passed, 0 failed)']
+ 39.6 s ['Putting it online']
+result after 53.0 s
+result: Your backend is live
+Your backend is live
+
+Open the try-it page: add records and look at them. It is made for developers, so some words there are technical.
+
+For the person who builds your website or app
+Your bakery system is ready. All 19 automated checks pass, and your data is saved to a file in the same folder.
+
+What you can do with it:
+- Add a cake with a name and a price.
+- See all your cakes with their names and prices.
+- Record an order for one cake, with the customer's name and a pickup date.
+
+What it turns away:
+- A cake with no name, a name that is only spaces, no price, a price that isn't a number, or a price below zero.
+- An order that doesn't say which cake it is for, names a cake not on your list, has no customer name, or has no valid pickup date.
+
+Choices made for you:
+- Each order is for one cake only.
+- Every new order needs a pickup date, written as year, month, day (for example, 2030-05-01
+no sideways scroll on a phone: True
+docs link: https://34-78-38-126.sslip.io/b/b4af1bc7bf9/docs
+docs operations: 3
+taken down: 404
+page errors: []
