@@ -8,7 +8,7 @@ A team of five students (ICS554 NLP, Ashesi University) is building a platform w
 
 ## Before you do anything
 
-1. **Read the top of `README.md`.** It lists each person's tasks. Ask your member who they are. They work on their own tasks, Section A, Docker setup or fixes to their own finished part. Say so and stop if they ask for something else.
+1. **Read "By person" in `docs/PLAN.md`.** It lists each person's tasks. Ask your member who they are. They work on their own tasks, Section A, Docker setup or fixes to their own finished part. Say so and stop if they ask for something else.
 2. **Read, in this order:**
    - `knowledge/README.md`: the assignment, course, team, setup and lecture summaries
    - `docs/PLAN.md`: the current stage's tasks, what each one needs first, and what "done" means
@@ -70,14 +70,14 @@ These are written for Claude Code skills, but they are plain Markdown, so any as
 | Path | What |
 |---|---|
 | `eval/results/` | **Every test result, as a file (decision 0051).** Save it and add it to `eval/results/README.md` in the same commit. A number in the report must come from here |
-| `README.md` | Top: each person's tasks (generated). Below: the two team rules and the folder guide |
+| `README.md` | What the platform is, the live link, results, how to run it, and the folder guide |
 | `docs/PLAN.md` | Every stage, task, owner and blocker (the README is generated from it) |
 | `docs/decisions/` | Numbered decision records (ADRs) and their generated index |
 | `docs/meetings/` | Meeting summaries |
 | `learnings/` | One file per workstream: what that person built and found, in plain words |
 | `knowledge/` | The assignment, course, team, setup, lecture summaries |
 | `benchmark/` | Test tasks: plain-language requests, hidden tests, reference backends |
-| `scripts/update_status.py` | Regenerates the README status, the plan views and the decisions index |
+| `scripts/update_status.py` | Regenerates the plan views and the decisions index |
 | `scripts/check_secrets.py`, `.githooks/pre-commit` | Block keys, `.env`, model files and big files from commits |
 | `.claude/` | Claude Code settings and the step-by-step guides (skills) |
 | `.github/` | GitHub checks, the pull request template, Copilot's pointer to this file |

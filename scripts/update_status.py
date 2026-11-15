@@ -9,7 +9,6 @@ writes, between <!-- NAME:START --> / <!-- NAME:END --> markers:
   PLAN.md   FLOW      a Mermaid diagram of every task, its dependencies and its status
   PLAN.md   PEOPLE    each workstream's tasks in order
   PLAN.md   BLOCKERS  every task that waits on another person's task
-  README.md STATUS    what is in progress, ready and waiting, per person
   docs/decisions/README.md DECISIONS  the index of decision records (one numbered file each)
 
 A task is "ready" when everything in its Needs column is done, and "waiting" otherwise.
@@ -20,7 +19,7 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PLAN, README = ROOT / "docs" / "PLAN.md", ROOT / "README.md"
+PLAN = ROOT / "docs" / "PLAN.md"
 DECISIONS = ROOT / "docs" / "decisions"
 BLOCK = re.compile(r"(<!-- (\w+):START -->)(.*?)(<!-- \2:END -->)", re.S)
 WHO = ["W1", "W2", "W3", "W4", "W5", "All"]
@@ -103,21 +102,7 @@ def render(plan):
              for t in tasks for n in blockers(t) if by_id[n]["who"] != t["who"] and t["status"] != "done"]
     waits = waits or ["- Nothing: no task is waiting on someone else's work."]
 
-    # The README lists each person's unfinished Must and Should tasks (decision 0050). Could tasks stay in docs/PLAN.md.
-    note = "Generated from [`docs/PLAN.md`](docs/PLAN.md) by `scripts/update_status.py`. Do not edit by hand."
-    status = ["## What each person does now", ""]
-    for w in WHO:
-        rows = [t for t in tasks if t["who"] == w and t["status"] != "done" and t["priority"] != "Could"]
-        status += [f"### {person(w)}", ""]
-        if not rows:
-            status += ["Nothing left of your own: see Everyone.", ""]
-            continue
-        status += ["| Task | Status | Done when |", "|---|---|---|"]
-        status += [f"| {t['id']} {t['name']} | {icon[state(t, by_id)]} {state(t, by_id)}"
-                   + (f" (on {', '.join(blockers(t))})" if state(t, by_id) == "waiting" else "") + f" | {t['done_when']} |" for t in rows]
-        status.append("")
-    status.append(note)
-    return {"BOARD": board, "FLOW": flow, "PEOPLE": people, "BLOCKERS": waits, "STATUS": status}
+    return {"BOARD": board, "FLOW": flow, "PEOPLE": people, "BLOCKERS": waits}
 
 
 def decisions():
@@ -146,7 +131,7 @@ def fill(text, blocks):
 def main():
     blocks = render(PLAN.read_text()) | {"DECISIONS": decisions()}
     stale = []
-    needed = {PLAN: ["BOARD", "FLOW", "PEOPLE", "BLOCKERS"], README: ["STATUS"], DECISIONS / "README.md": ["DECISIONS"]}
+    needed = {PLAN: ["BOARD", "FLOW", "PEOPLE", "BLOCKERS"], DECISIONS / "README.md": ["DECISIONS"]}
     for path, names in needed.items():
         old = path.read_text()
         missing = [n for n in names if f"<!-- {n}:START -->" not in old or f"<!-- {n}:END -->" not in old]
