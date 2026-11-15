@@ -18,7 +18,7 @@
 | Michael (W3) | — | — | — | — | ✅ S4.2 UI on a recorded session | — | — | — |
 | Joseph (W4) | ✅ S0.2 LLM setup | — | ✅ S2.1 Read Bernard's learnings, run his tools<br>✅ S2.2 15 benchmark tasks<br>✅ S2.3 Eval harness<br>✅ S2.4 Recipe knowledge base and search<br>✅ S2.5 Handoff: Joseph's learnings, part 1 | ✅ S3.12 Hosting on a public server<br>✅ S3.13 Agent session<br>✅ S3.14 Small live platform | ✅ S4.1 Read Alice's and Joseph's learnings, try the live platform<br>✅ S4.3 Better UI on the live platform<br>✅ S4.4 UI alternatives compared<br>✅ S4.6 Handoff: Michael's learnings<br>✅ S4.7 Safety of the public platform<br>✅ S4.8 Plain-word summaries; follow mid-build messages properly | ✅ S5.1 Read Alice's learnings, try the live platform<br>✅ S5.2 Full system on all 15 tasks<br>✅ S5.3 Ablations<br>✅ S5.4 Model comparison<br>✅ S5.5 Results tables and charts<br>✅ S5.6 Handoff: Joseph's learnings, part 2 | ✅ S6.2 Fix what doesn't fit together<br>✅ S6.3 Section B draft<br>✅ S6.4 Slides and recorded demo<br>✅ S6.5 Handoff: Eric's learnings | — |
 | Eric (W5) | ✅ S0.1 Set up the repo<br>✅ S0.3 Assign owners<br>✅ S0.4 Ask the instructor about "Section C" | — | — | — | — | — | ✅ S6.1 Read every learnings file, run everything | — |
-| Everyone | 🔵 S0.6 Docker on every laptop | — | — | — | 🔵 S4.5 Usability test | — | — | 🔵 S7.1 Review Section B for your part<br>🔵 S7.2 Section A (individual, any time)<br>🔵 S7.3 Viva walkthrough<br>⏳ S7.4 Rehearse and submit |
+| Everyone | 🔵 S0.6 Docker on every laptop | — | — | — | ✅ S4.5 Usability test | — | — | 🔵 S7.1 Review Section B for your part<br>🔵 S7.2 Section A (individual, any time)<br>🔵 S7.3 Viva walkthrough<br>⏳ S7.4 Rehearse and submit |
 
 ✅ done · 🟡 in progress · 🔵 ready to start · ⏳ waiting on another task
 <!-- BOARD:END -->
@@ -71,7 +71,7 @@ flowchart LR
     S4_2["S4.2 UI on a recorded session<br/>W3 · Must"]:::done
     S4_3["S4.3 Better UI on the live platform<br/>W4 · Must"]:::done
     S4_4["S4.4 UI alternatives compared<br/>W4 · Should"]:::done
-    S4_5["S4.5 Usability test<br/>All · Should"]:::ready
+    S4_5["S4.5 Usability test<br/>All · Should"]:::done
     S4_6["S4.6 Handoff: Michael's learnings<br/>W4 · Must"]:::done
     S4_7["S4.7 Safety of the public platform<br/>W4 · Must"]:::done
     S4_8["S4.8 Plain-word summaries; follow mid-build messages properly<br/>W4 · Should"]:::done
@@ -219,7 +219,7 @@ Green: done · yellow: in progress · blue: ready to start · grey: waiting on t
 | S4.2 | UI on a recorded session | W3 | S4.1 | Must | done | `web/index.html` can play back a saved session, served by `web/replay.py` (describe → questions → plan → progress → try it), so you can change the page without paying for builds |
 | S4.3 | Better UI on the live platform | W4 | S4.2 | Must | done | On the public address, a non-developer can describe, answer, approve, try and change a backend with nothing but the page, and understands every word on it (live with a real build on Nov 12, W5 row 17; a change after going live, W4 row 32; whether people understand every word is S4.5) |
 | S4.4 | UI alternatives compared | W4 | S4.3 | Should | done | Ways of showing the plan, asking questions, showing progress and wording errors, compared |
-| S4.5 | Usability test | All | S4.4 | Should | todo | 4–5 non-developers: completion, time, SUS score, quotes |
+| S4.5 | Usability test | All | S4.4 | Should | done | 4–5 non-developers: completion, time, SUS score, quotes. Ran with 1 person by team choice (Nov 15): live backend alone in about 10 minutes, SUS 82.5, plan screen confusing (`eval/results/usability/results.md`) |
 | S4.6 | Handoff: Michael's learnings | W4 | S4.3 | Must | done | `learnings/W3-*.md` complete |
 | S4.7 | Safety of the public platform | W4 | S3.14 | Must | done | Attacks on the live platform tried and written up: prompt injection in a request, too many requests, a backend grabbing memory or disk, many builds at once. Every hole fixed or stated as a limit. `start_server` says when a backend was killed for using too much memory |
 | S4.8 | Plain-word summaries; follow mid-build messages properly | W4 | S3.14 | Should | done | The final summary has no technical words, the client can tell what they got, and a message saying "must" is enforced in the live backend. The build itself is unchanged, so the hidden-test score cannot move (decision 0054) |
@@ -330,7 +330,7 @@ What each person owns. The task list under the table is generated.
 **Everyone**
 
 1. S0.6 Docker on every laptop — Should, ready
-2. S4.5 Usability test — Should, ready
+2. S4.5 Usability test — Should, done
 3. S7.1 Review Section B for your part — Must, ready
 4. S7.2 Section A (individual, any time) — Must, ready
 5. S7.3 Viva walkthrough — Must, ready

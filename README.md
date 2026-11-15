@@ -28,7 +28,6 @@ Nothing left of your own: see Everyone.
 | Task | Status | Done when |
 |---|---|---|
 | S0.6 Docker on every laptop | 🔵 ready | `docker run --rm hello-world` works for all 5 |
-| S4.5 Usability test | 🔵 ready | 4–5 non-developers: completion, time, SUS score, quotes |
 | S7.1 Review Section B for your part | 🔵 ready | Each owner confirms their part is correct |
 | S7.2 Section A (individual, any time) | 🔵 ready | 3–5 pages each, own words, topics a–r told as one story |
 | S7.3 Viva walkthrough | 🔵 ready | Each owner has taught their part; everyone can answer every part's viva questions |
