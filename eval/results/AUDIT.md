@@ -26,7 +26,7 @@ Every experiment row in every learnings file, checked. Michael's and Eric's file
 | 10 | Which Docker network | 🟡 | The winner is proved by a test that passes on re-run. Results for the other three options were not saved |
 | 11 | Docker or subprocess | ⏱️ | Isolation the same, Docker blocks all four. A Mac is faster: Docker adds under 1 s, not 2–3 s |
 | 12 | Test time limit | ⏱️ | Stops at 30.1/60.1/120.1 s with 0 containers left. Good runs 0.7 s on a Mac, 7.4 s on Windows |
-| 13 | Attacks | ⏱️ | **Docker 14/16, identical.** Subprocess 4/16, not 5/16: on a Mac it can also see the Docker control socket |
+| 13 | Attacks | ⏱️ | **Nov 6: Docker 14/16, identical.** Subprocess 4/16, not 5/16: on a Mac it can also see the Docker control socket. **Nov 10 rerun (Apple M5, OrbStack): Docker 15/16**, because the 200 MB file-size cap added on Nov 9 (decision 0057) now stops the 300 MB file; only deleting the project's own files still works. Subprocess 5/16. File: `walkthrough/part2/attacks.txt`. W2 row 13 and Section B use 15/16 |
 | 14 | Prompt injection | 🟰 | `prompt_injection.txt`: canary leaked 0 of 9, $0.57 |
 
 Files: `eval/results/runtime/` (originals), `replicated/` (re-runs). Bernard's 51 tests: passed on Mac and server; subprocess mode 44 passed, 7 skipped.
