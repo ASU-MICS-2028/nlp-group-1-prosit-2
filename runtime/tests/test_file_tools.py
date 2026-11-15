@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from runtime.tools import READ_LIMIT, LIMIT, cut, edit_file, list_files, read_file, write_file
+from runtime.tools import READ_LIMIT, cut, edit_file, list_files, read_file, write_file
 
 REFERENCE = Path(__file__).resolve().parents[2] / "benchmark" / "church_signup" / "reference"
 

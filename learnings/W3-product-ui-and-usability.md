@@ -2,6 +2,8 @@
 
 Owner: Michael
 
+> **Since Nov 15 (decision 0063):** `main` holds only what the live platform, the command line and the marker run. Commands below that name a removed script or option run from the tag: `git checkout report-experiments`.
+
 > The rest of the team will NOT read your code. They will write the report, present, and answer viva questions using only this file. Explain it like you are talking to someone who has never coded. Every option you tried goes in the log.
 
 > **Draft by Eric (W5), Nov 11, for Michael to check.** Written only from what is on disk: decisions 0049, 0059 and 0060, the code in `web/`, and the saved results named in each row. Michael: you defend this part in the viva, so read every line, correct anything wrong, and put sections 1, 2, 4 and 5 into your own words. Your own design reasons (why the tape measure, why these colours, what you tried before Nov 6) are not on disk: add them as rows where it says `[MICHAEL: ...]`.

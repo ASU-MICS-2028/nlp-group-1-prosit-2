@@ -5,7 +5,6 @@
 
 import json
 import pathlib
-import re
 import statistics
 
 R = pathlib.Path("eval/results")
@@ -122,7 +121,7 @@ check("Joseph", 30, "church live build tests passed", 30, sum(x["passed"] for x 
 
 # ---- Bernard (W2): the saved text output
 def has(row, file, words):
-    body = pathlib.Path(f"runtime/experiments/results/{file}.txt").read_text(errors="replace")
+    body = pathlib.Path(f"eval/results/runtime/{file}.txt").read_text(errors="replace")
     check("Bernard", row, f"{file}: says {words!r}", True, words in body)
 
 

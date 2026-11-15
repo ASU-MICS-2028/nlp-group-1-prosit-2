@@ -2,6 +2,8 @@
 
 Owner: Eric
 
+> **Since Nov 15 (decision 0063):** `main` holds only what the live platform, the command line and the marker run. Commands below that name a removed script or option run from the tag: `git checkout report-experiments`.
+
 > The rest of the team will NOT read your code. They will write the report, present, and answer viva questions using only this file. Explain it like you are talking to someone who has never coded. Every option you tried goes in the log.
 
 > **Nov 12, Joseph (decision 0062):** S6.2 to S6.5 moved to Joseph so the project could finish. Rows 1 to 16 are Eric's. Joseph added row 17 and wrote sections 1, 2 and 4 to 8 from those rows. Eric still opens and closes the talk and defends this part, so he should read every line.

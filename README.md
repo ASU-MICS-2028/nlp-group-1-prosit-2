@@ -25,6 +25,8 @@ All numbers come from saved files in [`eval/results/`](eval/results/README.md). 
 
 The full write-up is [`docs/section-b.md`](docs/section-b.md), which is Section B of the report.
 
+`main` holds only what the live platform, the command line and the marker run (decision 0063). The experiment scripts and switches behind the numbers above are unchanged at the tag [`report-experiments`](https://github.com/ASU-MICS-2028/nlp-group-1-prosit-2/tree/report-experiments).
+
 ## How it works
 
 ```mermaid
@@ -42,11 +44,11 @@ flowchart LR
 
 | Folder | What is in it | Owner |
 |---|---|---|
-| [`builder/`](builder/) | The agent: questions, plan, ReAct build loop, session states, command line | Alice (W1) |
+| [`builder/`](builder/) | The agent (questions, plan, ReAct build loop), the session states, the Claude calls, the command line | Alice (W1) |
 | [`runtime/`](runtime/) | The 8 tools, the Docker sandbox, publishing | Bernard (W2), Joseph (W4) |
 | [`web/`](web/) | The page the client uses (`index.html`) and the platform server (`app.py`) | Michael (W3, page), Joseph (W4, server) |
 | [`benchmark/`](benchmark/README.md) | 15 plain-language requests, each with hidden tests and a correct reference backend | Joseph (W4) |
-| [`eval/`](eval/) | The marker, experiments, ablations, the usability kit, and every saved result | Joseph (W4), Eric (W5) |
+| [`eval/`](eval/) | The marker (`harness.py`, `bench.py`), the usability kit, the number audit, and every saved result | Joseph (W4), Eric (W5) |
 | [`kb/`](kb/) | 18 recipes and the search that retrieves them (RAG) | Joseph (W4) |
 | [`docs/`](docs/README.md) | The plan, 63 numbered decision records, and Section B | Everyone |
 | [`learnings/`](learnings/README.md) | Each workstream's experiment log in plain words, with the options that lost | Each owner |
