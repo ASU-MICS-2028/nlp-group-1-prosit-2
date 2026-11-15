@@ -55,9 +55,8 @@ def run_one(task, source, folder, label, restart=False):
     except ValueError as e:
         return {**row, "error": f"ops.json is not valid JSON: {e}", "seconds": 0.0}
     if ops is None:
-        ops, info = bench.map_ops("claude-opus-5-5", app, bench.load(task)["operations"])
+        ops, row["map_cost_usd"] = bench.map_ops("claude-opus-5-5", app, bench.load(task)["operations"])
         (folder / "ops.json").write_text(json.dumps(ops, indent=2) + "\n")
-        row["map_cost_usd"] = info["cost_usd"]
     missing = sorted(json.loads(bench.load(task)["operations"]).keys() - ops.keys())
     got = bench.score(task, label, app, ops)
     if missing:  # an incomplete map fails tests the backend may pass: flag it, so it is not read as a bad build

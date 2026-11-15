@@ -69,6 +69,7 @@ Statuses: `Proposed` (suggested, not yet signed off), `Accepted`, `Superseded by
 | [0060](0060-michaels-design-on-the-live-page.md) | The live page uses Michael's design, in one plain file | Proposed | 2026-11-11 |
 | [0061](0061-play-back-a-saved-session.md) | Play back a saved session through the real page | Proposed | 2026-11-11 |
 | [0062](0062-joseph-finishes-stages-4-and-6.md) | Joseph finishes the open tasks of stages 4 and 6 | Accepted | 2026-11-12 |
+| [0063](0063-main-holds-only-what-the-platform-runs.md) | Main holds only what the platform runs; the experiments live at a tag | Accepted | 2026-11-15 |
 <!-- DECISIONS:END -->
 
 ## Open questions

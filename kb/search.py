@@ -5,8 +5,8 @@
 
 method="dense" (default) ranks by meaning with a small embedding model (all-MiniLM-L6-v2, about 90 MB, downloaded on first
 use; needs `uv run --extra kb`). method="bm25" is keyword search, written out below, with no extra install.
-method="hybrid" merges the two rankings. On 111 labelled questions (kb/compare.py): a right recipe is in the top 3 for
-dense 95%, hybrid 87%, bm25 74% (decision 0037). No method can tell reliably that no recipe fits: judge the results.
+On 111 labelled questions (kb/questions.json, results in kb/compare.json): a right recipe is in the top 3 for dense 95%,
+bm25 74% (decision 0037). No method can tell reliably that no recipe fits: judge the results.
 """
 
 import math
@@ -62,7 +62,7 @@ def _bm25():
 
 
 @lru_cache
-def _dense(model=DENSE_MODEL):
+def _dense(model=DENSE_MODEL):  # loaded once: the model and every recipe's vector
     try:
         from sentence_transformers import SentenceTransformer
     except ImportError:
@@ -77,10 +77,6 @@ def dense_scores(query, model=DENSE_MODEL):
     return (docs @ m.encode([query], normalize_embeddings=True)[0]).tolist()  # cosine similarity
 
 
-def ranked(scores):
-    return sorted(range(len(scores)), key=lambda i: -scores[i])
-
-
 def search_docs(query, k=3, method="dense"):
     """The k best recipes for the query, best first. An empty or wordless query returns []."""
     if not words(query):
@@ -89,14 +85,10 @@ def search_docs(query, k=3, method="dense"):
         scores = _bm25().scores(query)
     elif method == "dense":
         scores = dense_scores(query)
-    elif method == "hybrid":  # reciprocal rank fusion: add 1/(60 + rank) from each ranking
-        scores = [0.0] * len(recipes())
-        for s in (_bm25().scores(query), dense_scores(query)):
-            for rank, i in enumerate(ranked(s)):
-                scores[i] += 1 / (60 + rank)
     else:
         raise ValueError(f"unknown method {method!r}")
-    return [{**recipes()[i], "score": round(scores[i], 4)} for i in ranked(scores)[:k] if scores[i] > 0]
+    best = sorted(range(len(scores)), key=lambda i: -scores[i])[:k]
+    return [{**recipes()[i], "score": round(scores[i], 4)} for i in best if scores[i] > 0]
 
 
 if __name__ == "__main__":

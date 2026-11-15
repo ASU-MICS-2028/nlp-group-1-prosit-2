@@ -1,5 +1,4 @@
-"""Tests that the Docker sandbox really isolates generated code. Run: uv run pytest runtime -q
-Skipped with SANDBOX=subprocess, which isolates nothing (see learnings, section 5)."""
+"""Tests that the Docker sandbox really isolates generated code. Run: uv run pytest runtime -q"""
 
 import subprocess
 import sys
@@ -7,12 +6,9 @@ from pathlib import Path
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "experiments"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from church_bugs import make_broken  # noqa: E402
-from runtime import sandbox  # noqa: E402
 from runtime.tools import http_request, run_tests, start_server, stop_server, write_file  # noqa: E402
-
-pytestmark = pytest.mark.skipif(sandbox.MODE != "docker", reason="only the Docker sandbox isolates")
 
 
 @pytest.fixture

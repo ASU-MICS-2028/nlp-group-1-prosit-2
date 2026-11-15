@@ -152,10 +152,11 @@ KEY_SCHEMA = {"type": "object", "additionalProperties": False, "required": ["kin
 
 
 def add_key_rules(model, app_text, operations, ops, effort="medium"):
-    """A copy of ops with rules for a backend that finds records by name or number. The names already in the map are not touched (decision 0055)."""
-    from eval.llm import ask
+    """A copy of ops with rules for a backend that finds records by name or number. The names already in the map are not
+    touched (decision 0055). Returns (ops, cost in US dollars)."""
+    from builder.llm import ask  # here, not at the top: scoring backends that have a map needs no anthropic package
     user = f"Operations the tests call:\n{operations}\n\nThe backend (app.py):\n```python\n{app_text}\n```"
-    text, info = ask(model, KEY_SYSTEM, user, effort=effort, schema=KEY_SCHEMA)
+    text, usd = ask(model, KEY_SYSTEM, user, schema=KEY_SCHEMA, effort=effort)
     out = json.loads(json.dumps(ops))
     for k in json.loads(text)["kinds"]:
         if k["created_by"] in out and k["used_in"]:
@@ -163,12 +164,13 @@ def add_key_rules(model, app_text, operations, ops, effort="medium"):
             for use in k["used_in"]:
                 if use["operation"] in out:
                     out[use["operation"]].setdefault("uses_key", {})[use["test_field"]] = k["kind"]
-    return out, info
+    return out, usd
 
 
 def map_ops(model, app_text, operations, effort="medium"):
-    from eval.llm import ask
+    """The name map (ops.json) for a backend, written by Claude (decision 0032). Returns (ops, cost in US dollars)."""
+    from builder.llm import ask
     user = f"Operations the tests call:\n{operations}\n\nThe backend (app.py):\n```python\n{app_text}\n```"
-    text, info = ask(model, MAP_SYSTEM, user, effort=effort, schema=mapping_schema())
-    ops, keys = add_key_rules(model, app_text, operations, to_ops(text), effort)
-    return ops, {**info, "cost_usd": round(info["cost_usd"] + keys["cost_usd"], 5)}
+    text, usd = ask(model, MAP_SYSTEM, user, schema=mapping_schema(), effort=effort)
+    ops, more = add_key_rules(model, app_text, operations, to_ops(text), effort)
+    return ops, round(usd + more, 5)

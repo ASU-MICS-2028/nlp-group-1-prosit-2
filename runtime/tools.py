@@ -15,7 +15,6 @@ from pathlib import Path
 import httpx
 
 from runtime import sandbox
-from runtime.sandbox import clean_env  # noqa: F401  (the experiments import it from here)
 
 # Names the agent may never read, write or list, anywhere in the project.
 BLOCKED = {".env", ".git"}
@@ -55,7 +54,7 @@ def safe_path(root, path):
     try:
         full = (root / path).resolve()  # an absolute path replaces root here, and is caught below
     except OSError:
-        raise ValueError(f"Refused: {path[:80]!r}... is not a valid path")
+        raise ValueError(f"Refused: {path[:80]!r}... is not a valid path") from None
     if full == root or not full.is_relative_to(root):
         raise ValueError(f"Refused: {path!r} is outside the project folder")
     # Windows ignores case and trailing dots or spaces, so ".ENV" and ".env." are both ".env".
@@ -131,8 +130,7 @@ def run_tests(root, path="tests", timeout=60):
     relative = full.relative_to(root).as_posix()  # tests/test_app.py, with / even on Windows (Docker runs Linux)
     args = ["python", "-m", "pytest", relative, "-q", "--tb=short", "-p", "no:cacheprovider"]
     try:
-        result = subprocess.run(sandbox.command(root, args, name), cwd=root, env=sandbox.host_env(),
-                                capture_output=True, encoding="utf-8", errors="replace", timeout=timeout)
+        result = subprocess.run(sandbox.command(root, args, name), cwd=root, capture_output=True, encoding="utf-8", errors="replace", timeout=timeout)
     except subprocess.TimeoutExpired:
         sandbox.remove(name)  # stopping the docker command does not stop its container, so remove it
         return fail(f"Tests stopped: still running after {timeout} seconds (something may be stuck in a loop or waiting)")

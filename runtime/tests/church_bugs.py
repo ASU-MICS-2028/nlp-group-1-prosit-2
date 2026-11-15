@@ -1,7 +1,7 @@
 """Seven realistic bugs planted in the church reference app, to get real failing test output.
 
 make_broken(bug, folder) builds a project folder: the reference app.py with one bug, plus the
-agent-style tests in church_tests/. Used by the output-limit and error-format experiments.
+agent-style tests in church_tests/. Used by the runtime tests to get real failing test output.
 """
 
 import shutil

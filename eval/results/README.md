@@ -1,5 +1,7 @@
 # Every test result, for the report and the slides
 
+> **Since Nov 15 (decision 0063):** the scripts that made these results were removed from `main` to keep the code small. They are unchanged at the tag `report-experiments` (`git checkout report-experiments`).
+
 Rule (decision 0051): a result that is not saved here does not count. Details and explanations: `learnings/W4-*.md` and `learnings/W1-*.md`, section 3.
 
 Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `total`, `started`, `failing` (test names), `error`, `seconds`. Score = sum of `passed` / sum of `total`.
@@ -115,6 +117,7 @@ Each `harness/*.json` has one row per backend per repeat: `task`, `passed`, `tot
 | **The redesigned live screen on the public link, one real build (S4.3, S6.4, Nov 12, 05:42)** | `browser_check_2026-11-12/` (`browser_check.txt`, 7 screenshots; the video is in the shared Drive folder with the deck), made by `eval/experiments/browser_check.py` | live on `main` `991a93f`; "Open the try-it page" with the developer details folded; 3 operations on its docs page; a refresh keeps the build; taken offline, its address answered 404; no page errors. About $0.20 |
 | **Eric's flow fixes (PR #22) on the public link, one real build (S4.3, S6.4, Nov 14)** | `browser_check_2026-11-14/` (`browser_check.txt` with each step's time, 7 screenshots; the video is in the shared Drive folder), made by `eval/experiments/browser_check.py` | live on `main` `cf96dae` after 53 s. Each new line appeared in order: "Message sent" (0 s), "Your message reached the builder" (10.5 s), "Testing it (19 passed, 0 failed)" (34.5 s), "Putting it online" (39.6 s), so **going online took about 13 s**. The pickup date asked for mid-build is in the result; 3 operations on its docs page; a refresh keeps the build; taken offline, its address answered 404; no page errors. About $0.20 |
 | **Usability test, P1 (S4.5, Nov 15)** | `usability/results.md` | one non-developer, alone, from a car-dealership request to a live backend in about 10 minutes; 4 of 6 tasks done without help (mid-build change not tried, take-down not asked). Confused by the plan screen: answers typed under the plan only apply after "Change the plan". SUS 82.5 (above 80 is good) |
+| **The cleanup kept the marker exact (decision 0063, Nov 15)** | `harness/cleanup_check.json` | after removing the experiment code, every reference backend still scores 100% (272/272); `benchmark/validation.json` unchanged (every planted bug caught); 135 unit tests pass |
 
 ## Not here
 

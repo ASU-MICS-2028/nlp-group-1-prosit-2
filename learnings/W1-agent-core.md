@@ -2,6 +2,8 @@
 
 Owner: Alice
 
+> **Since Nov 15 (decision 0063):** `main` holds only what the live platform, the command line and the marker run. Commands below that name a removed script or option run from the tag: `git checkout report-experiments`.
+
 > The rest of the team will NOT read your code. They will write the report, present, and answer viva questions using only this file. Explain it like you are talking to someone who has never coded. Every option you tried goes in the log.
 
 ## 1. What this part does, in one paragraph

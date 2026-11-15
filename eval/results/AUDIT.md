@@ -29,7 +29,7 @@ Every experiment row in every learnings file, checked. Michael's and Eric's file
 | 13 | Attacks | ⏱️ | **Docker 14/16, identical.** Subprocess 4/16, not 5/16: on a Mac it can also see the Docker control socket |
 | 14 | Prompt injection | 🟰 | `prompt_injection.txt`: canary leaked 0 of 9, $0.57 |
 
-Files: `runtime/experiments/results/` (originals), `replicated/` (re-runs). Bernard's 51 tests: passed on Mac and server; subprocess mode 44 passed, 7 skipped.
+Files: `eval/results/runtime/` (originals), `replicated/` (re-runs). Bernard's 51 tests: passed on Mac and server; subprocess mode 44 passed, 7 skipped.
 
 ## Alice (W1): 12 rows
 
