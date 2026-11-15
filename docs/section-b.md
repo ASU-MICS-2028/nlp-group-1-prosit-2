@@ -6,15 +6,13 @@ Code: https://github.com/ASU-MICS-2028/nlp-group-1-prosit-2
 
 ## 1 Approach
 
-**The problem.** Mesora asked for a platform that lets non-developers build backend APIs (knowledge/assignment.md). A backend stores data and answers requests; an API is the fixed set of requests it accepts, each one an endpoint such as `POST /events`. Lecture 8 set the bar: a working backend that we host, with a real database, its link and its endpoints, and an agent that takes follow-up messages during a build (knowledge/assignment.md).
+**The problem.** Mesora asked for a platform that lets non-developers build backend APIs. A backend stores data and answers requests; its API is the fixed set of requests it accepts, each one an endpoint such as `POST /events`. Lecture 8 set the bar: a working backend that we host, with a real database, its link and endpoints, and an agent that takes follow-up messages during a build (knowledge/assignment.md).
 
 **Our answer.** The client describes a backend in plain words. An LLM coding agent asks up to 3 questions (W1 row 7) and shows a plan for approval. It then writes a FastAPI app that stores data in SQLite, tests it with pytest inside a locked Docker sandbox, and publishes it at a public link.
 
-**How we worked.** Each workstream had one owner (decision 0011): W2 Bernard the tools and sandbox, W4 Joseph the benchmark, marker, recipe search and live platform, W1 Alice the agent, W3 Michael the page design, and W5 Eric the integration and this report. Each owner writes a learnings file, and the others build only on it. We test every alternative (decision 0001), and every result is saved in `eval/results/` (decision 0051).
+**How we worked.** Each workstream had one owner (decision 0011): W1 Alice the agent, W2 Bernard the tools and sandbox, W3 Michael the page design, W4 Joseph the benchmark, recipe search and live platform, and W5 Eric the integration and this report. We tested every alternative (decision 0001) and saved every result in `eval/results/` (decision 0051). Before the agent existed, W4 wrote a benchmark of 15 requests in a non-developer's words, with 192 hidden tests the agent never sees, and a baseline: one Claude call, with no tools, writing the whole backend (W4 section 2).
 
-**Measure first.** Before the agent existed, W4 wrote a benchmark of 15 requests in a non-developer's words, with 192 hidden tests the agent never sees (W4 section 2). W4 also measured a baseline: one Claude call, with no tools, writes the whole backend. Every build uses one stack, FastAPI, SQLModel, SQLite and pytest (decision 0002), so builds are comparable.
-
-**A hand-written loop.** One call cannot run what it writes. An agent can: the model asks for an action, our code does it and reports back, until the model is finished (the ReAct pattern: reason, act, look at the result). We wrote the loop by hand rather than with a framework, so every line can be explained (decision 0003). This was reasoned, not measured; Lecture 8 advised a framework but left the choice to us (knowledge/assignment.md).
+**A hand-written loop.** One call cannot run what it writes; an agent can. The model asks for an action, our code does it and reports back, until the model is finished (the ReAct pattern). We wrote this loop by hand rather than with a framework, so every line can be explained (decision 0003).
 
 ## 2 Architecture
 
@@ -41,40 +39,49 @@ flowchart TD
 
 <!-- Word and PDF do not draw Mermaid: paste docs/section-b-figure-1.png in its place. -->
 
-**Page and platform backend.** The page (`web/index.html`) never talks to the agent. It sends everything to the platform backend (`web/app.py`) at `/api/builds` and polls it every 1.5 seconds (W3 section 4). Each client gets a session (`builder/session.py`, decision 0048) that moves through fixed states: asking, waiting for answers, planning, waiting for approval, building, then live or failed (W4 section 2). A message sent during a build reaches the agent between turns (W4 row 31). The session allows at most $10 of spending a day, 2 builds at once and 5,000 characters per request (decision 0048).
+**Page and session.** The page never talks to the agent: it sends everything to the platform backend and polls it every 1.5 seconds (W3 section 4). Each client gets a session that moves through fixed states: asking, waiting for answers, planning, waiting for approval, building, then live or failed. A message sent during a build reaches the agent between turns (W4 row 31). A session allows at most $10 of spending a day and 2 builds at once (decision 0048).
 
-**Agent** (`builder/agent.py`, W1 Alice). One Claude call with no tools writes the questions, and the answers join the request (W1 section 2). A second call fills a fixed plan form for the client to approve: the data kept, the endpoints and the rules (decision 0041). Then the loop runs: Claude asks for tools, and our code runs them in a project folder it chose and returns the result, until Claude finishes or reaches 40 turns or $2 (W1 section 4). Recipe search (`kb/search.py`) is an optional extra tool, off for Opus (decision 0043).
+![](section-b-figures/fig2_screens.png)
 
-**Tools and sandbox** (`runtime/`, W2 Bernard). Claude gets 8 tools: write, read and edit a file, list files, run the tests, start the server, send it a request, and stop it (W1 section 2). `run_tests` and `start_server` run generated code in a fresh Docker container, a small separate Linux computer thrown away afterwards. It sees only the project folder, has no internet, gets 512 MB of memory, 1 CPU and 128 processes, and runs as an ordinary user with read-only system files (W2 section 1). A tiny door container forwards one port, so we can reach the server but it cannot reach out (W2 row 10).
+*Figure 2. The page on the public link at phone width, from one real build: describe, answer the questions, approve the plan, live (eval/results/browser_check_2026-11-14).*
 
-**Publishing and measuring** (`runtime/deploy.py`, `eval/harness.py`, W4 Joseph). The session publishes only if the agent's own tests ran and passed (decision 0048) and `keeps_database` finds that a restarted copy loses no rows (decision 0053). `deploy` runs `app.py` on one Google Cloud server with the sandbox's locks, and Caddy, a small web server in front, gives it an HTTPS path with a `/docs` page listing its endpoints (W4 section 2). To measure, the harness runs a task's hidden tests on the build in the same sandbox (W4 section 2).
+**Agent** (W1 Alice). One Claude call writes the questions, and a second fills a fixed plan form for the client to approve: the data kept, the endpoints and the rules (decision 0041). Then the loop runs until Claude finishes or reaches 40 turns or $2 (W1 section 4). Claude has 8 tools: write, read and edit a file, list files, run the tests, start the server, send it a request, and stop it (W1 section 2).
+
+**Sandbox** (W2 Bernard). Running the tests or the server starts a fresh Docker container that sees only the project folder, has no internet, 512 MB of memory, 1 CPU and 128 processes, and runs as an ordinary user (W2 section 1). A tiny door container forwards one port, so we can reach the server but it cannot reach out (W2 row 10).
+
+**Publishing** (W4 Joseph). The session publishes only if the agent's own tests passed (decision 0048) and a restarted copy loses no rows (decision 0053). The backend then runs on one Google Cloud server with the sandbox's locks, behind Caddy, which gives it an HTTPS link and a `/docs` page listing its endpoints (W4 section 2).
 
 ## 3 Implementation choices
 
 | Choice | Lost against it | What we measured | Source |
 |---|---|---|---|
-| Path guard: find where a path really ends, then check it is inside the project | Checking the text of the path | 18 attack paths among 24: the text check let 5 through, the real-path check 0 (on a Mac, 2 harmless names that stay inside the project) | W2 row 1, W4 row 6 |
-| Docker sandbox | Plain subprocess | Of 16 harmful-code attacks, Docker blocked 15, subprocess 5 | W2 row 13 (Nov 10 rerun, `eval/results/walkthrough/part2/attacks.txt`) |
+| Path guard: find where a path really ends, then check it is inside the project | Checking the text of the path | Of 18 attack paths, the text check let 5 through, the real-path check 0 | W2 row 1, W4 row 6 |
+| Docker sandbox | Plain subprocess | Of 16 harmful-code attacks, Docker blocked 15, subprocess 5 | W2 row 13 |
 | Server on a private network behind a door | No network; Docker's normal network | Only the door blocked the internet and still let our computer in | W2 row 10 |
-| Keep the start and the end of long tool output | Keep only the start | 21 of 21 key facts kept, against 14 to 20 of 21 | W2 row 5 |
-| Dense search (all-MiniLM-L6-v2), top 3 | BM25, bigger dense models, hybrid, random | Right recipe in the top 3: 95%, against BM25 74%, hybrid 87%, random 17% | W4 row 24 |
-| Ask up to 3 questions first | No questions | 96.0% against 90.1%; school left out, 95.7% against 95.0% | eval/results/tables.md |
+| Dense search (all-MiniLM-L6-v2), top 3 | BM25, hybrid, random | Right recipe in the top 3: 95%, against hybrid 87%, BM25 74%, random 17% | W4 row 24 |
+| Ask up to 3 questions first | No questions | 96.0% against 90.1% | eval/results/tables.md |
 | One agent | Planner, Builder and Tester split | 96.0% at $1.91 against 87.0% at $4.06 | eval/results/tables.md |
 | Opus builds | Sonnet, Haiku, local Qwen | 96.0%, against Sonnet 92.5% and Haiku 83.9% | eval/results/tables.md, decision 0056 |
 
 *Table 1. The main choices and the options that lost.*
 
-**Tools and sandbox (W2).** Docker adds about 2 to 3 seconds per call on Windows (W2 row 11) and under 1 second on a Mac (eval/results/AUDIT.md), small next to an LLM step. `read_file` first cut files at 4,000 characters, but 10 of 15 Opus apps were bigger (W2 row 4); with no cut, changes took 13 turns and $0.350 instead of 24 turns and $0.426, with the same hidden-test results (W4 row 36), so it now returns up to 20,000 characters (decision 0052). There is no filter on requests: a word filter is easy to dodge, and the actions an attack wants are blocked further down (decision 0029).
+![](section-b-figures/fig3_safety.png)
 
-**Agent and plan (W1).** These prompt, repair and plan figures come from single builds under the earlier rules, before questions existed (W1 rows 1 to 5, W4 row 43). Four system prompts scored 87.5%, 87.0%, 88.5% and 86.5%, too close to separate, so we kept B, which follows the SQLite rule (W1 row 1). An independent checker, a second Claude call that writes its own tests from the request alone, passed 15 of 15 apps first time, so 0, 1, 3 and 5 repair rounds all scored 87.0% (W1 row 3), and repairs are off by default (decision 0040). The failing apps were not broken: they read the request differently from the hidden tests. Questions fix that: on the vague school task, Opus asked about the grading scale (W1 row 6), and the task went from 3 of 12 to 12 of 12 (W1 row 7). Unread plans scored lower: the first planner added logins nobody asked for and scored 74.5%, a stricter one 82.8%, against 87.0% with no plan (W1 rows 4 and 5). Real clients still get the plan, because a person can fix it before paying for code; benchmark runs skip it (decision 0041). A Planner, Builder and Tester split (a multi-agent design) locks in a design before any code is tried, and its Tester's repairs ran 0 times (W4 row 51, decision 0044).
+*Figure 3. The two safety choices that won (W2 rows 1 and 13).*
 
-**Retrieval (W4).** The instructor said projects would most likely use dense retrieval, so a choice of BM25 would need defending with numbers (knowledge/assignment.md). BM25 ranks recipes by shared words, rare ones counting most; dense search turns text into lists of numbers that capture meaning (embeddings). On 111 labelled questions (W4 row 23), a hybrid was best for the first result alone, 72% against 68% for MiniLM (W4 row 24), but the agent reads 3 recipes, so we chose MiniLM (decision 0037).
+**Agent design (W1).** Four system prompts scored between 86.5% and 88.5%, too close to separate (W1 row 1). An independent checker passed 15 of 15 apps first time, so extra repair rounds changed nothing and are off (decision 0040). The failing apps were not broken: they read the request differently from the hidden tests. Questions fix that: on the vague school task, Opus asked about the grading scale, and the task went from 3 of 12 tests to 12 of 12 (W1 rows 6 and 7). A Planner, Builder and Tester split locked in a design before any code was tried, and its Tester's repairs ran 0 times (W4 row 51, decision 0044).
 
-**The live platform.** One Google Cloud server behind Caddy was reasoned, not measured against other hosting (W4 row 28), as were mid-build messages between turns (W4 row 31) and the page as one plain HTML file, since the server has no Node (W3 row 2). A Haiku rewrite of the client's build summary took summaries with technical words from 15 of 15 to 0 of 15, as Opus did, for $0.011 against $0.294 (W4 row 40). A change edits the existing app instead of rebuilding it, so the client keeps their routes and data (W1 row 9).
+**Recipe search (W4).** The instructor expected dense retrieval, so a choice of BM25 would need defending with numbers (knowledge/assignment.md). BM25 ranks recipes by shared words; dense search compares meanings as lists of numbers (embeddings). On 111 labelled questions, MiniLM put the right recipe in the top 3 most often, and the agent reads 3 (W4 rows 23 and 24, decision 0037).
+
+![](section-b-figures/fig4_retrieval.png)
+
+*Figure 4. How often the right recipe was in the top 3 results (W4 row 24).*
+
+**Smaller choices.** `read_file` returns up to 20,000 characters, because cutting files at 4,000 made changes take 24 turns instead of 13 (W4 row 36, decision 0052). A Haiku rewrite of the build summary removed technical words for $0.011 against $0.294 with Opus (W4 row 40). A change edits the existing app, so the client keeps their routes and data (W1 row 9).
 
 ## 4 Evaluation
 
-**4.1 Is the marker fair?** Each task has a hand-written correct backend that must pass every hidden test, and broken copies (mutants) that must each fail one. All 75 of 75 were caught (W4 row 7), the 21 correct backends score 272 of 272 (W5 row 6), and re-scoring them gave 100% in 105 of 105 runs (W4 row 19): what varies is the build, not the marker. Valid builds name things differently, so tests call operations by name and Opus maps them to each backend's paths and fields (W4 section 2). Reading every failing test found 7 flaws in this translation, and fixing them reversed a conclusion (W4 row 12). Later the marker accepted builds that find a record by name or number instead of an internal ID; the hand-written backends stayed at 272 of 272 (W4 row 43, decision 0055).
+**4.1 Is the marker fair?** Each task has a hand-written correct backend that must pass every hidden test, and broken copies that must each fail one. All 75 broken copies were caught (W4 row 7), and the correct backends scored 100% in 105 of 105 re-scorings (W4 row 19): what varies is the build, not the marker. Reading every failing test found 7 flaws in how tests reach a backend, and fixing them reversed a conclusion (W4 row 12).
 
 **4.2 The agent against one call.**
 
@@ -86,11 +93,19 @@ flowchart TD
 
 *Table 2. Share of hidden tests passed, with the range across runs (eval/results/tables.md).*
 
-One task, shared expenses, swings the one-call score, because in some rounds a member has no ID that a name map could translate; left out for both, or with full marks for one call, the agent still leads by about 8 points (W4 row 44). One call fails every round on the mobile-money wallet (3 of 13) and the school task (2 of 12), which the agent passes after asking questions (W4 row 44). Three caveats: the agent also gets the client's answers (W4 row 44); its average mixes one run under the old scoring rules with two rescored runs (W5 row 12); and it has no plan step, which real clients get (W4 row 48).
+![](section-b-figures/fig5_agent_vs_one_call.png)
 
-The score hides data loss, since the hidden tests never restart a backend. One call with Opus lost its data on 13 of 15 tasks and kept it on 1 (W4 row 37); the agent kept it in all 30 builds that could be checked (eval/results/tables.md). In 13 of 15 tasks every test passes in every run (W4 row 46). A build takes about 37 seconds (eval/results/tables.md).
+*Figure 5. Table 2 as a chart; the bars show the range across runs.*
 
-**4.3 What each part adds.** An ablation removes one part, keeps the rest, and measures the change. Table 3 has one build per setup, scored 3 times. Gaps under about 2 points are noise, and one choice in the school task moves 10 tests (eval/results/tables.md), so school is shown both ways.
+One task, shared expenses, swings the one-call score; left out for both, or with full marks for one call, the agent still leads by about 8 points (W4 row 44). Two caveats: the agent also gets the client's answers, and its average mixes one run under older scoring rules with two rescored runs (W4 row 44, W5 row 12).
+
+The score hides data loss, since the hidden tests never restart a backend. One call lost its data on 13 of 15 tasks; the agent kept it in all 30 builds that could be checked (W4 row 37, eval/results/tables.md).
+
+![](section-b-figures/fig6_data_kept.png)
+
+*Figure 6. Whether a backend still had its data after a restart.*
+
+**4.3 What each part adds.** An ablation removes one part and measures the change: one build per setup, scored 3 times. Gaps under about 2 points are noise, and one choice in the school task moves 10 tests, so school is shown both ways (eval/results/tables.md).
 
 | Setup | All tasks | School left out | Cost to build all 15 |
 |---|---|---|---|
@@ -105,20 +120,25 @@ The score hides data loss, since the hidden tests never restart a backend. One c
 
 *Table 3. Each setup on all 15 tasks (eval/results/tables.md).*
 
-With school left out, self-testing, recipe search and questions make little measurable difference (W4 section 7). We keep self-testing because the platform refuses to publish a build whose own tests did not run and pass (W4 row 49). An unread plan costs about 5 points (W4 row 48). Recipes matter for a small model: as the agent's model on 5 easy tasks, Qwen 3.5 9B scored 0% alone and 59.0% with search (eval/results/tables.md), while Opus searched only 2 times in 15 builds (W1 row 8).
+![](section-b-figures/fig7_ablation.png)
 
-**4.4 The live platform and its safety.** A full journey through the public page, in Chrome at phone width, went live with no page errors (W4 row 45). A message sent mid-build, to require a value or remove a feature, was obeyed in 8 of 8 builds (W4 row 41). Attacked from inside a backend, the server killed memory use at 512 MB and stopped 300 processes at 126, but its own SSH and web ports were open; a firewall rule now closes them (W4 row 54). A 200 MB file limit and a watchdog at 500 MB keep the disk from filling (W4 row 55), Caddy refuses requests over 1 MB (W4 row 56), and all four fixes held when the attacks were rerun (W4 row 59). Prompt injection, instructions hidden in a request, was obeyed in 0 of 9 test builds (W2 row 14), and all 4 tries on the live platform were spotted when planning (W4 row 57).
+*Figure 7. Score and cost of each setup in Table 3.*
 
-**4.5 Usability.** [S4.5 RESULTS: not yet run; kit in `eval/usability/README.md`]. The plan exists so a person can correct it, which only a test with non-developers can measure. So far we have a word count over three versions of the page, with the same saved build played back: the plan screen showed GET and POST before Michael's design and none since (W3 row 4), and on the live screen the page's own technical words went from 4 (GET, POST, docs, https) to 0 once the address and the action list were folded away for the client's developer (W3 row 7). Every screen still works at phone and desktop width and in dark mode (W3 row 7).
+With school left out, self-testing, recipe search and questions make little measurable difference (W4 section 7). We keep self-testing because the platform refuses to publish a build whose own tests did not run and pass (W4 row 49). An unread plan costs about 5 points (W4 row 48), but real clients read theirs and can correct it. Recipes matter for a small model: a local Qwen 3.5 9B scored 0% alone and 59.0% with search on 5 easy tasks (eval/results/tables.md).
 
-**4.6 Do the numbers hold?** An audit matched 105 written numbers to their saved files (eval/results/AUDIT.md). W5 reran the free checks on a second Mac from the learnings files alone (W5 rows 5 to 12), then from a fresh copy, where every free part passed (W5 row 15).
+**4.4 The live platform and its safety.** Real builds through the public page went live with no page errors (W4 row 45), and a message sent mid-build was obeyed in 8 of 8 builds (W4 row 41). Attacked from inside a backend, the server stopped memory use at 512 MB and a 300-process attack at 126, and the gaps found (open ports, a full disk, huge requests) were closed and held when attacked again (W4 rows 54 to 59). Instructions hidden in a request were obeyed in 0 of 9 test builds (W2 row 14).
+
+![](section-b-figures/fig8_live_build.png)
+
+*Figure 8. One real build on the public link, with a message sent at the start: what the page showed and when (eval/results/browser_check_2026-11-14).*
+
+**4.5 Usability.** [S4.5 RESULTS: not yet run; kit in `eval/usability/README.md`]. With the same saved build played back, the technical words on the live screen went from 4 (GET, POST, docs, https) to 0 after Michael's redesign (W3 rows 4 and 7).
+
+**4.6 Do the numbers hold?** An audit matched 105 written numbers to their saved files (eval/results/AUDIT.md), and W5 reran every free check from a fresh copy of the repo (W5 row 15).
 
 ## 5 Limits
 
 - **Small benchmark.** The 15 tasks are ours, and each ablation is a single build (eval/results/tables.md).
-- **A rule written after the fact.** The name-or-number rule came after we saw the failures; the hand-written backends are its check (decision 0055).
-- **No person in the loop.** With an unread plan the score was 85.9% (eval/results/tables.md), and no non-developer has used the page yet (S4.5). The questions have no answer choices, and "Try it" opens a page made for developers (W3 rows 8 and 10).
-- **Safety gaps.** Generated code can still delete the project's own files (W2 row 13). Four injection tries prove little, the watchdog overshoots (996 and 1,155 MB against 500), and requests over 1 MB get a plain error page (W4 section 5).
-- **One small server.** It has 4 GB for every backend and build, and no backups (W4 section 5). Pulling the plug 5 seconds after a write lost that write (W4 row 30). Backends have no login unless the client asks, so anyone with the link can add data (W4 section 5).
+- **Safety gaps.** Generated code can still delete its own project's files (W2 row 13), and 4 injection tries on the live platform prove little (W4 section 5).
+- **One small server.** It has 4 GB for every backend and build, and no backups (W4 section 5). Backends have no login unless the client asks for one.
 - **Retrieval.** Search cannot tell that no recipe fits (W4 row 25), and questions in Twi return noise (W4 row 26).
-- **One person runs the server.** The new page and take-down are live, checked with real builds (W5 row 16, decision 0059), but only Joseph can update the server, so a change reaches the public address only when he runs `setup_server.sh` (W3 section 5).
