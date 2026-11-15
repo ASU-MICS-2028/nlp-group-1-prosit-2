@@ -27,7 +27,12 @@ with sync_playwright() as p:
         g.fill("textarea", "Orders should also have a pickup date.")
         g.click("button:has-text('Send')"); time.sleep(6); g.screenshot(path=f"{OUT}/4_building.png", full_page=True)
         print("progress:", g.locator("#steps li").all_inner_texts())
-        g.wait_for_selector("text=/Your backend is live|It is not online/", timeout=400000); g.screenshot(path=f"{OUT}/5_result.png", full_page=True)
+        t0, seen = time.time(), None  # each change in the step list, timed: how long going online takes (PR #22)
+        while not g.is_visible("text=/Your backend is live|It is not online/") and time.time() - t0 < 400:
+            now = g.locator("#steps li").all_inner_texts() if g.is_visible("#steps") else seen
+            if now != seen: print(f"{time.time() - t0:5.1f} s", now[-1:] if seen else now); seen = now
+            time.sleep(0.5)
+        print(f"result after {time.time() - t0:.1f} s"); g.screenshot(path=f"{OUT}/5_result.png", full_page=True)
         print("result:", g.inner_text("h2 >> nth=0"))
         print(g.inner_text("#view")[:900])
         wide = g.evaluate("document.documentElement.scrollWidth <= innerWidth"); print("no sideways scroll on a phone:", wide)
