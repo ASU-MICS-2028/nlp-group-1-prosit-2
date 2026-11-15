@@ -4,7 +4,7 @@
 
 **A handoff** means your learnings file is complete, including "How the next person uses this". If something is unclear or doesn't run, it goes back to its owner.
 
-**How to use this file.** Edit only the stage tables: set `Status` to `doing` when you start a task, `done` when its "Done when" is true. Then run `python3 scripts/update_status.py`. It redraws the board, the flow diagram, "By person", "Who waits on whom" and the README's Status section. Commit everything together. A GitHub check fails if any of it is stale.
+**How to use this file.** Edit only the stage tables: set `Status` to `doing` when you start a task, `done` when its "Done when" is true. Then run `python3 scripts/update_status.py`. It redraws the board, the flow diagram, "By person", and "Who waits on whom". Commit everything together. A GitHub check fails if any of it is stale.
 
 `Priority` says what matters most inside a stage: finish every `Must`, then `Should`, then `Could`.
 
